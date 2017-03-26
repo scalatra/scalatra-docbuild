@@ -1,2 +1,14 @@
-language: generic
-script: echo hey
+language: scala
+scala:
+   - 2.11.2
+jdk:
+  - oraclejdk8
+env:
+  global:
+  - ENCRYPTION_LABEL: "af05534c7e9c"
+before_install:
+  - git clone https://github.com/scalatra/scalatra-website.git
+  - git clone https://github.com/scalatra/scalatra.git
+  - wget https://github.com/spf13/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
+  - sudo dpkg -i hugo_0.19-64bit.deb
+script: ./hello.sh
