@@ -16,6 +16,11 @@ Build Scalatra docs on [Travis CI](https://travis-ci.org/dozed/travis-test)
 
 
 
+Options to trigger a build:
+
+  - Push a dummy change to branch `master`
+  - Invoke Travis API https://docs.travis-ci.com/user/triggering-builds/
+
 
 TODO
 
