@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Scalate - Scalatra</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Documentation and how-to guides for the Scalatra microframework.">
+    
+    <link rel="canonical" href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/views/scalate.html">
+    
+
+    <meta property="og:url" content="https://scalatra.github.io/scalatra-docbuild/guides/2.2/views/scalate.html">
+    <meta property="og:title" content="Scalatra">
+    <meta property="og:image" content="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Scalatra">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?52m981');
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/application.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/bootstrap-styles.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://scalatra.github.io/scalatra-docbuild/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-teal palette-accent-red">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Scalate
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/scalatra" title="@scalatra on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/scalatra/scalatra" title="@scalatra/scalatra on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://scalatra.github.io/scalatra-docbuild/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Scalatra </strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+      <div class="toc">
+        
+        <ul>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/">Guides</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+          
+          
+        </ul>
+        
+
+        
+        <a href="https://www.manning.com/books/scalatra-in-action" target="_blank">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/book-cover.png" alt="Scalatra in Action">
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Scalate </h1>
+
+			
+
+<p>If you&rsquo;re using Scalatra to build a web application (as opposed to an API), chances are you&rsquo;ll
+want to render HTML layouts, page content, and re-usable fragments or partials. Like many other
+frameworks, we refer to HTML templates as &ldquo;views&rdquo;.</p>
+
+<p>Scalatra can render views in two main ways.</p>
+
+<ol>
+<li>Inline HTML, returned directly from an action.</li>
+<li>Using the ScalateSupport helper trait which comes built into the default Scalatra g8 template.</li>
+</ol>
+
+<h2 id="introducing-scalate">Introducing Scalate</h2>
+
+<p>Scalatra uses an extremely powerful templating engine, <a href="http://scalate.fusesource.org/documentation/user-guide.html">Scalate</a>.
+It supports multiple template styles. We think it&rsquo;s one of the best
+template engines going - it&rsquo;s extremely fast, flexible, and feature-rich.</p>
+
+<p>Some of Scalate&rsquo;s all-star features include:</p>
+
+<ul>
+<li>Custom template evaluation scopes / bindings</li>
+<li>Ability to pass locals to template evaluation</li>
+<li>Support for passing a block to template evaluation for &ldquo;yield&rdquo;</li>
+<li>Backtraces with correct filenames and line numbers</li>
+<li>Template file caching and reloading</li>
+</ul>
+
+<p>Scalate includes support for multiple templateing styles, including
+<a href="http://scalate.fusesource.org/documentation/ssp-reference.html">SSP</a> (similar to Velocity or ERB), <a href="http://scalate.fusesource.org/documentation/scaml-reference.html">SCAML</a> (a Scala HAML variant),
+<a href="http://scalate.fusesource.org/documentation/mustache.html">Mustache</a>, and <a href="http://scalate.fusesource.org/documentation/jade.html">Jade</a> (another HAML variant). Except for
+Mustache, templates are strongly typed, so your compiler can save
+you time by telling you when you make a mistake in your views.</p>
+
+<p>All you need to get started is <code>Scalate</code>, which is included in Scalatra.
+By default, Scalatra looks for views in the <code>views</code> directory in your application root.</p>
+
+<p>There are two ways to use Scalate. You can use the ScalateSupport helpers,
+or call Scalate directly. Either way, you&rsquo;ll need to extend your servlet
+with <code>ScalateSupport</code>, like this:</p>
+
+<pre><code class="language-scala">class YourServlet extends ScalatraServlet with ScalateSupport {
+  get(&quot;/&quot;) {
+    // render your views in the action (see below)
+  }
+}
+</code></pre>
+
+<h3 id="scalatesupport-helpers">ScalateSupport helpers</h3>
+
+<p>The easiest way of using Scalate is to use Scalatra&rsquo;s ScalateSupport helpers.</p>
+
+<p>Each possible kind of Scalate template (mustache, scaml, jade, ssp) has a
+corresponding helper which can be used to find the template file.</p>
+
+<p>Basic usage:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  contentType=&quot;text/html&quot;
+
+  ssp(&quot;/index&quot;)
+}
+</code></pre>
+
+<div class="alert alert-info">
+<span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+When using the scalate helper methods, it is not required to having a leading
+`/`, so `ssp("index")` would work just as well as `ssp("/index")`.
+</div>
+
+<p>You can also use a little bit less magic to do the same thing, using a method
+called <code>layoutTemplate</code>. This method allows you to render any type of Scalate
+template. You need to give the full path to the template, starting from the  WEB-INF
+directory:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  contentType=&quot;text/html&quot;
+
+  layoutTemplate(&quot;/WEB-INF/templates/views/index.ssp&quot;)
+}
+</code></pre>
+
+<p><span class="label label-warning"><i class="icon-warning-sign icon-white"></i> Watch out!</span>
+When using <code>layoutTemplate</code>, you <em>must</em> prefix your view paths with a relative
+<code>/</code> character. So, <code>layoutTemplate(&quot;/WEB-INF/templates/views/foo.ssp&quot;)</code> is good,
+<code>layoutTemplate(&quot;WEB-INF/templates/views/foo.ssp)</code> will fail.</p>
+
+<h4 id="passing-parameters-to-views">Passing parameters to views</h4>
+
+<div class="alert alert-info">
+<span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+If you're coming from a dynamic language, pay attention to this next bit,
+  because it may surprise you: you need to explicitly declare variables inside
+  your views.
+</div>
+
+<p>As mentioned previously, Scalate templates are strongly typed (except for
+Mustache, which isn&rsquo;t). This makes them extremely fast, and helps your productivity
+by letting the compiler tell you when something&rsquo;s wrong. It also means that any
+controller variables that you want to access in your views need to be explicitly
+sent to the view by your controller. They need to be declared in the views before
+they can be used.</p>
+
+<p>View parameters are passed to your views using a Seq(String, Any) after
+the path to the template file. The simplest example might look like this:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  contentType=&quot;text/html&quot;
+
+  ssp(&quot;/index&quot;, &quot;foo&quot; -&gt; &quot;uno&quot;, &quot;bar&quot; -&gt; &quot;dos&quot;)
+}
+</code></pre>
+
+<p>The view for this action needs to declare variables for <code>foo</code> and <code>bar</code>, which would
+look like:</p>
+
+<pre><code class="language-html">&lt;%@ val foo: String %&gt;
+&lt;%@ val bar: String %&gt;
+&lt;p&gt;Foo is &lt;%= foo %&gt;&lt;/p&gt;
+&lt;p&gt;Bar is &lt;%= bar %&gt;&lt;/p&gt;
+</code></pre>
+
+<p>The view can also receive parameters from the <code>templateAttributes</code> helper. This enables you to globally pass parameters from a <code>before</code> handler or inside of your route action if you have multiple steps for creating the parameters. An example would look like:</p>
+
+<pre><code class="language-scala">before(){
+  if(isAuthenticated) {
+    templateAttributes(&quot;user&quot;) = Some(user)
+  }
+}
+</code></pre>
+
+<h4 id="layouts">Layouts</h4>
+
+<p>Scalatra looks for layouts in the <code>webapp/layouts/</code> directory, and inserts the rendered
+view for the current action into the template at the point you specify. If you&rsquo;re using
+<code>SSP</code>, your layout might look something like this:</p>
+
+<pre><code class="language-html">  &lt;%@ val body: String %&gt;
+  &lt;html&gt;
+    &lt;head&gt;..&lt;/head&gt;
+    &lt;body&gt;
+      &lt;%= unescape(body) %&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+</code></pre>
+
+<p>The specific view for your action will be rendered at the
+<code>&lt;%= unescape(body) %&gt;</code> statement.</p>
+
+<h4 id="default-layouts">Default layouts</h4>
+
+<p>By convention, Scalatra uses a default layout at <code>WEB-INF/layouts/default.xx</code> (where xx
+is one of the scalate template types). If you are using ssp, for instance, and
+you put a default.ssp file at WEB-INF/layouts/default.ssp, it will
+automatically be used. In that case, you can simply call <code>ssp(&quot;/index&quot;)</code> and the
+response will render within the default layout.</p>
+
+<h4 id="a-id-layouts-a-specifying-an-alternate-layout"><a id="layouts"></a>Specifying an alternate layout</h4>
+
+<p>The <code>layout</code> key passed from your actions is somewhat special, as it&rsquo;s used by
+Scalate to identify the layout file, which wraps a standard layout around the
+output for the current action.</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  contentType=&quot;text/html&quot;
+
+  jade(&quot;/index&quot;, &quot;layout&quot; -&gt; &quot;WEB-INF/layouts/app.jade&quot;, &quot;foo&quot; -&gt; &quot;uno&quot;, &quot;bar&quot; -&gt; &quot;dos&quot;)
+}
+</code></pre>
+
+<h4 id="disabling-layouts">Disabling layouts</h4>
+
+<p>To disable a layout for certain templates, Scalate accepts an empty <code>layout</code>
+parameter:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  // This template will render without a layout.
+  jade(&quot;/index&quot;, &quot;layout&quot; -&gt; &quot;&quot;, &quot;foo&quot; -&gt; &quot;uno&quot;, &quot;bar&quot; -&gt; &quot;dos&quot;)
+}
+</code></pre>
+
+<h4 id="rendering-a-404-page">Rendering a 404 page</h4>
+
+<p>You may need to render a 404 page when Scalatra can&rsquo;t find a route.</p>
+
+<p>You can do this by putting the <code>notFound</code> helper into your servlet. Here&rsquo;s
+how it looks, when using the ScalateSupport helpers to render the page.</p>
+
+<pre><code class="language-scala">notFound {
+  findTemplate(requestPath) map { path =&gt;
+    contentType = &quot;text/html&quot;
+    layoutTemplate(path)
+  } orElse serveStaticResource() getOrElse resourceNotFound()
+}
+</code></pre>
+
+<h3 id="using-scalate-directly">Using Scalate directly</h3>
+
+<p>Some people like to call Scalate methods directly, bypassing the
+(relatively minimal) magic of the ScalateSupport helpers.</p>
+
+<p>Scalate can be called directly, using the
+<code>templateEngine.layout(&quot;templateName&quot;)</code> method, like this:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;) {
+  templateEngine.layout(&quot;index.ssp&quot;)
+  // renders webapp/index.ssp
+
+  // OR you can tell Scalate to look in a sub-directory
+  templateEngine.layout(&quot;/dogs/index.ssp&quot;)
+  // would instead render webapp/dogs/index.ssp
+}
+</code></pre>
+
+<p>When using Scalate directly, Scalatra will look for your template files
+in the <code>webapp</code> folder of your application (which is found under <code>src/main/</code>
+in the project tree).</p>
+
+<h4 id="rendering-a-404-page-using-scalate">Rendering a 404 page using Scalate</h4>
+
+<p>You may need to render some other page when Scalatra can&rsquo;t find a route.</p>
+
+<p>Using Scalate directly, it looks a little bit different than when you&rsquo;re using
+the ScalateSupport helpers:</p>
+
+<pre><code class="language-scala">class MyScalatraFilter extends ScalatraFilter with ScalateSupport {
+  notFound {
+    // If no route matches, then try to render a Scaml template
+    val templateBase = requestPath match {
+      case s if s.endsWith(&quot;/&quot;) =&gt; s + &quot;index&quot;
+      case s =&gt; s
+    }
+    val templatePath = &quot;/WEB-INF/templates/&quot; + templateBase + &quot;.scaml&quot;
+    servletContext.getResource(templatePath) match {
+      case url: URL =&gt;
+        contentType = &quot;text/html&quot;
+        templateEngine.layout(templatePath)
+      case _ =&gt;
+        filterChain.doFilter(request, response)
+    }
+  }
+}
+</code></pre>
+
+<h3 id="scalate-error-page">Scalate error page</h3>
+
+<p>Mixing in ScalateSupport enables the Scalate error page for any uncaught
+exceptions.  This page renders the template source with the error highlighted.
+To disable this behavior, override <code>isScalateErrorPageEnabled</code>:</p>
+
+<pre><code class="language-scala">override def isScalateErrorPageEnabled = false
+</code></pre>
+
+<h3 id="further-reading">Further reading</h3>
+
+<p>For more information on Scalate, please refer to the <a href="http://scalate.fusesource.org/documentation/user-guide.html">Scalate User&rsquo;s guide</a>.
+It has advice about layouts, partials, how to DRY up layout code, making Scalate
+work with your IDE or text editor, and an extensive set of examples.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Scalatra Team &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+
+  var base_url = '';
+  var repo_id  = '';
+
+</script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/application.js"></script>
+
+
+<script>
+  /* Add headers to scrollspy */
+  var headers   = document.getElementsByTagName("h2");
+  var scrollspy = document.getElementById('scrollspy');
+
+  if(scrollspy) {
+    if(headers.length > 0) {
+      for(var i = 0; i < headers.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "anchor");
+
+        var a  = document.createElement("a");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", headers[i].innerHTML);
+        a.innerHTML = headers[i].innerHTML;
+
+        li.appendChild(a)
+        scrollspy.appendChild(li);
+      }
+    } else {
+      scrollspy.parentElement.removeChild(scrollspy)
+    }
+
+
+    /* Add permanent link next to the headers */
+    var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    for(var i = 0; i < headers.length; i++) {
+        var a = document.createElement("a");
+        a.setAttribute("class", "headerlink");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", "Permanent link")
+        a.innerHTML = "#";
+        headers[i].appendChild(a);
+    }
+  }
+</script>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+

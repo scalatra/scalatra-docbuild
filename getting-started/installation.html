@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Installation - Scalatra</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Documentation and how-to guides for the Scalatra microframework.">
+    
+    <link rel="canonical" href="https://scalatra.github.io/scalatra-docbuild/getting-started/installation.html">
+    
+
+    <meta property="og:url" content="https://scalatra.github.io/scalatra-docbuild/getting-started/installation.html">
+    <meta property="og:title" content="Scalatra">
+    <meta property="og:image" content="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Scalatra">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?52m981');
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/application.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/bootstrap-styles.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://scalatra.github.io/scalatra-docbuild/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-teal palette-accent-red">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Installation
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/scalatra" title="@scalatra on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/scalatra/scalatra" title="@scalatra/scalatra on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://scalatra.github.io/scalatra-docbuild/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Scalatra </strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+      <div class="toc">
+        
+        <ul>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/">Guides</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+          
+          
+        </ul>
+        
+
+        
+        <a href="https://www.manning.com/books/scalatra-in-action" target="_blank">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/book-cover.png" alt="Scalatra in Action">
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Installation </h1>
+
+			
+
+<p>Getting started with a new web framework can be a bit scary.
+Luckily, Scalatra is easy to install, as it has relatively few dependencies.</p>
+
+<p>It can run on Windows, Mac OS X, Linux, or BSD.</p>
+
+<hr />
+
+<h2 id="1-install-a-jdk">1. Install a JDK</h2>
+
+<p>Scalatra is web micro-framework written in Scala, so you&rsquo;ll need to have a
+Java Development Kit (JDK) installed.</p>
+
+<p>Many systems come with a JDK pre-loaded.</p>
+
+<p>Run <code>java -version</code> and <code>javac -version</code> in a terminal to find if yours
+does. The output should look something like this:</p>
+
+<pre><code class="language-bash">$ java -version
+java version &quot;1.8.0_11&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_11-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.11-b03, mixed mode)
+</code></pre>
+
+<pre><code class="language-bash">$ javac -version
+javac 1.8.0_11
+</code></pre>
+
+<p>You need Java 8, which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.</p>
+
+<p>If you don&rsquo;t yet have Java installed, you can find out how to install
+it for your system
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">over at the Java 8 install page</a>. Make sure you&rsquo;re using OpenJDK or Sun&rsquo;s JDK.</p>
+
+<p>Some Linux distros pre-install <code>gcj</code>, which won&rsquo;t work.</p>
+
+<h2 id="2-install-giter8">2. Install giter8</h2>
+
+<p>Once you&rsquo;re sure you&rsquo;ve got Java installed, you will need to download a few
+other utilities.</p>
+
+<p><a href="https://github.com/foundweekends/conscript">Conscript</a> is a tool for installing and
+updating Scala code.
+<a href="https://github.com/foundweekends/giter8/">giter8</a>, which depends on conscript, allows you to check out project templates directly from Github.
+It&rsquo;s the recommended way to generate Scalatra project skeletons.</p>
+
+<h3 id="install-conscript">Install conscript</h3>
+
+<pre><code class="language-bash">curl https://raw.githubusercontent.com/foundweekends/conscript/master/setup.sh | sh
+</code></pre>
+
+<p>This will create a <code>bin</code> folder in your home directory.
+Make sure it&rsquo;s in your <code>PATH</code> by adding the following to your shell&rsquo;s
+profile (often <code>~/.bash_profile</code> on Mac and <code>~/.bashrc</code> on Linux):</p>
+
+<pre><code class="language-bash">PATH=$PATH:~/bin
+export PATH
+source ~/.bash_profile # (Mac)
+source ~/.bashrc       # (Linux)
+</code></pre>
+
+<h3 id="install-giter8-h4">Install giter8</h4></h3>
+
+<pre><code class="language-bash">cs foundweekends/giter8
+</code></pre>
+
+<p>Depending on your connection speed, this can take a bit of time, as
+<code>conscript</code> downloads quite a few Scala dependencies.</p>
+
+<p>Alternatively, you can install <code>giter8</code> on a Mac via
+<a href="http://brew.sh/">homebrew</a>:</p>
+
+<pre><code class="language-bash">brew install giter8
+</code></pre>
+
+<hr />
+
+<p>With installation out of the way, head over to the &ldquo;<a href="first-project.html">first project</a>&ldquo;
+page, which will show you how to generate, build, and run a Scalatra application.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Scalatra Team &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+
+  var base_url = '';
+  var repo_id  = '';
+
+</script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/application.js"></script>
+
+
+<script>
+  /* Add headers to scrollspy */
+  var headers   = document.getElementsByTagName("h2");
+  var scrollspy = document.getElementById('scrollspy');
+
+  if(scrollspy) {
+    if(headers.length > 0) {
+      for(var i = 0; i < headers.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "anchor");
+
+        var a  = document.createElement("a");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", headers[i].innerHTML);
+        a.innerHTML = headers[i].innerHTML;
+
+        li.appendChild(a)
+        scrollspy.appendChild(li);
+      }
+    } else {
+      scrollspy.parentElement.removeChild(scrollspy)
+    }
+
+
+    /* Add permanent link next to the headers */
+    var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    for(var i = 0; i < headers.length; i++) {
+        var a = document.createElement("a");
+        a.setAttribute("class", "headerlink");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", "Permanent link")
+        a.innerHTML = "#";
+        headers[i].appendChild(a);
+    }
+  }
+</script>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+

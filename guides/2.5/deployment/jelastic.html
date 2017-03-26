@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Deploying to Jelastic - Scalatra</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Documentation and how-to guides for the Scalatra microframework.">
+    
+    <link rel="canonical" href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/jelastic.html">
+    
+
+    <meta property="og:url" content="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/jelastic.html">
+    <meta property="og:title" content="Scalatra">
+    <meta property="og:image" content="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Scalatra">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?52m981');
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/application.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/bootstrap-styles.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://scalatra.github.io/scalatra-docbuild/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-teal palette-accent-red">
+
+
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Deploying to Jelastic
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/scalatra" title="@scalatra on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/scalatra/scalatra" title="@scalatra/scalatra on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://scalatra.github.io/scalatra-docbuild/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Scalatra </strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+      <div class="toc">
+        
+        <ul>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/">Guides</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+          
+          
+        </ul>
+        
+
+        
+        <a href="https://www.manning.com/books/scalatra-in-action" target="_blank">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/book-cover.png" alt="Scalatra in Action">
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Deploying to Jelastic </h1>
+
+			
+
+<p><a href="http://jelastic.com/">Jelastic</a> is a cloud application platform designed specifically
+for servlets like Scalatra apps.
+Jelastic allows you to scale your app both horizontally (more instances) and vertically
+(more powerful instances).
+They offer a 2-week free trial, after which point their rates are among the best in the industry.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+  See
+  <a href="{{site.examples}}deployment/scalatra-jelastic">scalatra-jelastic</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<hr />
+
+<h2 id="1-register-http-jelastic-com-for-an-account">1. <a href="http://jelastic.com/">Register</a> for an account.</h2>
+
+<p>Jelastic is a platform with many hosts to choose from.
+<strong>In this guide we&rsquo;ll assume you&rsquo;ve chosen LayerShift as your host.</strong></p>
+
+<h2 id="2-create-an-environment">2. Create an environment.</h2>
+
+<p>An &ldquo;environment&rdquo; in Jelastic-speak is a selection of a servlet container and any add-ons
+(like databases) that you may want.</p>
+
+<p>On your <a href="https://app.j.layershift.co.uk/">management console</a> click
+&ldquo;Create environment.&rdquo;</p>
+
+<p><a href="jelastic-screenshot.png"><img width="500" src="jelastic-screenshot.png" /></a></p>
+
+<p>You need to choose an environment name that is unique across the entire Layershift host.
+<strong>We&rsquo;ll proceed with the environment name <code>scalatra-test</code>, but yours will necessarily be
+different.</strong>
+The default of Tomcat 7 automatically scaling between 1 and 8 cloudlets is fine for us.</p>
+
+<h2 id="3-set-up-a-project">3. Set up a project.</h2>
+
+<ul>
+<li>Create a Scalatra project from the usual Scalatra giter8 template.
+Check out the the <a href="{{site.baseurl}}getting-started/installation.html">installation</a> and <a href="{{site.baseurl}}getting-started/first-project.html">first project</a> guides if this isn&rsquo;t familiar.</li>
+</ul>
+
+<pre><code class="language-sh">$ g8 scalatra/scalatra-sbt -b develop
+$ cd [app root]
+$ chmod u+x sbt
+</code></pre>
+
+<ul>
+<li>Install the Jelastic deployment plugin</li>
+</ul>
+
+<p>Add the following line to <code>project/plugins.sbt</code>:</p>
+
+<pre><code class="language-scala">addSbtPlugin(&quot;com.github.casualjim&quot; % &quot;sbt-jelastic-deploy&quot; % &quot;0.1.4&quot;)
+</code></pre>
+
+<ul>
+<li>Configure the Jelastic deployment plugin</li>
+</ul>
+
+<p>Add the following lines to <code>buid.sbt</code>.
+You will need to replace <code>&quot;scalatra-test&quot;</code> with the name of your environment.</p>
+
+<pre><code class="language-scala">seq(jelasticSettings:_*)
+
+JelasticKeys.email in JelasticKeys.deploy := sys.env.get(&quot;JELASTIC_USERNAME&quot;).getOrElse(
+sys error &quot;Please export JELASTIC_USERNAME in your shell!&quot;
+)
+
+JelasticKeys.password in JelasticKeys.deploy := sys.env.get(&quot;JELASTIC_PWD&quot;).getOrElse(
+sys error &quot;Please export JELASTIC_PWD in your shell!&quot;
+)
+
+JelasticKeys.apiHoster := &quot;app.j.layershift.co.uk&quot;
+
+JelasticKeys.environment in JelasticKeys.deploy := &quot;scalatra-test&quot;
+
+publishTo := None
+</code></pre>
+
+<h2 id="4-configure-your-environment">4. Configure your environment</h2>
+
+<p>You weren&rsquo;t thinking of storing your username and password in version control, were you?</p>
+
+<p>Open <code>~/.bash_profile</code> on Mac, or <code>~/.bashrc</code> on Linux, and add these lines,
+substituting your Jelastic username and password as appropriate:</p>
+
+<pre><code>export JELASTIC_USERNAME=&quot;you@you.com&quot;
+export JELASTIC_PWD=&quot;iluvyou&quot;
+</code></pre>
+
+<p>Now close your shell and open a new one.</p>
+
+<h2 id="6-deploy">6. Deploy</h2>
+
+<p>With the project set up, your first deploy, and all future deploys, are insanely easy:</p>
+
+<pre><code class="language-sh">$ cd [app root]
+$ ./sbt
+&gt; deploy
+</code></pre>
+
+<p>If all has gone well you&rsquo;ll a ton of output.
+Here&rsquo;s an abbreviated example:</p>
+
+<pre><code>&gt; deploy
+[info] Compiling 2 Scala sources to /Users/yuvi/Desktop/my-scalatra-web-app/target/scala-2.9.2/classes...
+[info] Packaging /Users/yuvi/Desktop/my-scalatra-web-app/target/scala-2.9.2/my-scalatra-web-app_2.9.2-0.1.0-SNAPSHOT.war ...
+[info] Done packaging.
+SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[info] Jelastic session: 62e8x8c50adf7c46f3459f851617020ef8a53
+[info] Upload of http://6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk/xssu/rest/download/RDYYHFdvUVcIBl5JYldpTUAXDBQFHkQWCEE%2BGSgndlVHHkZZDwQBQmNTTEBI with size 22548400 succeeded.
+[info] File registration for developer 25320 success
+[info] Deploy success
+[info] Stopping tomcat:
+[info] Waiting for processes to exit..
+[info] Waiting for processes to exit..
+[info] Waiting for processes to exit..
+[info] Sending the Tomcat processes a SIGTERM asking them to shut down gracefully..
+[info] [  OK  ]
+[info] --2012-12-16 22:44:39--  http://6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk/xssu/rest/download/RDYYHFdvUVcIBl5JYldpTUAXDBQFHkQWCEE%2BGSgndlVHHkZZDwQBQmNTTEBI
+[info] Resolving 6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk... 207.58.158.90
+[info] Connecting to 6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk|207.58.158.90|:80... connected.
+[info] HTTP request sent, awaiting response... 200 OK
+[info] Length: 22547738 (22M) [application/octet-stream]
+[info] Saving to: `/opt/tomcat//webapps/ROOT.war'
+[info]
+[info]      0K .......... .......... .......... .......... ..........  0% 41.6M 1s
+[info]     50K .......... .......... .......... .......... ..........  0% 38.8M 1s
+[info]    100K .......... .......... .......... .......... ..........  0% 60.6M 0s
+[info]    150K .......... .......... .......... .......... ..........  0% 35.5M 1s
+[info]  21900K .......... .......... .......... .......... .......... 99%  145M 0s
+[info]  21950K .......... .......... .......... .......... .......... 99%  148M 0s
+[info]  22000K .......... .........                                  100% 91.6M=0.3s
+[info]
+[info] 2012-12-16 22:44:52 (69.8 MB/s) - `/opt/tomcat//webapps/ROOT.war' saved [22547738/22547738]
+[info]
+[info] Starting tomcat: [  OK  ]
+[info] Logged out of jelastic.
+[success] Total time: 210 s, completed Dec 16, 2012 2:45:04 PM
+</code></pre>
+
+<h2 id="7-visit-your-website">7. Visit your website</h2>
+
+<p>Since we used the environment <code>scalatra-test</code>, the app is now live at <a href="http://scalatra-test.j.layershift.co.uk">http://scalatra-test.j.layershift.co.uk</a>.
+As always, you will have to substitute your environment name into that URL.</p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Scalatra Team &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+
+  var base_url = '';
+  var repo_id  = '';
+
+</script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/application.js"></script>
+
+
+<script>
+  /* Add headers to scrollspy */
+  var headers   = document.getElementsByTagName("h2");
+  var scrollspy = document.getElementById('scrollspy');
+
+  if(scrollspy) {
+    if(headers.length > 0) {
+      for(var i = 0; i < headers.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "anchor");
+
+        var a  = document.createElement("a");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", headers[i].innerHTML);
+        a.innerHTML = headers[i].innerHTML;
+
+        li.appendChild(a)
+        scrollspy.appendChild(li);
+      }
+    } else {
+      scrollspy.parentElement.removeChild(scrollspy)
+    }
+
+
+    /* Add permanent link next to the headers */
+    var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    for(var i = 0; i < headers.length; i++) {
+        var a = document.createElement("a");
+        a.setAttribute("class", "headerlink");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", "Permanent link")
+        a.innerHTML = "#";
+        headers[i].appendChild(a);
+    }
+  }
+</script>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+

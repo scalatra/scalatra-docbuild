@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>News on Scalatra</title>
+    <link>https://scalatra.github.io/scalatra-docbuild/news.xml</link>
+    <description>Recent content in News on Scalatra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Scalatra Team</copyright>
+    <lastBuildDate>Mon, 21 Nov 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://scalatra.github.io/scalatra-docbuild/news.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.5.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2016/11/21/2016-11-21-scalatra-2-5-released.html</link>
+      <pubDate>Mon, 21 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2016/11/21/2016-11-21-scalatra-2-5-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 2.5.0 of the framework. Noteworthy upgrades include Scala 2.12 and Swagger 2 support.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Updated documentation for 2.5.0 will be available shortly.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the full list of changes:&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatra-core&#34;&gt;Scalatra Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#572 Fix error handling with Future and errorHandler by @ElPicador&lt;/li&gt;
+&lt;li&gt;#573 Bump minor verions of various libs by @seratch&lt;/li&gt;
+&lt;li&gt;#576 Copy from input stream in a loop to ensure full copy for files over 2GB by @pmcq&lt;/li&gt;
+&lt;li&gt;#578 Escape javascript to avoid Xss by @megaminx&lt;/li&gt;
+&lt;li&gt;#579 Add responseModel property to the response message by @takezoe&lt;/li&gt;
+&lt;li&gt;#586 use runtimeClass. erasure is deprecated by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#587 remove unused dependency by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#590 remove unused joda-time dependency from core by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#597 fix #596 CorsSupport is broken by @jelmerk&lt;/li&gt;
+&lt;li&gt;#598 Scala 2.12 support by @takezoe&lt;/li&gt;
+&lt;li&gt;#599 drop java7, use java8 Base64 by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#604 Fix sbt 0.13.13 warnings, upgrade deps by @seratch&lt;/li&gt;
+&lt;li&gt;#606 use sbt-unidoc by @xuwei-k&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-commands&#34;&gt;Scalatra Commands&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#594 Specify Locale as ENGLISH for HttpDate pattern by @takezoe&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-swagger&#34;&gt;Scalatra Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#581 Add responseModel property to the response message by @takezoe&lt;/li&gt;
+&lt;li&gt;#583 Swagger 2.0 support by @takezoe&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-atmosphere&#34;&gt;Scalatra Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#517 update atmosphere to version 2.4.3 by @GoranSchumacher, @chrisdoc&lt;/li&gt;
+&lt;li&gt;#580 Expose a method in AtmosphereClient to close the websocket connection by @saephir&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.4.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2015/12/20/2015-12-20-scalatra-2-4-released.html</link>
+      <pubDate>Sun, 20 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2015/12/20/2015-12-20-scalatra-2-4-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of Scalatra 2.4.0 with many improvements and bugfixes as listed below.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatra-core&#34;&gt;Scalatra Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removes the DefaultValue type class&lt;/li&gt;
+&lt;li&gt;#434 Added support for generic content-encoding / decoding by @nrinaudo&lt;/li&gt;
+&lt;li&gt;#436 Renamed GZipSupport to ContentEncodingSupport by @nrinaudo&lt;/li&gt;
+&lt;li&gt;#438 Fix MIME type for .ogv (Ogg Video) by @abhalla-atl&lt;/li&gt;
+&lt;li&gt;#452 Optimize imports by using IntelliJ IDEA by @seratch&lt;/li&gt;
+&lt;li&gt;#453 Some code cleanup on core project by @seratch&lt;/li&gt;
+&lt;li&gt;#456 Add explicit return types to core APIs, other improvements by @seratch&lt;/li&gt;
+&lt;li&gt;#460 ScalatraServlet as a trait instead of an abstract class by @seratch&lt;/li&gt;
+&lt;li&gt;#471 Fix #470 Add an implicit request to the cookies method by @seratch&lt;/li&gt;
+&lt;li&gt;#474 Fix duplicated multiParams when multipart/form-data requests by @seratch&lt;/li&gt;
+&lt;li&gt;#477 Bump Scala minor version (2.11.6, 2.10.5)  by @seratch&lt;/li&gt;
+&lt;li&gt;#481 Bump minor version of dependencies by @seratch&lt;/li&gt;
+&lt;li&gt;#483 Fix an XXE Vulnerability related to scala.xml.XML library by @seratch&lt;/li&gt;
+&lt;li&gt;#500 Improve automatic charset detection performance by @takezoe&lt;/li&gt;
+&lt;li&gt;#502 Bump minor version of dependencies by @seratch&lt;/li&gt;
+&lt;li&gt;#514 Improve request/response stability wthin AsyncResult by @lloydmeta&lt;/li&gt;
+&lt;li&gt;#528 Fix #435 Error with FutureSupport and ScalateI18nSupport using templating by @dozed&lt;/li&gt;
+&lt;li&gt;#516 Introduce stable request response macro by @dozed&lt;/li&gt;
+&lt;li&gt;#544 Removed request/response scoping macro from 2.4.x release by @dozed&lt;/li&gt;
+&lt;li&gt;#535 [2.4.x] Fix #531 Params and multiParams are empty for PATCH request by @seratch&lt;/li&gt;
+&lt;li&gt;#545 Bump dependencies and scala minor version by @seratch&lt;/li&gt;
+&lt;li&gt;#557 Bump minor version of some libs toward 2.4.0 releaseby @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-cache&#34;&gt;Scalatra Cache&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#455 Scalatra cache by @japhar81&lt;/li&gt;
+&lt;li&gt;#541 Fixes double evaluation of result by @offner&lt;/li&gt;
+&lt;li&gt;#557 Bump minor version of some libs toward 2.4.0 releaseby @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-commands&#34;&gt;Scalatra Commands&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(Breaking change) Removes the default value for types, instead a field is now started in an invalid state by @casualjim&lt;/li&gt;
+&lt;li&gt;(Breaking change) field.optional now is an alias for field.withDefaultValue(theDefault) by @casualjim&lt;/li&gt;
+&lt;li&gt;#447 Minor upgrades and deprecation warnings reduction by @seratch&lt;/li&gt;
+&lt;li&gt;#510 Fix deprecated APIs in Scalaz&amp;rsquo;s ValidationOps by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#557 Bump minor version of some libs toward 2.4.0 releaseby @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-json&#34;&gt;Scalatra Json&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#432 Introduce a JsonResult type by @dozed&lt;/li&gt;
+&lt;li&gt;#440 Take Formats bigDecimal setting into account when parsing. by @dozed&lt;/li&gt;
+&lt;li&gt;#490 Bump json4s version to 3.3.0.RC1 by @seratch&lt;/li&gt;
+&lt;li&gt;#504 Fix #496 Rendering JNull in a servlet by @seratch&lt;/li&gt;
+&lt;li&gt;#512 Fix jackson json initialization issue (NPE) by @dozed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-scalate&#34;&gt;Scalatra Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#444 Aligned template directory to new default (integrates with template-comp iler and g8 template). by @dozed&lt;/li&gt;
+&lt;li&gt;#449 Fix Scalatra Test so client can send multiple headers of the same name by @shintasmith&lt;/li&gt;
+&lt;li&gt;#476 Bump Scalate version to avoid NPEs by @lloydmeta&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-metrics&#34;&gt;Scalatra Metrics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#441 Added basic metrics support by @japhar81&lt;/li&gt;
+&lt;li&gt;#442 Added metrics support for response code filter by @japhar81&lt;/li&gt;
+&lt;li&gt;#505 Upgrade to metrics-scala-3.5.1 by @rossabaker&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-scalatest&#34;&gt;Scalatra ScalaTest&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#458 Made the traits extend the new -Like scalatest traits. by @DrDub&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-atmosphere&#34;&gt;Scalatra Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#492 Bump atmosphere-runtime to 2.2 by @adamretter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-swagger&#34;&gt;Scalatra Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#490 Switch scalap to json4s-scalap since json4s 3.3.0 by @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-specs2&#34;&gt;Scalatra Specs2&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#508 Updated specs2 to 3.6.+ by @etorreborre&lt;/li&gt;
+&lt;li&gt;#557 Bump minor version of some libs toward 2.4.0 releaseby @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-sbt-plugin&#34;&gt;Scalatra sbt plugin&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-sbt&#34;&gt;https://github.com/scalatra/scalatra-sbt&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;scalatra-sbt has bumped xsbt-web-plugin version to version 2.x.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.4.0 will be out soon</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2015/10/07/2015-10-07-scalatra-2-4-comming-soon.html</link>
+      <pubDate>Wed, 07 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2015/10/07/2015-10-07-scalatra-2-4-comming-soon.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of Scalatra 2.4.0.RC3.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;2.4.0 release has many improvements and bugfixes as listed below.&lt;/p&gt;
+
+&lt;p&gt;If this version looks fine, we&amp;rsquo;d like to release 2.4.0 soon. Please try it out within days!&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatra-core&#34;&gt;Scalatra Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removes the DefaultValue type class&lt;/li&gt;
+&lt;li&gt;#434 Added support for generic content-encoding / decoding by @nrinaudo&lt;/li&gt;
+&lt;li&gt;#436 Renamed GZipSupport to ContentEncodingSupport by @nrinaudo&lt;/li&gt;
+&lt;li&gt;#438 Fix MIME type for .ogv (Ogg Video) by @abhalla-atl&lt;/li&gt;
+&lt;li&gt;#452 Optimize imports by using IntelliJ IDEA by @seratch&lt;/li&gt;
+&lt;li&gt;#453 Some code cleanup on core project by @seratch&lt;/li&gt;
+&lt;li&gt;#456 Add explicit return types to core APIs, other improvements by @seratch&lt;/li&gt;
+&lt;li&gt;#460 ScalatraServlet as a trait instead of an abstract class by @seratch&lt;/li&gt;
+&lt;li&gt;#471 Fix #470 Add an implicit request to the cookies method by @seratch&lt;/li&gt;
+&lt;li&gt;#474 Fix duplicated multiParams when multipart/form-data requests by @seratch&lt;/li&gt;
+&lt;li&gt;#477 Bump Scala minor version (2.11.6, 2.10.5)  by @seratch&lt;/li&gt;
+&lt;li&gt;#481 Bump minor version of dependencies by @seratch&lt;/li&gt;
+&lt;li&gt;#483 Fix an XXE Vulnerability related to scala.xml.XML library by @seratch&lt;/li&gt;
+&lt;li&gt;#500 Improve automatic charset detection performance by @takezoe&lt;/li&gt;
+&lt;li&gt;#502 Bump minor version of dependencies by @seratch&lt;/li&gt;
+&lt;li&gt;#514 Improve request/response stability wthin AsyncResult by @lloydmeta&lt;/li&gt;
+&lt;li&gt;#528 Fix #435 Error with FutureSupport and ScalateI18nSupport using templating by @dozed&lt;/li&gt;
+&lt;li&gt;#516 Introduce stable request response macro by @dozed&lt;/li&gt;
+&lt;li&gt;#544 Removed request/response scoping macro from 2.4.x release by @dozed&lt;/li&gt;
+&lt;li&gt;#535 [2.4.x] Fix #531 Params and multiParams are empty for PATCH request by @seratch&lt;/li&gt;
+&lt;li&gt;#545 Bump dependencies and scala minor version by @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-cache&#34;&gt;Scalatra Cache&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#455 Scalatra cache by @japhar81&lt;/li&gt;
+&lt;li&gt;#541 Fixes double evaluation of result by @offner&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-commands&#34;&gt;Scalatra Commands&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(Breaking change) Removes the default value for types, instead a field is now started in an invalid state by @casualjim&lt;/li&gt;
+&lt;li&gt;(Breaking change) field.optional now is an alias for field.withDefaultValue(theDefault) by @casualjim&lt;/li&gt;
+&lt;li&gt;#447 Minor upgrades and deprecation warnings reduction by @seratch&lt;/li&gt;
+&lt;li&gt;#510 Fix deprecated APIs in Scalaz&amp;rsquo;s ValidationOps by @xuwei-k&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-json&#34;&gt;Scalatra Json&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#432 Introduce a JsonResult type by @dozed&lt;/li&gt;
+&lt;li&gt;#440 Take Formats bigDecimal setting into account when parsing. by @dozed&lt;/li&gt;
+&lt;li&gt;#490 Bump json4s version to 3.3.0.RC1 by @seratch&lt;/li&gt;
+&lt;li&gt;#504 Fix #496 Rendering JNull in a servlet by @seratch&lt;/li&gt;
+&lt;li&gt;#512 Fix jackson json initialization issue (NPE) by @dozed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-scalate&#34;&gt;Scalatra Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#444 Aligned template directory to new default (integrates with template-comp iler and g8 template). by @dozed&lt;/li&gt;
+&lt;li&gt;#449 Fix Scalatra Test so client can send multiple headers of the same name by @shintasmith&lt;/li&gt;
+&lt;li&gt;#476 Bump Scalate version to avoid NPEs by @lloydmeta&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-metrics&#34;&gt;Scalatra Metrics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#441 Added basic metrics support by @japhar81&lt;/li&gt;
+&lt;li&gt;#442 Added metrics support for response code filter by @japhar81&lt;/li&gt;
+&lt;li&gt;#505 Upgrade to metrics-scala-3.5.1 by @rossabaker&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-scalatest&#34;&gt;Scalatra ScalaTest&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#458 Made the traits extend the new -Like scalatest traits. by @DrDub&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-atmosphere&#34;&gt;Scalatra Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#492 Bump atmosphere-runtime to 2.2 by @adamretter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-swagger&#34;&gt;Scalatra Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#490 Switch scalap to json4s-scalap since json4s 3.3.0 by @seratch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-specs2&#34;&gt;Scalatra Specs2&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#508 Updated specs2 to 3.6.+ by @etorreborre&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.3.0 released</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2014/06/11/2014-06-11-scalatra-2-3-released.html</link>
+      <pubDate>Wed, 11 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2014/06/11/2014-06-11-scalatra-2-3-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of Scalatra 2.3.0.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;core&#34;&gt;Core&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Breaking: Scalatra 2.3.x drops support for Scala 2.9.&lt;/li&gt;
+&lt;li&gt;Breaking: Require java 7&lt;/li&gt;
+&lt;li&gt;Breaking: if you have custom route transformer hooks the function now needs a param type&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Before:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;protected def swaggerMeta(s: Symbol, v: Any): RouteTransformer = { route ⇒
+    route.copy(metadata = route.metadata + (s -&amp;gt; v))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;protected def swaggerMeta(s: Symbol, v: Any): RouteTransformer = { (route: Route) ⇒
+    route.copy(metadata = route.metadata + (s -&amp;gt; v))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Updates to servlet 3.1&lt;/li&gt;
+&lt;li&gt;Change FutureSupport.timeout from a Timeout to a Duration.&lt;/li&gt;
+&lt;li&gt;Add a timeout to AsyncResult.&lt;/li&gt;
+&lt;li&gt;Run callbacks before render in renderResponseBody.&lt;/li&gt;
+&lt;li&gt;Redirect returns Nothing, not unit.&lt;/li&gt;
+&lt;li&gt;Allow calling halt from trap handler.&lt;/li&gt;
+&lt;li&gt;Remove Akka dependency. Only scala.concurrent is needed.&lt;/li&gt;
+&lt;li&gt;Stack trace of uncaught exceptions only renders in development mode by default. Hook renderUncaughtException is now protected.&lt;/li&gt;
+&lt;li&gt;Render unhandled exceptions from failed Futures.&lt;/li&gt;
+&lt;li&gt;Fix #342: Verify that gzip Content-Encoding header gets added only once&lt;/li&gt;
+&lt;li&gt;Fix #349: Fix css mime type detection&lt;/li&gt;
+&lt;li&gt;Fix #351: Fix ScalatraServlet.requestPath for encoded unicode URI&lt;/li&gt;
+&lt;li&gt;Added support for loadOnStartup when mounting servlets&lt;/li&gt;
+&lt;li&gt;Moved function to retrieve environment to RichServletContext&lt;/li&gt;
+&lt;li&gt;Fix #277: Only catch ClassNotFoundException in ScalatraBootstrap&lt;/li&gt;
+&lt;li&gt;Fix #319: responseFormat crashes with unrecognized MIME type&lt;/li&gt;
+&lt;li&gt;Fix #296: Check for http again when generating a full url&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make ScalatraBroadcaster a trait for custom broadcasters.&lt;/li&gt;
+&lt;li&gt;Add RedisScalatraBroadcaster.&lt;/li&gt;
+&lt;li&gt;Support ClientFilter with Redis Atmosphere plugin.&lt;/li&gt;
+&lt;li&gt;Don’t kill httpsession on atmosphere disconnect.&lt;/li&gt;
+&lt;li&gt;Fix Atmosphere: raise the connected event a little bit later to avoid a race&lt;/li&gt;
+&lt;li&gt;Scalatra broadcaster logs at trace level instead of info level&lt;/li&gt;
+&lt;li&gt;Update to atmosphere 2.1&lt;/li&gt;
+&lt;li&gt;Fix #271: Make atmoshpere client Serializable&lt;/li&gt;
+&lt;li&gt;Make connection string for RedisScalatraBroadcaster configurable&lt;/li&gt;
+&lt;li&gt;improve error message when no Get route is defined while using AtmosphereSupport&lt;/li&gt;
+&lt;li&gt;Fix NPE in AtmosphereClient when looking up an unknown broadcaster&lt;/li&gt;
+&lt;li&gt;simplify TrackMessageSizeInterceptor configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;commands&#34;&gt;Commands&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ensure ordering of properties on body parameters from a command by adding a position method.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;i18n&#34;&gt;I18n&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Provide a way to implement custom Messages resolver.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;json&#34;&gt;JSON&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support custom serializers in JValueResult.&lt;/li&gt;
+&lt;li&gt;Check if response is JSON or XML in renderJson.&lt;/li&gt;
+&lt;li&gt;Update json4s to 3.2.10&lt;/li&gt;
+&lt;li&gt;Use the character encoding from the request to read the json input stream.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalate&#34;&gt;Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Don’t always render the Scalate Error page.&lt;/li&gt;
+&lt;li&gt;Fix #336: Only use a single scalate template engine&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;spring&#34;&gt;Spring&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New support module for Spring.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swagger&#34;&gt;Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;BREAKING Use 1.2 spec.&lt;/li&gt;
+&lt;li&gt;Add naive exclusion based on simple class name and known model ID.&lt;/li&gt;
+&lt;li&gt;Add apiOperation and parameter methods that use a swagger model declaration directly.&lt;/li&gt;
+&lt;li&gt;Fix detection of default value.&lt;/li&gt;
+&lt;li&gt;Fix Option data type on models.&lt;/li&gt;
+&lt;li&gt;Fix NPE when the model property has a default value of null.&lt;/li&gt;
+&lt;li&gt;Fix URL generation when a context path is set.&lt;/li&gt;
+&lt;li&gt;Fix serialization of data type for operations and parameters.&lt;/li&gt;
+&lt;li&gt;Fix Option[List[_]] reflection.&lt;/li&gt;
+&lt;li&gt;Output position in Swager spec so model properties have a stable order.&lt;/li&gt;
+&lt;li&gt;Annotated properties are required by default.&lt;/li&gt;
+&lt;li&gt;Force compilation error for apiOperation without type param.&lt;/li&gt;
+&lt;li&gt;Add a form param to swagger support&lt;/li&gt;
+&lt;li&gt;Fix swagger to support application names that have a ‘/’ in them&lt;/li&gt;
+&lt;li&gt;Fix #354: Don’t stackoverflow in swagger with a self-referencing model&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.2.2 and 2.3.0M1 released</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/12/07/2013-12-07-scalatra-2-2-2-and-2-3-0m1released.html</link>
+      <pubDate>Sat, 07 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/12/07/2013-12-07-scalatra-2-2-2-and-2-3-0m1released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce two new releases.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Scalatra 2.2.2 is a maintenance release which fixes a number of bugs in 2.2.1.
+It is a drop-in replacement of 2.2.1, and we recommend that all users upgrade.&lt;/p&gt;
+
+&lt;p&gt;We are also releasing Scalatra 2.3.0 Milestone 1, on the way to a full release of the Scalatra 2.3.x. This will have mostly minor breaking changes, lots of additional fixes, and some new features (most notably to keep up with new features in asynchronous library support and Swagger development).&lt;/p&gt;
+
+&lt;p&gt;One big thing to start thinking about if you&amp;rsquo;re not already: Scalatra 2.3.x will drop support for Scala 2.9.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a detailed list of what&amp;rsquo;s in each of the releases.&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatra-2-2-2&#34;&gt;Scalatra 2.2.2&lt;/h2&gt;
+
+&lt;h3 id=&#34;core&#34;&gt;Core&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix mount/addServlet for paths not ending in /*&lt;/li&gt;
+&lt;li&gt;HaltException and PassExceptions are no longer control throwables.&lt;/li&gt;
+&lt;li&gt;Respect servlet wrappers in AsyncSupport. (Fixes GZipSupport with async result).&lt;/li&gt;
+&lt;li&gt;Unroll nested futures and async results. #321&lt;/li&gt;
+&lt;li&gt;Allow Accept-Encoding header to be a list.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix atmosphere disconnect handling.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;auth&#34;&gt;Auth&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Remove false dependency on scalatra-commands.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;commands&#34;&gt;Commands&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Properly humanize camel cased names.&lt;/li&gt;
+&lt;li&gt;Add a better validation error serializer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;jetty&#34;&gt;Jetty&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix uninitalized value error.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;json&#34;&gt;Json&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ensure JSONP callbacks are fully written to the output stream.&lt;/li&gt;
+&lt;li&gt;Fix JValue result for files.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalate&#34;&gt;Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Normalize Scalate template path #335&lt;/li&gt;
+&lt;li&gt;Support for i18n support in a ScalatraFilter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;specs2&#34;&gt;Specs2&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fix Specs2 base trait infrastructure&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swagger&#34;&gt;Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Modify scalatra-swagger api docs generation to better support apiproperty annotation.&lt;/li&gt;
+&lt;li&gt;Add ability to document API operations that support multiple content type responses.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-2-3-0m1&#34;&gt;Scalatra 2.3.0M1&lt;/h2&gt;
+
+&lt;h3 id=&#34;core-1&#34;&gt;Core&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support for Scala 2.9.x dropped.&lt;/li&gt;
+&lt;li&gt;Sever hard Akka dependency. Integration is through scala.concurrent.&lt;/li&gt;
+&lt;li&gt;Change FutureSupport.timeout from a Timeout to a Duration.&lt;/li&gt;
+&lt;li&gt;Add a timeout to AsyncResult.&lt;/li&gt;
+&lt;li&gt;Run callbacks before render in renderResponseBody.&lt;/li&gt;
+&lt;li&gt;Redirect returns Nothing, not unit.&lt;/li&gt;
+&lt;li&gt;Allow calling halt from trap handler.&lt;/li&gt;
+&lt;li&gt;Remove Akka dependency. Only scala.concurrent is needed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atmosphere-1&#34;&gt;Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make ScalatraBroadcaster a trait for custom broadcasters.&lt;/li&gt;
+&lt;li&gt;Add RedisScalatraBroadcaster.&lt;/li&gt;
+&lt;li&gt;Support ClientFilter with Redis Atmosphere plugin.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;commands-1&#34;&gt;Commands&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ensure ordering of properties on body parameters from a command by adding a position method.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;i18n&#34;&gt;I18n&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Provide a way to implement custom Messages resolver.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;json-1&#34;&gt;JSON&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Support custom serializers in JValueResult.&lt;/li&gt;
+&lt;li&gt;Check if response is JSON or XML in renderJson.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalate-1&#34;&gt;Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Don&amp;rsquo;t always render the Scalate Error page.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;spring&#34;&gt;Spring&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New support module for Spring.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swagger-1&#34;&gt;Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add naive exclusion based on simple class name and known model ID.&lt;/li&gt;
+&lt;li&gt;Add apiOperation and parameter methods that use a Swagger model declaration directly.&lt;/li&gt;
+&lt;li&gt;Fix detection of default value.&lt;/li&gt;
+&lt;li&gt;Fix Option data type on models.&lt;/li&gt;
+&lt;li&gt;Fix NPE when the model property has a default value of null.&lt;/li&gt;
+&lt;li&gt;BREAKING Use 1.2 spec.&lt;/li&gt;
+&lt;li&gt;Fix URL generation when a context path is set.&lt;/li&gt;
+&lt;li&gt;Fix serialization of data type for operations and parameters.&lt;/li&gt;
+&lt;li&gt;Fix Option[List[_]] reflection.&lt;/li&gt;
+&lt;li&gt;Output position in Swager spec so model properties have a stable order.&lt;/li&gt;
+&lt;li&gt;Annotated properties are required by default.&lt;/li&gt;
+&lt;li&gt;Force compilation error for apiOperation without type param.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra in Action: Routing chapter available</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/09/20/2013-09-20-scalatra-in-action-routing-chapter-released.html</link>
+      <pubDate>Fri, 20 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/09/20/2013-09-20-scalatra-in-action-routing-chapter-released.html</guid>
+      <description>&lt;p&gt;Our book &lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt;, available from
+Manning Publications, has been steadily ticking along over the summer.&lt;br /&gt;
+A new chapter, on RESTful application development using Scalatra&amp;rsquo;s routing
+DSL, is now available.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This chapter gives you an overview of both how to tie URLs to your Scalatra
+routes, and also &lt;em&gt;why&lt;/em&gt; you&amp;rsquo;d want to structure your application routes to
+use HTTP to its best advantage, using RESTful conventions.&lt;/p&gt;
+
+&lt;p&gt;Chapter 4, &amp;ldquo;Working with user input&amp;rdquo;, is currently awaiting incorporation in
+the next MEAP update for the book and will be available soon.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GitBucket, a large FOSS codebase in Scalatra</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/09/16/2013-09-16-gitbucket-release.html</link>
+      <pubDate>Mon, 16 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/09/16/2013-09-16-gitbucket-release.html</guid>
+      <description>&lt;p&gt;Congratulations are in order to the
+&lt;a href=&#34;https://github.com/takezoe/gitbucket/graphs/contributors&#34;&gt;authors&lt;/a&gt; of
+&lt;a href=&#34;https://github.com/takezoe/gitbucket&#34;&gt;GitBucket&lt;/a&gt;, a free software clone of
+&lt;a href=&#34;https://github.com&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;GitBucket uses Scalatra, the &lt;a href=&#34;http://slick.typesafe.com/&#34;&gt;Slick&lt;/a&gt; database
+query and access library and the pure-Java
+&lt;a href=&#34;https://github.com/eclipse/jgit&#34;&gt;JGit&lt;/a&gt; implementation of git to provide the
+most easily-installable open-source GitHub that it&amp;rsquo;s possible to imagine.
+Download Apache Tomcat, drop the GitBucket war file into it, and you&amp;rsquo;ll have
+your own privately-hosted GitHub clone in about 5 minutes.&lt;/p&gt;
+
+&lt;p&gt;The recent GitBucket
+&lt;a href=&#34;https://groups.google.com/forum/#!topic/scalatra-user/OiX0WLyoVVg&#34;&gt;v1.5 release&lt;/a&gt;
+brings repo forks, pull requests, LDAP authentication, a branch viewer, and
+bug fixes to the code base.&lt;/p&gt;
+
+&lt;p&gt;GitBucket is a great example of a reasonably large FOSS codebase that you can
+peruse if you&amp;rsquo;re interested in seeing how things are done for a full-stack
+Scalatra web application.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>New persistence guides</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/05/19/2013-05-19-new-persistence-guides.html</link>
+      <pubDate>Sun, 19 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/05/19/2013-05-19-new-persistence-guides.html</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve added a few more Scalatra Guides dealing with persistence over the
+past few weeks.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/mongodb.html&#34;&gt;MongoDb&lt;/a&gt;,
+and one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/riak.html&#34;&gt;Riak&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also, we&amp;rsquo;ve written a guide which goes over the general case. There are
+probably a few dozen libraries which &lt;em&gt;could&lt;/em&gt; be used for persistence
+with Scalatra, and the number of specific guides we currently have (4)
+doesn&amp;rsquo;t really reflect the richness of options or show how easy it is to
+get started with whichever one you choose - so the introduction to
+persistence guide gives an overview of the steps for
+&lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/introduction.html&#34;&gt;writing your own&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If anybody would like to contribute a guide for a specific persistence
+library which we don&amp;rsquo;t have docs for, pull requests on
+&lt;a href=&#34;https://github.com/scalatra/scalatra-website&#34;&gt;the docs&lt;/a&gt;
+are very welcome.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.2.1 released</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/04/10/2013-04-10-scalatra-2-2-1-released.html</link>
+      <pubDate>Wed, 10 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/04/10/2013-04-10-scalatra-2-2-1-released.html</guid>
+      <description>&lt;p&gt;Scalatra 2.2.1, a bug-fix and maintenance release, is now out. The following changes have been made:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;core&#34;&gt;Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An action result with an int body renders the int as body not status&lt;/li&gt;
+&lt;li&gt;Make matched route params available for a broader scope&lt;/li&gt;
+&lt;li&gt;AsyncResult now uses an abstract val to force eager creation of the future&lt;/li&gt;
+&lt;li&gt;Fixes preflight request for CORS (no longer necessary to define an options route)&lt;/li&gt;
+&lt;li&gt;Fix redirecting from within an AsyncResult&lt;/li&gt;
+&lt;li&gt;Fallback to servlet context init parameters when looking up a key&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Upgrade to atmosphere 1.0.12&lt;/li&gt;
+&lt;li&gt;Route params are now available inside the atmosphere route&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;commands&#34;&gt;Commands&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All validation error messages are now configurable&lt;/li&gt;
+&lt;li&gt;Type class based execution instead of the command handler&lt;/li&gt;
+&lt;li&gt;Fix detecting isRequired&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;auth&#34;&gt;Auth&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make scentry use implicit request and response&lt;/li&gt;
+&lt;li&gt;Fix a case where the user would be falsely returned as Some(null)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;swagger&#34;&gt;Swagger&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fixes nickname field swagger spec generation&lt;/li&gt;
+&lt;li&gt;Skips rendering swagger api’s without api operations registered&lt;/li&gt;
+&lt;li&gt;Fix command support for swagger with new dsl syntax&lt;/li&gt;
+&lt;li&gt;Reflection now correctly detects scala value types&lt;/li&gt;
+&lt;li&gt;Reflection knows about nested generic types&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalate&#34;&gt;Scalate&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fixes scalate usage in AsyncResult&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.2 released</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2013/02/06/2013-02-06-scalatra2-2-released.html</link>
+      <pubDate>Wed, 06 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2013/02/06/2013-02-06-scalatra2-2-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is excited to finally be able to say: we&amp;rsquo;ve just released Scalatra 2.2.0, 2.1.2 and 2.0.5.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s talk about the old branches first.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ve published 2.0.5 for Scala 2.10 so you can safely upgrade on servlet 2.5 containers. This gives anyone stuck deploying on older servlet containers a path to Scala 2.10.&lt;/p&gt;
+
+&lt;p&gt;2.1.2 is mostly a bug fix release, and allows for overriding the asyncTimeout in AkkaSupport.&lt;/p&gt;
+
+&lt;p&gt;Scalatra 2.2 is the new stable release, and we think it&amp;rsquo;s the most biggest and most exciting release in the history of the project. The changes in 2.2 are listed here: &lt;a href=&#34;http://notes.implicit.ly/post/42420935465/scalatra-2-2-0&#34;&gt;http://notes.implicit.ly/post/42420935465/scalatra-2-2-0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We are now also publishing Scalatra data to &lt;a href=&#34;http://ls.implicit.ly&#34;&gt;ls.implicit.ly&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are a few breaking changes in 2.2:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AkkaSupport now uses an ExecutionContext instead of an ActorSystem&lt;/li&gt;
+&lt;li&gt;LiftJsonSupport has been removed in favor of &lt;a href=&#34;http://json4s.org&#34;&gt;Json4s&lt;/a&gt;, which is a drop-in replacement&lt;/li&gt;
+&lt;li&gt;All the signatures of the methods that access values in the request or response now take an implicit request and/or response&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This last one is particularly important if you are making heavy use of Akka Futures from your routes. Scalatra now stores the request and response in a thread-local and when you use Futures you can&amp;rsquo;t access those anymore. This stops you from inadvertantly closing a Future (which should contain only immutable data) over the servlet request (which is unavoidably mutable), and should make your programming experience safer and more enjoyable.&lt;/p&gt;
+
+&lt;p&gt;If you had overrides your code won&amp;rsquo;t compile until you add the necessary implicits to the signature.&lt;/p&gt;
+
+&lt;p&gt;When you want to use Futures and be able to safely access values in the request there is now an AsyncResult, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  get(&amp;quot;/:name&amp;quot;) {
+   new AsyncResult { def is =
+     (timeActor  ? &amp;quot;Get Current Time&amp;quot;).mapTo[String].map(&amp;quot;hello &amp;quot; + params(&amp;quot;name&amp;quot;) + &amp;quot; it&#39;s currently &amp;quot; + _)
+   }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When you have methods that access the request, and you use Futures in this way, you can also add an implicit request or response object so that it&amp;rsquo;s safe to use this method from within Futures.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Book: Scalatra in Action</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2013-01-29-scalatra-in-action.html</link>
+      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2013-01-29-scalatra-in-action.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the immediate availability of the e-book version of &lt;em&gt;&lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt;&lt;/em&gt;, published by Manning Publications.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s currently being written the Scalatra team. Here&amp;rsquo;s a description:&lt;/p&gt;
+
+&lt;blockquote&gt;Scalatra is a lightweight Scala-driven web framework similar to the popular Ruby-based Sinatra. It&#39;s perfect for writing high-performance stateless applications and RESTful APIs. Scalatra is a simple HTTP DSL that allows you to start with a tiny amount of code and then add the exact libraries you want as your application grows. As a result, it&#39;s an amazingly-fast way to spin up a Scala-based web app, without the overhead of Lift or Play, and to build an HTTP API for a mobile, Backbone.js, or AngularJS app. Since it uses Scala and the functional programming model, it&#39;s also perfect for running realtime applications on multi-core servers.&lt;/blockquote&gt;
+
+&lt;blockquote&gt;Scalatra in Action introduces Scalatra and the Sinatra model. It covers the framework in its entirety; starting with concepts such as request routing, input handling, actions, and HTTP responses. It then proceeds to more advanced topics, such as data access, handling heavy load, asynchronicity, securing your application, designing and documenting RESTful APIs, and realtime web programming.&lt;/blockquote&gt;
+
+&lt;blockquote&gt;For readers who don&#39;t already know Scala, the book introduces the basic tools in any successful Scala developer&#39;s toolbox: the Scala language and SBT, and the Simple Build Tool. The book also shows you how to test and deploy your Scalatra applications.&lt;/blockquote&gt;
+
+&lt;p&gt;Several chapters of &lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt; are now available through the Manning Early Access Program (MEAP) as an e-book, with the full paper publication slated for March/April.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scala 2.10 support</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scala-2.10-support.html</link>
+      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scala-2.10-support.html</guid>
+      <description>&lt;p&gt;For any early adopters of Scala 2.10, a port of Scalatra to Scala 2.10
+is available in snapshot form.  To try it,&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;1) Bump your Scala version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scalaVersion := &amp;quot;2.10.0-RC5&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2) Add the resolver&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resolvers += &amp;quot;Sonatype OSS Snapshots&amp;quot; at &amp;quot;https://oss.sonatype.org/content/repositories/snapshots&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3) Use the sbt cross-build convention (adds the _2.10 suffix to the
+artifact ID):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % &amp;quot;2.2.0-SNAPSHOT&amp;quot; cross CrossVersion.binary,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This port contains minimal changes from the master branch to make it
+work on the new version of Scala. It is intended as a drop-in
+replacement to ease your eventual upgrade to Scala 2.10. Future
+versions of Scalatra will utilize Scala 2.10&amp;rsquo;s new features, but the
+primary goal for this release is compatibility.&lt;/p&gt;
+
+&lt;p&gt;There is no RC because some of our dependencies have not been formally
+released for Scala 2.10.  We hope to have a tagged build against Scala
+2.10.0-final soon after it is released, currently expected December
+26.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra 2.2.0-RC2 Released</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-2.2.0-rc2-released.html</link>
+      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-2.2.0-rc2-released.html</guid>
+      <description>&lt;p&gt;Scalatra 2.2 has been in development since September. There were a few blocking bugs along the way, but the development team has now cut a second release candidate, Scalatra 2.2.0-RC2. If all goes well, Scalatra users will all get a Christmas present. See the full list of changes (below) if you want a sneek peak.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The full list of changes for the 2.2.0 release is now as follows:&lt;/p&gt;
+
+&lt;h3 id=&#34;global&#34;&gt;Global&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removes jerkson support&lt;/li&gt;
+&lt;li&gt;Removes anti-xml support&lt;/li&gt;
+&lt;li&gt;Adds Jackson support&lt;/li&gt;
+&lt;li&gt;Adds common traits for pluggable json serialization, these traits allow library writers to write against a generic
+json interface. The application developer can then mix in the json support he wants and retain all functionality.&lt;/li&gt;
+&lt;li&gt;Defers reading request parameters until the last responsible moment (aka lazify)&lt;/li&gt;
+&lt;li&gt;Contrib project has been removed, all the modules have been moved into the main scalatra project&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;core&#34;&gt;Core&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adds typed param support, previously in contrib&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ApiFormats&lt;/code&gt; now also has a method responseFormat which looks at the content type of the response and falls back to the format of the request.&lt;/li&gt;
+&lt;li&gt;The default bootstrap file is renamed from &lt;code&gt;Scalatra&lt;/code&gt; to &lt;code&gt;ScalatraBootstrap&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FileUpload&lt;/code&gt; can now be configured through init parameters&lt;/li&gt;
+&lt;li&gt;RouteMatchers don&amp;rsquo;t use any by-name params anymore&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RouteMatcher&lt;/code&gt; now takes a &lt;code&gt;requestPath&lt;/code&gt; as a param to the &lt;code&gt;apply&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;You are able to mount the same servlet more than once in the ScalatraBootstrap class&lt;/li&gt;
+&lt;li&gt;Added a new &lt;code&gt;relativeUrl&lt;/code&gt; method which will compose a path for redirection and keep relative paths relative&lt;/li&gt;
+&lt;li&gt;Refactored the &lt;code&gt;url&lt;/code&gt; method to allow for a more granular building of the path with regards to the context path and servlet path&lt;/li&gt;
+&lt;li&gt;Added a &lt;code&gt;fullUrl&lt;/code&gt; method which will use the absolute path created by the &lt;code&gt;url&lt;/code&gt; method to build a url with protocol, host, port and path + querystring&lt;/li&gt;
+&lt;li&gt;Added a &lt;code&gt;isHttps&lt;/code&gt; method which also looks in the headers for a &lt;code&gt;X-Forwarded-Proto&lt;/code&gt; header&lt;/li&gt;
+&lt;li&gt;Added a &lt;code&gt;needsHttps&lt;/code&gt; method which looks in the init params for a key &lt;code&gt;org.scalatra.ForceHttps&lt;/code&gt; for a boolean value (true/false), this is used by the &lt;code&gt;fullUrl&lt;/code&gt; method to work out the protocol&lt;/li&gt;
+&lt;li&gt;Added a &lt;code&gt;org.scalatra.HostName&lt;/code&gt; init parameter in which you can override the host name of this scalatra application, if unset the value from &lt;code&gt;request.getServerName&lt;/code&gt; will be used&lt;/li&gt;
+&lt;li&gt;Added a &lt;code&gt;org.scalatra.Port&lt;/code&gt; init parameter in which you can override the port of this scalatra application, if unset the value from &lt;code&gt;request.getServerPort&lt;/code&gt; will be used&lt;/li&gt;
+&lt;li&gt;ApiFormats now also has a reverse mapping for the txt extension&lt;/li&gt;
+&lt;li&gt;Adds &lt;code&gt;GZipSupport&lt;/code&gt;, contributed by @Marza&lt;/li&gt;
+&lt;li&gt;Folds &lt;code&gt;TypedParamSupport&lt;/code&gt; into core making the &lt;code&gt;params.getAs[Int]&lt;/code&gt; methods available everywhere&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;lift-json&#34;&gt;lift-json&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removed in favour of json4s support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;jackson&#34;&gt;Jackson&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Removed in favour of json4s support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;json&#34;&gt;JSON&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Previous lift-json support is replaced with json4s support.&lt;/li&gt;
+&lt;li&gt;Jackson integration is also provided through json4s&lt;/li&gt;
+&lt;li&gt;Replaces ProductToJsonSupport trait with a &lt;code&gt;JValueResult&lt;/code&gt; trait which will try to serialize any value to json or xml
+when the accept headers or format parameter indicate the user wants json or xml.&lt;/li&gt;
+&lt;li&gt;Fix reading json from post without the right header&lt;/li&gt;
+&lt;li&gt;Include &lt;code&gt;JValueResult&lt;/code&gt; by default in the &lt;code&gt;NativeJsonSupport&lt;/code&gt; and &lt;code&gt;JacksonJsonSupport&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Make &lt;code&gt;JValueResult&lt;/code&gt; only serialize &lt;code&gt;Traversable&lt;/code&gt; and &lt;code&gt;Product&lt;/code&gt; classes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalate&#34;&gt;Scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adds ScalateRenderSupport trait taken from contrib&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;databinding&#34;&gt;Databinding&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Adds a databinding module for commands.
+The commands can have validations attached and will read data from headers, params and the request body (like json/xml)
+This is implemented using an infrastructure of type classes and uses scalaz validations to capture the validation information.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class RegisterForm extends JacksonCommand { // you have to pick the json library of choice
+
+  val login: Field[String] = asString(&amp;quot;login&amp;quot;).required.notBlank.minLength(6).validForFormat(&amp;quot;\\w+&amp;quot;.r)
+
+  val name: Field[String] = asString(&amp;quot;name&amp;quot;)
+
+  val email: Field[String] = asString(&amp;quot;email&amp;quot;).required.notBlank.validEmail
+
+  val homepage: Field[String] = asString(&amp;quot;homepage&amp;quot;).validUrl
+
+  val passwordConfirmation: FieldBinding = asString(&amp;quot;passwordConfirmation&amp;quot;).required.notBlank
+
+  val password: FieldBinding = asString(&amp;quot;password&amp;quot;).required.notBlank.validConfirmation(&amp;quot;passwordConfirmation&amp;quot;, passwordConfirmation.value)
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Renames databinding to commands. This resolves the confusion created by the name databinding.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;akka&#34;&gt;Akka&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Updates akka to 2.0.4&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Adds an atmosphere integration
+This module adds support for websockets, long-polling, server-side events, &amp;hellip;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyAtmoServlet {
+  def receive = {
+    case Connected =&amp;gt;
+    case Disconnected(disconnector, Some(error)) =&amp;gt;
+    case Error(Some(error)) =&amp;gt;
+    case TextMessage(text) =&amp;gt; send(&amp;quot;ECHO: &amp;quot; + text)
+    case JsonMessage(json) =&amp;gt; broadcast(json)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Updates atmosphere to 1.0.6&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Fixes atmosphere long-polling etc. A big thanks to @jfarcand&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Fix &lt;code&gt;ScalatraBroadcasterFactory#lookup&lt;/code&gt; to return null when nothing is found instead of throwing an exception&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swagger&#34;&gt;Swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Added serialization for AllowableValues in &lt;code&gt;Swagger.scala&lt;/code&gt;.  These are passed as strings in the AllowableValues object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// as List
+allowableValues = AllowableValues(1, 2, 3)
+
+// as range
+allowableValues = AllowableValues(0 to 1000)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Updated to support the &lt;a href=&#34;https://github.com/wordnik/swagger-core/wiki/API-Declaration&#34;&gt;swagger-1.1 spec&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Allows for using either jackson or native json to generate the service description json&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Auto-registers servlets and filters that extend the SwaggerSupport trait in the swagger manager.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Includes the swagger-core and swagger-annotations jars as transitive dependencies (batteries included)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The models property in the &lt;code&gt;SwaggerSupport&lt;/code&gt; can now be Set as &lt;code&gt;Map(classOf[Pet])&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;responseClass can now be set with a type parameter &lt;code&gt;responseClass[Pet]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Data types in &lt;code&gt;Parameter&lt;/code&gt; and &lt;code&gt;ModelField&lt;/code&gt; definitions can now be defined as &lt;code&gt;DataType[List[String]]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Make swagger optionally support authentication&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Optionally integrate commands into swagger support to generate model and parameter definitions.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swagger-ext&#34;&gt;Swagger-Ext&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adds support for authorization through scentry to Swagger.  Shows only actions a user is allowed to see.
+&lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/swagger-ext/src/test/scala/org/scalatra/swagger/SwaggerAuthSpec.scala&#34;&gt;Example&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Adds support for using commands with Swagger. This creates a model definition for the body parameters and parameter
+definitions for the query, path and header params as well as a parameter for the body model&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;get(&amp;quot;/id&amp;quot;, endpoint(&amp;quot;id&amp;quot;), nickname(&amp;quot;getById&amp;quot;), parameters[MyCommand])
+
+class MyCommand extends JsonCommand {
+  protected implicit val jsonFormats: Formats = DefaultFormats
+
+  val name: Field[String] = asString(&amp;quot;name&amp;quot;).notBlank
+
+  val age: Field[Int] = &amp;quot;age&amp;quot;
+
+  val token: Field[String] = (
+      asString(&amp;quot;API-TOKEN&amp;quot;).notBlank
+        sourcedFrom ValueSource.Header
+        description &amp;quot;The API token for this request&amp;quot;
+        notes &amp;quot;Invalid data kills cute innocent kittens&amp;quot;
+        allowableValues &amp;quot;123&amp;quot;)
+
+  val skip: Field[Int] = asInt(&amp;quot;skip&amp;quot;).sourcedFrom(ValueSource.Query).description(&amp;quot;The offset for this collection index&amp;quot;)
+
+  val limit: Field[Int] = asType[Int](&amp;quot;limit&amp;quot;).sourcedFrom(ValueSource.Query).withDefaultValue(20).description(&amp;quot;the max number of items to return&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;testing&#34;&gt;Testing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Added a method &lt;code&gt;ensureSessionIsSerializable&lt;/code&gt; method which will try to serialize every session value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;specs&#34;&gt;Specs&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deprecate scalatra-specs in anticipation of Scala 2.10 support.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;auth&#34;&gt;Auth&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Scentry is now lazily initialized so the order of the traits doesn&amp;rsquo;t matter anymore&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;slf4j&#34;&gt;SLF4J&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Rename &lt;code&gt;LogbackSupport&lt;/code&gt; to &lt;code&gt;ScalatraSlf4jRequestLogging&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Updates slf4j-api to 1.7.2&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatra usage increasing</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-usage-increasing.html</link>
+      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-usage-increasing.html</guid>
+      <description>&lt;p&gt;In preparation for the 2.2.0 final release, &lt;a href=&#34;http://yuvimasory.com/&#34;&gt;Yuvi Masory&lt;/a&gt; has been cranking out all kinds of reference material:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/getting-started/jrebel.html&#34;&gt;Fast code reloading with JRebel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/jelastic.html&#34;&gt;Deploying to Jelastic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/heroku.html&#34;&gt;Deploying to Heroku&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/google-app-engine.html&#34;&gt;Deploying to Google App Engine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This will hopefully make it much easier for people to get started with Scalatra, and to become productive quickly.&lt;/p&gt;
+
+&lt;p&gt;In other news, the number of users of the Scalatra framework seems to be increasing steadily.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://twitter.com/joecrobak&#34;&gt;Joe Crobak&lt;/a&gt;, &lt;a href=&#34;http://twitter.com/TDJoe&#34;&gt;Joe Ennever&lt;/a&gt;, and &lt;a href=&#34;http://twitter.com/rathboma&#34;&gt;Matthew Rathbone&lt;/a&gt; over at FourSquare &lt;a href=&#34;http://engineering.foursquare.com/2012/10/16/open-sourcing-our-dashboard-for-apache-oozie/&#34;&gt;have open-sourced an internal tool&lt;/a&gt; for managing &lt;a href=&#34;https://oozie.apache.org/&#34;&gt;Apache Oozie&lt;/a&gt; workflows, and called it &lt;a href=&#34;https://github.com/foursquare/oozie-web&#34;&gt;Oozie Web&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Meanwhile, Łukasz Lenart from &lt;a href=&#34;http://softwaremill.com/&#34;&gt;softwaremill.com&lt;/a&gt; has &lt;a href=&#34;http://softwaremill.com/bootstrap-goes-open-source&#34;&gt;released a project&lt;/a&gt; called the &lt;a href=&#34;https://github.com/softwaremill/bootstrap&#34;&gt;SoftwareMill Bootstrap&lt;/a&gt;, to provide a quick way of getting Scalatra + &lt;a href=&#34;http://angularjs.org/&#34;&gt;AngularJS&lt;/a&gt; projects up and running quickly.&lt;/p&gt;
+
+&lt;p&gt;Lastly, &lt;a href=&#34;http://twitter.com/hammarback&#34;&gt;Jesper Hammarback&lt;/a&gt; has just release &lt;a href=&#34;http://www.paintfeud.com&#34;&gt;PaintFeud&lt;/a&gt;, a realtime iPhone game built using Titanium, uses Scalatra as a back-end, and involves CQRS, eventsourcing, Actors, and MongoDB.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scalatypes Podcast</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/07/2012-12-07-ivan-talks-scalatra-on-scalatypes-podcast.html</link>
+      <pubDate>Fri, 07 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/07/2012-12-07-ivan-talks-scalatra-on-scalatypes-podcast.html</guid>
+      <description>&lt;p&gt;One of Scalatra&amp;rsquo;s core developers,
+&lt;a href=&#34;http://twitter.com/casualjim&#34;&gt;Ivan Porto Carrero&lt;/a&gt;, showed up on this week&amp;rsquo;s
+&lt;a href=&#34;http://scalatypes.com/episode-24-ivan-porto-carrero-on-scalatra-and-json4s&#34;&gt;Scalatypes&lt;/a&gt; podcast, as the featured interviewee.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;In the hour-long podcast, Ivan is interviewed by &lt;a href=&#34;http://twitter.com/ymasory&#34;&gt;Yuvi Masory&lt;/a&gt;. The conversation is a solid introduction to Scalatra:
+the philosophy behind the code, its current feature set, and a
+quick look at upcoming developments in Scalatra 2.3 and 3.0.&lt;/p&gt;
+
+&lt;p&gt;A set of slides from the talk is also available
+&lt;a href=&#34;http://www.slideshare.net/casualjim/scalatra-22&#34;&gt;on Slideshare&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

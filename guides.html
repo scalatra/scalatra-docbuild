@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Guides - Scalatra</title>
+    <meta name="generator" content="Hugo 0.19" />
+
+    
+    <meta name="description" content="Documentation and how-to guides for the Scalatra microframework.">
+    
+    <link rel="canonical" href="https://scalatra.github.io/scalatra-docbuild/guides.html">
+    
+
+    <meta property="og:url" content="https://scalatra.github.io/scalatra-docbuild/guides.html">
+    <meta property="og:title" content="Scalatra">
+    <meta property="og:image" content="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Scalatra">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?52m981');
+        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.woff?52m981')
+               format('woff'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/application.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/bootstrap-styles.css">
+    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://scalatra.github.io/scalatra-docbuild/javascripts/modernizr.js"></script>
+
+    
+    <link href="https://scalatra.github.io/scalatra-docbuild/guides.xml" rel="alternate" type="application/rss+xml" title="Scalatra" />
+    <link href="https://scalatra.github.io/scalatra-docbuild/guides.xml" rel="feed" type="application/rss+xml" title="Scalatra" />
+    
+
+  </head>
+  <body class="palette-primary-teal palette-accent-red">
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Guides
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/scalatra" title="@scalatra on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/scalatra/scalatra" title="@scalatra/scalatra on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://scalatra.github.io/scalatra-docbuild/" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Scalatra </strong>
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+      <div class="toc">
+        
+        <ul>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/">Guides</a></li>
+          
+          <li><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+          
+          
+        </ul>
+        
+
+        
+        <a href="https://www.manning.com/books/scalatra-in-action" target="_blank">
+          <img src="https://scalatra.github.io/scalatra-docbuild/images/book-cover.png" alt="Scalatra in Action">
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Pages in Guide</h1>
+
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/actions.html" title="Actions">
+				<h2>Actions</h2>
+			</a>
+
+			<br>
+			As explained in the routes guide, an action is the code that handles a route.
+When an incoming request matches a route, that route&rsquo;s action is executed.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.  Default behavior Each route is followed by an action. An Action may return any value, which is then rendered to the response according to the following rules.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/actions.html" title="Actions">
+				<h2>Actions</h2>
+			</a>
+
+			<br>
+			As explained in the routes guide, an action is the code that handles a route.
+When an incoming request matches a route, that route&rsquo;s action is executed.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.  Default behavior Each route is followed by an action. An Action may return any value, which is then rendered to the response according to the following rules.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/actions.html" title="Actions">
+				<h2>Actions</h2>
+			</a>
+
+			<br>
+			As explained in the routes guide, an action is the code that handles a route.
+When an incoming request matches a route, that route&rsquo;s action is executed.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.  Default behavior Each route is followed by an action. An Action may return any value, which is then rendered to the response according to the following rules.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/actions.html" title="Actions">
+				<h2>Actions</h2>
+			</a>
+
+			<br>
+			As explained in the routes guide, an action is the code that handles a route.
+When an incoming request matches a route, that route&rsquo;s action is executed.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.  Default behavior Each route is followed by an action. An Action may return any value, which is then rendered to the response according to the following rules.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/async/akka.html" title="Akka">
+				<h2>Akka</h2>
+			</a>
+
+			<br>
+			AkkaSupport Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM. Scalatra allows you to easily mix it into your application.
+Dependencies The following dependencies will be needed to make the sample application work.
+&quot;com.typesafe.akka&quot; %% &quot;akka-actor&quot; % &quot;2.3.9&quot;, &quot;net.databinder.dispatch&quot; %% &quot;dispatch-core&quot; % &quot;0.11.1&quot;,  Setting up your Scalatra app with Akka When you&rsquo;re using Akka, you&rsquo;ll want to start your Actors and ActorSystem from inside the ScalatraBootstrap class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/async/akka.html" title="Akka and Async">
+				<h2>Akka and Async</h2>
+			</a>
+
+			<br>
+			AkkaSupport Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM. Scalatra allows you to easily mix it into your application.
+In versions of Scalatra before 2.2.0, Akka was an optional dependency, contained in a scalatra-akka jar. In Scalatra 2.2.0, Akka has been folded directly into Scalatra core, and the scalatra-akka dependency is no longer needed. To get access to Akka, all you need to do is mix FutureSupport into your servlets.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/async/akka.html" title="Akka | Async">
+				<h2>Akka | Async</h2>
+			</a>
+
+			<br>
+			AkkaSupport Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM. Scalatra allows you to easily mix it into your application.
+Dependencies The following dependencies will be needed to make the sample application work.
+&quot;com.typesafe.akka&quot; %% &quot;akka-actor&quot; % &quot;2.3.15&quot;, &quot;net.databinder.dispatch&quot; %% &quot;dispatch-core&quot; % &quot;0.11.1&quot;,  Setting up your Scalatra app with Akka When you&rsquo;re using Akka, you&rsquo;ll want to start your Actors and ActorSystem from inside the ScalatraBootstrap class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/async/akka.html" title="Akka | Async">
+				<h2>Akka | Async</h2>
+			</a>
+
+			<br>
+			AkkaSupport Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM. Scalatra allows you to easily mix it into your application.
+Dependencies The following dependencies will be needed to make the sample application work.
+&quot;com.typesafe.akka&quot; %% &quot;akka-actor&quot; % &quot;2.4.12&quot;, &quot;net.databinder.dispatch&quot; %% &quot;dispatch-core&quot; % &quot;0.12.0&quot;,  Setting up your Scalatra app with Akka When you&rsquo;re using Akka, you&rsquo;ll want to start your Actors and ActorSystem from inside the ScalatraBootstrap class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/async/atmosphere.html" title="Atmosphere">
+				<h2>Atmosphere</h2>
+			</a>
+
+			<br>
+			Scalatra has a built-in integration with Atmosphere, the asynchronous websocket/comet framework. Atmosphere allows you to keep a persistent connection alive between the server and the user&rsquo;s browser (or other user-agents). You can push new information to your user at any time, without a page refresh.
+Atmosphere example app  See scalatra-atmosphere-example for a minimal and standalone project containing the example in this guide.  Generating the app Generate a project using g8 scalatra/scalatra-sbt, and call your initial servlet ChatController.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/async/atmosphere.html" title="Atmosphere">
+				<h2>Atmosphere</h2>
+			</a>
+
+			<br>
+			Scalatra has a built-in integration with Atmosphere, the asynchronous websocket/comet framework. Atmosphere allows you to keep a persistent connection alive between the server and the user&rsquo;s browser (or other user-agents). You can push new information to your user at any time, without a page refresh.
+It&rsquo;s carefree server push for the JVM.
+Atmosphere example app  See scalatra-atmosphere-example for a minimal and standalone project containing the example in this guide.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/async/atmosphere.html" title="Atmosphere">
+				<h2>Atmosphere</h2>
+			</a>
+
+			<br>
+			Scalatra has a built-in integration with Atmosphere, the asynchronous websocket/comet framework. Atmosphere allows you to keep a persistent connection alive between the server and the user&rsquo;s browser (or other user-agents). You can push new information to your user at any time, without a page refresh.
+It&rsquo;s carefree server push for the JVM.
+Atmosphere example app  See scalatra-atmosphere-example for a minimal and standalone project containing the example in this guide.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/async/atmosphere.html" title="Atmosphere">
+				<h2>Atmosphere</h2>
+			</a>
+
+			<br>
+			Scalatra has a built-in integration with Atmosphere, the asynchronous websocket/comet framework. Atmosphere allows you to keep a persistent connection alive between the server and the user&rsquo;s browser (or other user-agents). You can push new information to your user at any time, without a page refresh.
+It&rsquo;s carefree server push for the JVM.
+Atmosphere example app  See scalatra-atmosphere-example for a minimal and standalone project containing the example in this guide.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/authentication.html" title="Authentication">
+				<h2>Authentication</h2>
+			</a>
+
+			<br>
+			Scentry is Scalatra&rsquo;s optional authentication system. It is a port of Ruby&rsquo;s Warden authentication framework for Scalatra. You write auth strategies to meet your needs, and then use Scentry to enforce security for your strategies.
+There are a few moving parts here. In order to protect your application&rsquo;s actions with Scentry, you need two things:
+ a strategy to enforce security, let&rsquo;s call it YourStrategy. A strategy is a piece of logic which determines whether a user should be authenticated.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/authentication.html" title="Authentication">
+				<h2>Authentication</h2>
+			</a>
+
+			<br>
+			Scentry is Scalatra&rsquo;s optional authentication system. It is a port of Ruby&rsquo;s Warden authentication framework for Scalatra. You write auth strategies to meet your needs, and then use Scentry to enforce security for your strategies.
+There are a few moving parts here. In order to protect your application&rsquo;s actions with Scentry, you need two things:
+ a strategy to enforce security, let&rsquo;s call it YourStrategy. A strategy is a piece of logic which determines whether a user should be authenticated.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/authentication.html" title="Authentication | HTTP | Scalatra">
+				<h2>Authentication | HTTP | Scalatra</h2>
+			</a>
+
+			<br>
+			Scentry is Scalatra&rsquo;s optional authentication system. It is a port of Ruby&rsquo;s Warden authentication framework for Scalatra. You write auth strategies to meet your needs, and then use Scentry to enforce security for your strategies.
+There are a few moving parts here. In order to protect your application&rsquo;s actions with Scentry, you need two things:
+ a strategy to enforce security, let&rsquo;s call it YourStrategy. A strategy is a piece of logic which determines whether a user should be authenticated.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/authentication.html" title="Authentication | HTTP | Scalatra">
+				<h2>Authentication | HTTP | Scalatra</h2>
+			</a>
+
+			<br>
+			Scentry is Scalatra&rsquo;s optional authentication system. It is a port of Ruby&rsquo;s Warden authentication framework for Scalatra. You write auth strategies to meet your needs, and then use Scentry to enforce security for your strategies.
+There are a few moving parts here. In order to protect your application&rsquo;s actions with Scentry, you need two things:
+ a strategy to enforce security, let&rsquo;s call it YourStrategy. A strategy is a piece of logic which determines whether a user should be authenticated.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/web-services/cors.html" title="CORS">
+				<h2>CORS</h2>
+			</a>
+
+			<br>
+			Cross origin resource sharing Scalatra allows you to mix the CorsSupport trait into your servlets if you need to do cross-origin resource sharing.
+Adding CorsSupport allows all requests from anywhere, by default. You&rsquo;ll need to add an options route to your servlet, though, so that your servlet will respond to the preflight request:
+import org.scalatra.CorsSupport class YourServlet extends ScalatraBase with CorsSupport { options(&quot;/*&quot;){ response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;)); } }  You can configure your application to be more restrictive by using the following init params.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/web-services/cors.html" title="CORS">
+				<h2>CORS</h2>
+			</a>
+
+			<br>
+			Cross origin resource sharing Scalatra allows you to mix the CorsSupport trait into your servlets if you need to do cross-origin resource sharing.
+Adding CorsSupport allows all requests from anywhere, by default. You&rsquo;ll need to add an options route to your servlet, though, so that your servlet will respond to the preflight request:
+import org.scalatra.CorsSupport class YourServlet extends ScalatraBase with CorsSupport { options(&quot;/*&quot;){ response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;)); } }  You can configure your application to be more restrictive by using the following init params.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/web-services/cors.html" title="CORS">
+				<h2>CORS</h2>
+			</a>
+
+			<br>
+			Cross origin resource sharing Scalatra allows you to mix the CorsSupport trait into your servlets if you need to do cross-origin resource sharing.
+Adding CorsSupport allows all requests from anywhere, by default. You&rsquo;ll need to add an options route to your servlet, though, so that your servlet will respond to the preflight request:
+import org.scalatra.CorsSupport class YourServlet extends ScalatraBase with CorsSupport { options(&quot;/*&quot;){ response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;)); } }  You can configure your application to be more restrictive by using the following init params.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/web-services/cors.html" title="CORS">
+				<h2>CORS</h2>
+			</a>
+
+			<br>
+			Cross origin resource sharing Scalatra allows you to mix the CorsSupport trait into your servlets if you need to do cross-origin resource sharing.
+Adding CorsSupport allows all requests from anywhere, by default. You&rsquo;ll need to add an options route to your servlet, though, so that your servlet will respond to the preflight request:
+import org.scalatra.CorsSupport class YourServlet extends ScalatraBase with CorsSupport { options(&quot;/*&quot;){ response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;)); } }  You can configure your application to be more restrictive by using the following init params.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/resources/coffeescript.html" title="CoffeeScript">
+				<h2>CoffeeScript</h2>
+			</a>
+
+			<br>
+			CoffeeScript is a seriously awesome client-side scripting language that fixes the many warts of Javascript.
+ See scalatra-coffeescript for a minimal and standalone project containing the example in this guide.  Full usage guide Because CoffeeScript is an external project, we won&rsquo;t attempt to reproduce its documentation here. Go to the official documentation; you&rsquo;ll be glad you did!
+Set up CoffeeScript in Scalatra Install Install the plugin by adding the dependency to your project/plugins.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/resources/coffeescript.html" title="CoffeeScript">
+				<h2>CoffeeScript</h2>
+			</a>
+
+			<br>
+			CoffeeScript is a seriously awesome client-side scripting language that fixes the many warts of Javascript.
+ See scalatra-coffeescript for a minimal and standalone project containing the example in this guide.  Full usage guide Because CoffeeScript is an external project, we won&rsquo;t attempt to reproduce its documentation here. Go to the official documentation; you&rsquo;ll be glad you did!
+Set up CoffeeScript in Scalatra Install Install the plugin by adding the dependency to your project/plugins.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/resources/coffeescript.html" title="CoffeeScript">
+				<h2>CoffeeScript</h2>
+			</a>
+
+			<br>
+			CoffeeScript is a seriously awesome client-side scripting language that fixes the many warts of Javascript.
+ See scalatra-coffeescript for a minimal and standalone project containing the example in this guide.  Full usage guide Because CoffeeScript is an external project, we won&rsquo;t attempt to reproduce its documentation here. Go to the official documentation; you&rsquo;ll be glad you did!
+Set up CoffeeScript in Scalatra Install Install the plugin by adding the dependency to your project/plugins.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/resources/coffeescript.html" title="CoffeeScript">
+				<h2>CoffeeScript</h2>
+			</a>
+
+			<br>
+			CoffeeScript is a seriously awesome client-side scripting language that fixes the many warts of Javascript.
+ See scalatra-coffeescript for a minimal and standalone project containing the example in this guide.  Full usage guide Because CoffeeScript is an external project, we won&rsquo;t attempt to reproduce its documentation here. Go to the official documentation; you&rsquo;ll be glad you did!
+Set up CoffeeScript in Scalatra Install Install the plugin by adding the dependency to your project/plugins.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/formats/commands.html" title="Commands">
+				<h2>Commands</h2>
+			</a>
+
+			<br>
+			Scalatra includes a very sophisticated set of validation commands.
+These allow you to parse incoming data, instantiate command objects, and automatically apply validations to the objects. This sounds like it might be quite complex, but once you&rsquo;ve got the (quite minimal) infrastructure in place, it can dramatically simplify your code.
+Let&rsquo;s say we&rsquo;ve got a Todolist application, and it contains a simple Todo class which is used for persistence:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/formats/commands.html" title="Commands">
+				<h2>Commands</h2>
+			</a>
+
+			<br>
+			Scalatra includes a very sophisticated set of validation commands.
+These allow you to parse incoming data, instantiate command objects, and automatically apply validations to the objects. This sounds like it might be quite complex, but once you&rsquo;ve got the (quite minimal) infrastructure in place, it can dramatically simplify your code.
+Let&rsquo;s say we&rsquo;ve got a Todolist application, and it contains a simple Todo class which is used for persistence:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/formats/commands.html" title="Commands">
+				<h2>Commands</h2>
+			</a>
+
+			<br>
+			Scalatra includes a very sophisticated set of validation commands.
+These allow you to parse incoming data, instantiate command objects, and automatically apply validations to the objects. This sounds like it might be quite complex, but once you&rsquo;ve got the (quite minimal) infrastructure in place, it can dramatically simplify your code.
+Let&rsquo;s say we&rsquo;ve got a Todolist application, and it contains a simple Todo class which is used for persistence:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/formats/commands.html" title="Commands | Formats">
+				<h2>Commands | Formats</h2>
+			</a>
+
+			<br>
+			Scalatra includes a very sophisticated set of validation commands.
+These allow you to parse incoming data, instantiate command objects, and automatically apply validations to the objects. This sounds like it might be quite complex, but once you&rsquo;ve got the (quite minimal) infrastructure in place, it can dramatically simplify your code.
+Let&rsquo;s say we&rsquo;ve got a Todolist application, and it contains a simple Todo class which is used for persistence:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/configuration.html" title="Configuration">
+				<h2>Configuration</h2>
+			</a>
+
+			<br>
+			As you develop, test, and get ready for final deployment, you&rsquo;ll need to configure things about your app: its environment, its settings, initial configurations when it starts up, and the software it depends on.
+Configuring your app using the ScalatraBootstrap file As of 2.1.x, the ScalatraBootstrap file is the recommended way of configuring your application. It allows you to easily mount different servlets, set application parameters, and run initialization code for your app, without touching much in the way of XML.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/configuration.html" title="Configuration">
+				<h2>Configuration</h2>
+			</a>
+
+			<br>
+			As you develop, test, and get ready for final deployment, you&rsquo;ll need to configure things about your app: its environment, its settings, initial configurations when it starts up, and the software it depends on.
+Configuring your app using the ScalatraBootstrap file As of 2.1.x, the ScalatraBootstrap file is the recommended way of configuring your application. It allows you to easily mount different servlets, set application parameters, and run initialization code for your app, without touching much in the way of XML.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/configuration.html" title="Configuration">
+				<h2>Configuration</h2>
+			</a>
+
+			<br>
+			As you develop, test, and get ready for final deployment, you&rsquo;ll need to configure things about your app: its environment, its settings, initial configurations when it starts up, and the software it depends on.
+Configuring your app using the ScalatraBootstrap file As of 2.1.x, the ScalatraBootstrap file is the recommended way of configuring your application. It allows you to easily mount different servlets, set application parameters, and run initialization code for your app, without touching much in the way of XML.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/configuration.html" title="Configuration | Deployment">
+				<h2>Configuration | Deployment</h2>
+			</a>
+
+			<br>
+			As you develop, test, and get ready for final deployment, you&rsquo;ll need to configure things about your app: its environment, its settings, initial configurations when it starts up, and the software it depends on.
+Configuring your app using the ScalatraBootstrap file As of 2.1.x, the ScalatraBootstrap file is the recommended way of configuring your application. It allows you to easily mount different servlets, set application parameters, and run initialization code for your app, without touching much in the way of XML.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/continuous-integration.html" title="Continuous integration">
+				<h2>Continuous integration</h2>
+			</a>
+
+			<br>
+			Continuous integration is the practice of having a build server regularly compile and test the latest code base. Using continuous integration has many advantages:
+ Developers can be alerted by the build server when a recent commit will not compile (&ldquo;breaks the build&rdquo;) or fails tests. When development slows down, the build server continues to regularly download and compile the app, alerting developers to bit rot. In cases where a project&rsquo;s test suite takes a long time to run, the burden can be shifted to the build server by creating a temporary &ldquo;staging&rdquo; branch.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/testing/continuous-integration.html" title="Continuous integration">
+				<h2>Continuous integration</h2>
+			</a>
+
+			<br>
+			Continuous integration is the practice of having a build server regularly compile and test the latest code base. Using continuous integration has many advantages:
+ Developers can be alerted by the build server when a recent commit will not compile (&ldquo;breaks the build&rdquo;) or fails tests. When development slows down, the build server continues to regularly download and compile the app, alerting developers to bit rot. In cases where a project&rsquo;s test suite takes a long time to run, the burden can be shifted to the build server by creating a temporary &ldquo;staging&rdquo; branch.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/testing/continuous-integration.html" title="Continuous integration">
+				<h2>Continuous integration</h2>
+			</a>
+
+			<br>
+			Continuous integration is the practice of having a build server regularly compile and test the latest code base. Using continuous integration has many advantages:
+ Developers can be alerted by the build server when a recent commit will not compile (&ldquo;breaks the build&rdquo;) or fails tests. When development slows down, the build server continues to regularly download and compile the app, alerting developers to bit rot. In cases where a project&rsquo;s test suite takes a long time to run, the burden can be shifted to the build server by creating a temporary &ldquo;staging&rdquo; branch.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/testing/continuous-integration.html" title="Continuous integration">
+				<h2>Continuous integration</h2>
+			</a>
+
+			<br>
+			Continuous integration is the practice of having a build server regularly compile and test the latest code base. Using continuous integration has many advantages:
+ Developers can be alerted by the build server when a recent commit will not compile (&ldquo;breaks the build&rdquo;) or fails tests. When development slows down, the build server continues to regularly download and compile the app, alerting developers to bit rot. In cases where a project&rsquo;s test suite takes a long time to run, the burden can be shifted to the build server by creating a temporary &ldquo;staging&rdquo; branch.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/cloudbees.html" title="Deploying to CloudBees">
+				<h2>Deploying to CloudBees</h2>
+			</a>
+
+			<br>
+			CloudBees is a hosted platform for JVM apps that puts everything from source control to continuous integration to production deployment under one roof. Its free plan is more than sufficient for a simple Scalatra app.
+ See scalatra-cloudbees for a minimal and standalone project containing the example in this guide.  1. Register for an account. 2. Install the CloudBees SDK. If you&rsquo;re a Mac Homebrew user, it&rsquo;s as easy as brew install bees.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/cloudbees.html" title="Deploying to CloudBees">
+				<h2>Deploying to CloudBees</h2>
+			</a>
+
+			<br>
+			CloudBees is a hosted platform for JVM apps that puts everything from source control to continuous integration to production deployment under one roof.
+Its free plan is more than sufficient for a simple Scalatra app.
+1. Register for an account. 2. Install the CloudBees SDK. If you&rsquo;re a Mac Homebrew user, it&rsquo;s as easy as brew install bees. If you&rsquo;re not, check the CloudBees installation instructions.
+After installing, run the bees command to provoke a login:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/cloudbees.html" title="Deploying to CloudBees">
+				<h2>Deploying to CloudBees</h2>
+			</a>
+
+			<br>
+			CloudBees is a hosted platform for JVM apps that puts everything from source control to continuous integration to production deployment under one roof.
+Its free plan is more than sufficient for a simple Scalatra app.
+1. Register for an account. 2. Install the CloudBees SDK. If you&rsquo;re a Mac Homebrew user, it&rsquo;s as easy as brew install bees. If you&rsquo;re not, check the CloudBees installation instructions.
+After installing, run the bees command to provoke a login:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/cloudbees.html" title="Deploying to CloudBees">
+				<h2>Deploying to CloudBees</h2>
+			</a>
+
+			<br>
+			CloudBees is a hosted platform for JVM apps that puts everything from source control to continuous integration to production deployment under one roof.
+Its free plan is more than sufficient for a simple Scalatra app.
+1. Register for an account. 2. Install the CloudBees SDK. If you&rsquo;re a Mac Homebrew user, it&rsquo;s as easy as brew install bees. If you&rsquo;re not, check the CloudBees installation instructions.
+After installing, run the bees command to provoke a login:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/heroku.html" title="Deploying to Heroku">
+				<h2>Deploying to Heroku</h2>
+			</a>
+
+			<br>
+			Heroku is a cloud application platform that makes it easy to deploy and scale applications. With the right project setup, deploying your application becomes as easy as git push.
+ See scalatra-heroku for a minimal and standalone project containing the example in this guide.  1. Sign up for a free a free account. 2. Install the Heroku Toolbelt. 3. Set up a project. Create a Scalatra project from the usual Scalatra giter8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/heroku.html" title="Deploying to Heroku">
+				<h2>Deploying to Heroku</h2>
+			</a>
+
+			<br>
+			Heroku is a cloud application platform that makes it easy to deploy and scale applications. With the right project setup, deploying your application becomes as easy as git push.
+ See scalatra-heroku for a minimal and standalone project containing the example in this guide.  1. Sign up for a free a free account. 2. Install the Heroku Toolbelt. 3. Set up a project. Create a Scalatra project from the usual Scalatra giter8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/heroku.html" title="Deploying to Heroku">
+				<h2>Deploying to Heroku</h2>
+			</a>
+
+			<br>
+			Heroku is a cloud application platform that makes it easy to deploy and scale applications. With the right project setup, deploying your application becomes as easy as git push.
+ See scalatra-heroku for a minimal and standalone project containing the example in this guide.  1. Sign up for a free a free account. 2. Install the Heroku Toolbelt. 3. Set up a project. Create a Scalatra project from the usual Scalatra giter8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/heroku.html" title="Deploying to Heroku">
+				<h2>Deploying to Heroku</h2>
+			</a>
+
+			<br>
+			Heroku is a cloud application platform that makes it easy to deploy and scale applications. With the right project setup, deploying your application becomes as easy as git push.
+ See scalatra-heroku for a minimal and standalone project containing the example in this guide.  1. Sign up for a free a free account. 2. Install the Heroku Toolbelt. 3. Set up a project. Create a Scalatra project from the usual Scalatra giter8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/jelastic.html" title="Deploying to Jelastic">
+				<h2>Deploying to Jelastic</h2>
+			</a>
+
+			<br>
+			Jelastic is a cloud application platform designed specifically for servlets like Scalatra apps. Jelastic allows you to scale your app both horizontally (more instances) and vertically (more powerful instances). They offer a 2-week free trial, after which point their rates are among the best in the industry.
+ See scalatra-jelastic for a minimal and standalone project containing the example in this guide.  1. Register for an account. Jelastic is a platform with many hosts to choose from.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/jelastic.html" title="Deploying to Jelastic">
+				<h2>Deploying to Jelastic</h2>
+			</a>
+
+			<br>
+			Deploying to Jelastic  Jelastic is a cloud application platform designed specifically for servlets like Scalatra apps. Jelastic allows you to scale your app both horizontally (more instances) and vertically (more powerful instances). They offer a 2-week free trial, after which point their rates are among the best in the industry.
+ See scalatra-jelastic for a minimal and standalone project containing the example in this guide.  1. Register for an account.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/jelastic.html" title="Deploying to Jelastic">
+				<h2>Deploying to Jelastic</h2>
+			</a>
+
+			<br>
+			Jelastic is a cloud application platform designed specifically for servlets like Scalatra apps. Jelastic allows you to scale your app both horizontally (more instances) and vertically (more powerful instances). They offer a 2-week free trial, after which point their rates are among the best in the industry.
+ See scalatra-jelastic for a minimal and standalone project containing the example in this guide.  1. Register for an account. Jelastic is a platform with many hosts to choose from.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/jelastic.html" title="Deploying to Jelastic">
+				<h2>Deploying to Jelastic</h2>
+			</a>
+
+			<br>
+			Jelastic is a cloud application platform designed specifically for servlets like Scalatra apps. Jelastic allows you to scale your app both horizontally (more instances) and vertically (more powerful instances). They offer a 2-week free trial, after which point their rates are among the best in the industry.
+ See scalatra-jelastic for a minimal and standalone project containing the example in this guide.  1. Register for an account. Jelastic is a platform with many hosts to choose from.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/servlet-container.html" title="Deploying to servlet containers">
+				<h2>Deploying to servlet containers</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re coming from a non-Java background, you may find the subject of servlet containers and JVM deployments to be unnecessarily frightening. Don&rsquo;t despair. Despite all the mystery which surrounds them, servlet deployments are extremely simple. You will be surprised at how easy it is!  Compatibility Scalatra 2.2 runs on any servlet container which supports the Servlet 3.0 standard.
+If you&rsquo;re using an older container, you&rsquo;ll need to run the older Scalatra 2.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/servlet-container.html" title="Deploying to servlet containers">
+				<h2>Deploying to servlet containers</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re coming from a non-Java background, you may find the subject of servlet containers and JVM deployments to be unnecessarily frightening. Don&rsquo;t despair. Despite all the mystery which surrounds them, servlet deployments are extremely simple. You will be surprised at how easy it is!  Compatibility Scalatra 2.2 runs on any servlet container which supports the Servlet 3.0 standard.
+If you&rsquo;re using an older container, you&rsquo;ll need to run the older Scalatra 2.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/servlet-container.html" title="Deploying to servlet containers">
+				<h2>Deploying to servlet containers</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re coming from a non-Java background, you may find the subject of servlet containers and JVM deployments to be unnecessarily frightening. Don&rsquo;t despair. Despite all the mystery which surrounds them, servlet deployments are extremely simple. You will be surprised at how easy it is!  Compatibility Scalatra 2.2 runs on any servlet container which supports the Servlet 3.0 standard.
+If you&rsquo;re using an older container, you&rsquo;ll need to run the older Scalatra 2.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/servlet-container.html" title="Deploying to servlet containers | Deployment | Scalatra">
+				<h2>Deploying to servlet containers | Deployment | Scalatra</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re coming from a non-Java background, you may find the subject of servlet containers and JVM deployments to be unnecessarily frightening. Don&rsquo;t despair. Despite all the mystery which surrounds them, servlet deployments are extremely simple. You will be surprised at how easy it is!  Compatibility Scalatra 2.2 runs on any servlet container which supports the Servlet 3.0 standard.
+If you&rsquo;re using an older container, you&rsquo;ll need to run the older Scalatra 2.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/faq.html" title="FAQ | Scalatra guides">
+				<h2>FAQ | Scalatra guides</h2>
+			</a>
+
+			<br>
+			&mdash; name:headExtra pipeline:jade link{:type =&gt; &ldquo;text/css&rdquo;, :rel =&gt; &ldquo;stylesheet&rdquo;, :href =&gt; &ldquo;/css/book.css&rdquo;} &mdash; name:content pipeline:jade,markdown h1 FAQ
+h2 General questions
+dl dt It looks neat, but is it production ready? dd :markdown - It is use in the backend for LinkedIn Signal.
+ - <a href="http://www.chacha.com/">ChaCha</a> is using it in multiple internal applications. - A project is in currently development to support a site with over one million unique users.  dt Should I extend ScalatraServlet or ScalatraFilter?
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/faq.html" title="FAQ | Scalatra guides">
+				<h2>FAQ | Scalatra guides</h2>
+			</a>
+
+			<br>
+			&mdash; name:headExtra pipeline:jade link{:type =&gt; &ldquo;text/css&rdquo;, :rel =&gt; &ldquo;stylesheet&rdquo;, :href =&gt; &ldquo;/css/book.css&rdquo;} &mdash; name:content pipeline:jade,markdown h1 FAQ
+h2 General questions
+dl dt It looks neat, but is it production ready? dd :markdown - It is use in the backend for LinkedIn Signal.
+ - <a href="http://www.chacha.com/">ChaCha</a> is using it in multiple internal applications. - A project is in currently development to support a site with over one million unique users.  dt Should I extend ScalatraServlet or ScalatraFilter?
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/faq.html" title="FAQ | Scalatra guides">
+				<h2>FAQ | Scalatra guides</h2>
+			</a>
+
+			<br>
+			&mdash; name:headExtra pipeline:jade link{:type =&gt; &ldquo;text/css&rdquo;, :rel =&gt; &ldquo;stylesheet&rdquo;, :href =&gt; &ldquo;/css/book.css&rdquo;} &mdash; name:content pipeline:jade,markdown
+h1 FAQ
+h2 General questions
+dl dt It looks neat, but is it production ready? dd :markdown - It is use in the backend for LinkedIn Signal.
+ - <a href="http://www.chacha.com/">ChaCha</a> is using it in multiple internal applications. - A project is in currently development to support a site with over one million unique users.  dt Should I extend ScalatraServlet or ScalatraFilter?
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/faq.html" title="FAQ | Scalatra guides">
+				<h2>FAQ | Scalatra guides</h2>
+			</a>
+
+			<br>
+			&mdash; name:headExtra pipeline:jade link{:type =&gt; &ldquo;text/css&rdquo;, :rel =&gt; &ldquo;stylesheet&rdquo;, :href =&gt; &ldquo;/css/book.css&rdquo;} &mdash; name:content pipeline:jade,markdown
+h1 FAQ
+h2 General questions
+dl dt It looks neat, but is it production ready? dd :markdown - It is use in the backend for LinkedIn Signal.
+ - <a href="http://www.chacha.com/">ChaCha</a> is using it in multiple internal applications. - A project is in currently development to support a site with over one million unique users.  dt Should I extend ScalatraServlet or ScalatraFilter?
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/formats/upload.html" title="File upload">
+				<h2>File upload</h2>
+			</a>
+
+			<br>
+			Uploading files File upload support is included within Scalatra by default by leveraging the Servlet 3.0 API&rsquo;s built-in support for multipart/form-data requests. For a working example, see FileUploadExample.scala.
+To enable file upload support, extend your application with FileUploadSupport and set the upload configuration with a call to configureMultipartHandling:
+import org.scalatra.ScalatraServlet import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException} class MyApp extends ScalatraServlet with FileUploadSupport { configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024))) // &hellip; }  If you prefer using your web.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/formats/upload.html" title="File upload">
+				<h2>File upload</h2>
+			</a>
+
+			<br>
+			Uploading files File upload support is included within Scalatra by default by leveraging the Servlet 3.0 API&rsquo;s built-in support for multipart/form-data requests. For a working example, see FileUploadExample.scala.
+To enable file upload support, extend your application with FileUploadSupport and set the upload configuration with a call to configureMultipartHandling:
+import org.scalatra.ScalatraServlet import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException} class MyApp extends ScalatraServlet with FileUploadSupport { configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024))) // &hellip; }  If you prefer using your web.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/formats/upload.html" title="File uploads">
+				<h2>File uploads</h2>
+			</a>
+
+			<br>
+			Uploading files File upload support is included within Scalatra by default by leveraging the Servlet 3.0 API&rsquo;s built-in support for multipart/form-data requests. For a working example, see FileUploadExample.scala.
+To enable file upload support, extend your application with FileUploadSupport and set the upload configuration with a call to configureMultipartHandling:
+import org.scalatra.ScalatraServlet import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException} class MyApp extends ScalatraServlet with FileUploadSupport { configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024))) // &hellip; }  If you prefer using your web.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/formats/upload.html" title="File uploads">
+				<h2>File uploads</h2>
+			</a>
+
+			<br>
+			Uploading files File upload support is included within Scalatra by default by leveraging the Servlet 3.0 API&rsquo;s built-in support for multipart/form-data requests. For a working example, see FileUploadExample.scala.
+To enable file upload support, extend your application with FileUploadSupport and set the upload configuration with a call to configureMultipartHandling:
+import org.scalatra.ScalatraServlet import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException} class MyApp extends ScalatraServlet with FileUploadSupport { configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024))) // &hellip; }  If you prefer using your web.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/flash.html" title="Flash">
+				<h2>Flash</h2>
+			</a>
+
+			<br>
+			Flash support, allowing you to store information across requests and expire it immediately after a redirect, is included within Scalatra by default.
+ The scalatra-http-demo has a working example of flash support.  Basic usage Flash entries are not normally available within the current request scope. The exception is adding new flash entries into flash.now.
+In order to enable flash support, you&rsquo;ll need to extend your servlet class with FlashMapSupport.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/flash.html" title="Flash Support">
+				<h2>Flash Support</h2>
+			</a>
+
+			<br>
+			Flash support, allowing you to store information across requests and expire it immediately after a redirect, is included within Scalatra by default.
+ The scalatra-http-demo has a working example of flash support.  Basic usage Flash entries are not normally available within the current request scope. The exception is adding new flash entries into flash.now.
+In order to enable flash support, you&rsquo;ll need to extend your servlet class with FlashMapSupport.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/flash.html" title="Flash | HTTP | Scalatra guides">
+				<h2>Flash | HTTP | Scalatra guides</h2>
+			</a>
+
+			<br>
+			Flash support, allowing you to store information across requests and expire it immediately after a redirect, is included within Scalatra by default.
+ The scalatra-http-demo has a working example of flash support.  Basic usage Flash entries are not normally available within the current request scope. The exception is adding new flash entries into flash.now.
+In order to enable flash support, you&rsquo;ll need to extend your servlet class with FlashMapSupport.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/flash.html" title="Flash | HTTP | Scalatra guides">
+				<h2>Flash | HTTP | Scalatra guides</h2>
+			</a>
+
+			<br>
+			Flash support, allowing you to store information across requests and expire it immediately after a redirect, is included within Scalatra by default.
+ The scalatra-http-demo has a working example of flash support.  Basic usage Flash entries are not normally available within the current request scope. The exception is adding new flash entries into flash.now.
+In order to enable flash support, you&rsquo;ll need to extend your servlet class with FlashMapSupport.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/formats/forms.html" title="Forms">
+				<h2>Forms</h2>
+			</a>
+
+			<br>
+			{% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/google-app-engine.html" title="Google App Engine">
+				<h2>Google App Engine</h2>
+			</a>
+
+			<br>
+			Scalatra doesn&rsquo;t work on Google App Engine (GAE).
+Why not?!
+Short answer Scalatra runs on the Java platform (JRE). GAE doesn&rsquo;t support the JRE.
+Long answer GAE only supports a non-standard subset of the JRE, requiring that apps be specifically designed for it. Here are a few of the limitations:
+ No support for Servlet 3.0 Essential request headers are removed. Essential response headers are removed. Streaming responses are unsupported.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/google-app-engine.html" title="Google App Engine">
+				<h2>Google App Engine</h2>
+			</a>
+
+			<br>
+			Scalatra doesn&rsquo;t work on Google App Engine (GAE).
+Why not?!
+Short answer Scalatra runs on the Java platform (JRE). GAE doesn&rsquo;t support the JRE.
+Long answer GAE only supports a non-standard subset of the JRE, requiring that apps be specifically designed for it. Here are a few of the limitations:
+ No support for Servlet 3.0 Essential request headers are removed. Essential response headers are removed. Streaming responses are unsupported.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/google-app-engine.html" title="Google App Engine">
+				<h2>Google App Engine</h2>
+			</a>
+
+			<br>
+			Scalatra doesn&rsquo;t work on Google App Engine (GAE).
+Why not?!
+Short answer Scalatra runs on the Java platform (JRE). GAE doesn&rsquo;t support the JRE.
+Long answer GAE only supports a non-standard subset of the JRE, requiring that apps be specifically designed for it. Here are a few of the limitations:
+ No support for Servlet 3.0 Essential request headers are removed. Essential response headers are removed. Streaming responses are unsupported.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/google-app-engine.html" title="Google App Engine">
+				<h2>Google App Engine</h2>
+			</a>
+
+			<br>
+			Scalatra doesn&rsquo;t work on Google App Engine (GAE).
+Why not?!
+Short answer Scalatra runs on the Java platform (JRE). GAE doesn&rsquo;t support the JRE.
+Long answer GAE only supports a non-standard subset of the JRE, requiring that apps be specifically designed for it. Here are a few of the limitations:
+ No support for Servlet 3.0 Essential request headers are removed. Essential response headers are removed. Streaming responses are unsupported.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/gzip.html" title="Gzip">
+				<h2>Gzip</h2>
+			</a>
+
+			<br>
+			Bandwidth can be wasted when using verbose plaintext formats such as XML, leading to a poor user experience for your apps. Fortunately, many clients can accept compressed content and Scalatra lets you compress server responses without any change to your business logic. Just mix in GZipSupport.
+ See scalatra-gzip for a minimal and standalone project containing the example in this guide.  Example This servlet will reply with compressed content if and only if the client provides an Accept-Header indicating it understands gzip.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/gzip.html" title="Gzip">
+				<h2>Gzip</h2>
+			</a>
+
+			<br>
+			Bandwidth can be wasted when using verbose plaintext formats such as XML, leading to a poor user experience for your apps. Fortunately, many clients can accept compressed content and Scalatra lets you compress server responses without any change to your business logic. Just mix in GZipSupport.
+ See scalatra-gzip for a minimal and standalone project containing the example in this guide.  Example This servlet will reply with compressed content if and only if the client provides an Accept-Header indicating it understands gzip.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/gzip.html" title="Gzip">
+				<h2>Gzip</h2>
+			</a>
+
+			<br>
+			Bandwidth can be wasted when using verbose plaintext formats such as XML, leading to a poor user experience for your apps. Fortunately, many clients can accept compressed content and Scalatra lets you compress server responses without any change to your business logic. Just mix in GZipSupport.
+ See scalatra-gzip for a minimal and standalone project containing the example in this guide.  Example This servlet will reply with compressed content if and only if the client provides an Accept-Header indicating it understands gzip.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/gzip.html" title="Gzip Support">
+				<h2>Gzip Support</h2>
+			</a>
+
+			<br>
+			Bandwidth can be wasted when using verbose plaintext formats such as XML, leading to a poor user experience for your apps. Fortunately, many clients can accept compressed content and Scalatra lets you compress server responses without any change to your business logic. Just mix in GZipSupport.
+ See scalatra-gzip for a minimal and standalone project containing the example in this guide.  Example This servlet will reply with compressed content if and only if the client provides an Accept-Header indicating it understands gzip.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/formats/json.html" title="Handling JSON">
+				<h2>Handling JSON</h2>
+			</a>
+
+			<br>
+			Scalatra makes JSON handling quick and easy. By adding a few library imports and several lines of code, you can get automatic JSON serialization and deserialization for any Scala case class.
+Setup Let&rsquo;s say you&rsquo;ve generated a brand-new Scalatra project, and accepted all the defaults, except you&rsquo;ve used &ldquo;FlowersController&rdquo; instead of &ldquo;MyScalatraServlet&rdquo; for the servlet name. Then you trim things down so you&rsquo;ve got a bare controller like this one:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/formats/json.html" title="Handling JSON">
+				<h2>Handling JSON</h2>
+			</a>
+
+			<br>
+			Scalatra makes JSON handling quick and easy. By adding a few library imports and several lines of code, you can get automatic JSON serialization and deserialization for any Scala case class.
+Setup Let&rsquo;s say you&rsquo;ve generated a brand-new Scalatra project, and accepted all the defaults, except you&rsquo;ve used &ldquo;FlowersController&rdquo; instead of &ldquo;MyScalatraServlet&rdquo; for the servlet name. Then you trim things down so you&rsquo;ve got a bare controller like this one:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/formats/json.html" title="Handling JSON">
+				<h2>Handling JSON</h2>
+			</a>
+
+			<br>
+			Scalatra makes JSON handling quick and easy. By adding a few library imports and several lines of code, you can get automatic JSON serialization and deserialization for any Scala case class.
+Setup Let&rsquo;s say you&rsquo;ve generated a brand-new Scalatra project, and accepted all the defaults, except you&rsquo;ve used &ldquo;FlowersController&rdquo; instead of &ldquo;MyScalatraServlet&rdquo; for the servlet name. Then you trim things down so you&rsquo;ve got a bare controller like this one:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/formats/json.html" title="Handling JSON">
+				<h2>Handling JSON</h2>
+			</a>
+
+			<br>
+			Scalatra makes JSON handling quick and easy. By adding a few library imports and several lines of code, you can get automatic JSON serialization and deserialization for any Scala case class.
+Setup Let&rsquo;s say you&rsquo;ve generated a brand-new Scalatra project, and accepted all the defaults, except you&rsquo;ve used &ldquo;FlowersController&rdquo; instead of &ldquo;MyScalatraServlet&rdquo; for the servlet name. Then you trim things down so you&rsquo;ve got a bare controller like this one:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/modules.html" title="Helpers">
+				<h2>Helpers</h2>
+			</a>
+
+			<br>
+			Scalatra has a wide range of helpers to take care of common web development tasks. Some are built-in, and you can download a wide range of external helpers as well - or implement your own.
+Helpers in Scalatra are Scala traits that can applied to your controllers class.
+The most bare-bones possible Scalatra controller looks something like this:
+class FooController extends ScalatraServlet { get(&quot;/&quot;) { // do something } }  To add a helper, you can mix in a trait:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/modules.html" title="Helpers">
+				<h2>Helpers</h2>
+			</a>
+
+			<br>
+			Scalatra has a wide range of helpers to take care of common web development tasks. Some are built-in, and you can download a wide range of external helpers as well - or implement your own.
+Helpers in Scalatra are Scala traits that can applied to your controllers class.
+The most bare-bones possible Scalatra controller looks something like this:
+class FooController extends ScalatraServlet { get(&quot;/&quot;) { // do something } }  To add a helper, you can mix in a trait:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/modules.html" title="Helpers">
+				<h2>Helpers</h2>
+			</a>
+
+			<br>
+			Scalatra has a wide range of helpers to take care of common web development tasks. Some are built-in, and you can download a wide range of external helpers as well - or implement your own.
+Helpers in Scalatra are Scala traits that can applied to your controllers class.
+The most bare-bones possible Scalatra controller looks something like this:
+class FooController extends ScalatraServlet { get(&quot;/&quot;) { // do something } }  To add a helper, you can mix in a trait:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/modules.html" title="Helpers">
+				<h2>Helpers</h2>
+			</a>
+
+			<br>
+			Scalatra has a wide range of helpers to take care of common web development tasks. Some are built-in, and you can download a wide range of external helpers as well - or implement your own.
+Helpers in Scalatra are Scala traits that can applied to your controllers class.
+The most bare-bones possible Scalatra controller looks something like this:
+class FooController extends ScalatraServlet { get(&quot;/&quot;) { // do something } }  To add a helper, you can mix in a trait:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/views/inline-html.html" title="Inline HTML">
+				<h2>Inline HTML</h2>
+			</a>
+
+			<br>
+			Inline HTML The simplest method of rendering a view is by using inline HTML.
+Unlike frameworks in most other languages, Scalatra can use Scala&rsquo;s built-in XML literals to output XML directly as a return value from an action:
+def get(&quot;/&quot;) { contentType=&quot;text/html&quot; &lt;html&gt; &lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt; &lt;body&gt;Test Body for {uri(&quot;/&quot;)}&lt;/body&gt; &lt;/html&gt; }  Note the use of the curly braces on the {uri(&quot;/&quot;)} part of the inlined view. This tells Scalatra to render Scala code.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/views/inline-html.html" title="Inline HTML">
+				<h2>Inline HTML</h2>
+			</a>
+
+			<br>
+			Inline HTML The simplest method of rendering a view is by using inline HTML.
+Unlike frameworks in most other languages, Scalatra can use Scala&rsquo;s built-in XML literals to output XML directly as a return value from an action:
+def get(&quot;/&quot;) { contentType=&quot;text/html&quot; &lt;html&gt; &lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt; &lt;body&gt;Test Body for {uri(&quot;/&quot;)}&lt;/body&gt; &lt;/html&gt; }  Note the use of the curly braces on the {uri(&quot;/&quot;)} part of the inlined view. This tells Scalatra to render Scala code.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/views/inline-html.html" title="Inline HTML">
+				<h2>Inline HTML</h2>
+			</a>
+
+			<br>
+			The simplest method of rendering a view is by using inline HTML.
+Unlike frameworks in most other languages, Scalatra can use Scala&rsquo;s built-in XML literals to output XML directly as a return value from an action:
+def get(&quot;/&quot;) { contentType=&quot;text/html&quot; &lt;html&gt; &lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt; &lt;body&gt;Test Body for {uri(&quot;/&quot;)}&lt;/body&gt; &lt;/html&gt; }  Note the use of the curly braces on the {uri(&quot;/&quot;)} part of the inlined view. This tells Scalatra to render Scala code.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/views/inline-html.html" title="Inline HTML">
+				<h2>Inline HTML</h2>
+			</a>
+
+			<br>
+			The simplest method of rendering a view is by using inline HTML.
+Unlike frameworks in most other languages, Scalatra can use Scala&rsquo;s built-in XML literals to output XML directly as a return value from an action:
+def get(&quot;/&quot;) { contentType=&quot;text/html&quot; &lt;html&gt; &lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt; &lt;body&gt;Test Body for {uri(&quot;/&quot;)}&lt;/body&gt; &lt;/html&gt; }  Note the use of the curly braces on the {uri(&quot;/&quot;)} part of the inlined view. This tells Scalatra to render Scala code.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/internationalization.html" title="Internationalization">
+				<h2>Internationalization</h2>
+			</a>
+
+			<br>
+			This guide still needs to be written.
+Until we get this one finished, your best bet is to read Kyle Roche&rsquo;s blog post on internationalization in Scalatra.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/internationalization.html" title="Internationalization">
+				<h2>Internationalization</h2>
+			</a>
+
+			<br>
+			This guide still needs to be written.
+Until we get this one finished, your best bet is to read Kyle Roche&rsquo;s blog post on internationalization in Scalatra.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/internationalization.html" title="Internationalization">
+				<h2>Internationalization</h2>
+			</a>
+
+			<br>
+			This guide still needs to be written.
+Until we get this one finished, your best bet is to read Kyle Roche&rsquo;s blog post on internationalization in Scalatra.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/internationalization.html" title="Internationalization">
+				<h2>Internationalization</h2>
+			</a>
+
+			<br>
+			This guide still needs to be written.
+Until we get this one finished, your best bet is to read Kyle Roche&rsquo;s blog post on internationalization in Scalatra.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/introduction.html" title="Introduction">
+				<h2>Introduction</h2>
+			</a>
+
+			<br>
+			Scalatra&rsquo;s philosophy is to keep things simple and solid. At its heart, Scalatra is basically a domain-specific language (DSL) for easily making HTTP requests, and a way of extending the core HTTP router with whatever libraries you want. We think we&rsquo;ve got a great DSL for HTTP - the Sinatra style strikes us as perhaps the simplest, most natural way to express HTTP routes.
+Data is different. Every application has its own needs for persistence, and there&rsquo;s certainly no one-size-fits-all answer to the question of how to store data.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/introduction.html" title="Introduction">
+				<h2>Introduction</h2>
+			</a>
+
+			<br>
+			Scalatra&rsquo;s philosophy is to keep things simple and solid. At its heart, Scalatra is basically a domain-specific language (DSL) for easily making HTTP requests, and a way of extending the core HTTP router with whatever libraries you want. We think we&rsquo;ve got a great DSL for HTTP - the Sinatra style strikes us as perhaps the simplest, most natural way to express HTTP routes.
+Data is different. Every application has its own needs for persistence, and there&rsquo;s certainly no one-size-fits-all answer to the question of how to store data.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/introduction.html" title="Introduction">
+				<h2>Introduction</h2>
+			</a>
+
+			<br>
+			Scalatra&rsquo;s philosophy is to keep things simple and solid. At its heart, Scalatra is basically a domain-specific language (DSL) for easily making HTTP requests, and a way of extending the core HTTP router with whatever libraries you want. We think we&rsquo;ve got a great DSL for HTTP - the Sinatra style strikes us as perhaps the simplest, most natural way to express HTTP routes.
+Data is different. Every application has its own needs for persistence, and there&rsquo;s certainly no one-size-fits-all answer to the question of how to store data.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/introduction.html" title="Introduction to Persistence">
+				<h2>Introduction to Persistence</h2>
+			</a>
+
+			<br>
+			Scalatra&rsquo;s philosophy is to keep things simple and solid. At its heart, Scalatra is basically a domain-specific language (DSL) for easily making HTTP requests, and a way of extending the core HTTP router with whatever libraries you want. We think we&rsquo;ve got a great DSL for HTTP - the Sinatra style strikes us as perhaps the simplest, most natural way to express HTTP routes.
+Data is different. Every application has its own needs for persistence, and there&rsquo;s certainly no one-size-fits-all answer to the question of how to store data.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/jasmine.html" title="Jasmine">
+				<h2>Jasmine</h2>
+			</a>
+
+			<br>
+			{% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/resources/less-css.html" title="LESS CSS">
+				<h2>LESS CSS</h2>
+			</a>
+
+			<br>
+			LESS is an extension to CSS that adds DRY features such as variables, mixins, operations, and functions. If you&rsquo;ve felt the agony of repetitious CSS code (read: if you&rsquo;ve written CSS), it&rsquo;s time to start using LESS. Fortunately it&rsquo;s easy to add LESS to your build chain, causing sbt to translate your LESS into CSS during normal compilation. Best of all, since CSS is a valid subset of LESS, you can add the new features when you have time to learn them, on your schedule!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/resources/less-css.html" title="LESS CSS">
+				<h2>LESS CSS</h2>
+			</a>
+
+			<br>
+			LESS is an extension to CSS that adds DRY features such as variables, mixins, operations, and functions. If you&rsquo;ve felt the agony of repetitious CSS code (read: if you&rsquo;ve written CSS), it&rsquo;s time to start using LESS. Fortunately it&rsquo;s easy to add LESS to your build chain, causing sbt to translate your LESS into CSS during normal compilation. Best of all, since CSS is a valid subset of LESS, you can add the new features when you have time to learn them, on your schedule!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/resources/less-css.html" title="LESS CSS">
+				<h2>LESS CSS</h2>
+			</a>
+
+			<br>
+			LESS is an extension to CSS that adds DRY features such as variables, mixins, operations, and functions. If you&rsquo;ve felt the agony of repetitious CSS code (read: if you&rsquo;ve written CSS), it&rsquo;s time to start using LESS. Fortunately it&rsquo;s easy to add LESS to your build chain, causing sbt to translate your LESS into CSS during normal compilation. Best of all, since CSS is a valid subset of LESS, you can add the new features when you have time to learn them, on your schedule!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/resources/less-css.html" title="LESS CSS">
+				<h2>LESS CSS</h2>
+			</a>
+
+			<br>
+			LESS is an extension to CSS that adds DRY features such as variables, mixins, operations, and functions. If you&rsquo;ve felt the agony of repetitious CSS code (read: if you&rsquo;ve written CSS), it&rsquo;s time to start using LESS. Fortunately it&rsquo;s easy to add LESS to your build chain, causing sbt to translate your LESS into CSS during normal compilation. Best of all, since CSS is a valid subset of LESS, you can add the new features when you have time to learn them, on your schedule!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/monitoring/logging.html" title="Logging">
+				<h2>Logging</h2>
+			</a>
+
+			<br>
+			By default, Scalatra uses Logback for logging.
+You can easily add logging facilities to your project, if you&rsquo;ve got the logging dependency in your project/build.scala file:
+&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.2&quot; % &quot;runtime&quot;  In your servlet or filter class:
+import org.slf4j.{Logger, LoggerFactory} class YourServlet extends ScalatraServlet { val logger = LoggerFactory.getLogger(getClass) get(&quot;/&quot;) { logger.info(&quot;foo&quot;) // whatever else you want to put in the body of the action } }  This will get you basic logging support.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/monitoring/logging.html" title="Logging">
+				<h2>Logging</h2>
+			</a>
+
+			<br>
+			By default, Scalatra uses Logback for logging.
+You can easily add logging facilities to your project, if you&rsquo;ve got the logging dependency in your project/build.scala file:
+&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.7&quot; % &quot;runtime&quot;  In your servlet or filter class:
+import org.slf4j.{Logger, LoggerFactory} class YourServlet extends ScalatraServlet { val logger = LoggerFactory.getLogger(getClass) get(&quot;/&quot;) { logger.info(&quot;foo&quot;) // whatever else you want to put in the body of the action } }  This will get you basic logging support.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/monitoring/logging.html" title="Logging">
+				<h2>Logging</h2>
+			</a>
+
+			<br>
+			By default, Scalatra uses Logback for logging.
+You can easily add logging facilities to your project, if you&rsquo;ve got the logging dependency in your project/build.scala file:
+&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.7&quot; % &quot;runtime&quot;  In your servlet or filter class:
+import org.slf4j.{Logger, LoggerFactory} class YourServlet extends ScalatraServlet { val logger = LoggerFactory.getLogger(getClass) get(&quot;/&quot;) { logger.info(&quot;foo&quot;) // whatever else you want to put in the body of the action } }  This will get you basic logging support.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/monitoring/logging.html" title="Loggings">
+				<h2>Loggings</h2>
+			</a>
+
+			<br>
+			By default, Scalatra uses Logback for logging.
+You can easily add logging facilities to your project, if you&rsquo;ve got the logging dependency in your project/build.scala file:
+&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.0.11&quot; % &quot;runtime&quot;  In your servlet or filter class:
+import org.slf4j.{Logger, LoggerFactory} class YourServlet extends ScalatraServlet { val logger = LoggerFactory.getLogger(getClass) get(&quot;/&quot;) { logger.info(&quot;foo&quot;) // whatever else you want to put in the body of the action } }  This will get you basic logging support.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/monitoring/metrics.html" title="Metrics">
+				<h2>Metrics</h2>
+			</a>
+
+			<br>
+			{% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/monitoring/metrics.html" title="Metrics">
+				<h2>Metrics</h2>
+			</a>
+
+			<br>
+			This functionality is available starting in Scalatra 2.4.  Scalatra supports metrics via the metrics and metrics-scala projects.
+Setup In order to make use of this functionality, add scalatra-metrics to your build.sbt:
+&quot;org.scalatra&quot; %% &quot;scalatra-metrics&quot; % &quot;2.4.2&quot;  and mix in the MetricsBootstrap trait into ScalatraBootstrap:
+class ScalatraBootstrap extends LifeCycle with MetricsBootstrap { override def init(context: ServletContext) = { // &hellip; } }  Mixing in MetricsBootstrap will provide a default instance of both a MetricRegistry and a HealthCheckRegistry to your application.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/monitoring/metrics.html" title="Metrics">
+				<h2>Metrics</h2>
+			</a>
+
+			<br>
+			This functionality is available starting in Scalatra 2.4.  Scalatra supports metrics via the metrics and metrics-scala projects.
+Setup In order to make use of this functionality, add scalatra-metrics to your build.sbt:
+&quot;org.scalatra&quot; %% &quot;scalatra-metrics&quot; % &quot;2.5.0&quot;  and mix in the MetricsBootstrap trait into ScalatraBootstrap:
+class ScalatraBootstrap extends LifeCycle with MetricsBootstrap { override def init(context: ServletContext) = { // &hellip; } }  Mixing in MetricsBootstrap will provide a default instance of both a MetricRegistry and a HealthCheckRegistry to your application.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/mongodb.html" title="MongoDb">
+				<h2>MongoDb</h2>
+			</a>
+
+			<br>
+			MongoDb is an open-source document database, and one of the most widely deployed NoSQL databases. It is extremely easy to use with Scalatra.
+There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s Scala Language Center.
+ Casbah Lift-mongodb Rogue Salat  Getting going with Casbah MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/mongodb.html" title="MongoDb">
+				<h2>MongoDb</h2>
+			</a>
+
+			<br>
+			MongoDb is an open-source document database, and one of the most widely deployed NoSQL databases. It is extremely easy to use with Scalatra.
+There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s Scala Language Center.
+ Casbah Lift-mongodb Rogue Salat  Getting going with Casbah MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/mongodb.html" title="MongoDb">
+				<h2>MongoDb</h2>
+			</a>
+
+			<br>
+			MongoDb is an open-source document database, and one of the most widely deployed NoSQL databases. It is extremely easy to use with Scalatra.
+There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s Scala Language Center.
+ Casbah Lift-mongodb Rogue Salat  Getting going with Casbah MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/mongodb.html" title="MongoDb Persistence">
+				<h2>MongoDb Persistence</h2>
+			</a>
+
+			<br>
+			MongoDb is an open-source document database, and one of the most widely deployed NoSQL databases. It is extremely easy to use with Scalatra.
+There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s Scala Language Center.
+ Casbah Lift-mongodb Rogue Salat  Getting going with Casbah MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/requests-and-responses.html" title="Requests and responses">
+				<h2>Requests and responses</h2>
+			</a>
+
+			<br>
+			Request Inside any action, the current request is available through the request variable. The underlying servlet request is implicitly extended with the following methods:
+body to get the request body as a string. isAjax to detect AJAX requests. cookies a Map view of the request&rsquo;s cookies. multiCookies a Map view of the request&rsquo;s cookies.  The request also implements a scala.collection.mutable.Map backed by the request attributes.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/requests-and-responses.html" title="Requests and responses">
+				<h2>Requests and responses</h2>
+			</a>
+
+			<br>
+			Request Inside any action, the current request is available through the request variable. The underlying servlet request is implicitly extended with the following methods:
+body to get the request body as a string. isAjax to detect AJAX requests. cookies a Map view of the request&rsquo;s cookies. multiCookies a Map view of the request&rsquo;s cookies.  The request also implements a scala.collection.mutable.Map backed by the request attributes.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/requests-and-responses.html" title="Requests and responses">
+				<h2>Requests and responses</h2>
+			</a>
+
+			<br>
+			Request Inside any action, the current request is available through the request variable. The underlying servlet request is implicitly extended with the following methods:
+body to get the request body as a string. isAjax to detect AJAX requests. cookies a Map view of the request&rsquo;s cookies. multiCookies a Map view of the request&rsquo;s cookies.  The request also implements a scala.collection.mutable.Map backed by the request attributes.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/requests-and-responses.html" title="Requests and responses">
+				<h2>Requests and responses</h2>
+			</a>
+
+			<br>
+			Request Inside any action, the current request is available through the request variable. The underlying servlet request is implicitly extended with the following methods:
+body to get the request body as a string. isAjax to detect AJAX requests. cookies a Map view of the request&rsquo;s cookies. multiCookies a Map view of the request&rsquo;s cookies.  The request also implements a scala.collection.mutable.Map backed by the request attributes.
+ The scalatra-http-demo is a good place to start if you need to see basic requests and response, cookies, and dealing with form input.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/reverse-routes.html" title="Reverse Routes">
+				<h2>Reverse Routes</h2>
+			</a>
+
+			<br>
+			URL support and reverse routes ScalatraBase provides two instances that provide you with relative URLs. The url method will return a string that can be used in your output or a redirect statement.
+ The scalatra-http-demo is a good place to start if you&rsquo;d like to see working url-related examples.  In Scalatra 2.0.x, you used to need to extend the UrlSupport trait, but that&rsquo;s now been moved into ScalatraBase, so all you need is:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/reverse-routes.html" title="Reverse routes">
+				<h2>Reverse routes</h2>
+			</a>
+
+			<br>
+			URL support and reverse routes ScalatraBase provides two instances that provide you with relative URLs. The url method will return a string that can be used in your output or a redirect statement.
+ The scalatra-http-demo is a good place to start if you&rsquo;d like to see working url-related examples.  In Scalatra 2.0.x, you used to need to extend the UrlSupport trait, but that&rsquo;s now been moved into ScalatraBase, so all you need is:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/reverse-routes.html" title="Reverse routes">
+				<h2>Reverse routes</h2>
+			</a>
+
+			<br>
+			URL support and reverse routes ScalatraBase provides two instances that provide you with relative URLs. The url method will return a string that can be used in your output or a redirect statement.
+ The scalatra-http-demo is a good place to start if you&rsquo;d like to see working url-related examples.  In Scalatra 2.0.x, you used to need to extend the UrlSupport trait, but that&rsquo;s now been moved into ScalatraBase, so all you need is:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/reverse-routes.html" title="Reverse routes">
+				<h2>Reverse routes</h2>
+			</a>
+
+			<br>
+			URL support and reverse routes ScalatraBase provides two instances that provide you with relative URLs. The url method will return a string that can be used in your output or a redirect statement.
+ The scalatra-http-demo is a good place to start if you&rsquo;d like to see working url-related examples.  In Scalatra 2.0.x, you used to need to extend the UrlSupport trait, but that&rsquo;s now been moved into ScalatraBase, so all you need is:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/riak.html" title="Riak">
+				<h2>Riak</h2>
+			</a>
+
+			<br>
+			Riak is an open source, distributed database.
+There are multiple clients for Riak, with varying levels of complexity, Scala integration, and maturity.
+ Basho&rsquo;s official riak-java-client Scalapenos riak-scala-client Stackmob scaliak  Getting going with Basho&rsquo;s riak-java-client Assuming you&rsquo;ve got Riak installed already, getting it working with Scalatra is as follows.
+ See riak-example for a minimal and standalone project containing the example in this guide.  We&rsquo;ll use Basho&rsquo;s officially-supported riak-java-client library.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/riak.html" title="Riak">
+				<h2>Riak</h2>
+			</a>
+
+			<br>
+			Riak is an open source, distributed database.
+There are multiple clients for Riak, with varying levels of complexity, Scala integration, and maturity.
+ Basho&rsquo;s official riak-java-client Scalapenos riak-scala-client Stackmob scaliak  Getting going with Basho&rsquo;s riak-java-client Assuming you&rsquo;ve got Riak installed already, getting it working with Scalatra is as follows.
+ See riak-example for a minimal and standalone project containing the example in this guide.  We&rsquo;ll use Basho&rsquo;s officially-supported riak-java-client library.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/riak.html" title="Riak">
+				<h2>Riak</h2>
+			</a>
+
+			<br>
+			Riak is an open source, distributed database.
+There are multiple clients for Riak, with varying levels of complexity, Scala integration, and maturity.
+ Basho&rsquo;s official riak-java-client Scalapenos riak-scala-client Stackmob scaliak  Getting going with Basho&rsquo;s riak-java-client Assuming you&rsquo;ve got Riak installed already, getting it working with Scalatra is as follows.
+ See riak-example for a minimal and standalone project containing the example in this guide.  We&rsquo;ll use Basho&rsquo;s officially-supported riak-java-client library.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/riak.html" title="Riak">
+				<h2>Riak</h2>
+			</a>
+
+			<br>
+			Riak is an open source, distributed database.
+There are multiple clients for Riak, with varying levels of complexity, Scala integration, and maturity.
+ Basho&rsquo;s official riak-java-client Scalapenos riak-scala-client Stackmob scaliak  Getting going with Basho&rsquo;s riak-java-client Assuming you&rsquo;ve got Riak installed already, getting it working with Scalatra is as follows.
+ See riak-example for a minimal and standalone project containing the example in this guide.  We&rsquo;ll use Basho&rsquo;s officially-supported riak-java-client library.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/routes.html" title="Routes">
+				<h2>Routes</h2>
+			</a>
+
+			<br>
+			All web applications need a way to match up the incoming HTTP request with some code to execute on the server. In Scalatra, this is done using routes and actions.
+If somebody makes a POST request to your application, at <a href="http://www.yourapp.org/articles">http://www.yourapp.org/articles</a>, you might want to invoke code on the server which will look at the information contained in the incoming request, and use it to create a new Article object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/routes.html" title="Routes">
+				<h2>Routes</h2>
+			</a>
+
+			<br>
+			All web applications need a way to match up the incoming HTTP request with some code to execute on the server. In Scalatra, this is done using routes and actions.
+If somebody makes a POST request to your application, at <a href="http://www.yourapp.org/articles">http://www.yourapp.org/articles</a>, you might want to invoke code on the server which will look at the information contained in the incoming request, and use it to create a new Article object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/routes.html" title="Routes">
+				<h2>Routes</h2>
+			</a>
+
+			<br>
+			All web applications need a way to match up the incoming HTTP request with some code to execute on the server. In Scalatra, this is done using routes and actions.
+If somebody makes a POST request to your application, at <a href="http://www.yourapp.org/articles">http://www.yourapp.org/articles</a>, you might want to invoke code on the server which will look at the information contained in the incoming request, and use it to create a new Article object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/routes.html" title="Routes">
+				<h2>Routes</h2>
+			</a>
+
+			<br>
+			All web applications need a way to match up the incoming HTTP request with some code to execute on the server. In Scalatra, this is done using routes and actions.
+If somebody makes a POST request to your application, at <a href="http://www.yourapp.org/articles">http://www.yourapp.org/articles</a>, you might want to invoke code on the server which will look at the information contained in the incoming request, and use it to create a new Article object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/scalacheck.html" title="ScalaCheck">
+				<h2>ScalaCheck</h2>
+			</a>
+
+			<br>
+			{% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/scalatest.html" title="ScalaTest">
+				<h2>ScalaTest</h2>
+			</a>
+
+			<br>
+			ScalaTest supports three main styles of testing out of the box: test-driven development (TDD), behavior-driven development (BDD), and acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in Scala.
+Scalatra has an integration to make the use of ScalaTest more convenient.
+Convenience traits are provided for many Suite implementations:
+ ScalatraSpec ScalatraFlatSpec ScalatraFreeSpec ScalatraWordSpec ScalatraFunSuite ScalatraFeatureSpec ScalatraJUnit3Suite ScalatraJUnitSuite (JUnit 4) ScalatraTestNGSuite  Dependency &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % &quot;2.2.2&quot; % &quot;test&quot;  Example Extend ScalatraSuite with your preferred org.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/testing/scalatest.html" title="ScalaTest">
+				<h2>ScalaTest</h2>
+			</a>
+
+			<br>
+			ScalaTest supports three main styles of testing out of the box: test-driven development (TDD), behavior-driven development (BDD), and acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in Scala.
+Scalatra has an integration to make the use of ScalaTest more convenient.
+Convenience traits are provided for many Suite implementations:
+ ScalatraSpec ScalatraFlatSpec ScalatraFreeSpec ScalatraWordSpec ScalatraFunSuite ScalatraFeatureSpec ScalatraJUnit3Suite ScalatraJUnitSuite (JUnit 4) ScalatraTestNGSuite   Notice that all the above traits are based on ScalatraSuite which mixes in BeforeAndAfterAll.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/testing/scalatest.html" title="ScalaTest">
+				<h2>ScalaTest</h2>
+			</a>
+
+			<br>
+			ScalaTest supports three main styles of testing out of the box: test-driven development (TDD), behavior-driven development (BDD), and acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in Scala.
+Scalatra has an integration to make the use of ScalaTest more convenient.
+Convenience traits are provided for many Suite implementations:
+ ScalatraSpec ScalatraFlatSpec ScalatraFreeSpec ScalatraWordSpec ScalatraFunSuite ScalatraFeatureSpec ScalatraJUnit3Suite ScalatraJUnitSuite (JUnit 4) ScalatraTestNGSuite  Dependency &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % &quot;2.4.2&quot; % &quot;test&quot;  Example Extend ScalatraSuite with your preferred org.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/testing/scalatest.html" title="ScalaTest">
+				<h2>ScalaTest</h2>
+			</a>
+
+			<br>
+			ScalaTest supports three main styles of testing out of the box: test-driven development (TDD), behavior-driven development (BDD), and acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in Scala.
+Scalatra has an integration to make the use of ScalaTest more convenient.
+Convenience traits are provided for many Suite implementations:
+ ScalatraSpec ScalatraFlatSpec ScalatraFreeSpec ScalatraWordSpec ScalatraFunSuite ScalatraFeatureSpec ScalatraJUnit3Suite ScalatraJUnitSuite (JUnit 4) ScalatraTestNGSuite  Dependency &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % &quot;2.5.0&quot; % &quot;test&quot;  Example Extend ScalatraSuite with your preferred org.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/views/scalate.html" title="Scalate">
+				<h2>Scalate</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re using Scalatra to build a web application (as opposed to an API), chances are you&rsquo;ll want to render HTML layouts, page content, and re-usable fragments or partials. Like many other frameworks, we refer to HTML templates as &ldquo;views&rdquo;.
+Scalatra can render views in two main ways.
+ Inline HTML, returned directly from an action. Using the ScalateSupport helper trait which comes built into the default Scalatra g8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/views/scalate.html" title="Scalate">
+				<h2>Scalate</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re using Scalatra to build a web application (as opposed to an API), chances are you&rsquo;ll want to render HTML layouts, page content, and re-usable fragments or partials. Like many other frameworks, we refer to HTML templates as &ldquo;views&rdquo;.
+Scalatra can render views in two main ways.
+ Inline HTML, returned directly from an action. Using the ScalateSupport helper trait which comes built into the default Scalatra g8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/views/scalate.html" title="Scalate">
+				<h2>Scalate</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re using Scalatra to build a web application (as opposed to an API), chances are you&rsquo;ll want to render HTML layouts, page content, and re-usable fragments or partials. Like many other frameworks, we refer to HTML templates as &ldquo;views&rdquo;.
+Scalatra can render views in two main ways.
+ Inline HTML, returned directly from an action. Using the ScalateSupport helper trait which comes built into the default Scalatra g8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/views/scalate.html" title="Scalate">
+				<h2>Scalate</h2>
+			</a>
+
+			<br>
+			If you&rsquo;re using Scalatra to build a web application (as opposed to an API), chances are you&rsquo;ll want to render HTML layouts, page content, and re-usable fragments or partials. Like many other frameworks, we refer to HTML templates as &ldquo;views&rdquo;.
+Scalatra can render views in two main ways.
+ Inline HTML, returned directly from an action. Using the ScalateSupport helper trait which comes built into the default Scalatra g8 template.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2.html" title="Scalatra 2.2 Guides">
+				<h2>Scalatra 2.2 Guides</h2>
+			</a>
+
+			<br>
+			Outlook Scalatra&rsquo;s philosophy
+Development We&rsquo;ve documented most aspects of working with Scalatra in a series of guides covering common development tasks.
+HTTP Routes, actions, reverse routes, requests &amp; responses, gzip, flash, authentication
+Async Akka, Atmosphere
+Views Inline HTML, Scalate, Twirl, Twitter Bootstrap, Dust
+Resources CoffeeScript, LESS CSS, wro4j
+Formats File Upload, JSON, Commands, XML, forms
+Persistence Introduction, MongoDB, Riak,Slick, Squeryl
+Web services CORS, OpenID, OAuth, HTTP Client
+Internationalization i18n
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4.html" title="Scalatra guides">
+				<h2>Scalatra guides</h2>
+			</a>
+
+			<br>
+			Outlook Scalatra&rsquo;s philosophy
+Development We&rsquo;ve documented most aspects of working with Scalatra in a series of guides covering common development tasks.
+HTTP Routes, actions, reverse routes, requests &amp; responses, gzip, flash, authentication, CORS
+Async Akka, Atmosphere
+Views Inline HTML, Scalate, Twirl
+Resources CoffeeScript, LESS CSS, wro4j
+Formats File Upload, JSON, Commands
+Persistence Introduction, MongoDB, Riak,Slick, Squeryl
+Internationalization i18n
+Testing ScalaTest, Specs2
+API Design &amp; Documentation Swagger
+After development Monitoring Logging
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5.html" title="Scalatra guides">
+				<h2>Scalatra guides</h2>
+			</a>
+
+			<br>
+			We&rsquo;ve documented most aspects of working with Scalatra in a series of guides covering common development tasks.
+HTTP Routes, actions, reverse routes, requests &amp; responses, gzip, flash, authentication, CORS
+Async Akka, Atmosphere
+Views Inline HTML, Scalate, Twirl
+Resources CoffeeScript, LESS CSS, wro4j
+Formats File Upload, JSON, Commands
+Persistence Introduction, MongoDB, Riak,Slick, Squeryl
+Internationalization i18n
+Testing ScalaTest, Specs2
+API Design &amp; Documentation Swagger
+After development Monitoring Logging
+Deployment configuration, servlet container, standalone, Heroku, Jelastic, CloudBees, Google App Engine
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3.html" title="Scalatra guides | Scalatra">
+				<h2>Scalatra guides | Scalatra</h2>
+			</a>
+
+			<br>
+			Outlook Scalatra&rsquo;s philosophy
+Development We&rsquo;ve documented most aspects of working with Scalatra in a series of guides covering common development tasks.
+HTTP Routes, actions, reverse routes, requests &amp; responses, gzip, flash, authentication
+Async Akka, Atmosphere
+Views Inline HTML, Scalate, Twirl, Twitter Bootstrap, Dust
+Resources CoffeeScript, LESS CSS, wro4j
+Formats File Upload, JSON, Commands, XML, forms
+Persistence Introduction, MongoDB, Riak,Slick, Squeryl
+Web services CORS, OpenID, OAuth, HTTP Client
+Internationalization i18n
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/scalatra-philosophy.html" title="Scalatra&#39;s philosophy">
+				<h2>Scalatra&#39;s philosophy</h2>
+			</a>
+
+			<br>
+			<ol>
+<li>Start small, build upwards Start with a small core, and have lots of easy integrations for common tasks.</li>
+<li>Freedom Allow the user freedom to choose whatever structure and libraries make the most sense for the application being built.</li>
+<li>Solid, but not stolid Use solid base components. For instance, servlets aren&rsquo;t cool, but they are extremely stable and have a huge community behind them. At the same time, work to advance the state of web application development by using new techniques and approaches.</li>
+</ol>
+
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/scalatra-philosophy.html" title="Scalatra&#39;s philosophy">
+				<h2>Scalatra&#39;s philosophy</h2>
+			</a>
+
+			<br>
+			<ol>
+<li>Start small, build upwards Start with a small core, and have lots of easy integrations for common tasks.</li>
+<li>Freedom Allow the user freedom to choose whatever structure and libraries make the most sense for the application being built.</li>
+<li>Solid, but not stolid Use solid base components. For instance, servlets aren&rsquo;t cool, but they are extremely stable and have a huge community behind them. At the same time, work to advance the state of web application development by using new techniques and approaches.</li>
+</ol>
+
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/scalatra-philosophy.html" title="Scalatra&#39;s philosophy">
+				<h2>Scalatra&#39;s philosophy</h2>
+			</a>
+
+			<br>
+			<ol>
+<li>Start small, build upwards Start with a small core, and have lots of easy integrations for common tasks.</li>
+<li>Freedom Allow the user freedom to choose whatever structure and libraries make the most sense for the application being built.</li>
+<li>Solid, but not stolid Use solid base components. For instance, servlets aren&rsquo;t cool, but they are extremely stable and have a huge community behind them. At the same time, work to advance the state of web application development by using new techniques and approaches.</li>
+</ol>
+
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/scalatratest.html" title="ScalatraTest">
+				<h2>ScalatraTest</h2>
+			</a>
+
+			<br>
+			Dependency &quot;org.scalatra&quot; %% &quot;scalatra-test&quot; % &quot;2.2.2&quot; % &quot;test&quot;  Usage guide Create an instance of org.scalatra.test.ScalatraTests. Be sure to call start() and stop() before and after your test suite.
+Testing FAQ How do I set a servlet init parameter? scalatra-test is built on an embedded Jetty server, so it does not read your web.xml. Most things you can do in a web.xml can be done from the context of the tester object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/testing/scalatratest.html" title="ScalatraTest">
+				<h2>ScalatraTest</h2>
+			</a>
+
+			<br>
+			Dependency &quot;org.scalatra&quot; %% &quot;scalatra-test&quot; % &quot;2.3.1&quot; % &quot;test&quot;  Usage guide Create an instance of org.scalatra.test.ScalatraTests. Be sure to call start() and stop() before and after your test suite.
+Testing FAQ How do I set a servlet init parameter? scalatra-test is built on an embedded Jetty server, so it does not read your web.xml. Most things you can do in a web.xml can be done from the context of the tester object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/testing/scalatratest.html" title="ScalatraTest">
+				<h2>ScalatraTest</h2>
+			</a>
+
+			<br>
+			Dependency &quot;org.scalatra&quot; %% &quot;scalatra-test&quot; % &quot;2.4.2&quot; % &quot;test&quot;  Usage guide Create an instance of org.scalatra.test.ScalatraTests. Be sure to call start() and stop() before and after your test suite.
+Testing FAQ How do I set a servlet init parameter? scalatra-test is built on an embedded Jetty server, so it does not read your web.xml. Most things you can do in a web.xml can be done from the context of the tester object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/testing/scalatratest.html" title="ScalatraTest">
+				<h2>ScalatraTest</h2>
+			</a>
+
+			<br>
+			Dependency &quot;org.scalatra&quot; %% &quot;scalatra-test&quot; % &quot;2.5.0&quot; % &quot;test&quot;  Usage guide Create an instance of org.scalatra.test.ScalatraTests. Be sure to call start() and stop() before and after your test suite.
+Testing FAQ How do I set a servlet init parameter? scalatra-test is built on an embedded Jetty server, so it does not read your web.xml. Most things you can do in a web.xml can be done from the context of the tester object.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/selenium.html" title="Selenium | Testing | Scalatra guides">
+				<h2>Selenium | Testing | Scalatra guides</h2>
+			</a>
+
+			<br>
+			{% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/sessions.html" title="Session Handling">
+				<h2>Session Handling</h2>
+			</a>
+
+			<br>
+			Session handling Scalatra has session handling built into the framework by default. There are no modules or traits that you need to include.
+ Sessions are off until the session method is called. Once session is called, a cookie-based session will be created.
+Then you will be able to use the default cookie based session handler in your application:
+get(&quot;/&quot;) { if(session.contains(&quot;counter&quot;)) session(&quot;counter&quot;) = 0 session(&quot;counter&quot;) = session(&quot;counter&quot;).toInt + 1 &quot;You&rsquo;ve hit this page %s times!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/sessions.html" title="Sessions">
+				<h2>Sessions</h2>
+			</a>
+
+			<br>
+			Session handling Scalatra has session handling built into the framework by default. There are no modules or traits that you need to include.
+ Sessions are off until the session method is called. Once session is called, a cookie-based session will be created.
+Then you will be able to use the default cookie based session handler in your application:
+get(&quot;/&quot;) { if(session.contains(&quot;counter&quot;)) session(&quot;counter&quot;) = 0 session(&quot;counter&quot;) = session(&quot;counter&quot;).toInt + 1 &quot;You&rsquo;ve hit this page %s times!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/sessions.html" title="Sessions">
+				<h2>Sessions</h2>
+			</a>
+
+			<br>
+			Session handling Scalatra has session handling built into the framework by default. There are no modules or traits that you need to include.
+ Sessions are off until the session method is called. Once session is called, a cookie-based session will be created.
+Then you will be able to use the default cookie based session handler in your application:
+get(&quot;/&quot;) { if(session.contains(&quot;counter&quot;)) session(&quot;counter&quot;) = 0 session(&quot;counter&quot;) = session(&quot;counter&quot;).toInt + 1 &quot;You&rsquo;ve hit this page %s times!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/sessions.html" title="Sessions">
+				<h2>Sessions</h2>
+			</a>
+
+			<br>
+			Session handling Scalatra has session handling built into the framework by default. There are no modules or traits that you need to include.
+ Sessions are off until the session method is called. Once session is called, a cookie-based session will be created.
+Then you will be able to use the default cookie based session handler in your application:
+get(&quot;/&quot;) { if(session.contains(&quot;counter&quot;)) session(&quot;counter&quot;) = 0 session(&quot;counter&quot;) = session(&quot;counter&quot;).toInt + 1 &quot;You&rsquo;ve hit this page %s times!
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/slick.html" title="Slick">
+				<h2>Slick</h2>
+			</a>
+
+			<br>
+			Slick is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.
+ See scalatra-slick for a minimal and standalone project containing the example in this guide.  Project Overview The sample project contains a minimal setup. For this guide the following files are important:
+ project/build.scala: we configure the SBT build and the dependencies here. src/main/scala/slicksupport/slick.scala: the scalatra application.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/slick.html" title="Slick">
+				<h2>Slick</h2>
+			</a>
+
+			<br>
+			Slick is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.
+ See scalatra-slick for a minimal and standalone project containing the example in this guide.  Project Overview The sample project contains a minimal setup. For this guide the following files are important:
+ project/build.scala: we configure the SBT build and the dependencies here. src/main/scala/slicksupport/slick.scala: the scalatra application.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/slick.html" title="Slick">
+				<h2>Slick</h2>
+			</a>
+
+			<br>
+			Slick is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.
+ This guide uses Scalatra 2.4.0.M2 (Milestone) Slick 3.0.0-RC1 (Release Candidate). You may want to check for a newer version.   See scalatra-slick for a minimal and standalone project containing the example in this guide.  Project Overview The sample project contains a minimal setup. For this guide the following files are important:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/slick.html" title="Slick">
+				<h2>Slick</h2>
+			</a>
+
+			<br>
+			Slick is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.
+ This guide uses Scalatra 2.4.0.M2 (Milestone) Slick 3.0.0-RC1 (Release Candidate). You may want to check for a newer version.   See scalatra-slick for a minimal and standalone project containing the example in this guide.  Project Overview The sample project contains a minimal setup. For this guide the following files are important:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/testing/specs2.html" title="Specs2">
+				<h2>Specs2</h2>
+			</a>
+
+			<br>
+			Specs2 is a library for writing executable software specifications. With specs2 you can write software specifications for one class (unit specifications) or a full system (acceptance specifications).
+Dependency &quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.2.2&quot; % &quot;test&quot;  Examples Specs2 supports two basic styles: unit and acceptance. Both are supported by Scalatra.
+Unit testing From the Specs2 QuickStart:
+ unit specifications where the specification text is interleaved with the specification code. It is generally used to specify a single class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/testing/specs2.html" title="Specs2">
+				<h2>Specs2</h2>
+			</a>
+
+			<br>
+			Specs2 is a library for writing executable software specifications. With specs2 you can write software specifications for one class (unit specifications) or a full system (acceptance specifications).
+Dependency &quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.3.1&quot; % &quot;test&quot;  Examples Specs2 supports two basic styles: unit and acceptance. Both are supported by Scalatra.
+Unit testing From the Specs2 QuickStart:
+ unit specifications where the specification text is interleaved with the specification code. It is generally used to specify a single class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/testing/specs2.html" title="Specs2">
+				<h2>Specs2</h2>
+			</a>
+
+			<br>
+			Specs2 is a library for writing executable software specifications. With specs2 you can write software specifications for one class (unit specifications) or a full system (acceptance specifications).
+Dependency &quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.4.2&quot; % &quot;test&quot;  Examples Specs2 supports two basic styles: unit and acceptance. Both are supported by Scalatra.
+Unit testing From the Specs2 QuickStart:
+ unit specifications where the specification text is interleaved with the specification code. It is generally used to specify a single class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/testing/specs2.html" title="Specs2">
+				<h2>Specs2</h2>
+			</a>
+
+			<br>
+			Specs2 is a library for writing executable software specifications. With specs2 you can write software specifications for one class (unit specifications) or a full system (acceptance specifications).
+Dependency &quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.5.0&quot; % &quot;test&quot;  Examples Specs2 supports two basic styles: unit and acceptance. Both are supported by Scalatra.
+Unit testing From the Specs2 QuickStart:
+ unit specifications where the specification text is interleaved with the specification code. It is generally used to specify a single class.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/squeryl.html" title="Squeryl">
+				<h2>Squeryl</h2>
+			</a>
+
+			<br>
+			Squeryl is a Scala object-relational mapper and domain-specific language for talking to databases in a succinct and typesafe way.
+We&rsquo;ll use Squeryl with C3P0, a &ldquo;butt-simple&rdquo; connection pooling library.
+ See scalatra-squeryl for an example project which expands on the concepts explained in this guide.  Dependencies &quot;org.squeryl&quot; %% &quot;squeryl&quot; % &quot;0.9.5-6&quot;, &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.3.166&quot;, &quot;c3p0&quot; % &quot;c3p0&quot; % &quot;0.9.1.2&quot;  Set up a C3P0 connection pool Setting up C3P0 connection pool in Scalatra is just a matter of making a trait which does your database initialization.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/squeryl.html" title="Squeryl">
+				<h2>Squeryl</h2>
+			</a>
+
+			<br>
+			Squeryl is a Scala object-relational mapper and domain-specific language for talking to databases in a succinct and typesafe way.
+We&rsquo;ll use Squeryl with C3P0, a &ldquo;butt-simple&rdquo; connection pooling library.
+ See scalatra-squeryl for an example project which expands on the concepts explained in this guide.  Dependencies &quot;org.squeryl&quot; %% &quot;squeryl&quot; % &quot;0.9.5-7&quot;, &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.3.166&quot;, &quot;c3p0&quot; % &quot;c3p0&quot; % &quot;0.9.1.2&quot;  Set up a C3P0 connection pool Setting up C3P0 connection pool in Scalatra is just a matter of making a trait which does your database initialization.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/squeryl.html" title="Squeryl">
+				<h2>Squeryl</h2>
+			</a>
+
+			<br>
+			Squeryl is a Scala object-relational mapper and domain-specific language for talking to databases in a succinct and typesafe way.
+We&rsquo;ll use Squeryl with C3P0, a &ldquo;butt-simple&rdquo; connection pooling library.
+ See scalatra-squeryl for an example project which expands on the concepts explained in this guide.  Dependencies &quot;org.squeryl&quot; %% &quot;squeryl&quot; % &quot;0.9.5-7&quot;, &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.3.166&quot;, &quot;c3p0&quot; % &quot;c3p0&quot; % &quot;0.9.1.2&quot;  Set up a C3P0 connection pool Setting up C3P0 connection pool in Scalatra is just a matter of making a trait which does your database initialization.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html" title="Squeryl">
+				<h2>Squeryl</h2>
+			</a>
+
+			<br>
+			Squeryl is a Scala object-relational mapper and domain-specific language for talking to databases in a succinct and typesafe way.
+We&rsquo;ll use Squeryl with C3P0, a &ldquo;butt-simple&rdquo; connection pooling library.
+ See scalatra-squeryl for an example project which expands on the concepts explained in this guide.  Dependencies &quot;org.squeryl&quot; %% &quot;squeryl&quot; % &quot;0.9.5-7&quot;, &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.3.166&quot;, &quot;c3p0&quot; % &quot;c3p0&quot; % &quot;0.9.1.2&quot;  Set up a C3P0 connection pool Setting up C3P0 connection pool in Scalatra is just a matter of making a trait which does your database initialization.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/standalone.html" title="Standalone deployment">
+				<h2>Standalone deployment</h2>
+			</a>
+
+			<br>
+			Launching Scalatra as a servlet We need some glue code to launch an embedded Jetty server with the ScalatraListener.
+package com.example // remember this package in the sbt project definition import org.eclipse.jetty.server.Server import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler} import org.eclipse.jetty.webapp.WebAppContext import org.scalatra.servlet.ScalatraListener object JettyLauncher { // this is my entry object as specified in sbt project definition def main(args: Array[String]) { val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080 val server = new Server(port) val context = new WebAppContext() context setContextPath &quot;/&quot; context.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/standalone.html" title="Standalone deployment">
+				<h2>Standalone deployment</h2>
+			</a>
+
+			<br>
+			Launching Scalatra as a servlet We need some glue code to launch an embedded Jetty server with the ScalatraListener.
+package com.example // remember this package in the sbt project definition import org.eclipse.jetty.server.Server import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler} import org.eclipse.jetty.webapp.WebAppContext import org.scalatra.servlet.ScalatraListener object JettyLauncher { // this is my entry object as specified in sbt project definition def main(args: Array[String]) { val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080 val server = new Server(port) val context = new WebAppContext() context setContextPath &quot;/&quot; context.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/standalone.html" title="Standalone deployment">
+				<h2>Standalone deployment</h2>
+			</a>
+
+			<br>
+			Launching Scalatra as a servlet We need some glue code to launch an embedded Jetty server with the ScalatraListener.
+package com.example // remember this package in the sbt project definition import org.eclipse.jetty.server.Server import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler} import org.eclipse.jetty.webapp.WebAppContext import org.scalatra.servlet.ScalatraListener object JettyLauncher { // this is my entry object as specified in sbt project definition def main(args: Array[String]) { val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080 val server = new Server(port) val context = new WebAppContext() context setContextPath &quot;/&quot; context.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/standalone.html" title="Standalone deployment">
+				<h2>Standalone deployment</h2>
+			</a>
+
+			<br>
+			Launching Scalatra as a servlet We need some glue code to launch an embedded Jetty server with the ScalatraListener.
+package com.example // remember this package in the sbt project definition import org.eclipse.jetty.server.Server import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler} import org.eclipse.jetty.webapp.WebAppContext import org.scalatra.servlet.ScalatraListener object JettyLauncher { // this is my entry object as specified in sbt project definition def main(args: Array[String]) { val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080 val server = new Server(port) val context = new WebAppContext() context setContextPath &quot;/&quot; context.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/swagger.html" title="Swagger">
+				<h2>Swagger</h2>
+			</a>
+
+			<br>
+			What is Swagger? Swagger is a specification which allows you to quickly define the functionality of a REST API using JSON documents. But it&rsquo;s more than just a spec. It provides automatic generation of interactive API docs, client-side code generation in multiple languages, and server-side code generation in Java and Scala.
+It&rsquo;s not easy to describe, but it is easy to understand once you see it. Take a look at the Swagger demo app now:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/swagger.html" title="Swagger">
+				<h2>Swagger</h2>
+			</a>
+
+			<br>
+			What is Swagger? Swagger is a specification which allows you to quickly define the functionality of a REST API using JSON documents. But it&rsquo;s more than just a spec. It provides automatic generation of interactive API docs, client-side code generation in multiple languages, and server-side code generation in Java and Scala.
+It&rsquo;s not easy to describe, but it is easy to understand once you see it. Take a look at the Swagger demo app now:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/swagger.html" title="Swagger">
+				<h2>Swagger</h2>
+			</a>
+
+			<br>
+			Swagger is a specification which allows you to quickly define the functionality of a REST API using JSON documents. But it&rsquo;s more than just a spec. It provides automatic generation of interactive API docs, client-side code generation in multiple languages, and server-side code generation in Java and Scala.
+It&rsquo;s not easy to describe, but it is easy to understand once you see it. Take a look at the Swagger demo app now:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/swagger.html" title="Swagger">
+				<h2>Swagger</h2>
+			</a>
+
+			<br>
+			Swagger is a specification which allows you to quickly define the functionality of a REST API using JSON documents. But it&rsquo;s more than just a spec. It provides automatic generation of interactive API docs, client-side code generation in multiple languages, and server-side code generation in Java and Scala.
+It&rsquo;s not easy to describe, but it is easy to understand once you see it. Take a look at the Swagger demo app now:
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/views/twirl.html" title="Twirl">
+				<h2>Twirl</h2>
+			</a>
+
+			<br>
+			Twirl is the name Mathias created for the Play 2 templating language.
+ See scalatra-twirl for a minimal and standalone project containing the example in this guide.  Evaluating Twirl While the Scalatra developer generally prefer Scalate for server-side templating, Twirl provides an interesting alternative.
+Advantages of Twirl  Templates are rendered by simply calling a generated render function with the correct arguments. Since this call can be made from other templates, the artificial distinction between &ldquo;layouts&rdquo; and &ldquo;views&rdquo; is erased.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/views/twirl.html" title="Twirl">
+				<h2>Twirl</h2>
+			</a>
+
+			<br>
+			Twirl is the Play 2 templating language.
+ Please note that the example for this guide needs to be updated to work with Scalatra 2.3.x / Scala 2.11.x. scalatra-twirl for a minimal and standalone project containing the example in this guide. &ndash;  Evaluating Twirl While the Scalatra developer generally prefer Scalate for server-side templating, Twirl provides an interesting alternative.
+Advantages of Twirl  Templates are rendered by simply calling a generated render function with the correct arguments.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/views/twirl.html" title="Twirl">
+				<h2>Twirl</h2>
+			</a>
+
+			<br>
+			Twirl is the Play 2 templating language.
+ Please note that the example for this guide needs to be updated to work with Scalatra 2.3.x / Scala 2.11.x. scalatra-twirl for a minimal and standalone project containing the example in this guide. &ndash;  Evaluating Twirl While the Scalatra developer generally prefer Scalate for server-side templating, Twirl provides an interesting alternative.
+Advantages of Twirl  Templates are rendered by simply calling a generated render function with the correct arguments.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/views/twirl.html" title="Twirl">
+				<h2>Twirl</h2>
+			</a>
+
+			<br>
+			Twirl is the Play 2 templating language.
+ Please note that the example for this guide needs to be updated to work with Scalatra 2.3.x / Scala 2.11.x. scalatra-twirl for a minimal and standalone project containing the example in this guide. &ndash;  Evaluating Twirl While the Scalatra developer generally prefer Scalate for server-side templating, Twirl provides an interesting alternative.
+Advantages of Twirl  Templates are rendered by simply calling a generated render function with the correct arguments.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/formats/xml.html" title="XML Handling">
+				<h2>XML Handling</h2>
+			</a>
+
+			<br>
+			XML  {% include _under_construction.html %}
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/resources/wro4j.html" title="wro4j">
+				<h2>wro4j</h2>
+			</a>
+
+			<br>
+			The Web Resource Optimizer for Java (wro4j) is a Free and Open Source Java project which brings together almost all the modern web tools for compressing, building, and minifying your JavaScript and CSS assets: JsHint, CssLint, JsMin, Google Closure compressor, YUI Compressor, UglifyJs, Dojo Shrinksafe, Css Variables Support, JSON Compression, Less, Sass, CoffeeScript and much more.
+You can add wro4j to your Scalatra project by using the xsbt-wro4j plugin.
+See the xsbt-wro4j-plugin project documentation for details of how to do so.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.3/resources/wro4j.html" title="wro4j">
+				<h2>wro4j</h2>
+			</a>
+
+			<br>
+			The Web Resource Optimizer for Java (wro4j) is a Free and Open Source Java project which brings together almost all the modern web tools for compressing, building, and minifying your JavaScript and CSS assets: JsHint, CssLint, JsMin, Google Closure compressor, YUI Compressor, UglifyJs, Dojo Shrinksafe, Css Variables Support, JSON Compression, Less, Sass, CoffeeScript and much more.
+You can add wro4j to your Scalatra project by using the xsbt-wro4j plugin.
+See the xsbt-wro4j-plugin project documentation for details of how to do so.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.4/resources/wro4j.html" title="wro4j">
+				<h2>wro4j</h2>
+			</a>
+
+			<br>
+			The Web Resource Optimizer for Java (wro4j) is a Free and Open Source Java project which brings together almost all the modern web tools for compressing, building, and minifying your JavaScript and CSS assets: JsHint, CssLint, JsMin, Google Closure compressor, YUI Compressor, UglifyJs, Dojo Shrinksafe, Css Variables Support, JSON Compression, Less, Sass, CoffeeScript and much more.
+You can add wro4j to your Scalatra project by using the xsbt-wro4j plugin.
+See the xsbt-wro4j-plugin project documentation for details of how to do so.
+
+			<hr>
+			
+			<a href="https://scalatra.github.io/scalatra-docbuild/guides/2.5/resources/wro4j.html" title="wro4j">
+				<h2>wro4j</h2>
+			</a>
+
+			<br>
+			The Web Resource Optimizer for Java (wro4j) is a Free and Open Source Java project which brings together almost all the modern web tools for compressing, building, and minifying your JavaScript and CSS assets: JsHint, CssLint, JsMin, Google Closure compressor, YUI Compressor, UglifyJs, Dojo Shrinksafe, Css Variables Support, JSON Compression, Less, Sass, CoffeeScript and much more.
+You can add wro4j to your Scalatra project by using the xsbt-wro4j plugin.
+See the xsbt-wro4j-plugin project documentation for details of how to do so.
+
+			<hr>
+			
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Scalatra Team &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+
+  var base_url = '';
+  var repo_id  = '';
+
+</script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/application.js"></script>
+
+
+<script>
+  /* Add headers to scrollspy */
+  var headers   = document.getElementsByTagName("h2");
+  var scrollspy = document.getElementById('scrollspy');
+
+  if(scrollspy) {
+    if(headers.length > 0) {
+      for(var i = 0; i < headers.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "anchor");
+
+        var a  = document.createElement("a");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", headers[i].innerHTML);
+        a.innerHTML = headers[i].innerHTML;
+
+        li.appendChild(a)
+        scrollspy.appendChild(li);
+      }
+    } else {
+      scrollspy.parentElement.removeChild(scrollspy)
+    }
+
+
+    /* Add permanent link next to the headers */
+    var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    for(var i = 0; i < headers.length; i++) {
+        var a = document.createElement("a");
+        a.setAttribute("class", "headerlink");
+        a.setAttribute("href", "#" + headers[i].id);
+        a.setAttribute("title", "Permanent link")
+        a.innerHTML = "#";
+        headers[i].appendChild(a);
+    }
+  }
+</script>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
+
