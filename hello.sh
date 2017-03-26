@@ -2,9 +2,6 @@
 
 set -ev
 
-# Check dependencies
-# rsync -v
-
 
 echo "Config"
 
@@ -26,21 +23,20 @@ git clone git@github.com:scalatra/scalatra-docbuild.git
 
 
 ls -al
-# total 5424
-# drwxrwxr-x  6 travis travis    4096 Mar 26 11:57 .
-# drwxrwxr-x  3 travis travis    4096 Mar 26 11:57 ..
-# -rw-------  1 travis travis    1675 Mar 26 11:57 deploy_key
-# -rw-rw-r--  1 travis travis    1680 Mar 26 11:57 deploy_key.enc
-# drwxrwxr-x  8 travis travis    4096 Mar 26 11:57 .git
-# -rwxrwxr-x  1 travis travis    1899 Mar 26 11:57 hello.sh
+# total 5428
+# drwxrwxr-x  6 travis travis    4096 Mar 26 13:49 .
+# drwxrwxr-x  3 travis travis    4096 Mar 26 13:49 ..
+# -rw-------  1 travis travis    1679 Mar 26 13:49 deploy_key
+# -rw-rw-r--  1 travis travis    1680 Mar 26 13:49 deploy_key.enc
+# drwxrwxr-x  8 travis travis    4096 Mar 26 13:49 .git
+# -rwxrwxr-x  1 travis travis    2404 Mar 26 13:49 hello.sh
 # -rw-rw-r--  1 travis travis 5511722 Feb 27 12:53 hugo_0.19-64bit.deb
-# drwxrwxr-x 25 travis travis    4096 Mar 26 11:57 scalatra
-# drwxrwxr-x 11 travis travis    4096 Mar 26 11:57 scalatra-website
-# drwxrwxr-x  3 travis travis    4096 Mar 26 11:57 scalatra-docbuild
-# -rw-rw-r--  1 travis travis     435 Mar 26 11:57 .travis.yml
+# -rw-rw-r--  1 travis travis    1271 Mar 26 13:49 README.MD
+# drwxrwxr-x 25 travis travis    4096 Mar 26 13:49 scalatra
+# drwxrwxr-x  3 travis travis    4096 Mar 26 13:49 scalatra-docbuild
+# drwxrwxr-x 11 travis travis    4096 Mar 26 13:49 scalatra-website
+# -rw-rw-r--  1 travis travis     380 Mar 26 13:49 .travis.yml
 
-# pwd
-# /home/travis/build/dozed/scalatra-docbuild
 
 
 echo "Build"
@@ -62,7 +58,6 @@ git checkout origin/feature/hugo
 
 ls -al
 
-# TODO remove
 hugo -b https://scalatra.github.io/scalatra-docbuild/ -d gh-pages || true
 
 ls -al
