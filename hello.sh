@@ -36,18 +36,18 @@ ls -al
 # -rw-rw-r--  1 travis travis 5511722 Feb 27 12:53 hugo_0.19-64bit.deb
 # drwxrwxr-x 25 travis travis    4096 Mar 26 11:57 scalatra
 # drwxrwxr-x 11 travis travis    4096 Mar 26 11:57 scalatra-website
-# drwxrwxr-x  3 travis travis    4096 Mar 26 11:57 travis-test
+# drwxrwxr-x  3 travis travis    4096 Mar 26 11:57 scalatra-docbuild
 # -rw-rw-r--  1 travis travis     435 Mar 26 11:57 .travis.yml
 
 # pwd
-# /home/travis/build/dozed/travis-test
+# /home/travis/build/dozed/scalatra-docbuild
 
 
 echo "Build"
 
 
-# Final site is in travis-test/gh-pages
-cd travis-test
+# Final site is in scalatra-docbuild/gh-pages
+cd scalatra-docbuild
 git checkout gh-pages
 
 # always build full site
@@ -68,7 +68,7 @@ hugo -b https://scalatra.github.io/scalatra-docbuild/ -d gh-pages || true
 ls -al
 ls -al gh-pages
 
-rsync -av gh-pages/* ../travis-test
+rsync -av gh-pages/* ../scalatra-docbuild
 
 cd ..
 
@@ -79,8 +79,8 @@ cd scalatra
 git checkout origin/2.5.x
 sbt unidoc
 
-mkdir -p ../travis-test/apidocs/2.5
-rsync -av target/scala-2.12/unidoc/* ../travis-test/apidocs/2.5
+mkdir -p ../scalatra-docbuild/apidocs/2.5
+rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.5
 
 cd ..
 
@@ -91,14 +91,14 @@ cd scalatra
 git checkout origin/2.4.x
 sbt unidoc
 
-mkdir -p ../travis-test/apidocs/2.4
-rsync -av target/scala-2.12/unidoc/* ../travis-test/apidocs/2.4
+mkdir -p ../scalatra-docbuild/apidocs/2.4
+rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.4
 
 cd ..
 
 
 # Commit and push changes
-cd travis-test
+cd scalatra-docbuild
 ls -al
 ls -al apidocs
 git add --all .
