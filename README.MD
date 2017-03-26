@@ -1,7 +1,7 @@
 
 
 
-Build Scalatra docs on [Travis CI](https://travis-ci.org/dozed/travis-test)
+Build Scalatra docs on [Travis CI](https://travis-ci.org/scalatra/scalatra-docbuild)
 
   - https://scalatra.github.io/scalatra-docbuild/                         
   - https://scalatra.github.io/scalatra-docbuild/apidocs/2.5/org/scalatra/
