@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Metrics - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Metrics</h1>
+                
+				<section>
+					
+
+<div class="alert alert-info">
+  <img src="https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_023_cogwheels.png">This functionality is available starting in Scalatra 2.4.
+</div>
+
+<p>Scalatra supports metrics via the <a href="https://dropwizard.github.io/metrics/3.1.0/">metrics</a> and
+<a href="https://github.com/erikvanoosten/metrics-scala">metrics-scala</a> projects.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>In order to make use of this functionality, add <code>scalatra-metrics</code> to your <code>build.sbt</code>:</p>
+
+<pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-metrics&quot; % &quot;2.4.2&quot;
+</code></pre>
+
+<p>and mix in the MetricsBootstrap trait into ScalatraBootstrap:</p>
+
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    // ...
+  }
+}
+</code></pre>
+
+<p>Mixing in MetricsBootstrap will provide a default instance of both a MetricRegistry and a HealthCheckRegistry to your application. You can also choose to override one or both if the defaults don&rsquo;t suit your purpose.</p>
+
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override val metricRegistry = ???
+  override val healthCheckRegistry = ???
+  override def init(context: ServletContext) =
+  {
+  }
+}
+</code></pre>
+
+<h3 id="metrics-servlets">Metrics Servlets</h3>
+
+<p>Convenience methods are provided to mount the metrics servlets at a specified path from the init method.</p>
+
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    context.mountMetricsAdminServlet(&quot;/metrics-admin&quot;)
+    context.mountHealthCheckServlet(&quot;/health&quot;)
+    context.mountMetricsServlet(&quot;/metrics&quot;)
+    context.mountThreadDumpServlet(&quot;/thread-dump&quot;)
+    context.installInstrumentedFilter(&quot;/test/*&quot;)
+  }
+}
+</code></pre>
+
+<p>Details for what each servlet does are provided in the
+<a href="https://dropwizard.github.io/metrics/3.1.0/manual/servlets/">Metrics Servlets Documentation</a></p>
+
+<h3 id="metrics-filter">Metrics Filter</h3>
+
+<p>A convenience method is also provided to mount a servlet filter to aggregate response code counts and timings. The parameter passed will specify where to apply the filter. To apply it globally, use <code>/*</code></p>
+
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    context.installInstrumentedFilter(&quot;/test/*&quot;)
+  }
+}
+</code></pre>
+
+<div class="alert alert-error">
+  In its current state, this filter does not handle AsyncContext correctly and will be inaccurate if you are using Futures.
+</div>
+
+<h3 id="measuring">Measuring</h3>
+
+<p>In order to record metrics in your servlets, mix in the <code>MetricsSupport</code> trait and call the provided methods:</p>
+
+<pre><code class="language-scala">class TestServlet extends ScalatraServlet with MetricsSupport {
+  get(&quot;/&quot;) {
+    timer(&quot;timer&quot;) {
+      // Code that's timed by a timer named &quot;timer&quot;
+    }
+
+    // Increments a counter called &quot;counter&quot;
+    counter(&quot;counter&quot;) += 1
+
+    // Increments a histogram called &quot;histogram&quot;
+    histogram(&quot;histogram&quot;) += 1
+
+    // Sets a gauge called &quot;gauge&quot;
+    gauge(&quot;gauge&quot;) {
+      &quot;gauge&quot;
+    }
+
+    // Sets a meter named &quot;meter&quot;
+    meter(&quot;meter&quot;).mark(1)
+  }
+}
+</code></pre>
+
+<h3 id="health-checks">Health Checks</h3>
+
+<p>In order to make use of health checks, mix in the <code>HealthChecksSupport</code> trait and define your health
+checks:</p>
+
+<pre><code class="language-scala">class TestServlet extends ScalatraServlet with HealthChecksSupport {
+  get(&quot;/&quot;) {
+    healthCheck(&quot;basic&quot;) {
+      true
+    }
+
+    healthCheck(&quot;withMessage&quot;, unhealthyMessage = &quot;DEADBEEF&quot;) {
+      true
+    }
+  }
+}
+</code></pre>
+
+<h3 id="advanced">Advanced</h3>
+
+<p>In addition to the provided convenience methods, the full <code>metrics-core</code>, <code>metrics-servlet</code>, <code>metrics-servlets</code>, and <code>metrics-scala</code> libraries are available for import. The default registries are exposed as <code>implicit val</code>s, and so can be accessed directly if needed.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

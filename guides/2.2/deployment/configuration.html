@@ -1,184 +1,69 @@
 <!DOCTYPE html>
-  
-  
-  
-  
-   <html class="no-js"> 
 
-  <head lang="en-us">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Configuration | Deployment - Scalatra</title>
-    <meta name="generator" content="Hugo 0.19" />
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Configuration | Deployment - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
 
-    
-    <meta name="description" content="Documentation and how-to guides for the Scalatra microframework.">
-    
-    <link rel="canonical" href="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/configuration.html">
-    
+<body role="document">
 
-    <meta property="og:url" content="https://scalatra.github.io/scalatra-docbuild/guides/2.2/deployment/configuration.html">
-    <meta property="og:title" content="Scalatra">
-    <meta property="og:image" content="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
-    <meta name="apple-mobile-web-app-title" content="Scalatra">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <link rel="shortcut icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="https://scalatra.github.io/scalatra-docbuild/images/favicon.ico">
-
-    <style>
-      @font-face {
-        font-family: 'Icon';
-        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?52m981');
-        src: url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.eot?#iefix52m981')
-               format('embedded-opentype'),
-             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.woff?52m981')
-               format('woff'),
-             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.ttf?52m981')
-               format('truetype'),
-             url('https://scalatra.github.io/scalatra-docbuild/fonts/icon.svg?52m981#icon')
-               format('svg');
-        font-weight: normal;
-        font-style: normal;
-      }
-    </style>
-
-    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/application.css">
-    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/temporary.css">
-    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/palettes.css">
-    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild/stylesheets/bootstrap-styles.css">
-    <link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//stylesheets/highlight/highlight.css">
-
-    
-    
-    
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
-    <style>
-      body, input {
-        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
-      }
-      pre, code {
-        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
-      }
-    </style>
-
-    
-    <script src="https://scalatra.github.io/scalatra-docbuild/javascripts/modernizr.js"></script>
-
-    
-
-  </head>
-  <body class="palette-primary-teal palette-accent-red">
-
-
-
-
-<div class="backdrop">
-	<div class="backdrop-paper"></div>
-</div>
-
-<input class="toggle" type="checkbox" id="toggle-drawer">
-<input class="toggle" type="checkbox" id="toggle-search">
-<label class="toggle-button overlay" for="toggle-drawer"></label>
-
-<header class="header">
-	<nav aria-label="Header">
-  <div class="bar default">
-    <div class="button button-menu" role="button" aria-label="Menu">
-      <label class="toggle-button icon icon-menu" for="toggle-drawer">
-        <span></span>
-      </label>
-    </div>
-    <div class="stretch">
-      <div class="title">
-        Configuration | Deployment
-      </div>
-    </div>
-
-    
-    <div class="button button-twitter" role="button" aria-label="Twitter">
-       <a href="https://twitter.com/scalatra" title="@scalatra on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
-    </div>
-    
-
-    
-    <div class="button button-github" role="button" aria-label="GitHub">
-      <a href="https://github.com/scalatra/scalatra" title="@scalatra/scalatra on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
-    </div>
-    
-    
-        
-  </div>
-  <div class="bar search">
-    <div class="button button-close" role="button" aria-label="Close">
-      <label class="toggle-button icon icon-back" for="toggle-search"></label>
-    </div>
-    <div class="stretch">
-      <div class="field">
-        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
-      </div>
-    </div>
-    <div class="button button-reset" role="button" aria-label="Search">
-      <button class="toggle-button icon icon-close" id="reset-search"></button>
-    </div>
-  </div>
-</nav>
-</header>
-
-<main class="main">
-	<div class="drawer">
-		<nav aria-label="Navigation">
-  <a href="https://scalatra.github.io/scalatra-docbuild/" class="project">
-    <div class="banner">
-      
-        <div class="logo">
-          <img src="https://scalatra.github.io/scalatra-docbuild/images/logo.png">
-        </div>
-      
-      <div class="name">
-        <strong>Scalatra </strong>
-        
-      </div>
-    </div>
-  </a>
-
-  <div class="scrollable">
-    <div class="wrapper">
-      
-      <div class="toc">
-        
-        <ul>
-          
-          <li><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
-          
-          <li><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
-          
-          <li><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
-          
-          <li><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
-          
-          
-        </ul>
-        
-
-        
-        <a href="https://www.manning.com/books/scalatra-in-action" target="_blank">
-          <img src="https://scalatra.github.io/scalatra-docbuild/images/book-cover.png" alt="Scalatra in Action">
-        </a>
-      </div>
-    </div>
-  </div>
-</nav>
-
-	</div>
-
-	<article class="article">
-		<div class="wrapper">
-			<h1>Configuration | Deployment </h1>
-
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
 			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Configuration | Deployment</h1>
+                
+				<section>
+					
 
 <p>As you develop, test, and get ready for final deployment,
 you&rsquo;ll need to configure things about your app: its environment, its settings,
@@ -229,7 +114,7 @@ config code, and use regular Scala code for configuration afterwards.</p>
 &lt;/web-app&gt;
 </code></pre>
 
-<p><span class="badge badge-success"><i class="icon-thumbs-up icon-white"></i></span>
+<p><span class="badge badge-success"><i class="glyphicon glyphicon-thumbs-up"></i></span>
 If you started your project in an older version of Scalatra, and want to start
 using the new ScalatraBootstrap configuration style, drop that XML into your
 web.xml and you&rsquo;re all set.</p>
@@ -267,7 +152,7 @@ class ScalatraBootstrap extends LifeCycle {
 need to mount them.</p>
 
 <div class="alert alert-info">
-<span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+<span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
 If you're coming from a dynamic language, such as PHP, Ruby, Python, or Perl,
 you may be shocked to find that servlet-based applications, including Scalatra,
 are unable to dynamically require and use controller classes. You'll need to
@@ -327,7 +212,7 @@ less Java:</p>
 
 <p>This init param sets the application environment.</p>
 
-<p><span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+<p><span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
 The default is <code>development</code>.</p>
 
 <p>If the environment starts with &ldquo;dev&rdquo;, then <code>isDevelopmentMode</code> returns true.</p>
@@ -415,7 +300,7 @@ class ScalatraBootstrap extends LifeCycle with DatabaseInit {
 <h3 id="configuring-your-app-using-web-xml">Configuring your app using web.xml</h3>
 
 <div class="alert alert-info">
-<span class="badge badge-info"><i class="icon-flag icon-white"></i></span>
+<span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
 If you're an old Java hand, you'll be quite comfortable mounting servlets
 through the <code>web.xml</code> file in traditional servlet style, so you
 may not want to use the Scalatra bootstrap file. If you want, you can use
@@ -504,86 +389,34 @@ Scala&rsquo;s standard XML tools.</p>
 <p>Add <code>port in container.Configuration := 8081</code> to <code>project/build.scala</code> if you would
 like your Scalatra app to run something other than the default port (8080).</p>
 
-
-			<aside class="copyright" role="note">
-				
-				&copy; 2017 Scalatra Team &ndash;
-				
-				Documentation built with
-				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
-				using the
-				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
-			</aside>
-
-			<footer class="footer">
-				
-
-			</footer>
-		</div>
-	</article>
-
-	<div class="results" role="status" aria-live="polite">
-		<div class="scrollable">
-			<div class="wrapper">
-				<div class="meta"></div>
-				<div class="list"></div>
-			</div>
-		</div>
-	</div>
-</main>
-
-<script>
-
-  var base_url = '';
-  var repo_id  = '';
-
-</script>
-
-<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/application.js"></script>
-
-
-<script>
-  /* Add headers to scrollspy */
-  var headers   = document.getElementsByTagName("h2");
-  var scrollspy = document.getElementById('scrollspy');
-
-  if(scrollspy) {
-    if(headers.length > 0) {
-      for(var i = 0; i < headers.length; i++) {
-        var li = document.createElement("li");
-        li.setAttribute("class", "anchor");
-
-        var a  = document.createElement("a");
-        a.setAttribute("href", "#" + headers[i].id);
-        a.setAttribute("title", headers[i].innerHTML);
-        a.innerHTML = headers[i].innerHTML;
-
-        li.appendChild(a)
-        scrollspy.appendChild(li);
-      }
-    } else {
-      scrollspy.parentElement.removeChild(scrollspy)
-    }
-
-
-    /* Add permanent link next to the headers */
-    var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-    for(var i = 0; i < headers.length; i++) {
-        var a = document.createElement("a");
-        a.setAttribute("class", "headerlink");
-        a.setAttribute("href", "#" + headers[i].id);
-        a.setAttribute("title", "Permanent link")
-        a.innerHTML = "#";
-        headers[i].appendChild(a);
-    }
-  }
-</script>
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
 
 
 
-<script src="https://scalatra.github.io/scalatra-docbuild/javascripts/highlight.pack.js"></script>
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
 </body>
 </html>
 

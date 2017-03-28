@@ -110,7 +110,7 @@ environment if you don&amp;rsquo;t have one yet. That means sbt may spend some
 time downloading Scalatra and its libraries on first run.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   Although most people use sbt to build their Scalatra projects, it&#39;s also
   possible to build using other systems, such as Maven. A user-contributed
   Maven prototype &lt;a href=&#34;https://github.com/fancellu/scalatra-maven-prototype&#34;&gt;is available&lt;/a&gt;.
@@ -153,7 +153,7 @@ project:&lt;/p&gt;
 &lt;p&gt;The application starts on &lt;a href=&#34;http://localhost:8080&#34;&gt;http://localhost:8080&lt;/a&gt;.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   As you can see, Scalatra doesn&#39;t force you to setup much infrastructure: a
   request to a URL evaluates some Scala code and returns some text in
   response.
@@ -205,48 +205,36 @@ by seeing running example code in action.&lt;/p&gt;
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://scalatra.github.io/scalatra-docbuild/getting-started.html</guid>
-      <description>&lt;div class=&#34;row&#34;&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Installation&lt;/h2&gt;
-    &lt;p&gt;Install Scalatra in 2 easy steps. You may
-      already have a lot of what you need.&lt;/p&gt;
-    &lt;p&gt;&lt;a href=&#34;installation.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;First project&lt;/h2&gt;
-    &lt;p&gt;The first steps you take when learning something new are usually the
-      most difficult. Our code generators and step-by-step instructions
-      can help ease you into Scalatra development.&lt;/p&gt;
-    &lt;p&gt;&lt;a href=&#34;first-project.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;row&#34;&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Project structure&lt;/h2&gt;
-    &lt;p&gt;Understanding a Scalatra project isn&#39;t difficult, and it can save you
-      a lot of time if you understand a bit about what&#39;s happening under the hood.
-      Here are the basics.&lt;/p&gt;
-    &lt;p&gt;&lt;a href=&#34;project-structure.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;IDE support (optional)&lt;/h2&gt;
-    &lt;p&gt;
-      Since Scalatra is a no-magic framework, you can benefit from the Scala
-      support in Eclipse, IntelliJ IDEA, and Emacs.
-    &lt;/p&gt;
-    &lt;p&gt;&lt;a href=&#34;ide-support.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;row&#34;&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;JRebel integration (optional)&lt;/h2&gt;
-    &lt;p&gt;
-      Use JRebel (for free!) to dramatically speed up your Scalatra web development.
-      Scalatra comes pre-integrated with JRebel.
-    &lt;/p&gt;
-    &lt;p&gt;&lt;a href=&#34;jrebel.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
+      <description>&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Install Scalatra in 2 easy steps. You may
+  already have a lot of what you need.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;installation.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;First project&lt;/h2&gt;
+&lt;p&gt;The first steps you take when learning something new are usually the
+  most difficult. Our code generators and step-by-step instructions
+  can help ease you into Scalatra development.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;first-project.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Project structure&lt;/h2&gt;
+&lt;p&gt;Understanding a Scalatra project isn&#39;t difficult, and it can save you
+  a lot of time if you understand a bit about what&#39;s happening under the hood.
+  Here are the basics.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;project-structure.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;IDE support (optional)&lt;/h2&gt;
+&lt;p&gt;
+  Since Scalatra is a no-magic framework, you can benefit from the Scala
+  support in Eclipse, IntelliJ IDEA, and Emacs.
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;ide-support.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;JRebel integration (optional)&lt;/h2&gt;
+&lt;p&gt;
+  Use JRebel (for free!) to dramatically speed up your Scalatra web development.
+  Scalatra comes pre-integrated with JRebel.
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;jrebel.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -764,7 +752,7 @@ object MyExampleBuild extends Build {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-&lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
 If you want to add any additional libraries to your project, add them to the
 &lt;code&gt;libraryDependencies&lt;/code&gt; section.
 Doing that and running &lt;code&gt;./sbt&lt;/code&gt; again will download the dependency jar

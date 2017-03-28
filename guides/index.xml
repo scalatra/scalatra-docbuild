@@ -10,6 +10,185 @@
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/guides.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title></title>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;title-squeryl&#34;&gt;title: Squeryl&lt;/h2&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://squeryl.org/&#34;&gt;Squeryl&lt;/a&gt; is a Scala object-relational mapper and
+domain-specific language for talking to databases in a succinct and
+typesafe way.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll use Squeryl with &lt;a href=&#34;http://www.mchange.com/projects/c3p0/&#34;&gt;C3P0&lt;/a&gt;,
+a &amp;ldquo;butt-simple&amp;rdquo; connection pooling library.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  See
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/persistence/scalatra-squeryl&#34;&gt;scalatra-squeryl&lt;/a&gt;
+  for an example project which expands on the concepts explained in this guide.
+&lt;/div&gt;
+
+&lt;h2 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;org.squeryl&amp;quot; %% &amp;quot;squeryl&amp;quot; % &amp;quot;0.9.5-7&amp;quot;,
+&amp;quot;com.h2database&amp;quot; % &amp;quot;h2&amp;quot; % &amp;quot;1.3.166&amp;quot;,
+&amp;quot;c3p0&amp;quot; % &amp;quot;c3p0&amp;quot; % &amp;quot;0.9.1.2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;set-up-a-c3p0-connection-pool&#34;&gt;Set up a C3P0 connection pool&lt;/h2&gt;
+
+&lt;p&gt;Setting up C3P0 connection pool in Scalatra is just a matter of making
+a trait which does your database initialization. The initialization
+code itself can follow the
+&lt;a href=&#34;http://www.mchange.com/projects/c3p0/#quickstart&#34;&gt;C3P0 init example&lt;/a&gt;
+pretty closely:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.data
+
+import com.mchange.v2.c3p0.ComboPooledDataSource
+import org.squeryl.adapters.{H2Adapter, MySQLAdapter}
+import org.squeryl.Session
+import org.squeryl.SessionFactory
+import org.slf4j.LoggerFactory
+
+trait DatabaseInit {
+  val logger = LoggerFactory.getLogger(getClass)
+
+  val databaseUsername = &amp;quot;root&amp;quot;
+  val databasePassword = &amp;quot;&amp;quot;
+  val databaseConnection = &amp;quot;jdbc:h2:mem:squeryltryout&amp;quot;
+
+  var cpds = new ComboPooledDataSource
+
+  def configureDb() {
+    cpds.setDriverClass(&amp;quot;org.h2.Driver&amp;quot;)
+    cpds.setJdbcUrl(databaseConnection)
+    cpds.setUser(databaseUsername)
+    cpds.setPassword(databasePassword)
+
+    cpds.setMinPoolSize(1)
+    cpds.setAcquireIncrement(1)
+    cpds.setMaxPoolSize(50)
+
+    SessionFactory.concreteFactory = Some(() =&amp;gt; connection)
+
+    def connection = {
+      logger.info(&amp;quot;Creating connection with c3po connection pool&amp;quot;)
+      Session.create(cpds.getConnection, new H2Adapter)
+    }
+  }
+
+  def closeDbConnection() {
+    logger.info(&amp;quot;Closing c3po connection pool&amp;quot;)
+    cpds.close()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You&amp;rsquo;ll likely want to load up your database creds by reading a config file,
+but that&amp;rsquo;s up to you. The &lt;code&gt;configureDb()&lt;/code&gt; method will create a connection pool when it&amp;rsquo;s called, and in this case it&amp;rsquo;ll use an in-memory H2 database with the &lt;code&gt;H2Adapter&lt;/code&gt;, so that we don&amp;rsquo;t have any dependencies on an external database server. Replace the connection string, driver, and adapter in this file if you&amp;rsquo;re using MySQL, PostgreSQL, or something else. Info is available on the&lt;/p&gt;
+
+&lt;p&gt;Inside the &lt;code&gt;configureDb&lt;/code&gt; method, Squeryl&amp;rsquo;s &lt;code&gt;SessionFactory&lt;/code&gt; gets wired together
+with C3P0&amp;rsquo;s &lt;code&gt;ComboPooledDataSource&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;initialize-the-session-pool&#34;&gt;Initialize the session pool&lt;/h2&gt;
+
+&lt;p&gt;Now that the session pool is defined, it&amp;rsquo;ll need to be initialized. The best
+place to do this initialization work is in your application&amp;rsquo;s ScalatraBootstrap
+init method.&lt;/p&gt;
+
+&lt;p&gt;Open up &lt;code&gt;src/main/scala/ScalatraBootstrap.scala&lt;/code&gt;, and import your &lt;code&gt;DatabaseInit&lt;/code&gt;
+trait. In the case of this example, we&amp;rsquo;ll need
+&lt;code&gt;import com.futurechimps.squeryli.data.DatabaseInit&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then mix the &lt;code&gt;DatabaseInit&lt;/code&gt; trait into &lt;code&gt;ScalatraBootstrap&lt;/code&gt;, so it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scalatra.LifeCycle
+import javax.servlet.ServletContext
+import org.scalatra.example.ArticlesController
+import org.scalatra.example.data.DatabaseInit
+
+class ScalatraBootstrap extends LifeCycle with DatabaseInit {
+
+  override def init(context: ServletContext) {
+    configureDb()
+    context mount (new ArticlesController, &amp;quot;/*&amp;quot;)
+  }
+
+  override def destroy(context:ServletContext) {
+    closeDbConnection()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;configureDb&lt;/code&gt; method is called when your application starts, and during the
+&lt;code&gt;destroy&lt;/code&gt; phase of your application, the database connections are closed down
+again.&lt;/p&gt;
+
+&lt;h2 id=&#34;setting-up-database-session-support&#34;&gt;Setting up database session support&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make a database session support trait which can be used in your
+controllers. A complete one with imports can look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.data
+
+import org.squeryl.Session
+import org.squeryl.SessionFactory
+import org.scalatra._
+
+object DatabaseSessionSupport {
+  val key = {
+    val n = getClass.getName
+    if (n.endsWith(&amp;quot;$&amp;quot;)) n.dropRight(1) else n
+  }
+}
+
+trait DatabaseSessionSupport { this: ScalatraBase =&amp;gt;
+  import DatabaseSessionSupport._
+
+  def dbSession = request.get(key).orNull.asInstanceOf[Session]
+
+  before() {
+    request(key) = SessionFactory.newSession
+    dbSession.bindToCurrentThread
+  }
+
+  after() {
+    dbSession.close
+    dbSession.unbindFromCurrentThread
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The key things here are the &lt;code&gt;before&lt;/code&gt; and &lt;code&gt;after&lt;/code&gt; filters which open a new database
+session on each request and close it after the request is finished.&lt;/p&gt;
+
+&lt;h2 id=&#34;mixing-database-session-support-into-your-servlet&#34;&gt;Mixing database session support into your servlet&lt;/h2&gt;
+
+&lt;p&gt;Now that it&amp;rsquo;s defined, you can mix your new DatabaseSessionSupport trait into
+any of your controllers, e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class ArticlesController extends ScalatraServlet with DatabaseSessionSupport
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any controller with this trait can now use Squeryl models.&lt;/p&gt;
+
+&lt;p&gt;For full documentation of Squeryl, see the project website at
+&lt;a href=&#34;http://squeryl.org&#34;&gt;squeryl.org&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Actions</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.2/http/actions.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -23,7 +202,7 @@ a route.&lt;/p&gt;
 &lt;p&gt;When an incoming request matches a route, that route&amp;rsquo;s action is executed.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
   &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
@@ -39,7 +218,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
   &lt;dt&gt;ActionResult&lt;/dt&gt;
   &lt;dd&gt;Sets status, body and headers. After importing
     &lt;code&gt;org.scalatra.ActionResult._&lt;/code&gt;, you can return 200 OK, 404 Not Found
-    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
+    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
   &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;dl class=&#34;dl-horizontal&#34;&gt;
@@ -63,7 +242,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
 &lt;p&gt;The behavior for the types in the above chart, or for types not in the chart at all,
 may be customized for these or other return types by overriding &lt;code&gt;renderResponse&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/file/:id&amp;quot;) {
   fileService.find(params(&amp;quot;id&amp;quot;)) match {
@@ -101,7 +280,7 @@ a route.&lt;/p&gt;
 &lt;p&gt;When an incoming request matches a route, that route&amp;rsquo;s action is executed.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
   &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
@@ -117,7 +296,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
   &lt;dt&gt;ActionResult&lt;/dt&gt;
   &lt;dd&gt;Sets status, body and headers. After importing
     &lt;code&gt;org.scalatra.ActionResult._&lt;/code&gt;, you can return 200 OK, 404 Not Found
-    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
+    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
   &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;dl class=&#34;dl-horizontal&#34;&gt;
@@ -141,7 +320,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
 &lt;p&gt;The behavior for the types in the above chart, or for types not in the chart at all,
 may be customized for these or other return types by overriding &lt;code&gt;renderResponse&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/file/:id&amp;quot;) {
   fileService.find(params(&amp;quot;id&amp;quot;)) match {
@@ -178,7 +357,7 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
 &lt;p&gt;When an incoming request matches a route, that route&amp;rsquo;s action is executed.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
   &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
@@ -194,7 +373,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
   &lt;dt&gt;ActionResult&lt;/dt&gt;
   &lt;dd&gt;Sets status, body and headers. After importing
     &lt;code&gt;org.scalatra.ActionResult._ &lt;/code&gt;, you can return 200 OK, 404 Not Found
-    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
+    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
   &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;dl class=&#34;dl-horizontal&#34;&gt;
@@ -218,7 +397,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
 &lt;p&gt;The behavior for the types in the above chart, or for types not in the chart at all,
 may be customized for these or other return types by overriding &lt;code&gt;renderResponse&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/file/:id&amp;quot;) {
   fileService.find(params(&amp;quot;id&amp;quot;)) match {
@@ -255,7 +434,7 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
 &lt;p&gt;When an incoming request matches a route, that route&amp;rsquo;s action is executed.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
   &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
@@ -271,7 +450,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
   &lt;dt&gt;ActionResult&lt;/dt&gt;
   &lt;dd&gt;Sets status, body and headers. After importing
     &lt;code&gt;org.scalatra.ActionResult._ &lt;/code&gt;, you can return 200 OK, 404 Not Found
-    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
+    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
   &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;dl class=&#34;dl-horizontal&#34;&gt;
@@ -295,7 +474,7 @@ is then rendered to the response according to the following rules.&lt;/p&gt;
 &lt;p&gt;The behavior for the types in the above chart, or for types not in the chart at all,
 may be customized for these or other return types by overriding &lt;code&gt;renderResponse&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;icon-bookmark icon-white&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/file/:id&amp;quot;) {
   fileService.find(params(&amp;quot;id&amp;quot;)) match {
@@ -400,7 +579,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;h3 id=&#34;async-request-example&#34;&gt;Async request example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -458,7 +637,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;h3 id=&#34;actor-example&#34;&gt;Actor example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -533,7 +712,7 @@ longer needed. To get access to Akka, all you need to do is mix FutureSupport
 into your servlets.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   If you&#39;re using Scala 2.9.x, you&#39;ll need
   &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.2/async/akka-examples/project/build.scala#L24&#34;&gt;the Akka resolver&lt;/a&gt;
   in your sbt configuration, otherwise you&#39;ll get a missing dependency. Add
@@ -603,7 +782,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;h3 id=&#34;async-request-example&#34;&gt;Async request example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -651,7 +830,7 @@ combination, Scalatra uses Akka 2.0.5.&lt;/p&gt;
 &lt;h3 id=&#34;actor-example&#34;&gt;Actor example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -778,7 +957,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;h3 id=&#34;async-request-example&#34;&gt;Async request example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -836,7 +1015,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;h3 id=&#34;actor-example&#34;&gt;Actor example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -971,7 +1150,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;h3 id=&#34;async-request-example&#34;&gt;Async request example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -1029,7 +1208,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;h3 id=&#34;actor-example&#34;&gt;Actor example&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
@@ -1103,7 +1282,7 @@ without a page refresh.&lt;/p&gt;
 &lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.2/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -1152,7 +1331,7 @@ without a page refresh.&lt;/p&gt;
 &lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.2/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -1520,7 +1699,7 @@ without a page refresh.&lt;/p&gt;
 &lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -1888,7 +2067,7 @@ without a page refresh.&lt;/p&gt;
 &lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -2300,7 +2479,7 @@ examples. &lt;code&gt;scalatra-auth&lt;/code&gt; handles both cookie-based auth 
 &lt;p&gt;First things first. Let&amp;rsquo;s try the simplest possible example: HTTP basic auth.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -2544,7 +2723,7 @@ examples. &lt;code&gt;scalatra-auth&lt;/code&gt; handles both cookie-based auth 
 &lt;p&gt;First things first. Let&amp;rsquo;s try the simplest possible example: HTTP basic auth.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
   &lt;a href=&#34;{{site.examples}}http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
@@ -2713,248 +2892,6 @@ which mixed in the trait.&lt;/p&gt;
 &lt;p&gt;We still need to write this up and finish the guide, but there&amp;rsquo;s now working
 example code for a
 &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.2/http/scentry-auth-demo&#34;&gt;UserPasswordStrategy and RememberMe strategy&lt;/a&gt;
-with fallback.&lt;/p&gt;
-
-&lt;p&gt;If you&amp;rsquo;re trying to secure an API rather than a user&amp;rsquo;s browser session,
-Jos Dirksen&amp;rsquo;s &lt;a href=&#34;http://www.smartjava.org/content/tutorial-getting-started-scala-and-scalatra-part-iii&#34;&gt;tutorial&lt;/a&gt; on the subject may help.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Authentication | HTTP | Scalatra</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/authentication.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/authentication.html</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Scentry&lt;/em&gt; is Scalatra&amp;rsquo;s optional authentication system. It is a port of Ruby&amp;rsquo;s
-&lt;a href=&#34;https://github.com/hassox/warden&#34;&gt;Warden&lt;/a&gt; authentication framework for
-Scalatra. You write auth strategies to meet your needs, and then use Scentry
-to enforce security for your strategies.&lt;/p&gt;
-
-&lt;p&gt;There are a few moving parts here. In order to protect your application&amp;rsquo;s actions
-with Scentry, you need two things:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;a &lt;em&gt;strategy&lt;/em&gt; to enforce security, let&amp;rsquo;s call it &lt;code&gt;YourStrategy&lt;/code&gt;. A strategy is
-a piece of logic which determines whether a user should be authenticated.&lt;/li&gt;
-&lt;li&gt;a trait that ties &lt;code&gt;YourStrategy&lt;/code&gt; together with Scalatra&amp;rsquo;s built-in
-&lt;code&gt;ScentrySupport&lt;/code&gt; class. You then mix this trait into your controllers in
-order to secure them. By convention, this trait is often called
-&lt;code&gt;AuthenticationSupport&lt;/code&gt;, but you can call it whatever you want.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Multiple strategies can be registered with Scentry - for example, you could write
-a &lt;code&gt;CookieStrategy&lt;/code&gt;, a &lt;code&gt;UserPasswordStrategy&lt;/code&gt;, and a &lt;code&gt;MyBasicAuthStrategy&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Scentry will cascade through the strategies, attempting to log in a user with
-each strategy, until either the user is authenticated or all available
-strategies are exhausted.&lt;/p&gt;
-
-&lt;p&gt;You can register strategies in controller code, like so:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;override protected def registerAuthStrategies = {
-    scentry.registerStrategy(&#39;UserPassword, app =&amp;gt; new UserPasswordStrategy(app))
-    scentry.registerStrategy(&#39;RememberMe, app =&amp;gt; new RememberMeStrategy(app))
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alternately, you can register a strategy using init params in
-&lt;code&gt;ScalatraBootstrap&lt;/code&gt; or your application&amp;rsquo;s &lt;code&gt;web.xml&lt;/code&gt; file, using
-&lt;code&gt;scentry.strategies&lt;/code&gt; as the key and the class name of your strategy as a value:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;scentry.strategies&amp;quot;) = &amp;quot;UserPasswordStrategy&amp;quot;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;To write a Scentry Strategy, you&amp;rsquo;ll need to implement the methods in
-&lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/auth/src/main/scala/org/scalatra/auth/ScentryStrategy.scala&#34;&gt;ScentryStrategy&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;See Scalatra&amp;rsquo;s built-in &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/auth/src/main/scala/org/scalatra/auth/strategy/BasicAuthStrategy.scala&#34;&gt;BasicAuthStrategy&lt;/a&gt;
-for an example.&lt;/p&gt;
-
-&lt;h2 id=&#34;dependency&#34;&gt;Dependency&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;// Put this in project/build.scala:
-&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-auth&amp;quot; % &amp;quot;2.4.2&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You&amp;rsquo;ll need the scalatra-auth dependency in your &lt;code&gt;project/build.scala&lt;/code&gt; for all subsequent
-examples. &lt;code&gt;scalatra-auth&lt;/code&gt; handles both cookie-based auth and HTTP basic auth.&lt;/p&gt;
-
-&lt;h2 id=&#34;http-basic-auth-example&#34;&gt;HTTP Basic Auth example&lt;/h2&gt;
-
-&lt;p&gt;First things first. Let&amp;rsquo;s try the simplest possible example: HTTP basic auth.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;icon-flag icon-white&#34;&gt;&lt;/i&gt;&lt;/span&gt;
-  See
-  &lt;a href=&#34;{{site.examples}}http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
-  for a minimal and standalone project containing the example in this guide.
-&lt;/div&gt;
-
-&lt;h3 id=&#34;write-the-strategy&#34;&gt;Write the strategy&lt;/h3&gt;
-
-&lt;p&gt;The class &lt;code&gt;OurBasicAuthStrategy&lt;/code&gt; will implement Scalatra&amp;rsquo;s built-in &lt;code&gt;BasicAuthStrategy&lt;/code&gt;
-trait, which itself extends &lt;code&gt;ScentryStrategy&lt;/code&gt;. Normally, you&amp;rsquo;ll want to extend
-&lt;code&gt;ScentryStrategy&lt;/code&gt; when writing your own authentication logic, but let&amp;rsquo;s see the
-simple case first.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example
-
-import org.scalatra.auth.strategy.{BasicAuthStrategy, BasicAuthSupport}
-import org.scalatra.auth.{ScentrySupport, ScentryConfig}
-import org.scalatra.{ScalatraBase}
-
-class OurBasicAuthStrategy(protected override val app: ScalatraBase, realm: String)
-  extends BasicAuthStrategy[User](app, realm) {
-
-  protected def validate(userName: String, password: String): Option[User] = {
-    if(userName == &amp;quot;scalatra&amp;quot; &amp;amp;&amp;amp; password == &amp;quot;scalatra&amp;quot;) Some(User(&amp;quot;scalatra&amp;quot;))
-    else None
-  }
-
-  protected def getUserId(user: User): String = user.id
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The key thing here is the &lt;code&gt;validate&lt;/code&gt; method, which attempts to log a user in
-using methods on a User model. This might be used in a &lt;code&gt;login&lt;/code&gt; action on one
-of your controllers, to figure out whether a user should be granted a session.&lt;/p&gt;
-
-&lt;h3 id=&#34;an-authenticationsupport-trait&#34;&gt;An AuthenticationSupport trait&lt;/h3&gt;
-
-&lt;p&gt;The next thing you&amp;rsquo;ll need is the trait that ties together &lt;code&gt;OurBasicAuthStrategy&lt;/code&gt;
-with &lt;code&gt;ScentrySupport&lt;/code&gt;. It might look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;trait AuthenticationSupport extends ScentrySupport[User] with BasicAuthSupport[User] {
-  self: ScalatraBase =&amp;gt;
-
-  val realm = &amp;quot;Scalatra Basic Auth Example&amp;quot;
-
-  protected def fromSession = { case id: String =&amp;gt; User(id)  }
-  protected def toSession   = { case usr: User =&amp;gt; usr.id }
-
-  protected val scentryConfig = (new ScentryConfig {}).asInstanceOf[ScentryConfiguration]
-
-
-  override protected def configureScentry = {
-    scentry.unauthenticated {
-      scentry.strategies(&amp;quot;Basic&amp;quot;).unauthenticated()
-    }
-  }
-
-  override protected def registerAuthStrategies = {
-    scentry.register(&amp;quot;Basic&amp;quot;, app =&amp;gt; new OurBasicAuthStrategy(app, realm))
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;AuthenticationSupport&lt;/code&gt; trait has an extremely basic way of getting a User
-object from the session, and of pushing the user&amp;rsquo;s id into the session. It also
-takes care of registering our single available strategy with Scentry.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;ll also need a User class. Let&amp;rsquo;s use a simple case class:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;case class User(id: String)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You don&amp;rsquo;t need to call this class &lt;code&gt;User&lt;/code&gt;. It can be named anything you want.&lt;/p&gt;
-
-&lt;h3 id=&#34;mix-in-authenticationsupport&#34;&gt;Mix in AuthenticationSupport&lt;/h3&gt;
-
-&lt;p&gt;Next, we mix the &lt;code&gt;AuthenticationSupport&lt;/code&gt; trait into a controller:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example
-
-import org.scalatra._
-
-class AuthDemo extends ScalatraServlet with AuthenticationSupport {
-
-
-  get(&amp;quot;/*&amp;quot;) {
-    basicAuth
-    &amp;lt;html&amp;gt;
-      &amp;lt;body&amp;gt;
-        &amp;lt;h1&amp;gt;Hello from Scalatra&amp;lt;/h1&amp;gt;
-        &amp;lt;p&amp;gt;You are authenticated.&amp;lt;/p&amp;gt;
-      &amp;lt;/body&amp;gt;
-    &amp;lt;/html&amp;gt;
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Users who hit either of these routes when not logged in will be presented
-with the browswer&amp;rsquo;s HTTP basic auth login prompt.&lt;/p&gt;
-
-&lt;p&gt;A few things are worth mentioning here. The &lt;code&gt;basicAuth&lt;/code&gt; method comes from the
-pre-built &lt;code&gt;BasicAuthStrategy&lt;/code&gt; included in Scalatra. If you&amp;rsquo;re defining your own
-authentication logic, you&amp;rsquo;ll need to implement a similar method yourself.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s what &lt;code&gt;basicAuth&lt;/code&gt; does:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;protected def basicAuth() = {
-  val baReq = new BasicAuthStrategy.BasicAuthRequest(request)
-  if(!baReq.providesAuth) {
-    response.setHeader(&amp;quot;WWW-Authenticate&amp;quot;, &amp;quot;Basic realm=\&amp;quot;%s\&amp;quot;&amp;quot; format realm)
-    halt(401, &amp;quot;Unauthenticated&amp;quot;)
-  }
-  if(!baReq.isBasicAuth) {
-    halt(400, &amp;quot;Bad Request&amp;quot;)
-  }
-  scentry.authenticate(&amp;quot;Basic&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When a browser hits the protected servlet for the first time, the &lt;code&gt;basicAuth&lt;/code&gt;
-method is called.&lt;/p&gt;
-
-&lt;p&gt;The user hasn&amp;rsquo;t yet authenticated, so the &lt;code&gt;unauthenticated&lt;/code&gt; method of Scentry&amp;rsquo;s
-BasicAuthStrategy is run. It presents a basic auth challenge to the user:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt; override def unauthenticated() {
-    app.response.setHeader(&amp;quot;WWW-Authenticate&amp;quot;, challenge)
-    app.halt(401, &amp;quot;Unauthenticated&amp;quot;)
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The user enters credentials, or cancels to close the basic auth box.&lt;/p&gt;
-
-&lt;p&gt;When good credentials are entered, the input is sent to Scentry&amp;rsquo;s &lt;code&gt;validate&lt;/code&gt;
-method, which we&amp;rsquo;ve overridden in &lt;code&gt;OurBasicAuthStrategy&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  protected def validate(userName: String, password: String): Option[User] = {
-    if(userName == &amp;quot;scalatra&amp;quot; &amp;amp;&amp;amp; password == &amp;quot;scalatra&amp;quot;) Some(User(&amp;quot;scalatra&amp;quot;))
-    else None
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If the &lt;code&gt;validate&lt;/code&gt; method returns something other than a &lt;code&gt;None&lt;/code&gt;, then Scentry
-considers the returned class as its &lt;code&gt;User&lt;/code&gt; class, and decides that authentication has
-taken place; if it returns &lt;code&gt;None&lt;/code&gt;, authentication has failed.&lt;/p&gt;
-
-&lt;p&gt;If authentication is granted, the &lt;code&gt;BasicAuthStrategy&lt;/code&gt; sets up HTTP basic auth
-in the user&amp;rsquo;s browser. &lt;code&gt;halt&lt;/code&gt; is called if the user is unauthenticated or not
-using basic auth.&lt;/p&gt;
-
-&lt;h3 id=&#34;what-to-protect&#34;&gt;What to protect&lt;/h3&gt;
-
-&lt;p&gt;You might choose to run the &lt;code&gt;basicAuth&lt;/code&gt; method in a &lt;code&gt;before()&lt;/code&gt; filter in your
-controller, rather than hitting it in each action, to secure every method in
-&lt;code&gt;MyController&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You might even set it up as a &lt;code&gt;before()&lt;/code&gt; filter in the
-&lt;code&gt;AuthenticationSupport&lt;/code&gt; trait, which would automatically secure any controller
-which mixed in the trait.&lt;/p&gt;
-
-&lt;p&gt;As with most things in Scalatra, it&amp;rsquo;s up to you.&lt;/p&gt;
-
-&lt;h2 id=&#34;cookie-example&#34;&gt;Cookie example&lt;/h2&gt;
-
-&lt;p&gt;We still need to write this up and finish the guide, but there&amp;rsquo;s now working
-example code for a
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/http/scentry-auth-demo&#34;&gt;UserPasswordStrategy and RememberMe strategy&lt;/a&gt;
 with fallback.&lt;/p&gt;
 
 &lt;p&gt;If you&amp;rsquo;re trying to secure an API rather than a user&amp;rsquo;s browser session,

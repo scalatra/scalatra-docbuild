@@ -118,55 +118,45 @@ for Scala based on Pygments.&lt;/p&gt;
 production systems. You can see the ones we know about on our
 &lt;a href=&#34;built-with.html&#34;&gt;Built with Scalatra&lt;/a&gt; page.&lt;/p&gt;
 
-&lt;div class=&#34;row&#34;&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Twitter&lt;/h2&gt;
-    &lt;p&gt;
-      &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_392_twitter.png&#34;/&gt;
-      You can stay up to date on releases, new developments, and project news by following
-      &lt;a href=&#34;http://twitter.com/#!/scalatra&#34;&gt;@scalatra&lt;/a&gt; on Twitter
-    &lt;/p&gt;
-    &lt;a href=&#34;https://twitter.com/scalatra&#34; class=&#34;twitter-follow-button&#34; data-show-count=&#34;false&#34; data-lang=&#34;en&#34;&gt;Follow @scalatra&lt;/a&gt;
-    &lt;script&gt;
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=&#34;//platform.twitter.com/widgets.js&#34;;fjs.parentNode.insertBefore(js,fjs);}}(document,&#34;script&#34;,&#34;twitter-wjs&#34;);
-    &lt;/script&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Github&lt;/h2&gt;
-    &lt;p&gt;
-      &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_381_github.png&#34;/&gt;
-      Development takes place through our &lt;a href=&#34;http://github.com/scalatra/scalatra&#34;&gt;GitHub&lt;/a&gt; project.
-      Come here for &lt;a href=&#34;http://github.com/scalatra/scalatra/issues&#34;&gt;issue tracking&lt;/a&gt;, code reviews, and patches.
-    &lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Google group&lt;/h2&gt;
-    &lt;p&gt;
-      &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_362_google+_alt.png&#34;/&gt;
-      The &lt;a href=&#34;http://groups.google.com/group/scalatra-user&#34;&gt;scalatra-user&lt;/a&gt; Google Group
-      is the preferred channel for Scalatra discussion so future users can learn from the archive.
-      Support requests, suggestions, project announcements, and all other commentary related to Scalatra are welcome here.
-    &lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;Gitter&lt;/h2&gt;
-    &lt;p&gt;Because some issues are best discussed in real time, we are also on the Scalatra Gitter channel: &lt;a href=&#34;https://gitter.im/scalatra/scalatra&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;span4&#34;&gt;
-    &lt;h2&gt;YourKit&lt;/h2&gt;
-    &lt;p&gt;
-      YourKit has kindly supported the Scalatra developers with free licenses for
-      its full-featured Java Profiler.
-      Take a look at YourKit&#39;s leading software products:
-      &lt;a href=&#34;http://www.yourkit.com/java/profiler/index.jsp&#34;&gt;
-        YourKit Java Profiler
-      &lt;/a&gt; and
-      &lt;a href=&#34;http://www.yourkit.com/.net/profiler/index.jsp&#34;&gt;
-        YourKit .NET Profiler
-      &lt;/a&gt;.
-    &lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
+&lt;p&gt;&lt;h2&gt;Twitter&lt;/h2&gt;
+&lt;p&gt;
+  &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_392_twitter.png&#34;/&gt;
+  You can stay up to date on releases, new developments, and project news by following
+  &lt;a href=&#34;http://twitter.com/#!/scalatra&#34;&gt;@scalatra&lt;/a&gt; on Twitter
+&lt;/p&gt;
+&lt;a href=&#34;https://twitter.com/scalatra&#34; class=&#34;twitter-follow-button&#34; data-show-count=&#34;false&#34; data-lang=&#34;en&#34;&gt;Follow @scalatra&lt;/a&gt;&lt;/p&gt;
+
+&lt;script&gt;
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=&#34;//platform.twitter.com/widgets.js&#34;;fjs.parentNode.insertBefore(js,fjs);}}(document,&#34;script&#34;,&#34;twitter-wjs&#34;);
+&lt;/script&gt;
+
+&lt;p&gt;&lt;h2&gt;Github&lt;/h2&gt;
+&lt;p&gt;
+  &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_381_github.png&#34;/&gt;
+  Development takes place through our &lt;a href=&#34;http://github.com/scalatra/scalatra&#34;&gt;GitHub&lt;/a&gt; project.
+  Come here for &lt;a href=&#34;http://github.com/scalatra/scalatra/issues&#34;&gt;issue tracking&lt;/a&gt;, code reviews, and patches.
+&lt;/p&gt;
+&lt;h2&gt;Google group&lt;/h2&gt;
+&lt;p&gt;
+  &lt;img src=&#34;https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_362_google+_alt.png&#34;/&gt;
+  The &lt;a href=&#34;http://groups.google.com/group/scalatra-user&#34;&gt;scalatra-user&lt;/a&gt; Google Group
+  is the preferred channel for Scalatra discussion so future users can learn from the archive.
+  Support requests, suggestions, project announcements, and all other commentary related to Scalatra are welcome here.
+&lt;/p&gt;
+&lt;h2&gt;Gitter&lt;/h2&gt;
+&lt;p&gt;Because some issues are best discussed in real time, we are also on the Scalatra Gitter channel: &lt;a href=&#34;https://gitter.im/scalatra/scalatra&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;YourKit&lt;/h2&gt;
+&lt;p&gt;
+  YourKit has kindly supported the Scalatra developers with free licenses for
+  its full-featured Java Profiler.
+  Take a look at YourKit&amp;rsquo;s leading software products:
+  &lt;a href=&#34;http://www.yourkit.com/java/profiler/index.jsp&#34;&gt;
+    YourKit Java Profiler
+  &lt;/a&gt; and
+  &lt;a href=&#34;http://www.yourkit.com/.net/profiler/index.jsp&#34;&gt;
+    YourKit .NET Profiler
+  &lt;/a&gt;.
+&lt;/p&gt;&lt;/p&gt;
 </description>
     </item>
     
