@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Loggings - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Loggings</h1>
+                
+				<section>
+					<p>By default, Scalatra uses <a href="http://logback.qos.ch">Logback</a> for logging.</p>
+
+<p>You can easily add logging facilities to your project, if you&rsquo;ve got the
+logging dependency in your <code>project/build.scala</code> file:</p>
+
+<pre><code class="language-scala">&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.0.11&quot; % &quot;runtime&quot;
+</code></pre>
+
+<p>In your servlet or filter class:</p>
+
+<pre><code class="language-scala">import org.slf4j.{Logger, LoggerFactory}
+
+class YourServlet extends ScalatraServlet {
+
+  val logger =  LoggerFactory.getLogger(getClass)
+
+  get(&quot;/&quot;) {
+    logger.info(&quot;foo&quot;)
+    // whatever else you want to put in the body of the action
+  }
+}
+</code></pre>
+
+<p>This will get you basic logging support. There are some additional logging
+libraries you might want to investigate: <a href="https://github.com/weiglewilczek/slf4s">slf4s</a> and
+<a href="http://software.clapper.org/grizzled-slf4j/">grizzled-slf4j</a>,
+which act as Scala wrappers around slf4j.</p>
+
+<p>The Scala wrappers use by-name parameters for the log message, and
+check to see that the logging level is enabled.  This is a performance
+win for complex log messages involving expensive <code>toString</code>s or many
+concatenations.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

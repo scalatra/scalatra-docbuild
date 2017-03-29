@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>MongoDb - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">MongoDb</h1>
+                
+				<section>
+					
+
+<p><a href="http://mongodb.org">MongoDb</a> is an open-source document database, and one of the most widely deployed NoSQL databases. It is extremely easy to use with Scalatra.</p>
+
+<p>There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s <a href="http://docs.mongodb.org/ecosystem/drivers/scala/">Scala Language Center</a>.</p>
+
+<ul>
+<li><a href="http://mongodb.github.io/casbah/index.html">Casbah</a></li>
+<li><a href="https://www.assembla.com/wiki/show/liftweb/MongoDB">Lift-mongodb</a></li>
+<li><a href="https://github.com/foursquare/rogue">Rogue</a></li>
+<li><a href="https://github.com/novus/salat">Salat</a></li>
+</ul>
+
+<h2 id="getting-going-with-casbah">Getting going with Casbah</h2>
+
+<p>MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.2/persistence/scalatra-casbah-example">scalatra-casbah-example</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<p>We&rsquo;ll use the officially-supported Casbah library, but any of the others should work in basically the same way.</p>
+
+<p>First, make sure you start a connection to MongoDb when your application initializes. You do this by putting a bit of code in your <code>init</code> method in <code>src/main/scala/ScalatraBootstrap</code>:</p>
+
+<pre><code class="language-scala">import com.mongodb.casbah.Imports._
+import org.scalatra.example._
+import org.scalatra._
+import javax.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle {
+  override def init(context: ServletContext) {
+
+     // As you can see, there's not much to do in order to get MongoDb working with Scalatra.
+     // We're connecting with default settings - localhost on port 27017 -
+     // by calling MongoClient() with no arguments.
+    val mongoClient =  MongoClient()
+    val mongoColl = mongoClient(&quot;casbah_test&quot;)(&quot;test_data&quot;)
+
+    // pass a reference to the Mongo collection into your servlet when you mount it at application start:
+    context.mount(new MongoController(mongoColl), &quot;/*&quot;)
+
+  }
+}
+</code></pre>
+
+<p>The <code>mongoColl</code> parameter in <code>context.mount(new MongoController(mongoColl), &quot;/*&quot;)</code> passes a reference to the MongoDb collection to your controller. At that point, you&rsquo;re more or less ready to start working with MongoDb in your application. A controller which does some very simple MongoDb operations might look like this:</p>
+
+<pre><code class="language-scala">package org.scalatra.example
+
+import org.scalatra._
+
+// MongoDb-specific imports
+import com.mongodb.casbah.Imports._
+
+class MongoController(mongoColl: MongoCollection) extends ScalatraCasbahExampleStack {
+
+  /**
+   * Insert a new object into the database. You can use the following from your console to try it out:
+   * curl -i -H &quot;Accept: application/json&quot; -X POST -d &quot;key=super&amp;value=duper&quot; http://localhost:8080/insert
+   */
+  post(&quot;/&quot;) {
+    val key = params(&quot;key&quot;)
+    val value = params(&quot;value&quot;)
+    val newObj = MongoDBObject(key -&gt; value)
+    mongoColl += newObj
+  }
+
+  /**
+   * Retrieve everything in the MongoDb collection we're currently using.
+   */
+  get(&quot;/&quot;) {
+    mongoColl.find()
+    for { x &lt;- mongoColl} yield x
+  }
+
+  /**
+   * Query for the first object which matches the values given. If you copy/pasted the insert example above,
+   * try http://localhost:8080/query/super/duper in your browser.
+   */
+  get(&quot;/query/:key/:value&quot;) {
+    val q = MongoDBObject(params(&quot;key&quot;) -&gt; params(&quot;value&quot;))
+    for ( x &lt;- mongoColl.findOne(q) ) yield x
+  }
+
+}
+</code></pre>
+
+<p>Once you&rsquo;ve got the <code>MongoCollection</code> available inside your controller, you can use Mongo and Scalatra together seamlessly. If you would like to learn more about Casbah, proceed to the <a href="http://mongodb.github.io/casbah/tutorial.html">Casbah Tutorial</a>.</p>
+
+<p>Alternately, you can apply the same basic techniques in order to get started with any of the Scala MongoDb libraries. Each library has its strengths and weaknesses, and the choice of which one to use will come down largely to your programming style.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

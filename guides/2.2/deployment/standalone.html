@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Standalone deployment - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Standalone deployment</h1>
+                
+				<section>
+					
+
+<h3 id="launching-scalatra-as-a-servlet">Launching Scalatra as a servlet</h3>
+
+<p>We need some glue code to launch an embedded Jetty server with the ScalatraListener.</p>
+
+<pre><code class="language-scala">package com.example  // remember this package in the sbt project definition
+import org.eclipse.jetty.server.Server
+import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler}
+import org.eclipse.jetty.webapp.WebAppContext
+import org.scalatra.servlet.ScalatraListener
+
+object JettyLauncher { // this is my entry object as specified in sbt project definition
+  def main(args: Array[String]) {
+    val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080
+
+    val server = new Server(port)
+    val context = new WebAppContext()
+    context setContextPath &quot;/&quot;
+    context.setResourceBase(&quot;src/main/webapp&quot;)
+    context.addEventListener(new ScalatraListener)
+    context.addServlet(classOf[DefaultServlet], &quot;/&quot;)
+
+    server.setHandler(context)
+
+    server.start
+    server.join
+  }
+}
+</code></pre>
+
+<p>Be sure to define the appropriate <a href="configuration.html">ScalatraBootstrap</a>:</p>
+
+<pre><code class="language-scala">import org.scalatra.LifeCycle
+import javax.servlet.ServletContext
+import org.scalatra.TemplateExample // this is the example Scalatra servlet
+
+class ScalatraBootstrap extends LifeCycle {
+  override def init(context: ServletContext) {
+    context mount (new TemplateExample, &quot;/*&quot;)
+  }
+}
+</code></pre>
+
+<p>The ScalatraBootstrap can be in <a href="../../getting-started/project-structure.html">the usual place</a>,
+but if you would like to specify a specific package and class, you can do so
+with an init parameter:</p>
+
+<pre><code class="language-scala">    ...
+    context setContextPath &quot;/&quot;
+    context.setResourceBase(&quot;src/main/webapp&quot;)
+    context.setInitParameter(ScalatraListener.LifeCycleKey, &quot;org.yourdomain.project.ScalatraBootstrap&quot;)
+    context.addEventListener(new ScalatraListener)
+    ...
+</code></pre>
+
+<p>You&rsquo;ll also need to ensure that the <code>jetty-webapp</code> library dependency in <code>project/build.scala</code>
+contains a <code>compile</code> directive. Assuming your jetty-webapp declaration looks something
+like this:</p>
+
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;8.1.8.v20121106&quot; % &quot;container&quot;,
+</code></pre>
+
+<p>change <code>container</code> to <code>container;compile</code>:</p>
+
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;8.1.8.v20121106&quot; % &quot;container;compile&quot;,
+</code></pre>
+
+<p>With the <a href="https://github.com/sbt/sbt-assembly">sbt-assembly</a> plugin you can make a launchable jar.
+Now save this alongside your Scalatra project as JettyLauncher.scala and run
+<code>sbt clean assembly</code>. You&rsquo;ll have the ultimate executable jar file
+in the target soon. Try</p>
+
+<pre><code class="language-bash">java -jar **-assembly-**.jar
+</code></pre>
+
+<p>and see it will launch the embedded Jetty at port 8080 with the example
+Scalatra project running. On an OS X 10.6 machine with JVM 1.6, this setup
+costs ~38MB memory.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

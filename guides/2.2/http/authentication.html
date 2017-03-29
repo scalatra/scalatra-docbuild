@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Authentication - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Authentication</h1>
+                
+				<section>
+					
+
+<p><em>Scentry</em> is Scalatra&rsquo;s optional authentication system. It is a port of Ruby&rsquo;s
+<a href="https://github.com/hassox/warden">Warden</a> authentication framework for
+Scalatra. You write auth strategies to meet your needs, and then use Scentry
+to enforce security for your strategies.</p>
+
+<p>There are a few moving parts here. In order to protect your application&rsquo;s actions
+with Scentry, you need two things:</p>
+
+<ul>
+<li>a <em>strategy</em> to enforce security, let&rsquo;s call it <code>YourStrategy</code>. A strategy is
+a piece of logic which determines whether a user should be authenticated.</li>
+<li>a trait that ties <code>YourStrategy</code> together with Scalatra&rsquo;s built-in
+<code>ScentrySupport</code> class. You then mix this trait into your controllers in
+order to secure them. By convention, this trait is often called
+<code>AuthenticationSupport</code>, but you can call it whatever you want.</li>
+</ul>
+
+<p>Multiple strategies can be registered with Scentry - for example, you could write
+a <code>CookieStrategy</code>, a <code>UserPasswordStrategy</code>, and a <code>MyBasicAuthStrategy</code>.</p>
+
+<p>Scentry will cascade through the strategies, attempting to log in a user with
+each strategy, until either the user is authenticated or all available
+strategies are exhausted.</p>
+
+<p>You can register strategies in controller code, like so:</p>
+
+<pre><code class="language-scala">override protected def registerAuthStrategies = {
+    scentry.registerStrategy('UserPassword, app =&gt; new UserPasswordStrategy(app))
+    scentry.registerStrategy('RememberMe, app =&gt; new RememberMeStrategy(app))
+  }
+</code></pre>
+
+<p>Alternately, you can register a strategy using init params in
+<code>ScalatraBootstrap</code> or your application&rsquo;s <code>web.xml</code> file, using
+<code>scentry.strategies</code> as the key and the class name of your strategy as a value:</p>
+
+<p><code>context.initParameters(&quot;scentry.strategies&quot;) = &quot;UserPasswordStrategy&quot;</code></p>
+
+<p>To write a Scentry Strategy, you&rsquo;ll need to implement the methods in
+<a href="https://github.com/scalatra/scalatra/blob/develop/auth/src/main/scala/org/scalatra/auth/ScentryStrategy.scala">ScentryStrategy</a>.</p>
+
+<p>See Scalatra&rsquo;s built-in <a href="https://github.com/scalatra/scalatra/blob/develop/auth/src/main/scala/org/scalatra/auth/strategy/BasicAuthStrategy.scala">BasicAuthStrategy</a>
+for an example.</p>
+
+<h2 id="dependency">Dependency</h2>
+
+<pre><code class="language-scala">// Put this in project/build.scala:
+&quot;org.scalatra&quot; %% &quot;scalatra-auth&quot; % &quot;2.2.2&quot;
+</code></pre>
+
+<p>You&rsquo;ll need the scalatra-auth dependency in your <code>project/build.scala</code> for all subsequent
+examples. <code>scalatra-auth</code> handles both cookie-based auth and HTTP basic auth.</p>
+
+<h2 id="http-basic-auth-example">HTTP Basic Auth example</h2>
+
+<p>First things first. Let&rsquo;s try the simplest possible example: HTTP basic auth.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="{{site.examples}}http/authentication-demo">authentication-demo</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<h3 id="write-the-strategy">Write the strategy</h3>
+
+<p>The class <code>OurBasicAuthStrategy</code> will implement Scalatra&rsquo;s built-in <code>BasicAuthStrategy</code>
+trait, which itself extends <code>ScentryStrategy</code>. Normally, you&rsquo;ll want to extend
+<code>ScentryStrategy</code> when writing your own authentication logic, but let&rsquo;s see the
+simple case first.</p>
+
+<pre><code class="language-scala">package org.scalatra.example
+
+import org.scalatra.auth.strategy.{BasicAuthStrategy, BasicAuthSupport}
+import org.scalatra.auth.{ScentrySupport, ScentryConfig}
+import org.scalatra.{ScalatraBase}
+
+class OurBasicAuthStrategy(protected override val app: ScalatraBase, realm: String)
+  extends BasicAuthStrategy[User](app, realm) {
+
+  protected def validate(userName: String, password: String): Option[User] = {
+    if(userName == &quot;scalatra&quot; &amp;&amp; password == &quot;scalatra&quot;) Some(User(&quot;scalatra&quot;))
+    else None
+  }
+
+  protected def getUserId(user: User): String = user.id
+}
+</code></pre>
+
+<p>The key thing here is the <code>validate</code> method, which attempts to log a user in
+using methods on a User model. This might be used in a <code>login</code> action on one
+of your controllers, to figure out whether a user should be granted a session.</p>
+
+<h3 id="an-authenticationsupport-trait">An AuthenticationSupport trait</h3>
+
+<p>The next thing you&rsquo;ll need is the trait that ties together <code>OurBasicAuthStrategy</code>
+with <code>ScentrySupport</code>. It might look like this:</p>
+
+<pre><code class="language-scala">trait AuthenticationSupport extends ScentrySupport[User] with BasicAuthSupport[User] {
+  self: ScalatraBase =&gt;
+
+  val realm = &quot;Scalatra Basic Auth Example&quot;
+
+  protected def fromSession = { case id: String =&gt; User(id)  }
+  protected def toSession   = { case usr: User =&gt; usr.id }
+
+  protected val scentryConfig = (new ScentryConfig {}).asInstanceOf[ScentryConfiguration]
+
+
+  override protected def configureScentry = {
+    scentry.unauthenticated {
+      scentry.strategies(&quot;Basic&quot;).unauthenticated()
+    }
+  }
+
+  override protected def registerAuthStrategies = {
+    scentry.register(&quot;Basic&quot;, app =&gt; new OurBasicAuthStrategy(app, realm))
+  }
+
+}
+</code></pre>
+
+<p>The <code>AuthenticationSupport</code> trait has an extremely basic way of getting a User
+object from the session, and of pushing the user&rsquo;s id into the session. It also
+takes care of registering our single available strategy with Scentry.</p>
+
+<p>You&rsquo;ll also need a User class. Let&rsquo;s use a simple case class:</p>
+
+<pre><code class="language-scala">case class User(id: String)
+</code></pre>
+
+<p>You don&rsquo;t need to call this class <code>User</code>. It can be named anything you want.</p>
+
+<h3 id="mix-in-authenticationsupport">Mix in AuthenticationSupport</h3>
+
+<p>Next, we mix the <code>AuthenticationSupport</code> trait into a controller:</p>
+
+<pre><code class="language-scala">package org.scalatra.example
+
+import org.scalatra._
+
+class AuthDemo extends ScalatraServlet with AuthenticationSupport {
+
+
+  get(&quot;/*&quot;) {
+    basicAuth
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;h1&gt;Hello from Scalatra&lt;/h1&gt;
+        &lt;p&gt;You are authenticated.&lt;/p&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  }
+
+}
+</code></pre>
+
+<p>Users who hit either of these routes when not logged in will be presented
+with the browswer&rsquo;s HTTP basic auth login prompt.</p>
+
+<p>A few things are worth mentioning here. The <code>basicAuth</code> method comes from the
+pre-built <code>BasicAuthStrategy</code> included in Scalatra. If you&rsquo;re defining your own
+authentication logic, you&rsquo;ll need to implement a similar method yourself.</p>
+
+<p>Here&rsquo;s what <code>basicAuth</code> does:</p>
+
+<pre><code class="language-scala">protected def basicAuth() = {
+  val baReq = new BasicAuthStrategy.BasicAuthRequest(request)
+  if(!baReq.providesAuth) {
+    response.setHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=\&quot;%s\&quot;&quot; format realm)
+    halt(401, &quot;Unauthenticated&quot;)
+  }
+  if(!baReq.isBasicAuth) {
+    halt(400, &quot;Bad Request&quot;)
+  }
+  scentry.authenticate(&quot;Basic&quot;)
+}
+</code></pre>
+
+<p>When a browser hits the protected servlet for the first time, the <code>basicAuth</code>
+method is called.</p>
+
+<p>The user hasn&rsquo;t yet authenticated, so the <code>unauthenticated</code> method of Scentry&rsquo;s
+BasicAuthStrategy is run. It presents a basic auth challenge to the user:</p>
+
+<pre><code class="language-scala"> override def unauthenticated() {
+    app.response.setHeader(&quot;WWW-Authenticate&quot;, challenge)
+    app.halt(401, &quot;Unauthenticated&quot;)
+  }
+</code></pre>
+
+<p>The user enters credentials, or cancels to close the basic auth box.</p>
+
+<p>When good credentials are entered, the input is sent to Scentry&rsquo;s <code>validate</code>
+method, which we&rsquo;ve overridden in <code>OurBasicAuthStrategy</code>:</p>
+
+<pre><code class="language-scala">  protected def validate(userName: String, password: String): Option[User] = {
+    if(userName == &quot;scalatra&quot; &amp;&amp; password == &quot;scalatra&quot;) Some(User(&quot;scalatra&quot;))
+    else None
+  }
+</code></pre>
+
+<p>If the <code>validate</code> method returns something other than a <code>None</code>, then Scentry
+considers the returned class as its <code>User</code> class, and decides that authentication has
+taken place; if it returns <code>None</code>, authentication has failed.</p>
+
+<p>If authentication is granted, the <code>BasicAuthStrategy</code> sets up HTTP basic auth
+in the user&rsquo;s browser. <code>halt</code> is called if the user is unauthenticated or not
+using basic auth.</p>
+
+<h3 id="what-to-protect">What to protect</h3>
+
+<p>You might choose to run the <code>basicAuth</code> method in a <code>before()</code> filter in your
+controller, rather than hitting it in each action, to secure every method in
+<code>MyController</code>.</p>
+
+<p>You might even set it up as a <code>before()</code> filter in the
+<code>AuthenticationSupport</code> trait, which would automatically secure any controller
+which mixed in the trait.</p>
+
+<p>As with most things in Scalatra, it&rsquo;s up to you.</p>
+
+<h2 id="cookie-example">Cookie example</h2>
+
+<p>We still need to write this up and finish the guide, but there&rsquo;s now working
+example code for a
+<a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.2/http/scentry-auth-demo">UserPasswordStrategy and RememberMe strategy</a>
+with fallback.</p>
+
+<p>If you&rsquo;re trying to secure an API rather than a user&rsquo;s browser session,
+Jos Dirksen&rsquo;s <a href="http://www.smartjava.org/content/tutorial-getting-started-scala-and-scalatra-part-iii">tutorial</a> on the subject may help.</p>
+
+<p>{% include _under_construction.html %}</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

@@ -626,8 +626,8 @@ past few weeks.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;There&amp;rsquo;s one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/mongodb.html&#34;&gt;MongoDb&lt;/a&gt;,
-and one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/riak.html&#34;&gt;Riak&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/mongodb.html&#34;&gt;MongoDb&lt;/a&gt;,
+and one on &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/riak.html&#34;&gt;Riak&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Also, we&amp;rsquo;ve written a guide which goes over the general case. There are
 probably a few dozen libraries which &lt;em&gt;could&lt;/em&gt; be used for persistence
@@ -635,7 +635,7 @@ with Scalatra, and the number of specific guides we currently have (4)
 doesn&amp;rsquo;t really reflect the richness of options or show how easy it is to
 get started with whichever one you choose - so the introduction to
 persistence guide gives an overview of the steps for
-&lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/2.2/guides/persistence/introduction.html&#34;&gt;writing your own&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/guides/2.2/persistence/introduction.html&#34;&gt;writing your own&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;If anybody would like to contribute a guide for a specific persistence
 library which we don&amp;rsquo;t have docs for, pull requests on

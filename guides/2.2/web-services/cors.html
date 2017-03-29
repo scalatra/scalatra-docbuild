@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>CORS - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">CORS</h1>
+                
+				<section>
+					
+
+<h3 id="cross-origin-resource-sharing">Cross origin resource sharing</h3>
+
+<p>Scalatra allows you to mix the <code>CorsSupport</code> trait into your servlets if you need to do
+<a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">cross-origin resource sharing</a>.</p>
+
+<p>Adding <code>CorsSupport</code> allows all requests from anywhere, by default. You&rsquo;ll need to add an <code>options</code> route to your servlet, though, so that your servlet will respond to the preflight request:</p>
+
+<pre><code class="language-scala">import org.scalatra.CorsSupport
+
+class YourServlet extends ScalatraBase with CorsSupport {
+
+  options(&quot;/*&quot;){
+    response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;));
+  }
+
+}
+</code></pre>
+
+<p>You can configure your application to be more restrictive by using the following init
+params.</p>
+
+<p><code>context.initParameters(&quot;org.scalatra.cors.allowedOrigins&quot;) = &quot;http://example.com:8080 http://foo.example.com&quot;</code>
+- List the hosts and ports which will be allowed to make cross-origin requests,
+separated by spaces (* by default).</p>
+
+<p><code>context.initParameters(&quot;org.scalatra.cors.allowedMethods&quot;) = &quot;GET&quot;</code> - List what HTTP methods will be
+accepted. Available options are GET, POST, PUT, DELETE, HEAD, OPTIONS, and
+PATCH. All hosts are accepted by default.</p>
+
+<p><code>context.initParameters(&quot;org.scalatra.cors.allowedHeaders&quot;) = &quot;Content-Type&quot;</code> - Set a list of allowed
+HTTP headers, most headers are supported.</p>
+
+<p><code>context.initParameters(&quot;org.scalatra.cors.preflightMaxAge&quot;) = 1800</code> - Set the number of seconds that
+preflight requests can be cached by the client. Default value is 0 seconds.</p>
+
+<p><code>context.initParameters(&quot;org.scalatra.cors.allowCredentials&quot;) = true</code> - By default, cookies are not
+included in CORS requests. Set this to <code>true</code> to allow cookies.</p>
+
+<p>If you&rsquo;re not familiar with CORS, you may want to find out a bit more about
+<a href="http://www.w3.org/TR/cors/#resource-preflight-requests">preflightMaxAge</a> and <a href="http://www.w3.org/TR/cors/#supports-credentials">allowCredentials</a> or
+<a href="http://www.w3.org/TR/cors">read the whole spec</a> at the W3C. A good tutorial is also available
+at <a href="http://www.html5rocks.com/en/tutorials/cors/">HTML5Rocks</a>.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

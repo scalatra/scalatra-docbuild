@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>LESS CSS - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">LESS CSS</h1>
+                
+				<section>
+					
+
+<p><a href="http://lesscss.org/">LESS</a> is an extension to CSS that adds DRY features such as
+variables, mixins, operations, and functions.
+If you&rsquo;ve felt the agony of repetitious CSS code (read: if you&rsquo;ve written CSS), it&rsquo;s
+time to start using LESS.
+Fortunately it&rsquo;s easy to add LESS to your build chain, causing sbt to translate your
+LESS into CSS during normal compilation.
+Best of all, since CSS is a valid subset of LESS, you can add the new features
+when you have time to learn them, on your schedule!</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="{{site.examples}}resources/scalatra-less-css">scalatra-less-css</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<hr />
+
+<h2 id="full-usage-guide">Full usage guide</h2>
+
+<p>Because LESS is an external project, we won&rsquo;t attempt to reproduce its documentation
+here.
+Go to the <a href="http://lesscss.org/">official documentation</a> and learn you some LESS!</p>
+
+<h2 id="set-up-less-in-scalatra">Set up LESS in Scalatra</h2>
+
+<h3 id="install">Install</h3>
+
+<p>Install the plugin by adding the dependency to your <code>project/plugins.sbt</code>:</p>
+
+<pre><code class="language-scala">resolvers += Resolver.url(&quot;sbt-plugin-snapshots&quot;,
+  new URL(&quot;http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-snapshots/&quot;))(
+    Resolver.ivyStylePatterns)
+
+addSbtPlugin(&quot;com.bowlingx&quot; %% &quot;xsbt-wro4j-plugin&quot; % &quot;0.1.0-SNAPSHOT&quot;)
+</code></pre>
+
+<h3 id="enable">Enable</h3>
+
+<p>Add these imports to the very <strong>top</strong> of your <code>build.sbt</code>:</p>
+
+<pre><code class="language-scala">import com.bowlingx.sbt.plugins.Wro4jPlugin._
+import Wro4jKeys._
+</code></pre>
+
+<p>Now enable to plugin by adding these lines to your <code>build.sbt</code>, after all your imports.
+Don&rsquo;t attempt to remove the blank line!</p>
+
+<pre><code class="language-scala">seq(wro4jSettings: _*)
+
+(webappResources in Compile) &lt;+= (targetFolder in generateResources in Compile)
+</code></pre>
+
+<h3 id="configure">Configure</h3>
+
+<p>Unfortunately, the plugin we&rsquo;re using does require a bit of configuration.</p>
+
+<p>Create the file <code>src/main/webapp/WEB-INF/wro.xml</code>, telling the compiler where our
+LESS files are:</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;groups
+    xmlns=&quot;http://www.isdc.ro/wro&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.isdc.ro/wro wro.xsd&quot;
+    &gt;
+
+  &lt;group name=&quot;styles&quot;&gt;
+    &lt;css&gt;/less/*.less&lt;/css&gt;
+  &lt;/group&gt;
+&lt;/groups&gt;
+</code></pre>
+
+<p>Also create the file <code>src/main/webapp/WEB-INF/wro.properties</code>, requesting LESS
+compilation:</p>
+
+<pre><code>preProcessors = lessCss
+postProcessors =
+</code></pre>
+
+<h2 id="example">Example</h2>
+
+<p>With installation out of the way, you&rsquo;re free to put your LESS files in
+<code>src/main/webapp/less</code>.
+It doesn&rsquo;t matter what the file/s are called, so long as they have the <code>.less</code>
+extension we said we&rsquo;d use in the <code>wro.xml</code> configuration.</p>
+
+<p>For example, create <code>src/main/webapp/less/main.less</code>, which shows off the use of
+variables in LESS:</p>
+
+<pre><code class="language-css">@base: #f938ab;
+
+body {
+    color: @base
+}
+</code></pre>
+
+<p>That file will be compiled to one called <code>compiled/styles.css</code>, so you can refer to it
+in your app like this:</p>
+
+<pre><code class="language-scala">class LessCssApp extends ScalatraServlet {
+
+  get(&quot;/&quot;) {
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;compiled/styles.css&quot; /&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;h1&gt;This is &lt;a href=&quot;http://scalatra.org/2.2/guides/resources/less-css.html&quot;&gt;resources/less-css&lt;/a&gt;!&lt;/h1&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  }
+}
+</code></pre>
+
+<h2 id="see-it-in-action">See it in action</h2>
+
+<p>Now compile and run your app as usual. If all has gone well, and you&rsquo;ve used the
+above example, your text should be pink:</p>
+
+<pre><code class="language-sh">$ cd scalatra-less-css
+$ ./sbt
+&gt; container:start
+&gt; browse
+</code></pre>
+
+<p>If <code>browse</code> doesn&rsquo;t launch your browser, manually open <a href="http://localhost:8080/">http://localhost:8080/</a> in your browser.</p>
+
+<h2 id="further-documentation">Further documentation</h2>
+
+<p>The resources processor we&rsquo;ve been using, wro4j, is extensively configurable.
+See the <a href="http://code.google.com/p/wro4j/">wro4j documentation</a> for more information.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+
