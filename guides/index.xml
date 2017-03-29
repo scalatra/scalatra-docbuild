@@ -10,185 +10,6 @@
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/guides.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title></title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</guid>
-      <description>
-
-&lt;blockquote&gt;
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;title-squeryl&#34;&gt;title: Squeryl&lt;/h2&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://squeryl.org/&#34;&gt;Squeryl&lt;/a&gt; is a Scala object-relational mapper and
-domain-specific language for talking to databases in a succinct and
-typesafe way.&lt;/p&gt;
-
-&lt;p&gt;We&amp;rsquo;ll use Squeryl with &lt;a href=&#34;http://www.mchange.com/projects/c3p0/&#34;&gt;C3P0&lt;/a&gt;,
-a &amp;ldquo;butt-simple&amp;rdquo; connection pooling library.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
-  See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/persistence/scalatra-squeryl&#34;&gt;scalatra-squeryl&lt;/a&gt;
-  for an example project which expands on the concepts explained in this guide.
-&lt;/div&gt;
-
-&lt;h2 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;org.squeryl&amp;quot; %% &amp;quot;squeryl&amp;quot; % &amp;quot;0.9.5-7&amp;quot;,
-&amp;quot;com.h2database&amp;quot; % &amp;quot;h2&amp;quot; % &amp;quot;1.3.166&amp;quot;,
-&amp;quot;c3p0&amp;quot; % &amp;quot;c3p0&amp;quot; % &amp;quot;0.9.1.2&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;set-up-a-c3p0-connection-pool&#34;&gt;Set up a C3P0 connection pool&lt;/h2&gt;
-
-&lt;p&gt;Setting up C3P0 connection pool in Scalatra is just a matter of making
-a trait which does your database initialization. The initialization
-code itself can follow the
-&lt;a href=&#34;http://www.mchange.com/projects/c3p0/#quickstart&#34;&gt;C3P0 init example&lt;/a&gt;
-pretty closely:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.data
-
-import com.mchange.v2.c3p0.ComboPooledDataSource
-import org.squeryl.adapters.{H2Adapter, MySQLAdapter}
-import org.squeryl.Session
-import org.squeryl.SessionFactory
-import org.slf4j.LoggerFactory
-
-trait DatabaseInit {
-  val logger = LoggerFactory.getLogger(getClass)
-
-  val databaseUsername = &amp;quot;root&amp;quot;
-  val databasePassword = &amp;quot;&amp;quot;
-  val databaseConnection = &amp;quot;jdbc:h2:mem:squeryltryout&amp;quot;
-
-  var cpds = new ComboPooledDataSource
-
-  def configureDb() {
-    cpds.setDriverClass(&amp;quot;org.h2.Driver&amp;quot;)
-    cpds.setJdbcUrl(databaseConnection)
-    cpds.setUser(databaseUsername)
-    cpds.setPassword(databasePassword)
-
-    cpds.setMinPoolSize(1)
-    cpds.setAcquireIncrement(1)
-    cpds.setMaxPoolSize(50)
-
-    SessionFactory.concreteFactory = Some(() =&amp;gt; connection)
-
-    def connection = {
-      logger.info(&amp;quot;Creating connection with c3po connection pool&amp;quot;)
-      Session.create(cpds.getConnection, new H2Adapter)
-    }
-  }
-
-  def closeDbConnection() {
-    logger.info(&amp;quot;Closing c3po connection pool&amp;quot;)
-    cpds.close()
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You&amp;rsquo;ll likely want to load up your database creds by reading a config file,
-but that&amp;rsquo;s up to you. The &lt;code&gt;configureDb()&lt;/code&gt; method will create a connection pool when it&amp;rsquo;s called, and in this case it&amp;rsquo;ll use an in-memory H2 database with the &lt;code&gt;H2Adapter&lt;/code&gt;, so that we don&amp;rsquo;t have any dependencies on an external database server. Replace the connection string, driver, and adapter in this file if you&amp;rsquo;re using MySQL, PostgreSQL, or something else. Info is available on the&lt;/p&gt;
-
-&lt;p&gt;Inside the &lt;code&gt;configureDb&lt;/code&gt; method, Squeryl&amp;rsquo;s &lt;code&gt;SessionFactory&lt;/code&gt; gets wired together
-with C3P0&amp;rsquo;s &lt;code&gt;ComboPooledDataSource&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;initialize-the-session-pool&#34;&gt;Initialize the session pool&lt;/h2&gt;
-
-&lt;p&gt;Now that the session pool is defined, it&amp;rsquo;ll need to be initialized. The best
-place to do this initialization work is in your application&amp;rsquo;s ScalatraBootstrap
-init method.&lt;/p&gt;
-
-&lt;p&gt;Open up &lt;code&gt;src/main/scala/ScalatraBootstrap.scala&lt;/code&gt;, and import your &lt;code&gt;DatabaseInit&lt;/code&gt;
-trait. In the case of this example, we&amp;rsquo;ll need
-&lt;code&gt;import com.futurechimps.squeryli.data.DatabaseInit&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then mix the &lt;code&gt;DatabaseInit&lt;/code&gt; trait into &lt;code&gt;ScalatraBootstrap&lt;/code&gt;, so it looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scalatra.LifeCycle
-import javax.servlet.ServletContext
-import org.scalatra.example.ArticlesController
-import org.scalatra.example.data.DatabaseInit
-
-class ScalatraBootstrap extends LifeCycle with DatabaseInit {
-
-  override def init(context: ServletContext) {
-    configureDb()
-    context mount (new ArticlesController, &amp;quot;/*&amp;quot;)
-  }
-
-  override def destroy(context:ServletContext) {
-    closeDbConnection()
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;configureDb&lt;/code&gt; method is called when your application starts, and during the
-&lt;code&gt;destroy&lt;/code&gt; phase of your application, the database connections are closed down
-again.&lt;/p&gt;
-
-&lt;h2 id=&#34;setting-up-database-session-support&#34;&gt;Setting up database session support&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s make a database session support trait which can be used in your
-controllers. A complete one with imports can look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.data
-
-import org.squeryl.Session
-import org.squeryl.SessionFactory
-import org.scalatra._
-
-object DatabaseSessionSupport {
-  val key = {
-    val n = getClass.getName
-    if (n.endsWith(&amp;quot;$&amp;quot;)) n.dropRight(1) else n
-  }
-}
-
-trait DatabaseSessionSupport { this: ScalatraBase =&amp;gt;
-  import DatabaseSessionSupport._
-
-  def dbSession = request.get(key).orNull.asInstanceOf[Session]
-
-  before() {
-    request(key) = SessionFactory.newSession
-    dbSession.bindToCurrentThread
-  }
-
-  after() {
-    dbSession.close
-    dbSession.unbindFromCurrentThread
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The key things here are the &lt;code&gt;before&lt;/code&gt; and &lt;code&gt;after&lt;/code&gt; filters which open a new database
-session on each request and close it after the request is finished.&lt;/p&gt;
-
-&lt;h2 id=&#34;mixing-database-session-support-into-your-servlet&#34;&gt;Mixing database session support into your servlet&lt;/h2&gt;
-
-&lt;p&gt;Now that it&amp;rsquo;s defined, you can mix your new DatabaseSessionSupport trait into
-any of your controllers, e.g.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class ArticlesController extends ScalatraServlet with DatabaseSessionSupport
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Any controller with this trait can now use Squeryl models.&lt;/p&gt;
-
-&lt;p&gt;For full documentation of Squeryl, see the project website at
-&lt;a href=&#34;http://squeryl.org&#34;&gt;squeryl.org&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Actions</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/actions.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -614,7 +435,7 @@ have used &lt;code&gt;AsyncResult&lt;/code&gt; with out Actors.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Akka | Async</title>
+      <title>Akka</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.4/async/akka.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -807,7 +628,7 @@ have used &lt;code&gt;AsyncResult&lt;/code&gt; with out Actors.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Akka | Async</title>
+      <title>Akka</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.5/async/akka.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -2346,7 +2167,7 @@ Jos Dirksen&amp;rsquo;s &lt;a href=&#34;http://www.smartjava.org/content/tutoria
     </item>
     
     <item>
-      <title>Authentication | HTTP | Scalatra</title>
+      <title>Authentication</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.4/http/authentication.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -2588,7 +2409,7 @@ Jos Dirksen&amp;rsquo;s &lt;a href=&#34;http://www.smartjava.org/content/tutoria
     </item>
     
     <item>
-      <title>Authentication | HTTP | Scalatra</title>
+      <title>Authentication</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/authentication.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -2888,6 +2709,62 @@ at &lt;a href=&#34;http://www.html5rocks.com/en/tutorials/cors/&#34;&gt;HTML5Roc
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.4/web-services/cors.html</guid>
+      <description>
+
+&lt;h3 id=&#34;cross-origin-resource-sharing&#34;&gt;Cross origin resource sharing&lt;/h3&gt;
+
+&lt;p&gt;Scalatra allows you to mix the &lt;code&gt;CorsSupport&lt;/code&gt; trait into your servlets if you need to do
+&lt;a href=&#34;http://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;cross-origin resource sharing&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Adding &lt;code&gt;CorsSupport&lt;/code&gt; allows all requests from anywhere, by default. You&amp;rsquo;ll need to add an &lt;code&gt;options&lt;/code&gt; route to your servlet, though, so that your servlet will respond to the preflight request:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scalatra.CorsSupport
+
+class YourServlet extends ScalatraBase with CorsSupport {
+
+  options(&amp;quot;/*&amp;quot;){
+    response.setHeader(&amp;quot;Access-Control-Allow-Headers&amp;quot;, request.getHeader(&amp;quot;Access-Control-Request-Headers&amp;quot;));
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can configure your application to be more restrictive by using the following init
+params.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.allowedOrigins&amp;quot;) = &amp;quot;http://example.com:8080,http://foo.example.com&amp;quot;&lt;/code&gt;
+- List the hosts and ports which will be allowed to make cross-origin requests,
+separated by commas (* by default).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.allowedMethods&amp;quot;) = &amp;quot;GET&amp;quot;&lt;/code&gt; - List what HTTP methods will be
+accepted. Available options are GET, POST, PUT, DELETE, HEAD, OPTIONS, and
+PATCH. All hosts are accepted by default.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.allowedHeaders&amp;quot;) = &amp;quot;Content-Type&amp;quot;&lt;/code&gt; - Set a list of allowed
+HTTP headers, most headers are supported.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.preflightMaxAge&amp;quot;) = 1800&lt;/code&gt; - Set the number of seconds that
+preflight requests can be cached by the client. Default value is 0 seconds.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.allowCredentials&amp;quot;) = true&lt;/code&gt; - By default, cookies are not
+included in CORS requests. Set this to &lt;code&gt;true&lt;/code&gt; to allow cookies.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;context.initParameters(&amp;quot;org.scalatra.cors.enable&amp;quot;) = false&lt;/code&gt; - If CorsSupport needs to be disabled, set to false.
+Default: CorsSupport is enabled.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re not familiar with CORS, you may want to find out a bit more about
+&lt;a href=&#34;http://www.w3.org/TR/cors/#resource-preflight-requests&#34;&gt;preflightMaxAge&lt;/a&gt; and &lt;a href=&#34;http://www.w3.org/TR/cors/#supports-credentials&#34;&gt;allowCredentials&lt;/a&gt; or
+&lt;a href=&#34;http://www.w3.org/TR/cors&#34;&gt;read the whole spec&lt;/a&gt; at the W3C. A good tutorial is also available
+at &lt;a href=&#34;http://www.html5rocks.com/en/tutorials/cors/&#34;&gt;HTML5Rocks&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CORS</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.5/web-services/cors.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.5/web-services/cors.html</guid>
       <description>
 
 &lt;h3 id=&#34;cross-origin-resource-sharing&#34;&gt;Cross origin resource sharing&lt;/h3&gt;

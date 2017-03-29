@@ -122,10 +122,6 @@
   </url>
   
   <url>
-    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</loc>
-  </url>
-  
-  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/actions.html</loc>
   </url>
   
@@ -601,7 +597,7 @@
   </url>
   
   <url>
-    <loc>https://scalatra.github.io/scalatra-docbuild/philosophy.html</loc>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/scalatra-philosophy.html</loc>
   </url>
   
   <url>
@@ -658,6 +654,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/squeryl.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</loc>
   </url>
   
   <url>

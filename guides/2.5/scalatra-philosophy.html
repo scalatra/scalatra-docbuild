@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>File uploads - Scalatra</title>
+		<title>Scalatra&#39;s philosophy - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,107 +61,28 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">File uploads</h1>
+		<h1 class="doc-entry-title">Scalatra&#39;s philosophy</h1>
 		<section>
 		  
 
-<h2 id="uploading-files">Uploading files</h2>
+<h3 id="1-start-small-build-upwards">1. Start small, build upwards</h3>
 
-<p>File upload support is included within Scalatra by default by leveraging
-the Servlet 3.0 API&rsquo;s built-in support for <code>multipart/form-data</code> requests.
-For a working example, see
-<a href="https://github.com/scalatra/scalatra/blob/develop/example/src/main/scala/org/scalatra/FileUploadExample.scala">FileUploadExample.scala</a>.</p>
+<p>Start with a small core, and have lots of easy integrations for common tasks.</p>
 
-<p>To enable file upload support, extend your application with <code>FileUploadSupport</code>
-and set the upload configuration with a call to <code>configureMultipartHandling</code>:</p>
+<h3 id="2-freedom">2. Freedom</h3>
 
-<pre><code class="language-scala">import org.scalatra.ScalatraServlet
-import org.scalatra.servlet.{FileUploadSupport, MultipartConfig, SizeConstraintExceededException}
+<p>Allow the user freedom to choose whatever structure and libraries make the most sense for the application being built.</p>
 
-class MyApp extends ScalatraServlet with FileUploadSupport {
-  configureMultipartHandling(MultipartConfig(maxFileSize = Some(3*1024*1024)))
-  // ...
-}
-</code></pre>
+<h3 id="3-solid-but-not-stolid">3. Solid, but not stolid</h3>
 
-<p>If you prefer using your <code>web.xml</code> over <code>MultipartConfig</code>, you can also place
-<code>&lt;multipart-config&gt;</code> in your <code>&lt;servlet&gt;</code>:</p>
+<p>Use solid base components. For instance, servlets aren&rsquo;t cool, but they are
+extremely stable and have a huge community behind them. At the same time, work
+to advance the state of web application development by using new techniques
+and approaches.</p>
 
-<pre><code class="language-xml">&lt;servlet&gt;
-  &lt;servlet-name&gt;myapp&lt;/servlet-name&gt;
-  &lt;servlet-class&gt;com.me.MyApp&lt;/servlet-class&gt;
+<h3 id="4-love-http">4. Love HTTP</h3>
 
-  &lt;multipart-config&gt;
-    &lt;max-file-size&gt;3145728&lt;/max-file-size&gt;
-  &lt;/multipart-config&gt;
-&lt;/servlet&gt;
-</code></pre>
-
-<p>See the
-<a href="http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/MultipartConfig.html">javax.servlet.annotation.MultipartConfig Javadoc</a>
-for more details on configurable attributes.</p>
-
-<p><span class="badge badge-warning"><i class="glyphicon glyphicon-flag"></i></span>
-Note for Jetty users: <code>MultipartConfig</code> and the <code>&lt;multipart-config&gt;</code> tag in <code>web.xml</code>
-do not work correctly in Jetty prior to version 8.1.3.</p>
-
-<p>If you are <a href="../deployment/standalone.html">embedding Jetty</a>, you must either mount the servlet in your
-<a href="../deployment/configuration.html">ScalatraBootstrap</a>, or you must configure it via the ServletHolder:</p>
-
-<pre><code class="language-scala">  import org.scalatra.servlet.MultipartConfig
-  // ...
-  val holder = context.addServlet(classOf[YourScalatraServlet], &quot;/*&quot;)
-  holder.getRegistration.setMultipartConfig(
-    MultipartConfig(
-      maxFileSize = Some(3*1024*1024),
-      fileSizeThreshold = Some(1*1024*1024)
-    ).toMultipartConfigElement
-  )
-  // ...
-}
-</code></pre>
-
-<p>Be sure that your form is of type <code>multipart/form-data</code>:</p>
-
-<pre><code class="language-scala">get(&quot;/&quot;) {
-  &lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
-    &lt;input type=&quot;file&quot; name=&quot;thefile&quot; /&gt;
-    &lt;input type=&quot;submit&quot; /&gt;
-  &lt;/form&gt;
-}
-</code></pre>
-
-<p>Your files are available through the <code>fileParams</code> or <code>fileMultiParams</code> maps:</p>
-
-<pre><code class="language-scala">post(&quot;/&quot;) {
-  processFile(fileParams(&quot;thefile&quot;))
-}
-</code></pre>
-
-<p>To handle the case where the user uploads too large a file, you can define an error handler:</p>
-
-<pre><code class="language-scala">error {
-  case e: SizeConstraintExceededException =&gt; RequestEntityTooLarge(&quot;too much!&quot;)
-}
-</code></pre>
-
-<p>Scalatra wraps <code>IllegalStateException</code> thrown by <code>HttpServletRequest#getParts()</code> inside
-<code>SizeConstraintExceededException</code> for convenience of use. If the container for some
-reason throws an exception other than <code>IllegalStateException</code> when it detects
-a file upload that&rsquo;s too large (or a request body that&rsquo;s too large),
- or you are getting false positives, you can configure the wrapping by
-overriding the <code>isSizeConstraintException</code> method.</p>
-
-<p>For example, Jetty 8.1.3 incorrectly throws <code>ServletException</code> instead of <code>IllegalStateException</code>.
-You can configure that to be wrapped inside <code>SizeConstraintExceededException</code>s
-by including the following snippet in your servlet:</p>
-
-<pre><code class="language-scala">override def isSizeConstraintException(e: Exception) = e match {
-  case se: ServletException if se.getMessage.contains(&quot;exceeds max filesize&quot;) ||
-                               se.getMessage.startsWith(&quot;Request exceeds maxRequestSize&quot;) =&gt; true
-  case _ =&gt; false
-}
-</code></pre>
+<p>Embrace HTTP and its stateless nature. People get into trouble when they fool themselves into thinking things which aren&rsquo;t true - fancy server-side tricks to give an illusion of statefulness aren&rsquo;t for us.</p>
 
 		</section>
 	  </article>
