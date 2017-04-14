@@ -138,6 +138,27 @@ class ScalatraBootstrap extends LifeCycle {
 }
 </code></pre>
 
+<h4 id="custom-location-of-scalatra-bootstrap-class">Custom location of Scalatra bootstrap class</h4>
+
+<p>If you would like to move the <code>ScalatraBootstrap.scala</code> out of the default package and into one of your own, you can specify the location of the bootstrap file in your <code>web.xml</code> file:</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
+      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+      xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
+      version=&quot;3.0&quot;&gt;
+    &lt;context-param&gt;
+        &lt;param-name&gt;org.scalatra.LifeCycle&lt;/param-name&gt;
+        &lt;param-value&gt;org.yourdomain.project.MyScalatraBootstrap&lt;/param-value&gt;
+    &lt;/context-param&gt;
+    &lt;listener&gt;
+      &lt;listener-class&gt;org.scalatra.servlet.ScalatraListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+&lt;/web-app&gt;
+</code></pre>
+
+<p>Now your bootstrap class file can be located in the <code>com.example.app</code> package and be named <code>MyScalatraBootstrap.scala</code>.</p>
+
 <h4 id="mounting-multiple-servlets-or-filters">Mounting multiple servlets (or filters)</h4>
 
 <p>If you&rsquo;ve got more than one servlet or filter in your application, you&rsquo;ll

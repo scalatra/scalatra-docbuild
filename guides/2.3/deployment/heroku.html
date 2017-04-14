@@ -156,6 +156,11 @@ object JettyLauncher {
 <pre><code class="language-scala">context.mount(new MyScalatraServlet, &quot;/*&quot;)
 </code></pre>
 
+<p>If you have a custom bootstrap class location:</p>
+
+<pre><code class="language-scala">context.setInitParameter(ScalatraListener.LifeCycleKey, &quot;org.yourdomain.project.MyScalatraBootstrap&quot;)
+</code></pre>
+
 <h3 id="tell-heroku-how-to-run-your-app-optional">Tell Heroku how to run your app (optional)</h3>
 
 <p>Heroku will detect the <code>target/universal/stage/bin/&lt;app-name&gt;</code> script generated
