@@ -69,7 +69,7 @@
 to a poor user experience for your apps.
 Fortunately, many clients can accept compressed content and Scalatra lets you
 compress server responses without any change to your business logic.
-Just mix in <code>GZipSupport</code>.</p>
+Just mix in <code>ContentEncodingSupport</code>.</p>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
@@ -85,13 +85,13 @@ Just mix in <code>GZipSupport</code>.</p>
 <p>This servlet will reply with compressed content if and only if the client provides
 an <code>Accept-Header</code> indicating it understands gzip.</p>
 
-<pre><code class="language-scala">class GZipApp extends ScalatraServlet with GZipSupport {
+<pre><code class="language-scala">class GZipApp extends ScalatraServlet with ContentEncodingSupport {
 
   get(&quot;/&quot;) {
     &lt;html&gt;
       &lt;body&gt;
         &lt;h1&gt;This is
-          &lt;a href=&quot;http://scalatra.org/2.2/guides/http/gzip.html&quot;&gt;
+          &lt;a href=&quot;http://scalatra.org/guides/2.5/http/gzip.html&quot;&gt;
             http/gzip
           &lt;/a&gt;!
         &lt;/h1&gt;
@@ -99,6 +99,11 @@ an <code>Accept-Header</code> indicating it understands gzip.</p>
     &lt;/html&gt;
   }
 }
+</code></pre>
+
+<p>You can get gzip file using the <code>curl</code> command as follows.</p>
+
+<pre><code class="language-bash">$  curl -H &quot;Accept-Encoding:gzip,deflate&quot; -o gzip_example.html.gz http://localhost:8080
 </code></pre>
 
 		</section>
