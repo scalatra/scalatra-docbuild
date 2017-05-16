@@ -11,4 +11,6 @@ before_install:
   - git clone https://github.com/scalatra/scalatra.git
   - wget https://github.com/spf13/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
   - sudo dpkg -i hugo_0.19-64bit.deb
+before_script:
+  - sudo chmod +x /usr/local/bin/sbt
 script: ./hello.sh
