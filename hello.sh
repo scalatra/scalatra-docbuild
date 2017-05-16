@@ -54,7 +54,7 @@ cd ..
 
 # Build scalatra site
 cd scalatra-website
-git checkout origin/feature/hugo
+git checkout origin/master
 
 ls -al
 
