@@ -6,6 +6,11 @@ jdk:
 env:
   global:
   - ENCRYPTION_LABEL: "af05534c7e9c"
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot
+    - $HOME/.sbt/launchers
 before_install:
   - git clone https://github.com/scalatra/scalatra-website.git
   - git clone https://github.com/scalatra/scalatra.git
