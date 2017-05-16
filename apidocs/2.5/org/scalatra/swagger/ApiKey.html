@@ -192,6 +192,12 @@
                           ApiListingReference
                         </a>
                       </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="ApplicationGrant.html" title=""></a>
+                        <a href="ApplicationGrant.html" title="">
+                          ApplicationGrant
+                        </a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="AuthApi$.html" title=""></a>
                         <a class="class" href="AuthApi.html" title=""></a>
                         <a href="AuthApi.html" title="">
@@ -460,7 +466,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ApiKey</span><span class="params">(<span name="keyname">keyname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passAs">passAs: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;header&quot;</span></span>)</span><span class="result"> extends <a href="AuthorizationType.html" class="extype" name="org.scalatra.swagger.AuthorizationType">AuthorizationType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ApiKey</span><span class="params">(<span name="keyname">keyname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passAs">passAs: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;header&quot;</span></span>, <span name="description">description: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="AuthorizationType.html" class="extype" name="org.scalatra.swagger.AuthorizationType">AuthorizationType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -516,9 +522,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="org.scalatra.swagger.ApiKey#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(keyname:String,passAs:String):org.scalatra.swagger.ApiKey"></a><a id="&lt;init&gt;:ApiKey"></a>
+      <a id="&lt;init&gt;(keyname:String,passAs:String,description:String):org.scalatra.swagger.ApiKey"></a><a id="&lt;init&gt;:ApiKey"></a>
       <span class="permalink">
-      <a href="../../../org/scalatra/swagger/ApiKey.html#&lt;init&gt;(keyname:String,passAs:String):org.scalatra.swagger.ApiKey" title="Permalink">
+      <a href="../../../org/scalatra/swagger/ApiKey.html#&lt;init&gt;(keyname:String,passAs:String,description:String):org.scalatra.swagger.ApiKey" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -527,7 +533,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ApiKey</span><span class="params">(<span name="keyname">keyname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passAs">passAs: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;header&quot;</span></span>)</span>
+        <span class="name">ApiKey</span><span class="params">(<span name="keyname">keyname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="passAs">passAs: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;header&quot;</span></span>, <span name="description">description: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>)</span>
       </span>
       
       
@@ -627,6 +633,22 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="org.scalatra.swagger.ApiKey#description" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="description:String"></a>
+      <span class="permalink">
+      <a href="../../../org/scalatra/swagger/ApiKey.html#description:String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">description</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.scalatra.swagger.ApiKey">ApiKey</a> → <a href="AuthorizationType.html" class="extype" name="org.scalatra.swagger.AuthorizationType">AuthorizationType</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -697,7 +719,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="org.scalatra.swagger.ApiKey#keyname" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="org.scalatra.swagger.ApiKey#keyname" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="keyname:String"></a>
       <span class="permalink">
       <a href="../../../org/scalatra/swagger/ApiKey.html#keyname:String" title="Permalink">
@@ -712,7 +734,7 @@
         <span class="name">keyname</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.scalatra.swagger.ApiKey">ApiKey</a> → <a href="AuthorizationType.html" class="extype" name="org.scalatra.swagger.AuthorizationType">AuthorizationType</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">

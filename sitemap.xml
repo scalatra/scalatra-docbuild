@@ -271,10 +271,6 @@
   </url>
   
   <url>
-    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/jelastic.html</loc>
-  </url>
-  
-  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.4/deployment/servlet-container.html</loc>
   </url>
   
