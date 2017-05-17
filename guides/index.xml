@@ -102,7 +102,7 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
-  &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
   and dealing with form input.
 &lt;/div&gt;
@@ -179,7 +179,7 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
-  &lt;a href=&#34;{{site.examples}}http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
   and dealing with form input.
 &lt;/div&gt;
@@ -517,7 +517,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 
@@ -575,7 +575,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 
@@ -710,7 +710,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 
@@ -768,7 +768,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 
@@ -926,7 +926,7 @@ and define a &lt;code&gt;receive&lt;/code&gt; method, which listens for events.&
 
 &lt;p&gt;One AtmosphereClient is instantiated per connected user. It&amp;rsquo;s worth
 taking a look at the
-&lt;a href=&#34;http://scalatra.org/2.2/api/#org.scalatra.atmosphere.AtmosphereClient&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
+&lt;a href=&#34;http://scalatra.org/apidocs/2.3/org/scalatra/atmosphere/AtmosphereClient.html&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
 
 &lt;p&gt;As you can see, there are quite a few kinds of events which Scalatra&amp;rsquo;s
 atmosphere integration can deal with:&lt;/p&gt;
@@ -1012,7 +1012,7 @@ in order to understand your connection options.&lt;/p&gt;
 you&amp;rsquo;ll need to provide your own application-specific logic, also in
 JavaScript. Here&amp;rsquo;s an &lt;code&gt;application.js&lt;/code&gt; file for our chat application:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.2/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Drop that code into &lt;code&gt;webapp/js/atmosphere.js&lt;/code&gt;, and put the
 &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
@@ -1294,7 +1294,7 @@ and define a &lt;code&gt;receive&lt;/code&gt; method, which listens for events.&
 
 &lt;p&gt;One AtmosphereClient is instantiated per connected user. It&amp;rsquo;s worth
 taking a look at the
-&lt;a href=&#34;http://scalatra.org/2.2/api/#org.scalatra.atmosphere.AtmosphereClient&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
+&lt;a href=&#34;http://scalatra.org/apidocs/2.4/org/scalatra/atmosphere/AtmosphereClient.html&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
 
 &lt;p&gt;As you can see, there are quite a few kinds of events which Scalatra&amp;rsquo;s
 atmosphere integration can deal with:&lt;/p&gt;
@@ -1380,10 +1380,10 @@ in order to understand your connection options.&lt;/p&gt;
 you&amp;rsquo;ll need to provide your own application-specific logic, also in
 JavaScript. Here&amp;rsquo;s an &lt;code&gt;application.js&lt;/code&gt; file for our chat application:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.2/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Drop that code into &lt;code&gt;webapp/js/atmosphere.js&lt;/code&gt;, and put the
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
+&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
 alongside it, and you&amp;rsquo;ve got a working client implementation.&lt;/p&gt;
 
 &lt;p&gt;A few key points in &lt;code&gt;application.js&lt;/code&gt;.&lt;/p&gt;
@@ -1547,7 +1547,7 @@ in your subclass.&lt;/p&gt;
 &lt;h2 id=&#34;building-an-embedded-scalatra-atmosphere-application&#34;&gt;Building an embedded Scalatra + Atmosphere application&lt;/h2&gt;
 
 &lt;p&gt;If you need to build your Atmosphere application to run embedded within Jetty, there&amp;rsquo;s a
-full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
+full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
 
 &lt;p&gt;Once you check out the code, you can build an embedded Atmosphere-enabled app which runs under Jetty, by
 calling the &lt;code&gt;stage&lt;/code&gt; task once you&amp;rsquo;re in SBT. This will package a start script
@@ -1580,7 +1580,7 @@ without a page refresh.&lt;/p&gt;
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
 &lt;/div&gt;
 
@@ -1748,10 +1748,10 @@ in order to understand your connection options.&lt;/p&gt;
 you&amp;rsquo;ll need to provide your own application-specific logic, also in
 JavaScript. Here&amp;rsquo;s an &lt;code&gt;application.js&lt;/code&gt; file for our chat application:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.2/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.5/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.5/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Drop that code into &lt;code&gt;webapp/js/atmosphere.js&lt;/code&gt;, and put the
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
+&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.5/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
 alongside it, and you&amp;rsquo;ve got a working client implementation.&lt;/p&gt;
 
 &lt;p&gt;A few key points in &lt;code&gt;application.js&lt;/code&gt;.&lt;/p&gt;
@@ -1770,7 +1770,7 @@ what each of these mean.&lt;/p&gt;
 &lt;p&gt;Lastly, there&amp;rsquo;s a simple key-press detection which sends a chat
 message to the server whenever the &lt;code&gt;enter&lt;/code&gt; key is pressed.&lt;/p&gt;
 
-&lt;p&gt;With all of this in place, you can add a few &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/WEB-INF&#34;&gt;Scalate views&lt;/a&gt;
+&lt;p&gt;With all of this in place, you can add a few &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/async/scalatra-atmosphere-example/src/main/webapp/WEB-INF&#34;&gt;Scalate views&lt;/a&gt;
 to your chat application and it&amp;rsquo;s all done. The example application has
 a default layout and action which will serve up a browser-based chat
 client.&lt;/p&gt;
@@ -1915,7 +1915,7 @@ in your subclass.&lt;/p&gt;
 &lt;h2 id=&#34;building-an-embedded-scalatra-atmosphere-application&#34;&gt;Building an embedded Scalatra + Atmosphere application&lt;/h2&gt;
 
 &lt;p&gt;If you need to build your Atmosphere application to run embedded within Jetty, there&amp;rsquo;s a
-full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
+full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
 
 &lt;p&gt;Once you check out the code, you can build an embedded Atmosphere-enabled app which runs under Jetty, by
 calling the &lt;code&gt;stage&lt;/code&gt; task once you&amp;rsquo;re in SBT. This will package a start script
@@ -2234,7 +2234,7 @@ examples. &lt;code&gt;scalatra-auth&lt;/code&gt; handles both cookie-based auth 
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
 &lt;/div&gt;
 
@@ -2476,7 +2476,7 @@ examples. &lt;code&gt;scalatra-auth&lt;/code&gt; handles both cookie-based auth 
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;{{site.examples}}http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/http/authentication-demo&#34;&gt;authentication-demo&lt;/a&gt;
   for a minimal and standalone project containing the example in this guide.
 &lt;/div&gt;
 
@@ -2642,7 +2642,7 @@ which mixed in the trait.&lt;/p&gt;
 
 &lt;p&gt;We still need to write this up and finish the guide, but there&amp;rsquo;s now working
 example code for a
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/http/scentry-auth-demo&#34;&gt;UserPasswordStrategy and RememberMe strategy&lt;/a&gt;
+&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/http/scentry-auth-demo&#34;&gt;UserPasswordStrategy and RememberMe strategy&lt;/a&gt;
 with fallback.&lt;/p&gt;
 
 &lt;p&gt;If you&amp;rsquo;re trying to secure an API rather than a user&amp;rsquo;s browser session,

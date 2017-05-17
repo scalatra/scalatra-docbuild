@@ -163,7 +163,7 @@ and define a <code>receive</code> method, which listens for events.</p>
 
 <p>One AtmosphereClient is instantiated per connected user. It&rsquo;s worth
 taking a look at the
-<a href="http://scalatra.org/2.2/api/#org.scalatra.atmosphere.AtmosphereClient">ScalaDocs</a> and <a href="https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala">source</a> for AtmosphereClient to see what it can do.</p>
+<a href="http://scalatra.org/apidocs/2.4/org/scalatra/atmosphere/AtmosphereClient.html">ScalaDocs</a> and <a href="https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala">source</a> for AtmosphereClient to see what it can do.</p>
 
 <p>As you can see, there are quite a few kinds of events which Scalatra&rsquo;s
 atmosphere integration can deal with:</p>
@@ -249,10 +249,10 @@ in order to understand your connection options.</p>
 you&rsquo;ll need to provide your own application-specific logic, also in
 JavaScript. Here&rsquo;s an <code>application.js</code> file for our chat application:</p>
 
-<p><a href="https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/application.js">https://github.com/scalatra/scalatra-website-examples/blob/master/2.2/async/scalatra-atmosphere-example/src/main/webapp/js/application.js</a></p>
+<p><a href="https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/application.js">https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/application.js</a></p>
 
 <p>Drop that code into <code>webapp/js/atmosphere.js</code>, and put the
-<a href="https://github.com/scalatra/scalatra-website-examples/blob/master/2.3/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js">Atmosphere JavaScript client</a>
+<a href="https://github.com/scalatra/scalatra-website-examples/blob/master/2.4/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js">Atmosphere JavaScript client</a>
 alongside it, and you&rsquo;ve got a working client implementation.</p>
 
 <p>A few key points in <code>application.js</code>.</p>
@@ -416,7 +416,7 @@ in your subclass.</p>
 <h2 id="building-an-embedded-scalatra-atmosphere-application">Building an embedded Scalatra + Atmosphere application</h2>
 
 <p>If you need to build your Atmosphere application to run embedded within Jetty, there&rsquo;s a
-full code example showing you how, <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/async/scalatra-atmosphere-embedded">in the Scalatra Website Examples</a> repo on Github.</p>
+full code example showing you how, <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/async/scalatra-atmosphere-embedded">in the Scalatra Website Examples</a> repo on Github.</p>
 
 <p>Once you check out the code, you can build an embedded Atmosphere-enabled app which runs under Jetty, by
 calling the <code>stage</code> task once you&rsquo;re in SBT. This will package a start script
