@@ -374,7 +374,7 @@ it must have a <code>minLength(3)</code> (i.e. it must have a minimum length of
 3 characters).</p>
 
 <p>A full list of available validations is available in the
-<a href="http://scalatra.org/2.2/api/#org.scalatra.validation.Validators$">Validators API docs</a>.</p>
+<a href="http://scalatra.org/apidocs/2.5/org/scalatra/validation/Validators$">Validators API docs</a>.</p>
 
 <p>That&rsquo;s it for the command setup. Now that we&rsquo;ve got a command which can
 create Todos, let&rsquo;s use it in a controller action to create a Todo object.</p>
@@ -385,7 +385,6 @@ create Todos, let&rsquo;s use it in a controller action to create a Todo object.
 new capability.</p>
 
 <pre><code class="language-scala">  post(&quot;/todos&quot;) {
-    val todo = new Todo(-1, params(&quot;name&quot;))
     TodoData.add(TodoData.newTodo(params(&quot;name&quot;)))
     redirect(&quot;/&quot;)
   }
@@ -678,11 +677,11 @@ Git example. Take a look at that code if you&rsquo;re having any problems.</p>
 <h3 id="writing-your-own-validations">Writing your own validations.</h3>
 
 <p>Scalatra gives you a fairly comprehensive list of
-<a href="http://scalatra.org/2.2/api/#org.scalatra.validation.Validators$">pre-built validations</a>,
+<a href="http://scalatra.org/apidocs/2.5/org/scalatra/validation/Validators$">pre-built validations</a>,
 but you can also write your own custom validators fairly easily.</p>
 
-<p>A Scalatra <a href="http://scalatra.org/2.2/api/#org.scalatra.commands.Command">Command</a> is partly composed of <a href="http://scalatra.org/2.2/api/#org.scalatra.commands.Field">Field</a> objects, each of which has a
-<a href="http://scalatra.org/2.2/api/#org.scalatra.commands.FieldDescriptor">FieldDescriptor</a> which acts as a kind of builder for the Field.</p>
+<p>A Scalatra <a href="http://scalatra.org/apidocs/2.5/org/scalatra/commands/Command">Command</a> is partly composed of <a href="http://scalatra.org/apidocs/2.5/org/scalatra/commands/Field">Field</a> objects, each of which has a
+<a href="http://scalatra.org/apidocs/2.5/org/scalatra/commands/FieldDescriptor">FieldDescriptor</a> which acts as a kind of builder for the Field.</p>
 
 <p>In order to write a validator, we need to do two things.</p>
 
