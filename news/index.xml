@@ -7,8 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Mon, 21 Nov 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jun 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/news.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.5.1 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2017/06/01/2017-06-01-scalatra-2-5-1-released.html</link>
+      <pubDate>Thu, 01 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2017/06/01/2017-06-01-scalatra-2-5-1-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 2.5.1 of the framework. This is a maintenance release which fixes some Swagger2 support bugs in 2.5.0.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the full list of changes:&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatra-core&#34;&gt;Scalatra Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#635 Make config.context.setInitParameter(CorsSupport.AllowedOriginsKey, &amp;hellip;) work properly. by @andrewjackman&lt;/li&gt;
+&lt;li&gt;#637 Update ScalatraBase.scala by @SvenssonWeb&lt;/li&gt;
+&lt;li&gt;#640 s/newInstance()/getDeclaredConstructor().newInstance() by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#667 MapQueryString: Decode instead of encode by @shanielh&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-commands&#34;&gt;Scalatra Commands&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#640 s/newInstance()/getDeclaredConstructor().newInstance() by @xuwei-k&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-swagger&#34;&gt;Scalatra Swagger&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#629 add support for swagger2 application grant by @kstigen&lt;/li&gt;
+&lt;li&gt;#630 changed to use list for security for an operation for swagger2 by @kstigen&lt;/li&gt;
+&lt;li&gt;#631 Added swagger description OK for response 200 by @kstigen&lt;/li&gt;
+&lt;li&gt;#632 Mapping form to formData for swagger2 by @kstigen&lt;/li&gt;
+&lt;li&gt;#638 fix typo by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#640 s/newInstance()/getDeclaredConstructor().newInstance() by @xuwei-k&lt;/li&gt;
+&lt;li&gt;#647 Swagger 2.0 tags support by @takezoe&lt;/li&gt;
+&lt;li&gt;#648 Recover deprecated property in Swagger 2.0 support by @takezoe&lt;/li&gt;
+&lt;li&gt;#649 Swagger 2.0 support in swagger-ext module by @takezoe&lt;/li&gt;
+&lt;li&gt;#654 adds ability to dynamically name security schemes wrt swagger by @jb08&lt;/li&gt;
+&lt;li&gt;#656 adds ability to add description to swagger security scheme object by @jb08&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.5.0 is out</title>
@@ -1055,26 +1099,6 @@ class MyCommand extends JsonCommand {
 &lt;p&gt;Meanwhile, Łukasz Lenart from &lt;a href=&#34;http://softwaremill.com/&#34;&gt;softwaremill.com&lt;/a&gt; has &lt;a href=&#34;http://softwaremill.com/bootstrap-goes-open-source&#34;&gt;released a project&lt;/a&gt; called the &lt;a href=&#34;https://github.com/softwaremill/bootstrap&#34;&gt;SoftwareMill Bootstrap&lt;/a&gt;, to provide a quick way of getting Scalatra + &lt;a href=&#34;http://angularjs.org/&#34;&gt;AngularJS&lt;/a&gt; projects up and running quickly.&lt;/p&gt;
 
 &lt;p&gt;Lastly, &lt;a href=&#34;http://twitter.com/hammarback&#34;&gt;Jesper Hammarback&lt;/a&gt; has just release &lt;a href=&#34;http://www.paintfeud.com&#34;&gt;PaintFeud&lt;/a&gt;, a realtime iPhone game built using Titanium, uses Scalatra as a back-end, and involves CQRS, eventsourcing, Actors, and MongoDB.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scalatypes Podcast</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/07/2012-12-07-ivan-talks-scalatra-on-scalatypes-podcast.html</link>
-      <pubDate>Fri, 07 Dec 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/07/2012-12-07-ivan-talks-scalatra-on-scalatypes-podcast.html</guid>
-      <description>&lt;p&gt;One of Scalatra&amp;rsquo;s core developers,
-&lt;a href=&#34;http://twitter.com/casualjim&#34;&gt;Ivan Porto Carrero&lt;/a&gt;, showed up on this week&amp;rsquo;s
-&lt;a href=&#34;http://scalatypes.com/episode-24-ivan-porto-carrero-on-scalatra-and-json4s&#34;&gt;Scalatypes&lt;/a&gt; podcast, as the featured interviewee.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;In the hour-long podcast, Ivan is interviewed by &lt;a href=&#34;http://twitter.com/ymasory&#34;&gt;Yuvi Masory&lt;/a&gt;. The conversation is a solid introduction to Scalatra:
-the philosophy behind the code, its current feature set, and a
-quick look at upcoming developments in Scalatra 2.3 and 3.0.&lt;/p&gt;
-
-&lt;p&gt;A set of slides from the talk is also available
-&lt;a href=&#34;http://www.slideshare.net/casualjim/scalatra-22&#34;&gt;on Slideshare&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
   </channel>
