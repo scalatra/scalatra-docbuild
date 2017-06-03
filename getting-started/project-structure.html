@@ -206,7 +206,7 @@ object MyExampleBuild extends Build {
   val Name = &quot;An Example Application&quot;
   val Version = &quot;0.1.0-SNAPSHOT&quot;
   val ScalaVersion = &quot;2.10.1&quot;
-  val ScalatraVersion = &quot;2.5.0&quot;
+  val ScalatraVersion = &quot;2.5.1&quot;
 
   lazy val project = Project (
     &quot;scalatra-buildfile-example&quot;,
@@ -301,7 +301,7 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
 </dl>
 
 <p>The Scalatra components in your project should all have the same version number
-(2.5.0 in the above example).
+(2.5.1 in the above example).
 Although it&rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&rsquo;s not recommended, because we compile, test and release Scalatra
 dependencies together based on their version number.</p>

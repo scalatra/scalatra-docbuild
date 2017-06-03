@@ -34,9 +34,9 @@ name [My Scalatra Web App]:
 version [0.1.0-SNAPSHOT]:
 servlet_name [MyScalatraServlet]:
 package [com.example.app]:
-scala_version [2.11.7]:
-sbt_version [0.13.9]:
-scalatra_version [2.5.0]: 
+scala_version [2.12.1]:
+sbt_version [0.13.13]:
+scalatra_version [2.5.1]: 
 
 Template applied in ./my-scalatra-web-app
 &lt;/code&gt;&lt;/pre&gt;
@@ -715,7 +715,7 @@ object MyExampleBuild extends Build {
   val Name = &amp;quot;An Example Application&amp;quot;
   val Version = &amp;quot;0.1.0-SNAPSHOT&amp;quot;
   val ScalaVersion = &amp;quot;2.10.1&amp;quot;
-  val ScalatraVersion = &amp;quot;2.5.0&amp;quot;
+  val ScalatraVersion = &amp;quot;2.5.1&amp;quot;
 
   lazy val project = Project (
     &amp;quot;scalatra-buildfile-example&amp;quot;,
@@ -810,7 +810,7 @@ within sbt whenever you add or update a dependency in &lt;code&gt;project/build.
 &lt;/dl&gt;
 
 &lt;p&gt;The Scalatra components in your project should all have the same version number
-(2.5.0 in the above example).
+(2.5.1 in the above example).
 Although it&amp;rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&amp;rsquo;s not recommended, because we compile, test and release Scalatra
 dependencies together based on their version number.&lt;/p&gt;
