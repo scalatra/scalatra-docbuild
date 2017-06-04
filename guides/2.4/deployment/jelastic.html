@@ -107,9 +107,8 @@ The default of Tomcat 7 automatically scaling between 1 and 8 cloudlets is fine 
 Check out the <a href="{{site.baseurl}}getting-started/installation.html">installation</a> and <a href="{{site.baseurl}}getting-started/first-project.html">first project</a> guides if this isn&rsquo;t familiar.</li>
 </ul>
 
-<pre><code class="language-sh">$ g8 scalatra/scalatra-sbt -b develop
+<pre><code class="language-sh">$ sbt new scalatra/scalatra-sbt.g8
 $ cd [app root]
-$ chmod u+x sbt
 </code></pre>
 
 <ul>
@@ -163,7 +162,7 @@ export JELASTIC_PWD=&quot;iluvyou&quot;
 <p>With the project set up, your first deploy, and all future deploys, are insanely easy:</p>
 
 <pre><code class="language-sh">$ cd [app root]
-$ ./sbt
+$ sbt
 &gt; deploy
 </code></pre>
 

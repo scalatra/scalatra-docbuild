@@ -164,7 +164,7 @@ commands in Scalatra.</p>
 <p>Generate a new project. We&rsquo;ll use <code>org.scalatra.example.commands</code> domain as
 a namespace, you can change to your own domain throughout the codebase.</p>
 
-<pre><code class="language-bash">g8 scalatra/scalatra-sbt.g8
+<pre><code class="language-bash">$ sbt new scalatra/scalatra-sbt.g8
 organization [com.example]: org.scalatra
 package [com.example.myapp]: org.scalatra.example.commands
 name [My Scalatra Web App]: TodoList
@@ -177,9 +177,8 @@ Template applied in ./todolist
 
 <p>Start the application:</p>
 
-<pre><code>cd todolist
-chmod +x sbt
-./sbt
+<pre><code>$ cd todolist
+$ sbt
 </code></pre>
 
 <p>Now you&rsquo;re in the sbt shell, start the server and enable recompilation:</p>

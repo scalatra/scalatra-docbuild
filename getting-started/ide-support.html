@@ -120,11 +120,11 @@ adding this line to your <code>project/plugins.sbt</code> file:</li>
 <p>This sbt plugin generates Eclipse classpath and configuration files to ensure the
 project will work as expected in the IDE.</p>
 
-<pre><code>$ ./sbt
+<pre><code>$ sbt
 &gt; eclipse
 </code></pre>
 
-<p>Be sure to re-run <code>./sbt eclipse</code> every time you add or update a dependency in
+<p>Be sure to re-run <code>sbt eclipse</code> every time you add or update a dependency in
 <code>project/build.scala</code>.</p>
 
 <h3 id="debugging-in-eclipse">Debugging in Eclipse</h3>
@@ -137,7 +137,7 @@ project will work as expected in the IDE.</p>
 ),
 </code></pre>
 
-<p>Start SBT and the container as usual (<code>./sbt</code> then <code>jetty:start</code>).</p>
+<p>Start sbt and the container as usual (<code>sbt</code> then <code>jetty:start</code>).</p>
 
 <p>Go to <code>Run</code> -&gt; <code>Debug configurations</code> in Eclipse. Select
 <code>Remote Java Application</code>, click the <code>new configuration</code>  button,
@@ -165,7 +165,7 @@ Add this line to your <code>project/build.scala</code> file:</li>
 
 <p>Now from sbt you can run:</p>
 
-<pre><code>$ ./sbt
+<pre><code>$ sbt
 &gt; ensime-generate
 </code></pre>
 

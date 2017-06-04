@@ -22,7 +22,7 @@
 &lt;p&gt;Now that &lt;a href=&#34;installation.html&#34;&gt;installation&lt;/a&gt; is out of the way, you can
 generate a project:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;g8 scalatra/scalatra-sbt
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt new scalatra/scalatra-sbt.g8
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This will check out a pre-built application skeleton for you (from &lt;a href=&#34;https://github.com/scalatra/scalatra-sbt.g8&#34;&gt;GitHub&lt;/a&gt;),
@@ -83,7 +83,7 @@ Template applied in ./my-scalatra-web-app
   &lt;/dd&gt;
   &lt;dt&gt;sbt_version&lt;/dt&gt;
   &lt;dd&gt;
-    The SBT version.
+    The sbt version.
   &lt;/dd&gt;
   &lt;dt&gt;scalatra_version&lt;/dt&gt;
   &lt;dd&gt;
@@ -96,13 +96,13 @@ Template applied in ./my-scalatra-web-app
 
 &lt;p&gt;Scala is a compiled language, so you need to build your Scalatra project.&lt;/p&gt;
 
-&lt;p&gt;Enter your application&amp;rsquo;s top-level directory, set &lt;code&gt;sbt&lt;/code&gt; to executable,
-and start the build system with &lt;code&gt;./sbt&lt;/code&gt;.
-For example:&lt;/p&gt;
+&lt;p&gt;Enter your application&amp;rsquo;s top-level directory, just execute &lt;code&gt;sbt&lt;/code&gt; to start building
+your Scalatra project.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ cd /your/project/directory
-$ chmod u+x sbt
-$ ./sbt
+$ sbt
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;sbt will also take care of downloading an entire Scalatra development
@@ -123,7 +123,7 @@ time downloading Scalatra and its libraries on first run.&lt;/p&gt;
 Source files go into &lt;code&gt;src/main/scala/com/example/app&lt;/code&gt;
 (substitute your package for &lt;code&gt;com/example/app&lt;/code&gt;).
 Open &lt;code&gt;src/main/scala/com/example/app/MyScalatraServlet.scala&lt;/code&gt;, or whatever
-you named your servlet when you generated your project with g8:&lt;/p&gt;
+you named your servlet when you generated your project with Scalatra template:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
 
@@ -146,7 +146,7 @@ class MyServlet extends ScalatraServlet with MyScalatraWebAppStack {
 &lt;p&gt;If you haven&amp;rsquo;t already done so, from your project root, you can run the
 project:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ./sbt
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
 &amp;gt; jetty:start
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -172,7 +172,7 @@ return a string by altering the action:&lt;/p&gt;
 &lt;p&gt;Returning a raw string is not something you&amp;rsquo;ll do particularly often -
 usually you will want to return formatted HTML that is the product of a
 templating system, or an output format like JSON.
-See the &lt;em&gt;views&lt;/em&gt; section of our &lt;a href=&#34;../guides&#34;&gt;guides&lt;/a&gt; for more info.&lt;/p&gt;
+See the &lt;em&gt;views&lt;/em&gt; section of our &lt;a href=&#34;../../guides/&#34;&gt;guides&lt;/a&gt; for more info.&lt;/p&gt;
 
 &lt;h2 id=&#34;automatic-code-reloading&#34;&gt;Automatic code reloading&lt;/h2&gt;
 
@@ -185,13 +185,13 @@ The syntax for restarting involves adding &lt;code&gt;~&lt;/code&gt; in front of
 want to re-execute.
 To recompile and reload your application automatically, run the following:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ./sbt
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
 &amp;gt; ~;jetty:stop;jetty:start
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now that you&amp;rsquo;ve got a (rather simplistic) running application, you may want
 to &lt;a href=&#34;project-structure.html&#34;&gt;understand more&lt;/a&gt; about the project setup, or
-dive straight into our &lt;a href=&#34;../guides&#34;&gt;guides&lt;/a&gt;, which show you how to perform
+dive straight into our &lt;a href=&#34;../../guides&#34;&gt;guides&lt;/a&gt;, which show you how to perform
 common development tasks.&lt;/p&gt;
 
 &lt;p&gt;Many of the Scalatra guides have companion code projects, so you can learn
@@ -301,11 +301,11 @@ adding this line to your &lt;code&gt;project/plugins.sbt&lt;/code&gt; file:&lt;/
 &lt;p&gt;This sbt plugin generates Eclipse classpath and configuration files to ensure the
 project will work as expected in the IDE.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ ./sbt
+&lt;pre&gt;&lt;code&gt;$ sbt
 &amp;gt; eclipse
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Be sure to re-run &lt;code&gt;./sbt eclipse&lt;/code&gt; every time you add or update a dependency in
+&lt;p&gt;Be sure to re-run &lt;code&gt;sbt eclipse&lt;/code&gt; every time you add or update a dependency in
 &lt;code&gt;project/build.scala&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;debugging-in-eclipse&#34;&gt;Debugging in Eclipse&lt;/h3&gt;
@@ -318,7 +318,7 @@ project will work as expected in the IDE.&lt;/p&gt;
 ),
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Start SBT and the container as usual (&lt;code&gt;./sbt&lt;/code&gt; then &lt;code&gt;jetty:start&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Start sbt and the container as usual (&lt;code&gt;sbt&lt;/code&gt; then &lt;code&gt;jetty:start&lt;/code&gt;).&lt;/p&gt;
 
 &lt;p&gt;Go to &lt;code&gt;Run&lt;/code&gt; -&amp;gt; &lt;code&gt;Debug configurations&lt;/code&gt; in Eclipse. Select
 &lt;code&gt;Remote Java Application&lt;/code&gt;, click the &lt;code&gt;new configuration&lt;/code&gt;  button,
@@ -346,7 +346,7 @@ Add this line to your &lt;code&gt;project/build.scala&lt;/code&gt; file:&lt;/li&
 
 &lt;p&gt;Now from sbt you can run:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ ./sbt
+&lt;pre&gt;&lt;code&gt;$ sbt
 &amp;gt; ensime-generate
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -381,60 +381,39 @@ Java Development Kit (JDK) installed.&lt;/p&gt;
 does. The output should look something like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ java -version
-java version &amp;quot;1.8.0_11&amp;quot;
-Java(TM) SE Runtime Environment (build 1.8.0_11-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.11-b03, mixed mode)
+java version &amp;quot;1.8.0_131&amp;quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ javac -version
-javac 1.8.0_11
+javac 1.8.0_131
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;You need Java 8, which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.&lt;/p&gt;
+&lt;p&gt;You need Java 8 (Oracle&amp;rsquo;s JDK or OpenJDK), which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.&lt;/p&gt;
 
-&lt;p&gt;If you don&amp;rsquo;t yet have Java installed, you can find out how to install
-it for your system
-&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&#34;&gt;over at the Java 8 install page&lt;/a&gt;. Make sure you&amp;rsquo;re using OpenJDK or Sun&amp;rsquo;s JDK.&lt;/p&gt;
+&lt;p&gt;If you don&amp;rsquo;t yet have Java installed, you can find out how to install it for your system over at
+&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&#34;&gt;the Oracle&amp;rsquo;s Java 8 download page&lt;/a&gt;
+or &lt;a href=&#34;http://openjdk.java.net/install/index.html&#34;&gt;the OpenJDK installation page&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Some Linux distros pre-install &lt;code&gt;gcj&lt;/code&gt;, which won&amp;rsquo;t work.&lt;/p&gt;
+&lt;h2 id=&#34;2-install-sbt&#34;&gt;2. Install sbt&lt;/h2&gt;
 
-&lt;h2 id=&#34;2-install-giter8&#34;&gt;2. Install giter8&lt;/h2&gt;
+&lt;p&gt;Once you&amp;rsquo;re sure you&amp;rsquo;ve got Java installed, you will need to install the &lt;em&gt;sbt&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;Once you&amp;rsquo;re sure you&amp;rsquo;ve got Java installed, you will need to download a few
-other utilities.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.scala-sbt.org&#34;&gt;sbt&lt;/a&gt; is a build tool for Scala, Java, and more.
+It can create a new project from the template repository.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/foundweekends/conscript&#34;&gt;Conscript&lt;/a&gt; is a tool for installing and
-updating Scala code.
-&lt;a href=&#34;https://github.com/foundweekends/giter8/&#34;&gt;giter8&lt;/a&gt;, which depends on conscript, allows you to check out project templates directly from Github.
-It&amp;rsquo;s the recommended way to generate Scalatra project skeletons.&lt;/p&gt;
+&lt;p&gt;In order to create a new project of Scalatra from the template, &lt;em&gt;sbt 0.13.13&lt;/em&gt; or later needs to be installed.
+To install sbt, refer to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Setup.html&#34;&gt;the setup page of sbt&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&#34;install-conscript&#34;&gt;Install conscript&lt;/h3&gt;
+&lt;p&gt;For example, if it is macOS, you can install it by brew command as follows.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl https://raw.githubusercontent.com/foundweekends/conscript/master/setup.sh | sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will create a &lt;code&gt;bin&lt;/code&gt; folder in your home directory.
-Make sure it&amp;rsquo;s in your &lt;code&gt;PATH&lt;/code&gt; by adding the following to your shell&amp;rsquo;s
-profile (often &lt;code&gt;~/.bash_profile&lt;/code&gt; on Mac and &lt;code&gt;~/.bashrc&lt;/code&gt; on Linux):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PATH=$PATH:~/bin
-export PATH
-source ~/.bash_profile # (Mac)
-source ~/.bashrc       # (Linux)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;install-giter8-h4&#34;&gt;Install giter8&lt;/h4&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cs foundweekends/giter8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Depending on your connection speed, this can take a bit of time, as
-&lt;code&gt;conscript&lt;/code&gt; downloads quite a few Scala dependencies.&lt;/p&gt;
-
-&lt;p&gt;Alternatively, you can install &lt;code&gt;giter8&lt;/code&gt; on a Mac via
-&lt;a href=&#34;http://brew.sh/&#34;&gt;homebrew&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;brew install giter8
+&lt;pre&gt;&lt;code class=&#34;language-Bash&#34;&gt;$ brew install sbt
+$ sbt
+...
+...
+&amp;gt; sbtVersion
+[info] 0.13.15
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;hr /&gt;
@@ -696,7 +675,7 @@ dedicated web server&lt;/li&gt;
 
 &lt;h2 id=&#34;scalatra-s-sbt-dependencies&#34;&gt;Scalatra&amp;rsquo;s sbt dependencies&lt;/h2&gt;
 
-&lt;p&gt;Scalatra uses Scala&amp;rsquo;s &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;Simple Build Tool&lt;/a&gt;, or sbt, as a build system.&lt;/p&gt;
+&lt;p&gt;Scalatra uses &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;sbt&lt;/a&gt;, or sbt, as a build system.&lt;/p&gt;
 
 &lt;p&gt;The &lt;code&gt;project/build.scala&lt;/code&gt; file defines the libraries which your application will depend on,
 so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Scalatra project.&lt;/p&gt;

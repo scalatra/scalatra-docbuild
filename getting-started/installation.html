@@ -83,60 +83,39 @@ Java Development Kit (JDK) installed.</p>
 does. The output should look something like this:</p>
 
 <pre><code class="language-bash">$ java -version
-java version &quot;1.8.0_11&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_11-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.11-b03, mixed mode)
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 </code></pre>
 
 <pre><code class="language-bash">$ javac -version
-javac 1.8.0_11
+javac 1.8.0_131
 </code></pre>
 
-<p>You need Java 8, which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.</p>
+<p>You need Java 8 (Oracle&rsquo;s JDK or OpenJDK), which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.</p>
 
-<p>If you don&rsquo;t yet have Java installed, you can find out how to install
-it for your system
-<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">over at the Java 8 install page</a>. Make sure you&rsquo;re using OpenJDK or Sun&rsquo;s JDK.</p>
+<p>If you don&rsquo;t yet have Java installed, you can find out how to install it for your system over at
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">the Oracle&rsquo;s Java 8 download page</a>
+or <a href="http://openjdk.java.net/install/index.html">the OpenJDK installation page</a>.</p>
 
-<p>Some Linux distros pre-install <code>gcj</code>, which won&rsquo;t work.</p>
+<h2 id="2-install-sbt">2. Install sbt</h2>
 
-<h2 id="2-install-giter8">2. Install giter8</h2>
+<p>Once you&rsquo;re sure you&rsquo;ve got Java installed, you will need to install the <em>sbt</em>.</p>
 
-<p>Once you&rsquo;re sure you&rsquo;ve got Java installed, you will need to download a few
-other utilities.</p>
+<p><a href="http://www.scala-sbt.org">sbt</a> is a build tool for Scala, Java, and more.
+It can create a new project from the template repository.</p>
 
-<p><a href="https://github.com/foundweekends/conscript">Conscript</a> is a tool for installing and
-updating Scala code.
-<a href="https://github.com/foundweekends/giter8/">giter8</a>, which depends on conscript, allows you to check out project templates directly from Github.
-It&rsquo;s the recommended way to generate Scalatra project skeletons.</p>
+<p>In order to create a new project of Scalatra from the template, <em>sbt 0.13.13</em> or later needs to be installed.
+To install sbt, refer to <a href="http://www.scala-sbt.org/0.13/docs/Setup.html">the setup page of sbt</a>.</p>
 
-<h3 id="install-conscript">Install conscript</h3>
+<p>For example, if it is macOS, you can install it by brew command as follows.</p>
 
-<pre><code class="language-bash">curl https://raw.githubusercontent.com/foundweekends/conscript/master/setup.sh | sh
-</code></pre>
-
-<p>This will create a <code>bin</code> folder in your home directory.
-Make sure it&rsquo;s in your <code>PATH</code> by adding the following to your shell&rsquo;s
-profile (often <code>~/.bash_profile</code> on Mac and <code>~/.bashrc</code> on Linux):</p>
-
-<pre><code class="language-bash">PATH=$PATH:~/bin
-export PATH
-source ~/.bash_profile # (Mac)
-source ~/.bashrc       # (Linux)
-</code></pre>
-
-<h3 id="install-giter8-h4">Install giter8</h4></h3>
-
-<pre><code class="language-bash">cs foundweekends/giter8
-</code></pre>
-
-<p>Depending on your connection speed, this can take a bit of time, as
-<code>conscript</code> downloads quite a few Scala dependencies.</p>
-
-<p>Alternatively, you can install <code>giter8</code> on a Mac via
-<a href="http://brew.sh/">homebrew</a>:</p>
-
-<pre><code class="language-bash">brew install giter8
+<pre><code class="language-Bash">$ brew install sbt
+$ sbt
+...
+...
+&gt; sbtVersion
+[info] 0.13.15
 </code></pre>
 
 <hr />
