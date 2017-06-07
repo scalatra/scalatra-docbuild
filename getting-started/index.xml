@@ -556,11 +556,12 @@ For example, if you&amp;rsquo;re using the default giter8 project, you can chang
 &lt;h2 id=&#34;paths&#34;&gt;Paths&lt;/h2&gt;
 
 &lt;p&gt;The recommended way of structuring a Scalatra project is as follows. It&amp;rsquo;s
-what you get when you generate a new project using giter8:&lt;/p&gt;
+what you get when you generate a new project using &lt;code&gt;sbt new&lt;/code&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;project
+&lt;pre&gt;&lt;code&gt;build.sbt               &amp;lt;= dependencies and project config are set in here
+
+project
 |_build.properties      &amp;lt;= specifies what version of sbt to use
-|_build.scala           &amp;lt;= dependencies and project config are set in here
 |_plugins.sbt           &amp;lt;= sbt plugins can be added here
 
 src
@@ -574,9 +575,9 @@ src
 |  |_ webapp
 |     |_ WEB-INF
 |        |_ views
-|        |  |_ hello-scalate.scaml
+|        |  |_ hello-scalate.jade
 |        |_ layouts
-|        |  |_ default.scaml
+|        |  |_ default.jade
 |        |_ web.xml
 |_ test
    |_ scala
@@ -590,7 +591,7 @@ src
 Rails, Sinatra, or Padrino application. Your views go in the views folder,
 layouts (which wrap views) go in the layouts folder.&lt;/p&gt;
 
-&lt;p&gt;The Scalatra giter8 project puts your Scala application code into a series of
+&lt;p&gt;The Scalatra template project puts your Scala application code into a series of
 namespaced directories: in the example above, &lt;code&gt;org.yourdomain.projectname&lt;/code&gt;.
 This is entirely optional. The &lt;a href=&#34;http://docs.scala-lang.org/style/&#34;&gt;Scala style guide&lt;/a&gt;
 suggests doing it this way, but the language doesn&amp;rsquo;t do anything to enforce it.
@@ -611,7 +612,6 @@ are all public, with the exception of files in the WEB-INF directory.&lt;/p&gt;
    |  |_ Web.scala
    |_ webapp
       |_ WEB-INF
-      |  |_ secret.txt
       |  |_ views
       |  |  |_ default.jade
       |  |
@@ -677,57 +677,55 @@ dedicated web server&lt;/li&gt;
 
 &lt;p&gt;Scalatra uses &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;sbt&lt;/a&gt;, or sbt, as a build system.&lt;/p&gt;
 
-&lt;p&gt;The &lt;code&gt;project/build.scala&lt;/code&gt; file defines the libraries which your application will depend on,
+&lt;p&gt;The &lt;code&gt;build.sbt&lt;/code&gt; file defines the libraries which your application will depend on,
 so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Scalatra project.&lt;/p&gt;
 
-&lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;project/build.scala&lt;/code&gt; file:&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import sbt._
-import Keys._
-import org.scalatra.sbt._
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scalatra.sbt._
 import org.scalatra.sbt.PluginKeys._
-import com.mojolly.scalate.ScalatePlugin._
 import ScalateKeys._
 
-object MyExampleBuild extends Build {
-  val Organization = &amp;quot;com.example&amp;quot;
-  val Name = &amp;quot;An Example Application&amp;quot;
-  val Version = &amp;quot;0.1.0-SNAPSHOT&amp;quot;
-  val ScalaVersion = &amp;quot;2.10.1&amp;quot;
-  val ScalatraVersion = &amp;quot;2.5.1&amp;quot;
+val ScalatraVersion = &amp;quot;2.5.1&amp;quot;
 
-  lazy val project = Project (
-    &amp;quot;scalatra-buildfile-example&amp;quot;,
-    file(&amp;quot;.&amp;quot;),
-    settings = Defaults.defaultSettings ++ ScalatraPlugin.scalatraWithJRebel ++ scalateSettings ++ Seq(
-      organization := Organization,
-      name := Name,
-      version := Version,
-      scalaVersion := ScalaVersion,
-      resolvers += &amp;quot;Sonatype OSS Snapshots&amp;quot; at &amp;quot;http://oss.sonatype.org/content/repositories/snapshots/&amp;quot;,
-      resolvers += &amp;quot;Akka Repo&amp;quot; at &amp;quot;http://repo.akka.io/repository&amp;quot;,
-      libraryDependencies ++= Seq(
-        &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
-        &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalate&amp;quot; % ScalatraVersion,
-        &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-specs2&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
-        &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.1.7&amp;quot; % &amp;quot;runtime&amp;quot;,
-        &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;{{ &amp;lt; 2-5-jetty_version &amp;gt;}}&amp;quot; % &amp;quot;container&amp;quot;,
-        &amp;quot;org.eclipse.jetty.orbit&amp;quot; % &amp;quot;javax.servlet&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;container;provided;test&amp;quot; artifacts (Artifact(&amp;quot;javax.servlet&amp;quot;, &amp;quot;jar&amp;quot;, &amp;quot;jar&amp;quot;))
-      ),
-      scalateTemplateConfig in Compile &amp;lt;&amp;lt;= (sourceDirectory in Compile){ base =&amp;gt;
-        Seq(
-          TemplateConfig(
-            base / &amp;quot;webapp&amp;quot; / &amp;quot;WEB-INF&amp;quot; / &amp;quot;templates&amp;quot;,
-            Seq.empty,  /* default imports should be added here */
-            Seq.empty,  /* add extra bindings here */
-            Some(&amp;quot;templates&amp;quot;)
-          )
-        )
-      }
+ScalatraPlugin.scalatraSettings
+
+scalateSettings
+
+organization := &amp;quot;com.example&amp;quot;
+
+name := &amp;quot;My Scalatra Web App&amp;quot;
+
+version := &amp;quot;0.1.0-SNAPSHOT&amp;quot;
+
+scalaVersion := &amp;quot;2.12.1&amp;quot;
+
+resolvers += Classpaths.typesafeReleases
+
+libraryDependencies ++= Seq(
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalate&amp;quot; % ScalatraVersion,
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-specs2&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.1.7&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;9.2.19.v20160908&amp;quot; % &amp;quot;container&amp;quot;,
+  &amp;quot;javax.servlet&amp;quot; % &amp;quot;javax.servlet-api&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;provided&amp;quot;
+)
+
+scalateTemplateConfig in Compile := {
+  val base = (sourceDirectory in Compile).value
+  Seq(
+    TemplateConfig(
+      base / &amp;quot;webapp&amp;quot; / &amp;quot;WEB-INF&amp;quot; / &amp;quot;templates&amp;quot;,
+      Seq.empty,  /* default imports should be added here */
+      Seq(
+        Binding(&amp;quot;context&amp;quot;, &amp;quot;_root_.org.scalatra.scalate.ScalatraRenderContext&amp;quot;, importMembers = true, isImplicit = true)
+      ),  /* add extra bindings here */
+      Some(&amp;quot;templates&amp;quot;)
     )
   )
 }
 
+enablePlugins(JettyPlugin)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-info&#34;&gt;
