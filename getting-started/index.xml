@@ -191,7 +191,7 @@ To recompile and reload your application automatically, run the following:&lt;/p
 
 &lt;p&gt;Now that you&amp;rsquo;ve got a (rather simplistic) running application, you may want
 to &lt;a href=&#34;project-structure.html&#34;&gt;understand more&lt;/a&gt; about the project setup, or
-dive straight into our &lt;a href=&#34;../../guides&#34;&gt;guides&lt;/a&gt;, which show you how to perform
+dive straight into our &lt;a href=&#34;../../guides/&#34;&gt;guides&lt;/a&gt;, which show you how to perform
 common development tasks.&lt;/p&gt;
 
 &lt;p&gt;Many of the Scalatra guides have companion code projects, so you can learn
