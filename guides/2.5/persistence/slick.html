@@ -65,11 +65,11 @@
 		<section>
 		  
 
-<p><a href="http://slick.typesafe.com/">Slick</a> is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.</p>
+<p><a href="http://slick.lightbend.com">Slick</a> is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.</p>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  This guide uses Scalatra 2.4.0.M2 (Milestone) Slick 3.0.0-RC1 (Release Candidate). You may want to check for a newer version.
+  This guide uses Scalatra 2.5.1, Slick 3.2.0. You may want to check for a newer version.
 </div>
 
 <div class="alert alert-info">
@@ -84,15 +84,15 @@
 <p>The sample project contains a minimal setup. For this guide the following files are important:</p>
 
 <ul>
-<li><code>project/build.scala</code>: we configure the sbt build and the dependencies here.</li>
+<li><code>build.sbt</code>: we configure the sbt build and the dependencies here.</li>
 <li><code>src/main/scala/slickexample/slick.scala</code>: the scalatra application.</li>
 <li><code>src/main/resources/c3p0.properties</code>: the connection pool is configured here.</li>
 </ul>
 
 <pre><code>.
+├── build.sbt                        // sbt build configuration
 ├── project
 │   ├── build.properties
-│   ├── build.scala                  // sbt build configuration
 │   └── plugins.sbt
 └── src
     └── main
@@ -111,31 +111,31 @@
 
 <h2 id="sbt-configuration">SBT Configuration</h2>
 
-<p>Let us start with the SBT setup by editing <code>project/build.scala</code>. Slick officially supports Scala 2.10-2.11, so let&rsquo;s use Scala 2.11:</p>
+<p>Let us start with the SBT setup by editing <code>build.sbt</code>. Slick 3.x.x officially supports Scala 2.11-2.12, so let&rsquo;s use Scala 2.11:</p>
 
-<pre><code class="language-scala">scalaVersion := &quot;2.11.5&quot;
+<pre><code class="language-scala">scalaVersion := &quot;2.11.8&quot;
 </code></pre>
 
-<p>Also you need to use an appropriate Scalatra version, for example <code>2.4.0.M2</code> which supports Scala 2.11:</p>
+<p>Also you need to use an appropriate Scalatra version, for example <code>2.5.x</code> which supports Scala 2.11 and 2.12:</p>
 
-<pre><code class="language-scala">libraryDependencies += &quot;org.scalatra&quot; %% &quot;scalatra&quot; % &quot;2.4.0.M2&quot;
+<pre><code class="language-scala">libraryDependencies += &quot;org.scalatra&quot; %% &quot;scalatra&quot; % &quot;2.5.+&quot;
 </code></pre>
 
 <p>For this guide we choose the <a href="http://www.h2database.com/html/main.html">H2 Database</a>, so we need to add a dependency to it too.</p>
 
 <pre><code class="language-scala">
 libraryDependencies ++= Seq(
-  &quot;com.typesafe.slick&quot; %% &quot;slick&quot; % &quot;3.0.2&quot;,
-  &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.4.181&quot;
+  &quot;com.typesafe.slick&quot; %% &quot;slick&quot; % &quot;3.2.0&quot;,
+  &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.4.196&quot;
 )
 </code></pre>
 
 <p>Since we want to use connection pooling, we also need to add <a href="http://www.mchange.com/projects/c3p0/">c3p0</a>:</p>
 
-<pre><code class="language-scala">libraryDependencies += &quot;com.mchange&quot; % &quot;c3p0&quot; % &quot;0.9.5.1&quot;
+<pre><code class="language-scala">libraryDependencies += &quot;com.mchange&quot; % &quot;c3p0&quot; % &quot;0.9.5.2&quot;
 </code></pre>
 
-<p>SBT is all set up. Lets proceed to the code.</p>
+<p>sbt is all set up. Lets proceed to the code.</p>
 
 <h2 id="slick-setup">Slick Setup</h2>
 
@@ -153,7 +153,8 @@ import org.slf4j.LoggerFactory
 import slickexample._
 import org.scalatra._
 import javax.servlet.ServletContext
-import slick.driver.JdbcDriver.api._
+
+import slick.jdbc.H2Profile.api._
 
 /**
  * This is the ScalatraBootstrap bootstrap file. You can use it to mount servlets or
@@ -168,7 +169,7 @@ class ScalatraBootstrap extends LifeCycle {
   logger.info(&quot;Created c3p0 connection pool&quot;)
 
   override def init(context: ServletContext) {
-    val db = Database.forDataSource(cpds)   // create the Database object
+    val db = Database.forDataSource(cpds, None)   // create the Database object
     context.mount(new SlickApp(db), &quot;/*&quot;)   // create and mount the Scalatra application
   }
 
@@ -197,11 +198,11 @@ c3p0.maxPoolSize=50
 
 <h2 id="usage">Usage</h2>
 
-<p>Now we are ready to start with the sample application. The code serves only as a proof of concept. For more detailed information about Slick&rsquo;s features take a look at the <a href="http://slick.typesafe.com/docs/">documentation</a>.</p>
+<p>Now we are ready to start with the sample application. The code serves only as a proof of concept. For more detailed information about Slick&rsquo;s features take a look at the <a href="http://slick.lightbend.com/docs/">documentation</a>.</p>
 
 <p>We create two Tables, one for the suppliers and another one for the coffees table:</p>
 
-<pre><code class="language-scala">import slick.driver.JdbcDriver.api._
+<pre><code class="language-scala">import slick.jdbc.H2Profile.api._
 
 object Tables {
 
@@ -288,7 +289,7 @@ val createDatabase = DBIO.seq(createSchemaAction, insertSupplierAndCoffeeData)
 
 <pre><code class="language-scala">import org.scalatra.{ScalatraBase, FutureSupport, ScalatraServlet}
 
-import slick.driver.JdbcDriver.api._
+import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
