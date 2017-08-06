@@ -1602,7 +1602,8 @@ work.&lt;/p&gt;
   &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-scalate&amp;quot;    % &amp;quot;2.5.1&amp;quot;,
   &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-specs2&amp;quot;     % &amp;quot;2.5.1&amp;quot;  % &amp;quot;test&amp;quot;,
   &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-atmosphere&amp;quot; % &amp;quot;2.5.1&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot;              %  &amp;quot;logback-classic&amp;quot;     % &amp;quot;1.1.7&amp;quot;   % &amp;quot;runtime&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot;              %  &amp;quot;logback-classic&amp;quot;     % &amp;quot;1.2.3
+&amp;quot;   % &amp;quot;runtime&amp;quot;,
   &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-plus&amp;quot;          % &amp;quot;9.2.19.v20160908&amp;quot;     % &amp;quot;container;provided&amp;quot;,
   &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-webapp&amp;quot;        % &amp;quot;9.2.19.v20160908&amp;quot;     % &amp;quot;container&amp;quot;,
   &amp;quot;org.eclipse.jetty.websocket&amp;quot; %  &amp;quot;websocket-server&amp;quot;    % &amp;quot;9.2.19.v20160908&amp;quot;     % &amp;quot;container;provided&amp;quot;,

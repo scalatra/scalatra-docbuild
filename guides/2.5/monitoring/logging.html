@@ -68,7 +68,8 @@
 <p>You can easily add logging facilities to your project, if you&rsquo;ve got the
 logging dependency in your <code>project/build.scala</code> file:</p>
 
-<pre><code class="language-scala">&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.7&quot; % &quot;runtime&quot;
+<pre><code class="language-scala">&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3
+&quot; % &quot;runtime&quot;
 </code></pre>
 
 <p>In your servlet or filter class:</p>
@@ -87,7 +88,7 @@ class YourServlet extends ScalatraServlet {
 </code></pre>
 
 <p>This will get you basic logging support. There are some additional logging
-libraries you might want to investigate: <a href="https://github.com/weiglewilczek/slf4s">slf4s</a> and
+libraries you might want to investigate: <a href="https://github.com/typesafehub/scala-logging">scala-logging</a> and
 <a href="http://software.clapper.org/grizzled-slf4j/">grizzled-slf4j</a>,
 which act as Scala wrappers around slf4j.</p>
 

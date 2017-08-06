@@ -456,7 +456,7 @@ Next, unzip the downloaded file.&lt;/p&gt;
 
 &lt;h2 id=&#34;3-activate&#34;&gt;3. Activate&lt;/h2&gt;
 
-&lt;p&gt;Follow the &lt;a href=&#34;http://zeroturnaround.com/software/jrebel/download/prev-releases/&#34;&gt;instructions on the JRebel website&lt;/a&gt; to activate your downloaded JRebel.&lt;/p&gt;
+&lt;p&gt;Follow the &lt;a href=&#34;http://manuals.zeroturnaround.com/jrebel/standalone/activate.html&#34;&gt;instructions on the JRebel website&lt;/a&gt; to activate your downloaded JRebel.&lt;/p&gt;
 
 &lt;p&gt;You can use the default settings for all the configurations.&lt;/p&gt;
 
@@ -706,7 +706,8 @@ libraryDependencies ++= Seq(
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalate&amp;quot; % ScalatraVersion,
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-specs2&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.1.7&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.2.3
+&amp;quot; % &amp;quot;runtime&amp;quot;,
   &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;9.2.19.v20160908&amp;quot; % &amp;quot;container&amp;quot;,
   &amp;quot;javax.servlet&amp;quot; % &amp;quot;javax.servlet-api&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;provided&amp;quot;
 )

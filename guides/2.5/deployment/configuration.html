@@ -73,12 +73,12 @@ initial configurations when it starts up, and the software it depends on.</p>
 
 <h3 id="configuring-your-app-using-the-scalatrabootstrap-file">Configuring your app using the ScalatraBootstrap file</h3>
 
-<p>As of 2.1.x, the <code>ScalatraBootstrap</code> file is the recommended way
+<p>As of 2.5.x, the <code>ScalatraBootstrap</code> file is the recommended way
 of configuring your application. It allows you to easily mount different
 servlets, set application parameters, and run initialization code for your
 app, without touching much in the way of XML.</p>
 
-<p>If you&rsquo;ve just started a new project in Scalatra 2.2.x, using the giter8 template,
+<p>If you&rsquo;ve just started a new project in Scalatra 2.5.x, using the giter8 template,
 all of this will already be set up for you. However, if you&rsquo;re upgrading from
 2.0.x, or you just want to understand what&rsquo;s going on, read on.</p>
 
@@ -96,13 +96,15 @@ config code, and use regular Scala code for configuration afterwards.</p>
 <p>The XML which allows you to do this is as follows:</p>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-      xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
-      version=&quot;3.0&quot;&gt;
-    &lt;listener&gt;
-      &lt;listener-class&gt;org.scalatra.servlet.ScalatraListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee 
+  http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+
+  version=&quot;3.1&quot;&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;org.scalatra.servlet.ScalatraListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
 &lt;/web-app&gt;
 </code></pre>
 
@@ -143,21 +145,23 @@ class ScalatraBootstrap extends LifeCycle {
 <p>If you would like to move the <code>ScalatraBootstrap.scala</code> out of the default package and into one of your own, you can specify the location of the bootstrap file in your <code>web.xml</code> file:</p>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-      xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
-      version=&quot;3.0&quot;&gt;
-    &lt;context-param&gt;
-        &lt;param-name&gt;org.scalatra.LifeCycle&lt;/param-name&gt;
-        &lt;param-value&gt;org.yourdomain.project.MyScalatraBootstrap&lt;/param-value&gt;
-    &lt;/context-param&gt;
-    &lt;listener&gt;
-      &lt;listener-class&gt;org.scalatra.servlet.ScalatraListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee 
+  http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+  version=&quot;3.1&quot;&gt;
+
+  &lt;context-param&gt;
+    &lt;param-name&gt;org.scalatra.LifeCycle&lt;/param-name&gt;
+    &lt;param-value&gt;org.yourdomain.project.MyScalatraBootstrap&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;listener&gt;
+    &lt;listener-class&gt;org.scalatra.servlet.ScalatraListener&lt;/listener-class&gt;
+  &lt;/listener&gt;
 &lt;/web-app&gt;
 </code></pre>
 
-<p>Now your bootstrap class file can be located in the <code>com.example.app</code> package and be named <code>MyScalatraBootstrap.scala</code>.</p>
+<p>Now your bootstrap class file can be located in the <code>org.yourdomain.project</code> package and be named <code>MyScalatraBootstrap.scala</code>.</p>
 
 <h4 id="mounting-multiple-servlets-or-filters">Mounting multiple servlets (or filters)</h4>
 
@@ -322,18 +326,15 @@ web.xml for some things and the Scalatra bootstrap file for others.
 
 <h4 id="mounting-multiple-servlets-or-filters-using-web-xml">Mounting multiple servlets (or filters) using web.xml</h4>
 
-<p>You can see an example of mounting multiple servlets in the Scalatra 2.0.x
-examples
-<a href="https://github.com/scalatra/scalatra/blob/support/2.0.x/example/src/main/webapp/WEB-INF/web.xml">web.xml</a>
-file.</p>
-
-<p>An extract from that file looks like this:</p>
+<p>You can mount multiple servlets looks like this:</p>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE web-app
-PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN&quot;
-&quot;http://java.sun.com/j2ee/dtds/web-app_2_2.dtd&quot;&gt;
-&lt;web-app&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee 
+  http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+  version=&quot;3.1&quot;&gt;
+
   &lt;servlet&gt;
     &lt;servlet-name&gt;BasicAuthExample&lt;/servlet-name&gt;
     &lt;servlet-class&gt;org.scalatra.BasicAuthExample&lt;/servlet-class&gt;
