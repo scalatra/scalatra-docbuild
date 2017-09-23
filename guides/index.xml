@@ -1586,7 +1586,7 @@ without a page refresh.&lt;/p&gt;
 
 &lt;h4 id=&#34;generating-the-app&#34;&gt;Generating the app&lt;/h4&gt;
 
-&lt;p&gt;Generate a project using &lt;code&gt;sbt new scalatra/scalatra-sbt.g8&lt;/code&gt;, and call your
+&lt;p&gt;Generate a project using &lt;code&gt;sbt new scalatra/sbt-scalatra.g8&lt;/code&gt;, and call your
 initial servlet &lt;code&gt;ChatController&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;You&amp;rsquo;ll need to do a few things to a default Scalatra project in order
