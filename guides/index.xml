@@ -1598,13 +1598,13 @@ to get it ready for use with Atmosphere.&lt;/p&gt;
 work.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  &amp;quot;org.json4s&amp;quot;                  %% &amp;quot;json4s-jackson&amp;quot;      % &amp;quot;3.5.0&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra&amp;quot;            % &amp;quot;2.5.2
+  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra&amp;quot;            % &amp;quot;2.5.3
 &amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-scalate&amp;quot;    % &amp;quot;2.5.2
+  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-scalate&amp;quot;    % &amp;quot;2.5.3
 &amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-specs2&amp;quot;     % &amp;quot;2.5.2
+  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-specs2&amp;quot;     % &amp;quot;2.5.3
 &amp;quot;  % &amp;quot;test&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-atmosphere&amp;quot; % &amp;quot;2.5.2
+  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-atmosphere&amp;quot; % &amp;quot;2.5.3
 &amp;quot;,
   &amp;quot;ch.qos.logback&amp;quot;              %  &amp;quot;logback-classic&amp;quot;     % &amp;quot;1.2.3
 &amp;quot;   % &amp;quot;runtime&amp;quot;,
@@ -2468,7 +2468,7 @@ for an example.&lt;/p&gt;
 &lt;h2 id=&#34;dependency&#34;&gt;Dependency&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;// Put this in project/build.scala:
-&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-auth&amp;quot; % &amp;quot;2.5.2
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-auth&amp;quot; % &amp;quot;2.5.3
 &amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
