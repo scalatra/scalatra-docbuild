@@ -686,7 +686,8 @@ so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Sc
 import org.scalatra.sbt.PluginKeys._
 import ScalateKeys._
 
-val ScalatraVersion = &amp;quot;2.5.1&amp;quot;
+val ScalatraVersion = &amp;quot;2.5.2
+&amp;quot;
 
 ScalatraPlugin.scalatraSettings
 
@@ -788,7 +789,8 @@ within sbt whenever you add or update a dependency in &lt;code&gt;project/build.
 &lt;/dl&gt;
 
 &lt;p&gt;The Scalatra components in your project should all have the same version number
-(2.5.1 in the above example).
+(2.5.2
+ in the above example).
 Although it&amp;rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&amp;rsquo;s not recommended, because we compile, test and release Scalatra
 dependencies together based on their version number.&lt;/p&gt;
