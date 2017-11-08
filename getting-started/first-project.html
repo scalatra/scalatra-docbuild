@@ -84,7 +84,7 @@ servlet_name [MyScalatraServlet]:
 package [com.example.app]:
 scala_version [2.12.3]:
 sbt_version [1.0.2]:
-scalatra_version [2.5.1]:
+scalatra_version [2.5.3]:
 
 Template applied in ./my-scalatra-web-app
 </code></pre>
@@ -177,15 +177,10 @@ you named your servlet when you generated your project with Scalatra template:</
 
 import org.scalatra._
 
-class MyServlet extends ScalatraServlet with MyScalatraWebAppStack {
+class MyScalatraServlet extends ScalatraServlet {
 
   get(&quot;/&quot;) {
-    &lt;html&gt;
-      &lt;body&gt;
-        &lt;h1&gt;Hello, world!&lt;/h1&gt;
-        Say &lt;a href=&quot;hello-scalate&quot;&gt;hello to Scalate&lt;/a&gt;.
-      &lt;/body&gt;
-    &lt;/html&gt;
+    views.html.hello()
   }
 
 }

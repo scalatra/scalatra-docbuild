@@ -78,25 +78,28 @@ project
 
 src
 |_ main
+|  |_ resources
+|     |_ logback.xml
 |  |_ scala
 |  |  |   |_ScalatraBootstrap.scala     &lt;= mount servlets in here
 |  |  |_org
 |  |      |_ yourdomain
 |  |         |_ projectname
 |  |            |_ MyScalatraServlet.scala
+|  |_ twirl
+|  |  |_layouts
+|  |    |_default.scala.html
+|  |  |_views
+|  |    |_hello.scala.html
 |  |_ webapp
 |     |_ WEB-INF
-|        |_ views
-|        |  |_ hello-scalate.jade
-|        |_ layouts
-|        |  |_ default.jade
 |        |_ web.xml
 |_ test
    |_ scala
       |_ org
          |_ yourdomain
             |_ projectname
-               |_ MyScalatraServletSpec.scala
+               |_ MyScalatraServletTests.scala
 </code></pre>
 
 <p>The basic structure should be reasonably familiar to anybody who&rsquo;s seen a
@@ -124,12 +127,6 @@ are all public, with the exception of files in the WEB-INF directory.</p>
    |  |_ Web.scala
    |_ webapp
       |_ WEB-INF
-      |  |_ views
-      |  |  |_ default.jade
-      |  |
-      |  |_ layouts
-      |  |  |_ default.jade
-      |  |
       |  |_ web.xml
       |- stylesheets
       |  |_ default.css
@@ -146,7 +143,7 @@ protected by the web application container.</p>
 <p>There are two base classes you can inherit from in order to make a
 Scalatra application: <code>ScalatraServlet</code> and <code>ScalatraFilter</code>.</p>
 
-<pre><code class="language-scala">class YourServlet extends ScalatraServlet with ScalateSupport {
+<pre><code class="language-scala">class YourServlet extends ScalatraServlet {
   // your class here
 }
 
@@ -154,7 +151,7 @@ Scalatra application: <code>ScalatraServlet</code> and <code>ScalatraFilter</cod
 
 <p>vs.</p>
 
-<pre><code class="language-scala">class YourFilter extends ScalatraFilter with ScalateSupport {
+<pre><code class="language-scala">class YourFilter extends ScalatraFilter {
   // your class here
 }
 
@@ -194,16 +191,8 @@ so that <code>sbt</code> can download them for you and build your Scalatra proje
 
 <p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
 
-<pre><code class="language-scala">import org.scalatra.sbt._
-import org.scalatra.sbt.PluginKeys._
-import ScalateKeys._
-
-val ScalatraVersion = &quot;2.5.3
+<pre><code class="language-scala">val ScalatraVersion = &quot;2.5.4
 &quot;
-
-ScalatraPlugin.scalatraSettings
-
-scalateSettings
 
 organization := &quot;com.example&quot;
 
@@ -211,42 +200,28 @@ name := &quot;My Scalatra Web App&quot;
 
 version := &quot;0.1.0-SNAPSHOT&quot;
 
-scalaVersion := &quot;2.12.1&quot;
+scalaVersion := &quot;2.12.3&quot;
 
 resolvers += Classpaths.typesafeReleases
 
 libraryDependencies ++= Seq(
   &quot;org.scalatra&quot; %% &quot;scalatra&quot; % ScalatraVersion,
-  &quot;org.scalatra&quot; %% &quot;scalatra-scalate&quot; % ScalatraVersion,
-  &quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % ScalatraVersion % &quot;test&quot;,
+  &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % ScalatraVersion % &quot;test&quot;,
   &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3
 &quot; % &quot;runtime&quot;,
   &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.19.v20160908&quot; % &quot;container&quot;,
   &quot;javax.servlet&quot; % &quot;javax.servlet-api&quot; % &quot;3.1.0&quot; % &quot;provided&quot;
 )
 
-scalateTemplateConfig in Compile := {
-  val base = (sourceDirectory in Compile).value
-  Seq(
-    TemplateConfig(
-      base / &quot;webapp&quot; / &quot;WEB-INF&quot; / &quot;templates&quot;,
-      Seq.empty,  /* default imports should be added here */
-      Seq(
-        Binding(&quot;context&quot;, &quot;_root_.org.scalatra.scalate.ScalatraRenderContext&quot;, importMembers = true, isImplicit = true)
-      ),  /* add extra bindings here */
-      Some(&quot;templates&quot;)
-    )
-  )
-}
-
-enablePlugins(JettyPlugin)
+enablePlugins(SbtTwirl)
+enablePlugins(ScalatraPlugin)
 </code></pre>
 
 <div class="alert alert-info">
 <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
 If you want to add any additional libraries to your project, add them to the
 <code>libraryDependencies</code> section.
-Doing that and running <code>./sbt</code> again will download the dependency jar
+Doing that and running <code>sbt</code> again will download the dependency jar
 libraries and make them available to your application.
 If you don't know what the dependency details are, you can find out on
 <a href="http://search.maven.org">http://search.maven.org</a>.
@@ -263,15 +238,9 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
 <dl class="dl-horizontal">
   <dt>scalatra</dt>
   <dd>This is the core Scalatra module, and is required to run the framework.</dd>
-  <dt>scalatra-scalate</dt>
+  <dt>scalatra-scalatest</dt>
   <dd>
-    This integrates with <a href="http://scalate.github.io/scalate">Scalate</a>,
-    a template engine supporting multiple template formats. Scalate is optional, but
-    highly recommended for any app requiring templating.
-  </dd>
-  <dt>scalatra-specs2</dt>
-  <dd>
-    This integrates the <a href="https://github.com/etorreborre/specs2">Specs2</a>
+    This integrates the <a href="https://github.com/scalatest/scalatest">scalatest</a>
     testing libraries.
     It is placed in the <code>test</code> scope, so it's not deployed with your app
     in production.
@@ -301,7 +270,7 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
 </dl>
 
 <p>The Scalatra components in your project should all have the same version number
-(2.5.3
+(2.5.4
  in the above example).
 Although it&rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&rsquo;s not recommended, because we compile, test and release Scalatra
