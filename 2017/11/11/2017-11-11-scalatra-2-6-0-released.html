@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Scalatra 2.6.0 is out - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+    <span class="doc-entry-meta in-list"><time datetime="2017-11-11">November 11, 2017</time></span>
+		<h1 class="doc-entry-title">Scalatra 2.6.0 is out</h1>
+		<section>
+		  <p>The Scalatra team is pleased to announce the release of version 2.6.0 of the framework. Noteworthy upgrades include new validation framework named <a href="https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/forms.html">scalatra-forms</a>.</p>
+
+<p></p>
+
+<p>Here&rsquo;s the full list of changes:</p>
+
+<h3 id="overall">Overall</h3>
+
+<ul>
+<li>Upgrade libraries and Jetty version</li>
+<li>Remove all deprecated classes and methods which had been marked before 2.5.x</li>
+<li>Adopt Twirl as the default template engine (g8 template has been updated to use Twirl in default)</li>
+<li>Drop grizzled-slf4j dependency and use slf4j directly in Scalatra</li>
+<li>Drop <code>ResponseStatus</code> because <code>HttpServletResponse.setStatus(Int, String)</code> is deprecated</li>
+</ul>
+
+<h3 id="modules">Modules</h3>
+
+<ul>
+<li>Deprecate Swagger 1.x support and merge scalatra-swagger-ext with scalatra-swagger</li>
+<li>Deprecate scalatra-commands and introduce scalatra-forms instead</li>
+<li>Deprecate scalatra-spring</li>
+<li>Drop scalatra-fileupload because it has been already deprecated since 2.1.0</li>
+<li>Merge request logging utility in scalatra-slf4j with core</li>
+</ul>
+
+<p>All deprecated features in 2.6.0 will be dropped in 2.7.0 or 3.0.0. We have a plan to move <a href="https://github.com/http4s/http4s">http4s</a> in Scalatra 3.0.0. Deprecation of features intends reducing maintenance cost and make it easy to renew architecture of Scalatra in 3.0.0.</p>
+
+<p>Thanks to all committers and contributors!</p>
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Past news items</h4>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2017/11/11/2017-11-11-scalatra-2-6-0-released.html">Scalatra 2.6.0 is out</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2017-11-11">November 11, 2017</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of version 2.6.0 of the framework. Noteworthy upgrades include new validation framework named <a href="https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/forms.html">scalatra-forms</a>.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2017/06/01/2017-06-01-scalatra-2-5-1-released.html">Scalatra 2.5.1 is out</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2017-06-01">June 01, 2017</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of version 2.5.1 of the framework. This is a maintenance release which fixes some Swagger2 support bugs in 2.5.0.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2016/11/21/2016-11-21-scalatra-2-5-released.html">Scalatra 2.5.0 is out</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2016-11-21">November 21, 2016</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of version 2.5.0 of the framework. Noteworthy upgrades include Scala 2.12 and Swagger 2 support.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2015/12/20/2015-12-20-scalatra-2-4-released.html">Scalatra 2.4.0 is out</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2015-12-20">December 20, 2015</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of Scalatra 2.4.0 with many improvements and bugfixes as listed below.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2015/10/07/2015-10-07-scalatra-2-4-comming-soon.html">Scalatra 2.4.0 will be out soon</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2015-10-07">October 07, 2015</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of Scalatra 2.4.0.RC3.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2014/06/11/2014-06-11-scalatra-2-3-released.html">Scalatra 2.3.0 released</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2014-06-11">June 11, 2014</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce the release of Scalatra 2.3.0.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2013/12/07/2013-12-07-scalatra-2-2-2-and-2-3-0m1released.html">Scalatra 2.2.2 and 2.3.0M1 released</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2013-12-07">December 07, 2013</time></span>
+          </h5>
+          <p>The Scalatra team is pleased to announce two new releases.</p>
+
+<p></p>
+          
+          <h5>
+            <a href="https://scalatra.github.io/scalatra-docbuild/2013/09/20/2013-09-20-scalatra-in-action-routing-chapter-released.html">Scalatra in Action: Routing chapter available</a><br>
+            <span class="doc-entry-meta in-list"><time datetime="2013-09-20">September 20, 2013</time></span>
+          </h5>
+          <p>Our book <a href="http://www.manning.com/carrero2/">Scalatra in Action</a>, available from
+Manning Publications, has been steadily ticking along over the summer.<br />
+A new chapter, on RESTful application development using Scalatra&rsquo;s routing
+DSL, is now available.</p>
+
+<p></p>
+          
+  		</div>
+  	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

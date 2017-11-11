@@ -7,8 +7,45 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Thu, 01 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Nov 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/news.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.6.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2017/11/11/2017-11-11-scalatra-2-6-0-released.html</link>
+      <pubDate>Sat, 11 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2017/11/11/2017-11-11-scalatra-2-6-0-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 2.6.0 of the framework. Noteworthy upgrades include new validation framework named &lt;a href=&#34;https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/forms.html&#34;&gt;scalatra-forms&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the full list of changes:&lt;/p&gt;
+
+&lt;h3 id=&#34;overall&#34;&gt;Overall&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Upgrade libraries and Jetty version&lt;/li&gt;
+&lt;li&gt;Remove all deprecated classes and methods which had been marked before 2.5.x&lt;/li&gt;
+&lt;li&gt;Adopt Twirl as the default template engine (g8 template has been updated to use Twirl in default)&lt;/li&gt;
+&lt;li&gt;Drop grizzled-slf4j dependency and use slf4j directly in Scalatra&lt;/li&gt;
+&lt;li&gt;Drop &lt;code&gt;ResponseStatus&lt;/code&gt; because &lt;code&gt;HttpServletResponse.setStatus(Int, String)&lt;/code&gt; is deprecated&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deprecate Swagger 1.x support and merge scalatra-swagger-ext with scalatra-swagger&lt;/li&gt;
+&lt;li&gt;Deprecate scalatra-commands and introduce scalatra-forms instead&lt;/li&gt;
+&lt;li&gt;Deprecate scalatra-spring&lt;/li&gt;
+&lt;li&gt;Drop scalatra-fileupload because it has been already deprecated since 2.1.0&lt;/li&gt;
+&lt;li&gt;Merge request logging utility in scalatra-slf4j with core&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All deprecated features in 2.6.0 will be dropped in 2.7.0 or 3.0.0. We have a plan to move &lt;a href=&#34;https://github.com/http4s/http4s&#34;&gt;http4s&lt;/a&gt; in Scalatra 3.0.0. Deprecation of features intends reducing maintenance cost and make it easy to renew architecture of Scalatra in 3.0.0.&lt;/p&gt;
+
+&lt;p&gt;Thanks to all committers and contributors!&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.5.1 is out</title>
@@ -1071,34 +1108,6 @@ class MyCommand extends JsonCommand {
 &lt;li&gt;Rename &lt;code&gt;LogbackSupport&lt;/code&gt; to &lt;code&gt;ScalatraSlf4jRequestLogging&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Updates slf4j-api to 1.7.2&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scalatra usage increasing</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-usage-increasing.html</link>
-      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-usage-increasing.html</guid>
-      <description>&lt;p&gt;In preparation for the 2.2.0 final release, &lt;a href=&#34;http://yuvimasory.com/&#34;&gt;Yuvi Masory&lt;/a&gt; has been cranking out all kinds of reference material:&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/getting-started/jrebel.html&#34;&gt;Fast code reloading with JRebel&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/jelastic.html&#34;&gt;Deploying to Jelastic&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/heroku.html&#34;&gt;Deploying to Heroku&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://scalatra.org/2.2/guides/deployment/google-app-engine.html&#34;&gt;Deploying to Google App Engine&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This will hopefully make it much easier for people to get started with Scalatra, and to become productive quickly.&lt;/p&gt;
-
-&lt;p&gt;In other news, the number of users of the Scalatra framework seems to be increasing steadily.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://twitter.com/joecrobak&#34;&gt;Joe Crobak&lt;/a&gt;, &lt;a href=&#34;http://twitter.com/TDJoe&#34;&gt;Joe Ennever&lt;/a&gt;, and &lt;a href=&#34;http://twitter.com/rathboma&#34;&gt;Matthew Rathbone&lt;/a&gt; over at FourSquare &lt;a href=&#34;http://engineering.foursquare.com/2012/10/16/open-sourcing-our-dashboard-for-apache-oozie/&#34;&gt;have open-sourced an internal tool&lt;/a&gt; for managing &lt;a href=&#34;https://oozie.apache.org/&#34;&gt;Apache Oozie&lt;/a&gt; workflows, and called it &lt;a href=&#34;https://github.com/foursquare/oozie-web&#34;&gt;Oozie Web&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Meanwhile, Łukasz Lenart from &lt;a href=&#34;http://softwaremill.com/&#34;&gt;softwaremill.com&lt;/a&gt; has &lt;a href=&#34;http://softwaremill.com/bootstrap-goes-open-source&#34;&gt;released a project&lt;/a&gt; called the &lt;a href=&#34;https://github.com/softwaremill/bootstrap&#34;&gt;SoftwareMill Bootstrap&lt;/a&gt;, to provide a quick way of getting Scalatra + &lt;a href=&#34;http://angularjs.org/&#34;&gt;AngularJS&lt;/a&gt; projects up and running quickly.&lt;/p&gt;
-
-&lt;p&gt;Lastly, &lt;a href=&#34;http://twitter.com/hammarback&#34;&gt;Jesper Hammarback&lt;/a&gt; has just release &lt;a href=&#34;http://www.paintfeud.com&#34;&gt;PaintFeud&lt;/a&gt;, a realtime iPhone game built using Titanium, uses Scalatra as a back-end, and involves CQRS, eventsourcing, Actors, and MongoDB.&lt;/p&gt;</description>
     </item>
     
   </channel>

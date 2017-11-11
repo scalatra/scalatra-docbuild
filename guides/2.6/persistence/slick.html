@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Slick - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Slick</h1>
+		<section>
+		  
+
+<p><a href="http://slick.lightbend.com">Slick</a> is a database library for relational databases. In the following guide we will see how to integrate it in a Scalatra application.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  This guide uses Scalatra 2.5.1, Slick 3.2.0. You may want to check for a newer version.
+</div>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.6/persistence/scalatra-slick">scalatra-slick</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<h2 id="project-overview">Project Overview</h2>
+
+<p>The sample project contains a minimal setup. For this guide the following files are important:</p>
+
+<ul>
+<li><code>build.sbt</code>: we configure the sbt build and the dependencies here.</li>
+<li><code>src/main/scala/slickexample/slick.scala</code>: the scalatra application.</li>
+<li><code>src/main/resources/c3p0.properties</code>: the connection pool is configured here.</li>
+</ul>
+
+<pre><code>.
+├── build.sbt                        // sbt build configuration
+├── project
+│   ├── build.properties
+│   └── plugins.sbt
+└── src
+    └── main
+        ├── resources
+        │   ├── c3p0.properties      // connection pool configuration
+        │   └── logback.xml
+        ├── scala
+        │   ├── slickexample
+        │   │   └── slick.scala      // main code goes here
+        │   └── ScalatraBootstrap.scala
+        └── webapp
+            └── WEB-INF
+                └── web.xml
+
+</code></pre>
+
+<h2 id="sbt-configuration">SBT Configuration</h2>
+
+<p>Let us start with the SBT setup by editing <code>build.sbt</code>. Slick 3.x.x officially supports Scala 2.11-2.12, so let&rsquo;s use Scala 2.12:</p>
+
+<pre><code class="language-scala">scalaVersion := &quot;2.12.3&quot;
+</code></pre>
+
+<p>Also you need to use an appropriate Scalatra version, for example <code>2.6.x</code> which supports Scala 2.11 and 2.12:</p>
+
+<pre><code class="language-scala">libraryDependencies += &quot;org.scalatra&quot; %% &quot;scalatra&quot; % &quot;2.6.+&quot;
+</code></pre>
+
+<p>For this guide we choose the <a href="http://www.h2database.com/html/main.html">H2 Database</a>, so we need to add a dependency to it too.</p>
+
+<pre><code class="language-scala">
+libraryDependencies ++= Seq(
+  &quot;com.typesafe.slick&quot; %% &quot;slick&quot; % &quot;3.2.0&quot;,
+  &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.4.196&quot;
+)
+</code></pre>
+
+<p>Since we want to use connection pooling, we also need to add <a href="http://www.mchange.com/projects/c3p0/">c3p0</a>:</p>
+
+<pre><code class="language-scala">libraryDependencies += &quot;com.mchange&quot; % &quot;c3p0&quot; % &quot;0.9.5.2&quot;
+</code></pre>
+
+<p>sbt is all set up. Lets proceed to the code.</p>
+
+<h2 id="slick-setup">Slick Setup</h2>
+
+<p>We put the database initialization code into <code>ScalatraBootstrap</code>. This is the class which gets executed when the web application is started. We do the following here:</p>
+
+<ul>
+<li>Setup a connection pool when the Scalatra application starts. The configuration is load from <code>src/main/resources/c3p0.properties</code>. c3p0 loads the .properties file by searching the classpath.</li>
+<li>Stop the connection pool when the Scalatra application shuts down.</li>
+<li>Create a <code>Database</code> object which represents the database. All database actions are run using that object.</li>
+<li>Create and mount the application.</li>
+</ul>
+
+<pre><code class="language-scala">import com.mchange.v2.c3p0.ComboPooledDataSource
+import org.slf4j.LoggerFactory
+import slickexample._
+import org.scalatra._
+import javax.servlet.ServletContext
+
+import slick.jdbc.H2Profile.api._
+
+/**
+ * This is the ScalatraBootstrap bootstrap file. You can use it to mount servlets or
+ * filters. It's also a good place to put initialization code which needs to
+ * run at application start (e.g. database configurations), and init params.
+ */
+class ScalatraBootstrap extends LifeCycle {
+
+  val logger = LoggerFactory.getLogger(getClass)
+
+  val cpds = new ComboPooledDataSource
+  logger.info(&quot;Created c3p0 connection pool&quot;)
+
+  override def init(context: ServletContext) {
+    val db = Database.forDataSource(cpds, None)   // create the Database object
+    context.mount(new SlickApp(db), &quot;/*&quot;)   // create and mount the Scalatra application
+  }
+
+  private def closeDbConnection() {
+    logger.info(&quot;Closing c3po connection pool&quot;)
+    cpds.close
+  }
+
+  override def destroy(context: ServletContext) {
+    super.destroy(context)
+    closeDbConnection
+  }
+}
+</code></pre>
+
+<p>The connection pool configuration <code>src/main/resource/c3p0.properties</code> looks like this:</p>
+
+<pre><code class="language-ini">c3p0.driverClass=org.h2.Driver
+c3p0.jdbcUrl=jdbc:h2:mem:test
+c3p0.user=root
+c3p0.password=
+c3p0.minPoolSize=1
+c3p0.acquireIncrement=1
+c3p0.maxPoolSize=50
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<p>Now we are ready to start with the sample application. The code serves only as a proof of concept. For more detailed information about Slick&rsquo;s features take a look at the <a href="http://slick.lightbend.com/docs/">documentation</a>.</p>
+
+<p>We create two Tables, one for the suppliers and another one for the coffees table:</p>
+
+<pre><code class="language-scala">import slick.jdbc.H2Profile.api._
+
+object Tables {
+
+  // Definition of the SUPPLIERS table
+  class Suppliers(tag: Tag) extends Table[(Int, String, String, String, String, String)](tag, &quot;SUPPLIERS&quot;) {
+    def id = column[Int](&quot;SUP_ID&quot;, O.PrimaryKey) // This is the primary key column
+    def name = column[String](&quot;SUP_NAME&quot;)
+    def street = column[String](&quot;STREET&quot;)
+    def city = column[String](&quot;CITY&quot;)
+    def state = column[String](&quot;STATE&quot;)
+    def zip = column[String](&quot;ZIP&quot;)
+
+    // Every table needs a * projection with the same type as the table's type parameter
+    def * = (id, name, street, city, state, zip)
+  }
+
+  // Definition of the COFFEES table
+  class Coffees(tag: Tag) extends Table[(String, Int, Double, Int, Int)](tag, &quot;COFFEES&quot;) {
+    def name = column[String](&quot;COF_NAME&quot;, O.PrimaryKey)
+    def supID = column[Int](&quot;SUP_ID&quot;)
+    def price = column[Double](&quot;PRICE&quot;)
+    def sales = column[Int](&quot;SALES&quot;)
+    def total = column[Int](&quot;TOTAL&quot;)
+    def * = (name, supID, price, sales, total)
+
+    // A reified foreign key relation that can be navigated to create a join
+    def supplier = foreignKey(&quot;SUP_FK&quot;, supID, suppliers)(_.id)
+  }
+
+  // Table query for the SUPPLIERS table, represents all tuples of that table
+  val suppliers = TableQuery[Suppliers]
+
+  // Table query for the COFFEES table
+  val coffees = TableQuery[Coffees]
+
+  // Other queries and actions ...
+
+}
+</code></pre>
+
+<p>Slick offers a query language to express database queries and Database I/O Actions (DBIOAction) which are basically composable database operations. A single Action can for example represent one or more queries. They can be composed using the <code>DBIO.seq</code> method</p>
+
+<pre><code class="language-scala">// Query, implicit inner join coffees and suppliers, return their names
+val findCoffeesWithSuppliers = {
+  for {
+    c &lt;- coffees
+    s &lt;- c.supplier
+  } yield (c.name, s.name)
+}
+
+// DBIO Action which runs several queries inserting sample data
+val insertSupplierAndCoffeeData = DBIO.seq(
+  Tables.suppliers += (101, &quot;Acme, Inc.&quot;, &quot;99 Market Street&quot;, &quot;Groundsville&quot;, &quot;CA&quot;, &quot;95199&quot;),
+  Tables.suppliers += (49, &quot;Superior Coffee&quot;, &quot;1 Party Place&quot;, &quot;Mendocino&quot;, &quot;CA&quot;, &quot;95460&quot;),
+  Tables.suppliers += (150, &quot;The High Ground&quot;, &quot;100 Coffee Lane&quot;, &quot;Meadows&quot;, &quot;CA&quot;, &quot;93966&quot;),
+  Tables.coffees ++= Seq(
+    (&quot;Colombian&quot;, 101, 7.99, 0, 0),
+    (&quot;French_Roast&quot;, 49, 8.99, 0, 0),
+    (&quot;Espresso&quot;, 150, 9.99, 0, 0),
+    (&quot;Colombian_Decaf&quot;, 101, 8.99, 0, 0),
+    (&quot;French_Roast_Decaf&quot;, 49, 9.99, 0, 0)
+  )
+)
+
+// DBIO Action which creates the schema
+val createSchemaAction = (suppliers.schema ++ coffees.schema).create
+
+// DBIO Action which drops the schema
+val dropSchemaAction = (suppliers.schema ++ coffees.schema).drop
+
+// Create database, composing create schema and insert sample data actions
+val createDatabase = DBIO.seq(createSchemaAction, insertSupplierAndCoffeeData)
+</code></pre>
+
+<p>Now we can create some routes:</p>
+
+<ul>
+<li><code>GET /db/create-db</code> creates the tables and inserts sample data</li>
+<li><code>GET /db/drop-db</code> drops the tables</li>
+<li><code>GET /coffees</code> queries the database</li>
+</ul>
+
+<p>We put the routes in a <code>SlickRoutes</code> trait which we later add to the application. A DBIO Action is run through the Database object&rsquo;s <code>run</code> method. The operations are run asynchronously and a Future is returned. Since we are returning the Future directly from the routes, we teach Scalatra how to handle a Future as result by mixing in the FutureSupport trait. When a Future is returned, the HTTP request is put to asynchronous mode and parked until the result is available. For more details about handling asynchronous operations, see the async guides (<a href="../guides/async/akka.html">Akka</a>, <a href="../guides/async/akka.html">Atmosphere</a>). The value <code>db</code> is later provided by the Scalatra application.</p>
+
+<pre><code class="language-scala">import org.scalatra.{ScalatraBase, FutureSupport, ScalatraServlet}
+
+import slick.jdbc.H2Profile.api._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+
+trait SlickRoutes extends ScalatraBase with FutureSupport {
+
+  def db: Database
+
+  get(&quot;/db/create-tables&quot;) {
+    db.run(Tables.createSchemaAction)
+  }
+
+  get(&quot;/db/load-data&quot;) {
+    db.run(Tables.insertSupplierAndCoffeeData)
+  }
+
+  get(&quot;/db/drop-tables&quot;) {
+    db.run(Tables.dropSchemaAction)
+  }
+
+  get(&quot;/coffees&quot;) {
+    // run the action and map the result to something more readable
+    db.run(Tables.findCoffeesWithSuppliers.result) map { xs =&gt;
+      contentType = &quot;text/plain&quot;
+      xs map { case (s1, s2) =&gt; f&quot;  $s1 supplied by $s2&quot; } mkString &quot;\n&quot;
+    }
+  }
+
+}
+
+</code></pre>
+
+<p>Finally let&rsquo;s create the application:</p>
+
+<pre><code class="language-scala">class SlickApp(val db: Database) extends ScalatraServlet with FutureSupport with SlickRoutes {
+
+  protected implicit def executor = scala.concurrent.ExecutionContext.Implicits.global
+
+}
+</code></pre>
+
+<p>Congratulations, you have now a basic Slick integration working! Feel free to do your own modifications.</p>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.6 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/routes.html">Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/actions.html">Actions</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/reverse-routes.html">Reverse Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/requests-and-responses.html">Requests &amp; Responses</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/gzip.html">GZip</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/flash.html">Flash</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/authentication.html">Authentication</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/web-services/cors.html">CORS</a></li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/forms.html">Forms</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

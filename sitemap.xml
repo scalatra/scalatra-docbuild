@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/2017/11/11/2017-11-11-scalatra-2-6-0-released.html</loc>
+    <lastmod>2017-11-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/2017/06/01/2017-06-01-scalatra-2-5-1-released.html</loc>
     <lastmod>2017-06-01T00:00:00+00:00</lastmod>
   </url>
@@ -139,6 +144,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/actions.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/async/akka.html</loc>
   </url>
   
@@ -148,6 +157,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/async/akka.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/async/akka.html</loc>
   </url>
   
   <url>
@@ -163,6 +176,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/async/atmosphere.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/authentication.html</loc>
   </url>
   
@@ -172,6 +189,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/authentication.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/authentication.html</loc>
   </url>
   
   <url>
@@ -188,6 +209,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/web-services/cors.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/web-services/cors.html</loc>
   </url>
   
   <url>
@@ -232,6 +257,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/deployment/configuration.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/testing/continuous-integration.html</loc>
   </url>
   
@@ -268,6 +297,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/deployment/heroku.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/deployment/jelastic.html</loc>
   </url>
   
@@ -281,6 +314,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/deployment/servlet-container.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/deployment/servlet-container.html</loc>
   </url>
   
   <url>
@@ -304,6 +341,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/faq.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/formats/upload.html</loc>
   </url>
   
@@ -313,6 +354,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/formats/upload.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/upload.html</loc>
   </url>
   
   <url>
@@ -329,6 +374,14 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/flash.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/flash.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/forms.html</loc>
   </url>
   
   <url>
@@ -353,6 +406,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/deployment/google-app-engine.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides.html</loc>
     <priority>0</priority>
   </url>
@@ -370,6 +427,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/gzip.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/formats/json.html</loc>
   </url>
   
@@ -382,6 +443,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/formats/json.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/modules.html</loc>
   </url>
   
@@ -391,6 +456,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/modules.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/modules.html</loc>
   </url>
   
   <url>
@@ -410,6 +479,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/views/inline-html.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/getting-started/installation.html</loc>
   </url>
   
@@ -426,11 +499,19 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/internationalization.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.4/persistence/introduction.html</loc>
   </url>
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/introduction.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/persistence/introduction.html</loc>
   </url>
   
   <url>
@@ -466,11 +547,19 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/monitoring/logging.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.4/monitoring/metrics.html</loc>
   </url>
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/monitoring/metrics.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/monitoring/metrics.html</loc>
   </url>
   
   <url>
@@ -482,12 +571,16 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/persistence/mongodb.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/mongodb.html</loc>
   </url>
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/news.html</loc>
-    <lastmod>2017-06-01T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -508,6 +601,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/requests-and-responses.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/reverse-routes.html</loc>
   </url>
   
@@ -517,6 +614,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/reverse-routes.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/reverse-routes.html</loc>
   </url>
   
   <url>
@@ -532,6 +633,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/persistence/riak.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/http/routes.html</loc>
   </url>
   
@@ -541,6 +646,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/http/routes.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/routes.html</loc>
   </url>
   
   <url>
@@ -556,6 +665,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/testing/scalatest.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/views/scalate.html</loc>
   </url>
   
@@ -568,8 +681,12 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/views/scalate.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/</loc>
-    <lastmod>2017-06-01T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -590,6 +707,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/scalatra-philosophy.html</loc>
   </url>
   
@@ -599,6 +720,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/scalatra-philosophy.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/scalatra-philosophy.html</loc>
   </url>
   
   <url>
@@ -626,6 +751,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/http/sessions.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/slick.html</loc>
   </url>
   
@@ -635,6 +764,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/slick.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/persistence/slick.html</loc>
   </url>
   
   <url>
@@ -650,6 +783,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/testing/specs2.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/persistence/squeryl.html</loc>
   </url>
   
@@ -659,6 +796,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/persistence/squeryl.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/persistence/squeryl.html</loc>
   </url>
   
   <url>
@@ -674,6 +815,10 @@
   </url>
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/deployment/standalone.html</loc>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.3/swagger.html</loc>
   </url>
   
@@ -683,6 +828,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/swagger.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/swagger.html</loc>
   </url>
   
   <url>
@@ -699,6 +848,10 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.5/views/twirl.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/guides/2.6/views/twirl.html</loc>
   </url>
   
   <url>

@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Forms - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Forms</h1>
+		<section>
+		  
+
+<p>Since Scalatra 2.6, scalatra-forms which provides form validation is available. You can validate input parameters using forms and convert them to any Scala object such as case class.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  You can see a full code example at the <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.6/formats/scalatra-forms">scalatra-forms</a> project in the examples repository.
+</div>
+
+<h3 id="basic-usage">Basic usage</h3>
+
+<p>Open <code>build.sbt</code> in the root of your project, and add the following line to the <code>libraryDependencies</code> sequence:</p>
+
+<pre><code class="language-scala">  &quot;org.scalatra&quot; %% &quot;scalatra-forms&quot; % ScalatraVersion,
+</code></pre>
+
+<p>Assuming a HTML form like this:</p>
+
+<p><img src="form.png" style="width: 100%; border: 1px solid silver;"></p>
+
+<p>You can write this form using view helpers in Twirl template as follows:</p>
+
+<pre><code class="language-html">@()(implicit request: javax.servlet.http.HttpServletRequest)
+@import org.scalatra.forms.views._
+...
+&lt;form action=&quot;/&quot; method=&quot;POST&quot; class=&quot;form-horizontal&quot;&gt;
+  &lt;div class=&quot;form-group @if(error(&quot;text&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;text&quot;&gt;Text (*):&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;text&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;text&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(error(&quot;email&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;email&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;email&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(errors(&quot;number&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;number&quot;&gt;Number:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;number&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;number&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(errors(&quot;checkbox&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Checkbox:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      &lt;div class=&quot;checkbox&quot;&gt;
+        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxA&quot;)) Checkbox A&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;checkbox&quot;&gt;
+        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxB&quot;)) Checkbox B&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;checkbox&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; class=&quot;btn btn-primary&quot;&gt;
+&lt;/form&gt;
+...
+</code></pre>
+
+<p>Let&rsquo;s see how to implement server side validation. At first, make a case class to be mapped parameters sent from this form:</p>
+
+<pre><code class="language-scala">case class ValidationForm(
+  text: String, 
+  email: Option[String], 
+  number: Option[Int], 
+  checkbox: Seq[String]
+)
+</code></pre>
+
+<p>Next, define a form:</p>
+
+<pre><code class="language-scala">import org.scalatra.forms._
+
+val form = mapping(
+  &quot;text&quot; -&gt; label(&quot;Text&quot;, text(required, maxlength(100))),
+  &quot;email&quot; -&gt; label(&quot;Email&quot;, optional(text(pattern(&quot;.+@.+&quot;), maxlength(20)))),
+  &quot;number&quot; -&gt; label(&quot;Number&quot;, optional(number())),
+  &quot;checkbox&quot; -&gt; list(text())
+)(ValidationForm.apply)
+</code></pre>
+
+<p>Finally, you can use this form in your controller as following (Note: Your controller must extend <code>FormSupport</code> and <code>I18nSupport</code>):</p>
+
+<pre><code class="language-scala">post(&quot;/&quot;) {
+  validate(form)(
+    errors: Seq[(String, String)] =&gt; {
+      BadRequest(html.error(errors))
+    },
+    form: ValidatioForm =&gt; {
+      html.result(form)
+    }
+  )
+}
+</code></pre>
+
+<p>As you can see, <code>errors</code> is <code>Seq[(String, String)]</code>. The first element of tuple in this sequence is a request parameter name, and the second parameter is an error message.</p>
+
+<h3 id="form-defintiion">Form defintiion</h3>
+
+<p>Form consists combination of <code>ValueType</code> and <code>Constraint</code>. scalatra-forms has some <code>ValueType</code> and <code>Constraint</code> in default. You can define your forms using them. Of course, you can define your own rules or constraints if you need.</p>
+
+<h4 id="valuetype">ValueType</h4>
+
+<p><code>ValueType</code> is simply the converter which converts request parameters to Scala date types. Following ValueTypes are available in default:</p>
+
+<ul>
+<li><code>text</code>: Map a request parameter to <code>String</code> property.</li>
+<li><code>boolean</code>: Map a request parameter to <code>Boolean</code> property.</li>
+<li><code>number</code>: Map a request parameter to <code>Int</code> property.</li>
+<li><code>double</code>: Map a request parameter to <code>Double</code> property.</li>
+<li><code>long</code>: Map a request parameter to <code>Long</code> property.</li>
+<li><code>date</code>: Map a request parameter to <code>java.util.Date</code> property. You have to specify the date pattern as an argument of this rule.</li>
+<li><code>mapping</code>: Map request parameters to any Scala object by aggregating other mapping rules.</li>
+<li><code>list</code>: Map an another rule to <code>List</code> by wrapping that. Supports same name parameters and indexed parameter (e.g. <code>xxx[0]</code>, <code>xxx[1]</code>, &hellip;).</li>
+<li><code>optional</code>: Map an aother rule to <code>Option</code> by wrapping that.</li>
+<li><code>optionalIfNotChecked</code>: Used to <code>Option</code> parameter which is optinal if specified checkbox isn&rsquo;t checked.</li>
+<li><code>optionalRequired</code>: Used to <code>Option</code> parameter which is required if specified condition is true.</li>
+<li><code>optionalRequiredIfChecked</code>: Used to <code>Option</code> parameter which is required if specified checkbox is checked.</li>
+<li><code>trim</code>: Trim a request parameter by wrapping an other rule. Normally, this rule is used with <code>text</code>.</li>
+<li><code>label</code>: Specify the propery name which is used in the error message by wrapping an other rule.</li>
+</ul>
+
+<h4 id="constraint">Constraint</h4>
+
+<p><code>Constraint</code> is the stuff to add detailed constraints to <code>ValueType</code>. Following constraints are available in default:</p>
+
+<ul>
+<li><code>required</code>: Specified parameter is required.</li>
+<li><code>maxlength</code>: Specify the maximum length.</li>
+<li><code>minlength</code>: Specify the minimum length.</li>
+<li><code>oneOf</code>: Specify valid values.</li>
+<li><code>pattern</code>: Specify the valid pattern as regular expression.</li>
+<li><code>datePattern</code>: Specify the valid date pattern.</li>
+</ul>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.6 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/routes.html">Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/actions.html">Actions</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/reverse-routes.html">Reverse Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/requests-and-responses.html">Requests &amp; Responses</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/gzip.html">GZip</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/flash.html">Flash</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/http/authentication.html">Authentication</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/web-services/cors.html">CORS</a></li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/formats/forms.html">Forms</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.6/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+
