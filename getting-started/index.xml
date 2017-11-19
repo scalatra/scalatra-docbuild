@@ -674,8 +674,7 @@ so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Sc
 
 &lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;2.5.4
-&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;2.5.4&amp;quot;
 
 organization := &amp;quot;com.example&amp;quot;
 
@@ -690,8 +689,7 @@ resolvers += Classpaths.typesafeReleases
 libraryDependencies ++= Seq(
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalatest&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.2.3
-&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.2.3&amp;quot; % &amp;quot;runtime&amp;quot;,
   &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;9.2.19.v20160908&amp;quot; % &amp;quot;container&amp;quot;,
   &amp;quot;javax.servlet&amp;quot; % &amp;quot;javax.servlet-api&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;provided&amp;quot;
 )
@@ -753,8 +751,7 @@ within sbt whenever you add or update a dependency in &lt;code&gt;project/build.
 &lt;/dl&gt;
 
 &lt;p&gt;The Scalatra components in your project should all have the same version number
-(2.5.4
- in the above example).
+(2.5.4 in the above example).
 Although it&amp;rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&amp;rsquo;s not recommended, because we compile, test and release Scalatra
 dependencies together based on their version number.&lt;/p&gt;

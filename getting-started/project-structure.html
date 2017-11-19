@@ -191,8 +191,7 @@ so that <code>sbt</code> can download them for you and build your Scalatra proje
 
 <p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
 
-<pre><code class="language-scala">val ScalatraVersion = &quot;2.5.4
-&quot;
+<pre><code class="language-scala">val ScalatraVersion = &quot;2.5.4&quot;
 
 organization := &quot;com.example&quot;
 
@@ -207,8 +206,7 @@ resolvers += Classpaths.typesafeReleases
 libraryDependencies ++= Seq(
   &quot;org.scalatra&quot; %% &quot;scalatra&quot; % ScalatraVersion,
   &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % ScalatraVersion % &quot;test&quot;,
-  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3
-&quot; % &quot;runtime&quot;,
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot; % &quot;runtime&quot;,
   &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.19.v20160908&quot; % &quot;container&quot;,
   &quot;javax.servlet&quot; % &quot;javax.servlet-api&quot; % &quot;3.1.0&quot; % &quot;provided&quot;
 )
@@ -270,8 +268,7 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
 </dl>
 
 <p>The Scalatra components in your project should all have the same version number
-(2.5.4
- in the above example).
+(2.5.4 in the above example).
 Although it&rsquo;s theoretically possible to mix and match differently-versioned components
 in your projects, it&rsquo;s not recommended, because we compile, test and release Scalatra
 dependencies together based on their version number.</p>
