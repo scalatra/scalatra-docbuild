@@ -80,7 +80,7 @@ in sync with your API.</p>
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
   See
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/swagger-example">swagger-example</a>
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.4/swagger-example">swagger-example</a>
   for a minimal and standalone project containing the example in this guide.
 </div>
 
@@ -329,7 +329,7 @@ class ScalatraBootstrap extends LifeCycle {
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  Note that the `context.mount(new FlowersController, "/flowers", "flowers")` has a second
+  Note that the <code>context.mount(new FlowersController, "/flowers", "flowers")</code> has a second
   parameter: in Scalatra 2.3.x, Swagger requires a name parameter to be present so that it
   can generate its documentation properly. The name should always be the same as the
   controller's mount path, minus the leading "/".
@@ -460,7 +460,7 @@ information, and Scalatra generates the spec file for your route.</p>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class=""></i></span>
-  It's very important to get the api-docs path correct when you browse your docs in swagger-ui. Be careful: there's no trailing slash on `http://localhost:8080/api-docs`,
+  It's very important to get the api-docs path correct when you browse your docs in swagger-ui. Be careful: there's no trailing slash on <code>http://localhost:8080/api-docs</code>,
   and the docs won't work if you accidentally add one.
 </div>
 
@@ -472,7 +472,7 @@ information, and Scalatra generates the spec file for your route.</p>
 
 <p>Interestingly, you are able to use the remotely-hosted documentation browser at <a href="http://petstore.swagger.io">http://petstore.swagger.io</a> to browse an application on <a href="http://localhost">http://localhost</a>. Why is this possible? Shouldn&rsquo;t JavaScript security restrictions have come into play here?</p>
 
-<p>The reason it works is that Scalatra has Cross-Origin Resource Sharing (CORS) support mixed into its SwaggerSupport trait, allowing cross-origin JavaScript requests by default for all requesting domains. This makes it easy to serve JS API clients - but if you want, you can lock down requests to specific domains using Scalatra&rsquo;s CorsSupport trait. See the Scalatra <a href="../guides/web-services/cors.html">Helpers</a> documentation for more.</p>
+<p>The reason it works is that Scalatra has Cross-Origin Resource Sharing (CORS) support mixed into its SwaggerSupport trait, allowing cross-origin JavaScript requests by default for all requesting domains. This makes it easy to serve JS API clients - but if you want, you can lock down requests to specific domains using Scalatra&rsquo;s CorsSupport trait. See the Scalatra <a href="./web-services/cors.html">Helpers</a> documentation for more.</p>
 
 		</section>
 	  </article>

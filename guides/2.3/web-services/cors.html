@@ -77,31 +77,34 @@
 class YourServlet extends ScalatraBase with CorsSupport {
 
   options(&quot;/*&quot;){
-    response.setHeader(&quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;));
+    response.setHeader(
+      &quot;Access-Control-Allow-Headers&quot;, request.getHeader(&quot;Access-Control-Request-Headers&quot;));
   }
 
 }
 </code></pre>
 
-<p>You can configure your application to be more restrictive by using the following init
-params.</p>
+<p>You can configure your application to be more restrictive by using the following init params.</p>
 
-<p><code>context.initParameters(&quot;org.scalatra.cors.allowedOrigins&quot;) = &quot;http://example.com:8080 http://foo.example.com&quot;</code>
-- List the hosts and ports which will be allowed to make cross-origin requests,
-separated by spaces (* by default).</p>
+<pre><code class="language-scala">// List the hosts and ports which will be allowed to make cross-origin requests, 
+// separated by commas (* by default).
+context.initParameters(&quot;org.scalatra.cors.allowedOrigins&quot;) = &quot;http://example.com:8080,http://foo.example.com&quot;
 
-<p><code>context.initParameters(&quot;org.scalatra.cors.allowedMethods&quot;) = &quot;GET&quot;</code> - List what HTTP methods will be
-accepted. Available options are GET, POST, PUT, DELETE, HEAD, OPTIONS, and
-PATCH. All hosts are accepted by default.</p>
+// List what HTTP methods will be accepted. 
+// Available options are GET, POST, PUT, DELETE, HEAD, OPTIONS, and PATCH. 
+// All methods are accepted by default.
+context.initParameters(&quot;org.scalatra.cors.allowedMethods&quot;) = &quot;GET&quot;
 
-<p><code>context.initParameters(&quot;org.scalatra.cors.allowedHeaders&quot;) = &quot;Content-Type&quot;</code> - Set a list of allowed
-HTTP headers, most headers are supported.</p>
+// Set a list of allowed HTTP headers, most headers are supported.
+context.initParameters(&quot;org.scalatra.cors.allowedHeaders&quot;) = &quot;Content-Type&quot;
 
-<p><code>context.initParameters(&quot;org.scalatra.cors.preflightMaxAge&quot;) = 1800</code> - Set the number of seconds that
-preflight requests can be cached by the client. Default value is 0 seconds.</p>
+// Set the number of seconds that preflight requests can be cached by the client.
+// Default value is 0 seconds.
+context.initParameters(&quot;org.scalatra.cors.preflightMaxAge&quot;) = 1800
 
-<p><code>context.initParameters(&quot;org.scalatra.cors.allowCredentials&quot;) = true</code> - By default, cookies are not
-included in CORS requests. Set this to <code>true</code> to allow cookies.</p>
+// By default, cookies are not included in CORS requests. Set this to `true` to allow cookies.
+context.initParameters(&quot;org.scalatra.cors.allowCredentials&quot;) = true
+</code></pre>
 
 <p>If you&rsquo;re not familiar with CORS, you may want to find out a bit more about
 <a href="http://www.w3.org/TR/cors/#resource-preflight-requests">preflightMaxAge</a> and <a href="http://www.w3.org/TR/cors/#supports-credentials">allowCredentials</a> or
