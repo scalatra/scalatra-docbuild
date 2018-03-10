@@ -70,36 +70,86 @@ the box: test-driven development (TDD), behavior-driven development (BDD), and
 acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in
 Scala.</p>
 
-<p>Scalatra has an integration to make the use of ScalaTest more convenient.</p>
-
-<p>Convenience traits are provided for many <code>Suite</code> implementations:</p>
-
-<ul>
-<li><code>ScalatraSpec</code></li>
-<li><code>ScalatraFlatSpec</code></li>
-<li><code>ScalatraFreeSpec</code></li>
-<li><code>ScalatraWordSpec</code></li>
-<li><code>ScalatraFunSuite</code></li>
-<li><code>ScalatraFeatureSpec</code></li>
-<li><code>ScalatraJUnit3Suite</code></li>
-<li><code>ScalatraJUnitSuite</code> (JUnit 4)</li>
-<li><code>ScalatraTestNGSuite</code></li>
-</ul>
-
 <h4 id="dependency">Dependency</h4>
 
 <pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % &quot;2.6.2&quot; % &quot;test&quot;
 </code></pre>
 
+<h4 id="selecting-a-testing-style">Selecting a testing style</h4>
+
+<p>A trait of Scalatra integration is prepared according to the testing style of ScalaTest.
+You can select a trait according to the testing style you want to use.</p>
+
+<table>
+<thead>
+<tr>
+<th>ScalaTest testing style</th>
+<th>trait</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>FunSpec</code></td>
+<td><code>ScalatraSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FlatSpec</code></td>
+<td><code>ScalatraFlatSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FreeSpec</code></td>
+<td><code>ScalatraFreeSpec</code></td>
+</tr>
+
+<tr>
+<td><code>WordSpec</code></td>
+<td><code>ScalatraWordSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FunSuite</code></td>
+<td><code>ScalatraFunSuite</code></td>
+</tr>
+
+<tr>
+<td><code>FeatureSpec</code></td>
+<td><code>ScalatraFeatureSpec</code></td>
+</tr>
+
+<tr>
+<td><code>JUnit3Suite</code></td>
+<td><code>ScalatraJUnit3Suite</code></td>
+</tr>
+
+<tr>
+<td><code>JUnitSuite</code> (JUnit 4)</td>
+<td><code>ScalatraJUnitSuite</code></td>
+</tr>
+
+<tr>
+<td><code>TestNGSuite</code></td>
+<td><code>ScalatraTestNGSuite</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>At this time, traits for PropSpec and RefSpec are not prepared.</p>
+
 <h4 id="example">Example</h4>
 
-<p>Extend <code>ScalatraSuite</code> with your preferred <code>org.scalatest.Suite</code> implementation.
-You get <code>ShouldMatchers</code> and <code>MustMatchers</code> for free.</p>
+<p>When creating a test class, extend Scalatra&rsquo;s trait according to
+<a href="http://www.scalatest.org/user_guide/selecting_a_style">the testing style of ScalaTest</a>.
+At this time, ScalaTest&rsquo;s <a href="http://www.scalatest.org/user_guide/using_matchers"><code>Matcher</code></a>
+trait is already in effect, so you do not need to mix-in.</p>
+
+<p>The following code shows an example of code when FunSuite is selected as the testing style.</p>
 
 <pre><code class="language-scala">import org.scalatra.test.scalatest._
-import org.scalatest.FunSuiteLike
 
-class HelloWorldServletTests extends ScalatraSuite with FunSuiteLike {
+class HelloWorldServletTests extends ScalatraFunSuite {
   // `HelloWorldServlet` is your app which extends ScalatraServlet
   addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
 
@@ -110,15 +160,6 @@ class HelloWorldServletTests extends ScalatraSuite with FunSuiteLike {
     }
   }
 }
-</code></pre>
-
-<p>The addServlet method is used here with <code>classOf[HelloWorldServlet]</code> to mount
-the HelloWorld servlet into the ScalaTest test.</p>
-
-<p>If you&rsquo;ve got a servlet which takes constructor params, you&rsquo;ll need to mount the servlet in your test with a different <code>addServlet</code> method overload, e.g.:</p>
-
-<pre><code class="language-scala">  implicit val myImplicitHere = new ImplicitConstructorParam
-  addServlet(new HelloWorldServlet, &quot;/*&quot;)
 </code></pre>
 
 		</section>

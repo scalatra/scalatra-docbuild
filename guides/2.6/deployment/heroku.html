@@ -78,7 +78,7 @@ for a minimal and standalone project containing the example in this guide.
 
 <h2 id="1-sign-up-for-a-free-a-free-account-https-api-heroku-com-signup">1. Sign up for a free a <a href="https://api.heroku.com/signup">free account</a>.</h2>
 
-<h2 id="2-install-the-heroku-toolbelt-https-toolbelt-herokuapp-com">2. Install the <a href="https://toolbelt.herokuapp.com/">Heroku Toolbelt</a>.</h2>
+<h2 id="2-install-the-heroku-cli-https-devcenter-heroku-com-articles-heroku-cli">2. Install the <a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI</a>.</h2>
 
 <h2 id="3-set-up-a-project">3. Set up a project.</h2>
 
@@ -94,19 +94,19 @@ Check out the <a href="{{site.baseurl}}getting-started/installation.html">instal
 
 <p>Open <code>build.sbt</code> in the root of your project. You will find a line like this:</p>
 
-<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.15.v20160210&quot; % &quot;container&quot;,
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.4.8.v20171121&quot; % &quot;container&quot;,
 </code></pre>
 
 <p>Those are basically right, but we need to add <code>compile</code> scope because Heroku is not a servlet host. It can only run your app via an embedded Jetty server you provide. So replace the line above with this one:</p>
 
-<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.15.v20160210&quot; % &quot;compile;container&quot;,
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.4.8.v20171121&quot; % &quot;compile;container&quot;,
 </code></pre>
 
 <h3 id="add-the-sbt-native-packager-plugin">Add the sbt Native Packager plugin</h3>
 
 <p>You don&rsquo;t want to use sbt to run your app in production. We&rsquo;ll install an sbt plugin that will create a start script during compilation. Heroku will use that start script. Tell sbt where to find the plugin by adding this line to <code>project/plugins.sbt</code> (you may need to create the file first):</p>
 
-<pre><code class="language-scala">addSbtPlugin(&quot;com.typesafe.sbt&quot; % &quot;sbt-native-packager&quot; % &quot;1.2.2&quot;)
+<pre><code class="language-scala">addSbtPlugin(&quot;com.typesafe.sbt&quot; % &quot;sbt-native-packager&quot; % &quot;1.3.2&quot;)
 </code></pre>
 
 <p>Then enable the plugin by calling the <code>enablePlugins</code> method in your <code>build.sbt</code>:</p>
@@ -165,7 +165,7 @@ a <code>Procfile</code> with contents such as:</p>
 <pre><code>web: target/universal/stage/bin/&lt;app-name&gt; -Dhttp.port=$PORT -Dother.prop=someValue
 </code></pre>
 
-<p>And replace <code>&lt;app-name&gt;</code> with the name of your app defined in <code>build.scala</code>.</p>
+<p>And replace <code>&lt;app-name&gt;</code> with the name of your app defined in <code>build.sbt</code>.</p>
 
 <h2 id="5-deploy">5. Deploy</h2>
 

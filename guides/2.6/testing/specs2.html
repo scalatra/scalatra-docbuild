@@ -75,18 +75,42 @@ specifications for one class (unit specifications) or a full system
 <pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.6.2&quot; % &quot;test&quot;
 </code></pre>
 
-<h4 id="examples">Examples</h4>
+<h4 id="selecting-a-testing-style">Selecting a testing style</h4>
 
-<p>Specs2 supports two basic styles: <em>unit</em> and <em>acceptance</em>.
-Both are supported by Scalatra.</p>
+<p>A trait of Scalatra integration is prepared according to the testing style of Specs2.
+You can select a trait according to the testing style you want to use.</p>
+
+<table>
+<thead>
+<tr>
+<th>Specs2 testing style</th>
+<th>trait</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>MutableScalatraSpec</code></td>
+<td><code>org.specs2.mutable.Specification</code> (Unit specification)</td>
+</tr>
+
+<tr>
+<td><code>ScalatraSpec</code></td>
+<td><code>org.specs2.Specification</code> (Acceptance specification)</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="examples">Examples</h4>
 
 <h5 id="unit-testing">Unit testing</h5>
 
-<p>From the <a href="http://etorreborre.github.com/specs2/guide/org.specs2.guide.QuickStart.html">Specs2 QuickStart</a>:</p>
+<p>From the <a href="https://etorreborre.github.io/specs2/guide/SPECS2-4.0.0/org.specs2.guide.Structure.html">Specs2 Structure</a>:</p>
 
 <blockquote>
-<p>unit specifications where the specification text is interleaved with the
-specification code. It is generally used to specify a single class.</p>
+<p>you can create a “Unit” specification where the code is interleaved with the text.
+The name “unit” comes from the fact that Unit specifications have a structure which
+is close to unit tests in “classical” frameworks such as JUnit</p>
 </blockquote>
 
 <pre><code class="language-scala">import org.scalatra.test.specs2._
@@ -94,8 +118,8 @@ specification code. It is generally used to specify a single class.</p>
 class HelloWorldMutableServletSpec extends MutableScalatraSpec {
   addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
 
-  &quot;GET / on HelloWorldServlet&quot; should {
-    &quot;return status 200&quot; in {
+  &quot;GET / on HelloWorldServlet&quot; &gt;&gt; {
+    &quot;must return status 200&quot; &gt;&gt; {
       get(&quot;/&quot;) {
         status must_== 200
       }
@@ -106,61 +130,26 @@ class HelloWorldMutableServletSpec extends MutableScalatraSpec {
 
 <h5 id="acceptance-testing">Acceptance testing</h5>
 
-<p>From the <a href="http://etorreborre.github.com/specs2/guide/org.specs2.guide.QuickStart.html">Specs2 QuickStart</a>:</p>
+<p>From the <a href="https://etorreborre.github.io/specs2/guide/SPECS2-4.0.0/org.specs2.guide.Structure.html">Specs2 Structure</a>:</p>
 
 <blockquote>
-<p>acceptance specifications where all the specification text stands as one and
-the implementation code is elsewhere.  It is generally used for acceptance or
-integration scenarios</p>
+<p>you can create an “Acceptance” specification where all the informal text
+is written in one place and the code is written somewhere else. The name
+“acceptance” comes from the fact that it might be easier for a non-developer
+to just read some text to validate your specification</p>
 </blockquote>
 
 <pre><code class="language-scala">import org.scalatra.test.specs2._
 
 class HelloWorldServletSpec extends ScalatraSpec { def is = s2&quot;&quot;&quot;
   GET / on HelloWorldServlet
-    returns status 200           $getRoot200
+    must return status 200           $getRoot200
 &quot;&quot;&quot;
 
   addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
 
   def getRoot200 = get(&quot;/&quot;) {
     status must_== 200
-  }
-}
-</code></pre>
-
-<p>The <code>addServlet</code> method is used here with <code>classOf[HelloWorldServlet]</code> to mount
-the HelloWorld servlet into the Specs2 test.</p>
-
-<p>If you&rsquo;ve got a servlet which takes constructor params, you&rsquo;ll need to mount the
-servlet in your test with a different <code>addServlet</code> method overload, e.g.:</p>
-
-<pre><code class="language-scala">  implicit val myImplicitHere = new ImplicitConstructorParam
-  addServlet(new HelloWorldServlet, &quot;/*&quot;)
-</code></pre>
-
-<h4 id="testing-file-uploads">Testing file uploads</h4>
-
-<p>Convenience methods exist for testing file uploads.</p>
-
-<pre><code class="language-scala">class FileUploadSpec extends MutableScalatraSpec {
-  addServlet(classOf[FileUploadServlet], &quot;/*&quot;)
-
-  &quot;POST /files&quot; should {
-    &quot;return status 200&quot; in {
-      // You can also pass headers after the files Map
-      post(&quot;/files&quot;, Map(&quot;private&quot; -&gt; &quot;true&quot;), Map(&quot;kitten&quot; -&gt; new File(&quot;kitten.png&quot;))) {
-        status must_== 200
-      }
-    }
-  }
-
-  &quot;PUT /files/:id&quot; should {
-    &quot;return status 200&quot; in {
-      put(&quot;/files/10&quot;, Map(&quot;private&quot; -&gt; &quot;false&quot;), Map(&quot;kitten&quot; -&gt; new File(&quot;kitten.png&quot;))) {
-        status must_== 200
-      }
-    }
   }
 }
 </code></pre>
