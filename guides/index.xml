@@ -407,7 +407,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 
 &lt;p&gt;As a more concrete example, here&amp;rsquo;s how you&amp;rsquo;d make an asynchronous HTTP
 request from inside one of your actions, using the
-&lt;a href=&#34;http://dispatch.databinder.net/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
+&lt;a href=&#34;https://dispatchhttp.org/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
 Akka &lt;code&gt;ActorSystem&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
@@ -600,7 +600,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 
 &lt;p&gt;As a more concrete example, here&amp;rsquo;s how you&amp;rsquo;d make an asynchronous HTTP
 request from inside one of your actions, using the
-&lt;a href=&#34;http://dispatch.databinder.net/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
+&lt;a href=&#34;https://dispatchhttp.org/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
 Akka &lt;code&gt;ActorSystem&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
@@ -793,7 +793,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 
 &lt;p&gt;As a more concrete example, here&amp;rsquo;s how you&amp;rsquo;d make an asynchronous HTTP
 request from inside one of your actions, using the
-&lt;a href=&#34;http://dispatch.databinder.net/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
+&lt;a href=&#34;https://dispatchhttp.org/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
 Akka &lt;code&gt;ActorSystem&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
@@ -985,7 +985,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 
 &lt;p&gt;As a more concrete example, here&amp;rsquo;s how you&amp;rsquo;d make an asynchronous HTTP
 request from inside one of your actions, using the
-&lt;a href=&#34;http://dispatch.databinder.net/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
+&lt;a href=&#34;https://dispatchhttp.org/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
 Akka &lt;code&gt;ActorSystem&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
