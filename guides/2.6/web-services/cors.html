@@ -97,6 +97,27 @@ context.initParameters(&quot;org.scalatra.cors.allowCredentials&quot;) = true
 context.initParameters(&quot;org.scalatra.cors.enable&quot;) = false
 </code></pre>
 
+<p>If you are configuring your application using web.xml, the corresponding xml configuration would be.</p>
+
+<pre><code class="language-xml">&lt;web-app&gt;
+   &lt;context-param&gt;
+    &lt;param-name&gt;org.scalatra.cors.allowedOrigins&lt;/param-name&gt;
+    &lt;param-value&gt;*&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;org.scalatra.cors.allowCredentials&lt;/param-name&gt;
+    &lt;param-value&gt;false&lt;/param-value&gt;
+  &lt;/context-param&gt;
+   &lt;context-param&gt;
+    &lt;param-name&gt;{cors-param-name}&lt;/param-name&gt;
+    &lt;param-value&gt;{cors-param-value}&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  ...
+&lt;/web-app&gt;
+</code></pre>
+
+<p>Where <code>{cors-param-name}</code> and <code>{cors-param-value}</code> above represents the supported cors parameters and values respectively.</p>
+
 <h3 id="special-care-when-allowedorigins-which-is-the-default">Special care when allowedOrigins = &ldquo;*&rdquo; (which is the default!)</h3>
 
 <p>If your init param <strong>org.scalatra.cors.allowedOrigins</strong> is equal to &ldquo;*&ldquo;, which is the default, then you must set
