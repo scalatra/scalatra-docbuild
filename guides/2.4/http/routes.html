@@ -132,7 +132,7 @@ get(&quot;/download/*.*&quot;) {
 <p>The route matcher may also be a regular expression.  Capture groups are
 accessible through the <code>captures</code> key.</p>
 
-<pre><code class="language-scala">get(&quot;&quot;&quot;^\/f(.*)/b(.*)&quot;&quot;&quot;.r) {
+<pre><code class="language-scala">get(&quot;&quot;&quot;^/f(.*)/b(.*)&quot;&quot;&quot;.r) {
   // Matches &quot;GET /foo/bar&quot;
   multiParams(&quot;captures&quot;) // == Seq(&quot;oo&quot;, &quot;ar&quot;)
 }
