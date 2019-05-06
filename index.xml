@@ -7,8 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Sat, 11 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Feb 2019 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.6.5 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2019/02/15/2019-02-15-scalatra-2-6-5-released.html</link>
+      <pubDate>Fri, 15 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2019/02/15/2019-02-15-scalatra-2-6-5-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 2.6.5 of the framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the full list of changes for version 2.6.5:&lt;/p&gt;
+
+&lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Upgrade Json4s 3.6.3&lt;/li&gt;
+&lt;li&gt;Date &amp;amp; Time support for Swagger&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We have a plan to move &lt;a href=&#34;https://github.com/http4s/http4s&#34;&gt;http4s&lt;/a&gt; in Scalatra 3.0.0. We will continue to maintain Scalatra 2.x systems, but we will deprecate unnecessary functions for future Scalatra 3.0.0 in order to improve future maintainability.&lt;/p&gt;
+
+&lt;p&gt;Thanks to all committers and contributors!&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.6.0 is out</title>
@@ -886,228 +910,6 @@ primary goal for this release is compatibility.&lt;/p&gt;
 released for Scala 2.10.  We hope to have a tagged build against Scala
 2.10.0-final soon after it is released, currently expected December
 26.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scalatra 2.2.0-RC2 Released</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-2.2.0-rc2-released.html</link>
-      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scalatra-2.2.0-rc2-released.html</guid>
-      <description>&lt;p&gt;Scalatra 2.2 has been in development since September. There were a few blocking bugs along the way, but the development team has now cut a second release candidate, Scalatra 2.2.0-RC2. If all goes well, Scalatra users will all get a Christmas present. See the full list of changes (below) if you want a sneek peak.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;The full list of changes for the 2.2.0 release is now as follows:&lt;/p&gt;
-
-&lt;h3 id=&#34;global&#34;&gt;Global&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Removes jerkson support&lt;/li&gt;
-&lt;li&gt;Removes anti-xml support&lt;/li&gt;
-&lt;li&gt;Adds Jackson support&lt;/li&gt;
-&lt;li&gt;Adds common traits for pluggable json serialization, these traits allow library writers to write against a generic
-json interface. The application developer can then mix in the json support he wants and retain all functionality.&lt;/li&gt;
-&lt;li&gt;Defers reading request parameters until the last responsible moment (aka lazify)&lt;/li&gt;
-&lt;li&gt;Contrib project has been removed, all the modules have been moved into the main scalatra project&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;core&#34;&gt;Core&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Adds typed param support, previously in contrib&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ApiFormats&lt;/code&gt; now also has a method responseFormat which looks at the content type of the response and falls back to the format of the request.&lt;/li&gt;
-&lt;li&gt;The default bootstrap file is renamed from &lt;code&gt;Scalatra&lt;/code&gt; to &lt;code&gt;ScalatraBootstrap&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;FileUpload&lt;/code&gt; can now be configured through init parameters&lt;/li&gt;
-&lt;li&gt;RouteMatchers don&amp;rsquo;t use any by-name params anymore&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;RouteMatcher&lt;/code&gt; now takes a &lt;code&gt;requestPath&lt;/code&gt; as a param to the &lt;code&gt;apply&lt;/code&gt; method&lt;/li&gt;
-&lt;li&gt;You are able to mount the same servlet more than once in the ScalatraBootstrap class&lt;/li&gt;
-&lt;li&gt;Added a new &lt;code&gt;relativeUrl&lt;/code&gt; method which will compose a path for redirection and keep relative paths relative&lt;/li&gt;
-&lt;li&gt;Refactored the &lt;code&gt;url&lt;/code&gt; method to allow for a more granular building of the path with regards to the context path and servlet path&lt;/li&gt;
-&lt;li&gt;Added a &lt;code&gt;fullUrl&lt;/code&gt; method which will use the absolute path created by the &lt;code&gt;url&lt;/code&gt; method to build a url with protocol, host, port and path + querystring&lt;/li&gt;
-&lt;li&gt;Added a &lt;code&gt;isHttps&lt;/code&gt; method which also looks in the headers for a &lt;code&gt;X-Forwarded-Proto&lt;/code&gt; header&lt;/li&gt;
-&lt;li&gt;Added a &lt;code&gt;needsHttps&lt;/code&gt; method which looks in the init params for a key &lt;code&gt;org.scalatra.ForceHttps&lt;/code&gt; for a boolean value (true/false), this is used by the &lt;code&gt;fullUrl&lt;/code&gt; method to work out the protocol&lt;/li&gt;
-&lt;li&gt;Added a &lt;code&gt;org.scalatra.HostName&lt;/code&gt; init parameter in which you can override the host name of this scalatra application, if unset the value from &lt;code&gt;request.getServerName&lt;/code&gt; will be used&lt;/li&gt;
-&lt;li&gt;Added a &lt;code&gt;org.scalatra.Port&lt;/code&gt; init parameter in which you can override the port of this scalatra application, if unset the value from &lt;code&gt;request.getServerPort&lt;/code&gt; will be used&lt;/li&gt;
-&lt;li&gt;ApiFormats now also has a reverse mapping for the txt extension&lt;/li&gt;
-&lt;li&gt;Adds &lt;code&gt;GZipSupport&lt;/code&gt;, contributed by @Marza&lt;/li&gt;
-&lt;li&gt;Folds &lt;code&gt;TypedParamSupport&lt;/code&gt; into core making the &lt;code&gt;params.getAs[Int]&lt;/code&gt; methods available everywhere&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;lift-json&#34;&gt;lift-json&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Removed in favour of json4s support&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;jackson&#34;&gt;Jackson&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Removed in favour of json4s support&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;json&#34;&gt;JSON&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Previous lift-json support is replaced with json4s support.&lt;/li&gt;
-&lt;li&gt;Jackson integration is also provided through json4s&lt;/li&gt;
-&lt;li&gt;Replaces ProductToJsonSupport trait with a &lt;code&gt;JValueResult&lt;/code&gt; trait which will try to serialize any value to json or xml
-when the accept headers or format parameter indicate the user wants json or xml.&lt;/li&gt;
-&lt;li&gt;Fix reading json from post without the right header&lt;/li&gt;
-&lt;li&gt;Include &lt;code&gt;JValueResult&lt;/code&gt; by default in the &lt;code&gt;NativeJsonSupport&lt;/code&gt; and &lt;code&gt;JacksonJsonSupport&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Make &lt;code&gt;JValueResult&lt;/code&gt; only serialize &lt;code&gt;Traversable&lt;/code&gt; and &lt;code&gt;Product&lt;/code&gt; classes&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;scalate&#34;&gt;Scalate&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Adds ScalateRenderSupport trait taken from contrib&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;databinding&#34;&gt;Databinding&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Adds a databinding module for commands.
-The commands can have validations attached and will read data from headers, params and the request body (like json/xml)
-This is implemented using an infrastructure of type classes and uses scalaz validations to capture the validation information.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class RegisterForm extends JacksonCommand { // you have to pick the json library of choice
-
-  val login: Field[String] = asString(&amp;quot;login&amp;quot;).required.notBlank.minLength(6).validForFormat(&amp;quot;\\w+&amp;quot;.r)
-
-  val name: Field[String] = asString(&amp;quot;name&amp;quot;)
-
-  val email: Field[String] = asString(&amp;quot;email&amp;quot;).required.notBlank.validEmail
-
-  val homepage: Field[String] = asString(&amp;quot;homepage&amp;quot;).validUrl
-
-  val passwordConfirmation: FieldBinding = asString(&amp;quot;passwordConfirmation&amp;quot;).required.notBlank
-
-  val password: FieldBinding = asString(&amp;quot;password&amp;quot;).required.notBlank.validConfirmation(&amp;quot;passwordConfirmation&amp;quot;, passwordConfirmation.value)
-
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Renames databinding to commands. This resolves the confusion created by the name databinding.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;akka&#34;&gt;Akka&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Updates akka to 2.0.4&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Adds an atmosphere integration
-This module adds support for websockets, long-polling, server-side events, &amp;hellip;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class MyAtmoServlet {
-  def receive = {
-    case Connected =&amp;gt;
-    case Disconnected(disconnector, Some(error)) =&amp;gt;
-    case Error(Some(error)) =&amp;gt;
-    case TextMessage(text) =&amp;gt; send(&amp;quot;ECHO: &amp;quot; + text)
-    case JsonMessage(json) =&amp;gt; broadcast(json)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Updates atmosphere to 1.0.6&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Fixes atmosphere long-polling etc. A big thanks to @jfarcand&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Fix &lt;code&gt;ScalatraBroadcasterFactory#lookup&lt;/code&gt; to return null when nothing is found instead of throwing an exception&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;swagger&#34;&gt;Swagger&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Added serialization for AllowableValues in &lt;code&gt;Swagger.scala&lt;/code&gt;.  These are passed as strings in the AllowableValues object:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// as List
-allowableValues = AllowableValues(1, 2, 3)
-
-// as range
-allowableValues = AllowableValues(0 to 1000)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Updated to support the &lt;a href=&#34;https://github.com/wordnik/swagger-core/wiki/API-Declaration&#34;&gt;swagger-1.1 spec&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Allows for using either jackson or native json to generate the service description json&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Auto-registers servlets and filters that extend the SwaggerSupport trait in the swagger manager.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Includes the swagger-core and swagger-annotations jars as transitive dependencies (batteries included)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;The models property in the &lt;code&gt;SwaggerSupport&lt;/code&gt; can now be Set as &lt;code&gt;Map(classOf[Pet])&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;responseClass can now be set with a type parameter &lt;code&gt;responseClass[Pet]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Data types in &lt;code&gt;Parameter&lt;/code&gt; and &lt;code&gt;ModelField&lt;/code&gt; definitions can now be defined as &lt;code&gt;DataType[List[String]]&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Make swagger optionally support authentication&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Optionally integrate commands into swagger support to generate model and parameter definitions.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;swagger-ext&#34;&gt;Swagger-Ext&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Adds support for authorization through scentry to Swagger.  Shows only actions a user is allowed to see.
-&lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/swagger-ext/src/test/scala/org/scalatra/swagger/SwaggerAuthSpec.scala&#34;&gt;Example&lt;/a&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Adds support for using commands with Swagger. This creates a model definition for the body parameters and parameter
-definitions for the query, path and header params as well as a parameter for the body model&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;get(&amp;quot;/id&amp;quot;, endpoint(&amp;quot;id&amp;quot;), nickname(&amp;quot;getById&amp;quot;), parameters[MyCommand])
-
-class MyCommand extends JsonCommand {
-  protected implicit val jsonFormats: Formats = DefaultFormats
-
-  val name: Field[String] = asString(&amp;quot;name&amp;quot;).notBlank
-
-  val age: Field[Int] = &amp;quot;age&amp;quot;
-
-  val token: Field[String] = (
-      asString(&amp;quot;API-TOKEN&amp;quot;).notBlank
-        sourcedFrom ValueSource.Header
-        description &amp;quot;The API token for this request&amp;quot;
-        notes &amp;quot;Invalid data kills cute innocent kittens&amp;quot;
-        allowableValues &amp;quot;123&amp;quot;)
-
-  val skip: Field[Int] = asInt(&amp;quot;skip&amp;quot;).sourcedFrom(ValueSource.Query).description(&amp;quot;The offset for this collection index&amp;quot;)
-
-  val limit: Field[Int] = asType[Int](&amp;quot;limit&amp;quot;).sourcedFrom(ValueSource.Query).withDefaultValue(20).description(&amp;quot;the max number of items to return&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;testing&#34;&gt;Testing&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Added a method &lt;code&gt;ensureSessionIsSerializable&lt;/code&gt; method which will try to serialize every session value.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;specs&#34;&gt;Specs&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Deprecate scalatra-specs in anticipation of Scala 2.10 support.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;auth&#34;&gt;Auth&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Scentry is now lazily initialized so the order of the traits doesn&amp;rsquo;t matter anymore&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;slf4j&#34;&gt;SLF4J&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Rename &lt;code&gt;LogbackSupport&lt;/code&gt; to &lt;code&gt;ScalatraSlf4jRequestLogging&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Updates slf4j-api to 1.7.2&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
     
   </channel>

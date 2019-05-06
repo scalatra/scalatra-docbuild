@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://scalatra.github.io/scalatra-docbuild/2019/02/15/2019-02-15-scalatra-2-6-5-released.html</loc>
+    <lastmod>2019-02-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/2017/11/11/2017-11-11-scalatra-2-6-0-released.html</loc>
     <lastmod>2017-11-11T00:00:00+00:00</lastmod>
   </url>
@@ -580,7 +585,7 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/news.html</loc>
-    <lastmod>2017-11-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -686,7 +691,7 @@
   
   <url>
     <loc>https://scalatra.github.io/scalatra-docbuild/</loc>
-    <lastmod>2017-11-11T00:00:00+00:00</lastmod>
+    <lastmod>2019-02-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
