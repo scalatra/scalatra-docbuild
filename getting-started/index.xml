@@ -78,7 +78,7 @@ Template applied in ./my-scalatra-web-app
   &lt;dt&gt;scala_version&lt;/dt&gt;
   &lt;dd&gt;
     The Scala version to use.
-    The bottom of the &lt;a href=&#34;http://www.scalatra.org/&#34;&gt;homepage&lt;/a&gt; lists which Scala versions are compatible with the latest Scalatra releases.
+    The bottom of the &lt;a href=&#34;http://scalatra.org/&#34;&gt;homepage&lt;/a&gt; lists which Scala versions are compatible with the latest Scalatra releases.
     When in doubt, use the default.
   &lt;/dd&gt;
   &lt;dt&gt;sbt_version&lt;/dt&gt;
@@ -88,7 +88,7 @@ Template applied in ./my-scalatra-web-app
   &lt;dt&gt;scalatra_version&lt;/dt&gt;
   &lt;dd&gt;
     The Scalatra version to use.
-    See the &lt;a href=&#34;http://www.scalatra.org/&#34;&gt;homepage&lt;/a&gt; for a list. You can choose a stable version or if you want to try out new features go with a RC or SNAPSHOT.
+    See the &lt;a href=&#34;http://scalatra.org/&#34;&gt;homepage&lt;/a&gt; for a list. You can choose a stable version or if you want to try out new features go with a RC or SNAPSHOT.
   &lt;/dd&gt;
 &lt;/dl&gt;
 
