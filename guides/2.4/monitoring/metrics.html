@@ -102,9 +102,11 @@
 
 <h3 id="metrics-servlets">Metrics Servlets</h3>
 
-<p>Convenience methods are provided to mount the metrics servlets at a specified path from the init method.</p>
+<p>Convenience methods to mount the metrics servlets at a specified path from the init method are provided in <code>MetricsSupportExtensions</code>.</p>
 
-<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+<pre><code class="language-scala">import org.scalatra.metrics.MetricsSupportExtensions._
+
+class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
   override def init(context: ServletContext) =
   {
     context.mountMetricsAdminServlet(&quot;/metrics-admin&quot;)
