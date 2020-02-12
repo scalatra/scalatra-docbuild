@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Swagger - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Swagger</h1>
+		<section>
+		  
+
+<p><a href="http://swagger.io">Swagger</a> is a specification which allows you to quickly define the functionality of a REST API using JSON documents. But it&rsquo;s more than
+just a spec. It provides automatic generation of interactive API docs, client-side code generation in multiple languages, and server-side code generation
+in Java and Scala.</p>
+
+<p>It&rsquo;s not easy to describe, but it is easy to understand once you see it.  Take a look at the Swagger demo app now:</p>
+
+<p><a href="http://petstore.swagger.io">http://petstore.swagger.io</a></p>
+
+<p>This guide will walk you through the process of taking a simple Scalatra application
+and adding Swagger to it, so that your runnable documentation automatically stays
+in sync with your API.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.5/swagger-example">swagger-example</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<h3 id="application-setup">Application setup</h3>
+
+<p>We&rsquo;ll start with an app looks like this:</p>
+
+<h4 id="controller-and-data-store">Controller and data store</h4>
+
+<pre><code class="language-scala">package org.scalatra.example.swagger
+
+import org.scalatra._
+
+// JSON-related libraries
+import org.json4s.{DefaultFormats, Formats}
+
+// JSON handling support from Scalatra
+import org.scalatra.json._
+
+class FlowersController extends ScalatraServlet with NativeJsonSupport {
+
+  // Sets up automatic case class to JSON output serialization
+  protected implicit lazy val jsonFormats: Formats = DefaultFormats
+
+  // Before every action runs, set the content type to be in JSON format.
+  before() {
+    contentType = formats(&quot;json&quot;)
+  }
+
+  /*
+   * Retrieve a list of flowers
+   */
+  get(&quot;/&quot;){
+    params.get(&quot;name&quot;) match {
+      case Some(name) =&gt; FlowerData.all filter (_.name.toLowerCase contains name.toLowerCase())
+      case None =&gt; FlowerData.all
+    }
+  }
+
+  /**
+   * Find a flower using its slug.
+   */
+  get(&quot;/:slug&quot;) {
+    FlowerData.all find (_.slug == params(&quot;slug&quot;)) match {
+      case Some(b) =&gt; b
+      case None =&gt; halt(404)
+    }
+  }
+
+}
+
+
+// A Flower object to use as a faked-out data model
+case class Flower(slug: String, name: String)
+
+// An amazing datastore!
+object FlowerData {
+
+  /**
+   * Some fake flowers data so we can simulate retrievals.
+   */
+  var all = List(
+      Flower(&quot;yellow-tulip&quot;, &quot;Yellow Tulip&quot;),
+      Flower(&quot;red-rose&quot;, &quot;Red Rose&quot;),
+      Flower(&quot;black-rose&quot;, &quot;Black Rose&quot;))
+}
+</code></pre>
+
+<h4 id="dependencies">Dependencies</h4>
+
+<p>Don&rsquo;t forget to add the JSON libraries to your <code>project/build.scala</code> file to make this work:</p>
+
+<pre><code class="language-scala">  &quot;org.scalatra&quot; %% &quot;scalatra-json&quot; % &quot;2.5.4&quot;,
+  &quot;org.json4s&quot;   %% &quot;json4s-native&quot; % &quot;3.5.0&quot;,
+</code></pre>
+
+<h4 id="setting-up-a-resource-path-for-flowers">Setting up a resource path for /flowers</h4>
+
+<p>Every Scalatra application has a file called <code>ScalatraBootstrap.scala</code>, located in the <code>src/main/scala</code> directory. This file allows you to mount your controllers at whatever url paths you want.</p>
+
+<p>Set yours so that there&rsquo;s a route namespace for the FlowersController:</p>
+
+<pre><code class="language-scala">import org.scalatra.example.swagger._
+import org.scalatra.LifeCycle
+import javax.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle {
+
+  override def init(context: ServletContext) {
+    context.mount(new FlowersController, &quot;/flowers/*&quot;)
+  }
+}
+</code></pre>
+
+<p>Hit the url <a href="http://localhost:8080/flowers">http://localhost:8080/flowers</a> in your browser, and you should see this output:</p>
+
+<pre><code class="language-json">[{&quot;slug&quot;:&quot;yellow-tulip&quot;,&quot;name&quot;:&quot;Yellow Tulip&quot;},{&quot;slug&quot;:&quot;red-rose&quot;,&quot;name&quot;:&quot;Red Rose&quot;},{&quot;slug&quot;:&quot;black-rose&quot;,&quot;name&quot;:&quot;Black Rose&quot;}]
+</code></pre>
+
+<p>Our application can also take any incoming <code>?name=foo</code> parameter off the query string, and make it available to this action as the variable <code>name</code>, then filter the FlowerData list for matching results. If you point your browser at
+<a href="http://localhost:8080/flowers?name=rose">http://localhost:8080/flowers?name=rose</a>,
+you&rsquo;ll see only the roses.</p>
+
+<p>We can easily retrieve a flower by its slug.  You can see the API&rsquo;s output by
+pointing your browser at a slug, e.g.
+<a href="http://localhost:8080/flowers/yellow-tulip">http://localhost:8080/flowers/yellow-tulip</a></p>
+
+<pre><code class="language-json">{&quot;slug&quot;:&quot;yellow-tulip&quot;,&quot;name&quot;:&quot;Yellow Tulip&quot;}
+</code></pre>
+
+<p>Now let&rsquo;s add some Swagger to this simple application.</p>
+
+<h3 id="swagger-a-quick-introduction">Swagger: a quick introduction</h3>
+
+<p>Making an API&rsquo;s methods, parameters, and responses visible, in an engaging,
+easy to understand way, can transform the process of building REST APIs.</p>
+
+<p>Scalatra&rsquo;s Swagger support allows you to auto-generate runnable documentation
+for a REST API - the API&rsquo;s name, what resources it offers, available methods
+and their parameters, and return values.</p>
+
+<h4 id="swagger-spec-files">Swagger spec files</h4>
+
+<p>Before we see the auto-generation of Swagger spec files, though, it makes sense
+to understand what&rsquo;s being generated.</p>
+
+<p>If you want to, you can write a Swagger JSON description file by hand. A
+Swagger resource description for our FlowersController might look like this:</p>
+
+<pre><code class="language-json">{&quot;basePath&quot;:&quot;http://localhost:8080&quot;,&quot;swaggerVersion&quot;:&quot;1.0&quot;,&quot;apiVersion&quot;:&quot;1&quot;,&quot;apis&quot;:[{&quot;path&quot;:&quot;/api-docs/flowers.{format}&quot;,&quot;description&quot;:&quot;The flowershop API. It exposes operations for browing and searching lists of flowers&quot;}]}
+</code></pre>
+
+<p>This file describes what APIs we&rsquo;re offering. Each API has its own JSON descriptor file which details what resources it offers, the paths to those resources, required and optional parameters, and other information.</p>
+
+<p>The descriptor for our <code>flower</code> resource might look something like this. We&rsquo;ll
+see how to automate this in a moment:</p>
+
+<pre><code class="language-json">{&quot;resourcePath&quot;:&quot;/&quot;,&quot;listingPath&quot;:&quot;/api-docs/flowers&quot;,&quot;description&quot;:&quot;The flowershop API. It exposes operations for browing and searching lists of flowers&quot;,&quot;apis&quot;:[{&quot;path&quot;:&quot;/&quot;,&quot;description&quot;:&quot;&quot;,&quot;secured&quot;:true,&quot;operations&quot;:[{&quot;httpMethod&quot;:&quot;GET&quot;,&quot;responseClass&quot;:&quot;List[Flower]&quot;,&quot;summary&quot;:&quot;Show all flowers&quot;,&quot;notes&quot;:&quot;Shows all the flowers in the flower shop. You can search it too.&quot;,&quot;deprecated&quot;:false,&quot;nickname&quot;:&quot;getFlowers&quot;,&quot;parameters&quot;:[{&quot;name&quot;:&quot;name&quot;,&quot;description&quot;:&quot;A name to search for&quot;,&quot;required&quot;:false,&quot;paramType&quot;:&quot;query&quot;,&quot;allowMultiple&quot;:false,&quot;dataType&quot;:&quot;string&quot;}],&quot;errorResponses&quot;:[]}]},{&quot;path&quot;:&quot;/{slug}&quot;,&quot;description&quot;:&quot;&quot;,&quot;secured&quot;:true,&quot;operations&quot;:[{&quot;httpMethod&quot;:&quot;GET&quot;,&quot;responseClass&quot;:&quot;Flower&quot;,&quot;summary&quot;:&quot;Find by slug&quot;,&quot;notes&quot;:&quot;Returns the flower for the provided slug, if a matching flower exists.&quot;,&quot;deprecated&quot;:false,&quot;nickname&quot;:&quot;findBySlug&quot;,&quot;parameters&quot;:[{&quot;name&quot;:&quot;slug&quot;,&quot;description&quot;:&quot;Slug of flower that needs to be fetched&quot;,&quot;required&quot;:true,&quot;paramType&quot;:&quot;path&quot;,&quot;allowMultiple&quot;:false,&quot;dataType&quot;:&quot;string&quot;}],&quot;errorResponses&quot;:[]}]}],&quot;models&quot;:{&quot;Flower&quot;:{&quot;id&quot;:&quot;Flower&quot;,&quot;description&quot;:&quot;Flower&quot;,&quot;properties&quot;:{&quot;name&quot;:{&quot;description&quot;:null,&quot;enum&quot;:[],&quot;required&quot;:true,&quot;type&quot;:&quot;string&quot;},&quot;slug&quot;:{&quot;description&quot;:null,&quot;enum&quot;:[],&quot;required&quot;:true,&quot;type&quot;:&quot;string&quot;}}}},&quot;basePath&quot;:&quot;http://localhost:8080&quot;,&quot;swaggerVersion&quot;:&quot;1.0&quot;,&quot;apiVersion&quot;:&quot;1&quot;}
+</code></pre>
+
+<p>These JSON files can then be offered to a standard HTML/CSS/JavaScript client,
+called the <a href="https://github.com/swagger-api/swagger-ui">swagger-ui</a>, to make it easy for people to browse the docs. If
+you write them by hand, you can simply put them on any HTTP server, point the
+swagger-ui client at them, and start viewing the runnable documentation.</p>
+
+<h4 id="generating-api-clients">Generating API clients</h4>
+
+<p>You also get the ability to generate client and server code
+in multiple languages, using the <a href="https://github.com/swagger-api/swagger-codegen">swagger-codegen</a> project.</p>
+
+<p>Client code can be generated for Flash, Java, JavaScript, Objective-C, PHP, Python, Python3, Ruby, or Scala.</p>
+
+<p>You may want to
+take a moment to view the <a href="http://petstore.swagger.io">Swagger Pet Store</a> example. Click on the
+route definitions to see what operations are available for each resource. You
+can use the web interface to send live test queries to the API, and view the
+API&rsquo;s response to each query.</p>
+
+<p>Click on the &ldquo;raw&rdquo; link next to each API description, and you&rsquo;ll see the
+Swagger spec file for the API.</p>
+
+<h3 id="scalatra-s-swagger-integration">Scalatra&rsquo;s Swagger integration</h3>
+
+<p>Scalatra&rsquo;s Swagger integration allow you to annotate the code within your RESTful
+API in order to automatically generate Swagger spec files. This means that once
+you annotate your API methods, you get documentation and client code generation
+for free.</p>
+
+<h4 id="dependencies-1">Dependencies</h4>
+
+<p>First, add the Swagger dependency to your <code>project/build.scala</code> file, then restart your
+app to grab the new jars:</p>
+
+<pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-swagger&quot;  % &quot;2.5.4&quot;,
+</code></pre>
+
+<p>You&rsquo;ll now need to import Scalatra&rsquo;s Swagger support into your <code>FlowersController</code>:</p>
+
+<pre><code class="language-scala">// Swagger support
+import org.scalatra.swagger._
+</code></pre>
+
+<h4 id="auto-generating-the-resources-json-spec-file">Auto-generating the resources.json spec file</h4>
+
+<p>Any Scalatra application which uses Swagger support must implement a Swagger
+controller. Those JSON specification files, which we&rsquo;d otherwise need to write
+by hand, need to be served by something, after all. Let&rsquo;s add a standard Swagger
+controller to our application. Drop this code into a new file next to your
+<code>FlowersController.scala</code>. You can call it <code>FlowersSwagger.scala</code>:</p>
+
+<pre><code class="language-scala">package org.scalatra.example.swagger
+
+import org.scalatra.ScalatraServlet
+import org.scalatra.swagger.{ApiInfo, NativeSwaggerBase, Swagger}
+
+
+class ResourcesApp(implicit val swagger: Swagger) extends ScalatraServlet with NativeSwaggerBase
+
+object FlowersApiInfo extends ApiInfo(
+    &quot;The Flowershop API&quot;,
+    &quot;Docs for the Flowers API&quot;,
+    &quot;http://scalatra.org&quot;,
+    &quot;apiteam@scalatra.org&quot;,
+    &quot;MIT&quot;,
+    &quot;http://opensource.org/licenses/MIT&quot;)
+
+class FlowersSwagger extends Swagger(Swagger.SpecVersion, &quot;1.0.0&quot;, FlowersApiInfo)
+</code></pre>
+
+<p>This controller will automatically produce Swagger-compliant JSON specs for
+every annotated API method in your application.</p>
+
+<p>The rest of your application doesn&rsquo;t know about it yet, though. In order to
+get everything set up properly, you&rsquo;ll need to change your ScalatraBootstrap
+file so that the container knows about this new servlet. Currently it looks
+like this:</p>
+
+<pre><code class="language-scala">import org.scalatra.example.swagger._
+import org.scalatra._
+import javax.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle {
+  override def init(context: ServletContext) {
+    context.mount(new FlowersController, &quot;/flowers/*&quot;)
+  }
+}
+
+</code></pre>
+
+<p>Change the class body to look like this:</p>
+
+<pre><code class="language-scala">import org.scalatra.example.swagger._
+import org.scalatra.LifeCycle
+import javax.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle {
+
+  implicit val swagger = new FlowersSwagger
+
+  override def init(context: ServletContext) {
+    context.mount(new FlowersController, &quot;/flowers&quot;, &quot;flowers&quot;)
+    context.mount (new ResourcesApp, &quot;/api-docs&quot;)
+  }
+}
+</code></pre>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  Note that the <code>context.mount(new FlowersController, "/flowers", "flowers")</code> has a second
+  parameter: in Scalatra 2.3.x, Swagger requires a name parameter to be present so that it
+  can generate its documentation properly. The name should always be the same as the
+  controller's mount path, minus the leading "/".
+</div>
+
+<h4 id="adding-swaggersupport-to-the-flowerscontroller">Adding SwaggerSupport to the FlowersController</h4>
+
+<p>You&rsquo;ll need to enable Swagger on your <code>FlowersController</code>.</p>
+
+<p>Let&rsquo;s add the SwaggerSupport trait to the <code>FlowersController</code>, and also make it
+aware of Swagger in its constructor.</p>
+
+<pre><code class="language-scala">class FlowersController(implicit val swagger: Swagger) extends ScalatraServlet
+  with NativeJsonSupport with SwaggerSupport {
+</code></pre>
+
+<p>In order to make our application compile again, we&rsquo;ll need to add a name and
+description to our <code>FlowersController</code>. This allows Swagger to inform clients
+what our API is called, and what it does. You can do this by adding the following
+code to the body of the <code>FlowersController</code> class:</p>
+
+<pre><code class="language-scala">protected val applicationDescription = &quot;The flowershop API. It exposes operations for browsing and searching lists of flowers, and retrieving single flowers.&quot;
+</code></pre>
+
+<p>That&rsquo;s pretty much it for Swagger setup. Now we can start documenting our API&rsquo;s methods.</p>
+
+<h4 id="annotating-api-methods">Annotating API methods</h4>
+
+<p>Swagger annotations are quite simple. You decorate each of your routes with a bit of
+information, and Scalatra generates the spec file for your route.</p>
+
+<p>Let&rsquo;s do the <code>get(&quot;/&quot;)</code> route first.</p>
+
+<p>Right now, it looks like this:</p>
+
+<pre><code class="language-scala">  get(&quot;/&quot;){
+    params.get(&quot;name&quot;) match {
+      case Some(name) =&gt; FlowerData.all filter (_.name.toLowerCase contains name.toLowerCase)
+      case None =&gt; FlowerData.all
+    }
+  }
+</code></pre>
+
+<p>We&rsquo;ll need to add some information to the method in order to tell Swagger what this method does, what parameters it can take, and what it responds with.</p>
+
+<pre><code class="language-scala">  val getFlowers =
+    (apiOperation[List[Flower]](&quot;getFlowers&quot;)
+      summary &quot;Show all flowers&quot;
+      notes &quot;Shows all the flowers in the flower shop. You can search it too.&quot;
+      parameter queryParam[Option[String]](&quot;name&quot;).description(&quot;A name to search for&quot;))
+
+  get(&quot;/&quot;, operation(getFlowers)) {
+    params.get(&quot;name&quot;) match {
+      case Some(name) =&gt; FlowerData.all filter (_.name.toLowerCase contains name.toLowerCase)
+      case None =&gt; FlowerData.all
+    }
+  }
+</code></pre>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  Make sure you initialize the val for your apiOperation before attempting to
+  use it in as part of a route definition! Otherwise you'll get a 503 error
+  when attempting to hit your route.
+</div>
+
+<p>Let&rsquo;s go through the annotations in detail.</p>
+
+<p>The <code>summary</code> and <code>notes</code> should be human-readable messages that you intend to be read by developers of API clients. The summary is a short description, while the notes should offer a longer description and include any noteworthy features which somebody might otherwise miss.</p>
+
+<p>The <code>nickname</code> is intended as a machine-readable key which can be used by client code to identify this API action - it&rsquo;ll be used, for instance, by swagger-ui to generate JavaScript method names. You can call it whatever you want, but make sure you don&rsquo;t include any spaces in it, or client code generation will probably fail - so &ldquo;getFlowers&rdquo; or &ldquo;get_flowers&rdquo; is fine, &ldquo;get flowers&rdquo; isn&rsquo;t.</p>
+
+<p>The <code>responseClass</code> is essentially a type annotation, so that clients know what data types to expect back. In this case, clients should expect a List of Flower objects.</p>
+
+<p>The <code>parameters</code> details any parameters that may be passed into this route, and whether they&rsquo;re supposed to be part of the path, post params, or query string parameters. In this case, we define an optional query string parameter called <code>name</code>, which matches what our action expects.</p>
+
+<p>Lastly, the <code>endpoint</code> annotation defines any special parameter substitution or additional route information for this method. This particular route is pretty straightforward, so we can leave this blank.</p>
+
+<p>We can do the same to our <code>get(/:slug)</code> route. Change it from this:</p>
+
+<pre><code class="language-scala">  get(&quot;/:slug&quot;) {
+    FlowerData.all find (_.slug == params(&quot;slug&quot;)) match {
+      case Some(b) =&gt; b
+      case None =&gt; halt(404)
+    }
+  }
+</code></pre>
+
+<p>to this:</p>
+
+<pre><code class="language-scala">  val findBySlug =
+    (apiOperation[Flower](&quot;findBySlug&quot;)
+      summary &quot;Find by slug&quot;
+      parameters (
+        pathParam[String](&quot;slug&quot;).description(&quot;Slug of flower that needs to be fetched&quot;)
+      ))
+
+  get(&quot;/:slug&quot;, operation(findBySlug)) {
+    FlowerData.all find (_.slug == params(&quot;slug&quot;)) match {
+      case Some(b) =&gt; b
+      case None =&gt; halt(404)
+    }
+  }
+</code></pre>
+
+<p>The Swagger annotations here are mostly similar to those for the <code>get(&quot;/&quot;)</code> route. There are a few things to note.</p>
+
+<p>The <code>endpoint</code> this time is defined as <code>{slug}</code>. The braces tell Swagger that it should substitute the contents of a path param called <code>{slug}</code> into any generated routes (see below for an example). Also note that this time, we&rsquo;ve defined a <code>ParamType.Path</code>, so we&rsquo;re passing the <code>slug</code> parameter as part of the path rather than as a query string. Since we haven&rsquo;t set the <code>slug</code> parameter as <code>required = false</code>, as we did for the <code>name</code> parameter in our other route, Swagger will assume that slugs are required.</p>
+
+<p>Now let&rsquo;s see what we&rsquo;ve gained.</p>
+
+<p>Adding Swagger support to our application, and the Swagger annotations to our FlowersController, means we&rsquo;ve got some new functionality available. Check the following URL in your browser:</p>
+
+<p><a href="http://localhost:8080/api-docs">http://localhost:8080/api-docs</a></p>
+
+<p>You should see an auto-generated Swagger description of available APIs (in this case, there&rsquo;s only one, but there could be multiple APIs defined by our application and they&rsquo;d all be noted here):</p>
+
+<pre><code class="language-json">{&quot;basePath&quot;:&quot;http://localhost:8080&quot;,&quot;swaggerVersion&quot;:&quot;1.0&quot;,&quot;apiVersion&quot;:&quot;1&quot;,&quot;apis&quot;:[{&quot;path&quot;:&quot;/api-docs/flowers.{format}&quot;,&quot;description&quot;:&quot;The flowershop API. It exposes operations for browing and searching lists of flowers&quot;}]}
+</code></pre>
+
+<h4 id="browsing-your-api-using-swagger-ui">Browsing your API using swagger-ui</h4>
+
+<p>If you browse to <a href="http://petstore.swagger.io">http://petstore.swagger.io/</a>, you&rsquo;ll see the default Swagger demo application - a Pet Store - and you&rsquo;ll be able to browse its documentation. One thing which may not be immediately obvious is that you can use this app to browse our local Flower Shop as well.</p>
+
+<p>The Pet Store documentation is showing because <a href="http://petstore.swagger.io/api/api-docs">http://petstore.swagger.io/api/api-docs</a> is entered into the URL field by default.</p>
+
+<p>Paste your Swagger resource descriptor URL - <code>http://localhost:8080/api-docs</code> - into the URL field, then press the &ldquo;Explore&rdquo; button. You&rsquo;ll be rewarded with a fully Swaggerized view of your API documentation. Try clicking on the &ldquo;GET /flowers&rdquo; route to expand the operations underneath it, and then entering the word &ldquo;rose&rdquo; into the input box for the &ldquo;name&rdquo; parameter. You&rsquo;ll be rewarded with JSON output for the search method we defined earlier.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  It's very important to get the api-docs path correct when you browse your docs in swagger-ui. Be careful: there's no trailing slash on <code>http://localhost:8080/api-docs</code>,
+  and the docs won't work if you accidentally add one.
+</div>
+
+<p>Also note that the swagger-ui responds to input validation: you can&rsquo;t try out the <code>/flowers/{slug}</code> route without entering a slug, because we&rsquo;ve marked that as a required parameter in our Swagger annotations. Note that when you enter a slug such as &ldquo;yellow-tulip&rdquo;, the <code>&quot;{slug}&quot;</code> endpoint annotation on this route causes the swagger-ui to fire the request as <code>/flowers/yellow-tulip</code>.</p>
+
+<p>If you want to host your own customized version of the docs, you can of course just download the <a href="https://github.com/swagger-api/swagger-ui">swagger-ui</a> code from Github and drop it onto any HTTP server.</p>
+
+<h3 id="a-note-on-cross-origin-security">A note on cross-origin security</h3>
+
+<p>Interestingly, you are able to use the remotely-hosted documentation browser at <a href="http://petstore.swagger.io">http://petstore.swagger.io</a> to browse an application on <a href="http://localhost">http://localhost</a>. Why is this possible? Shouldn&rsquo;t JavaScript security restrictions have come into play here?</p>
+
+<p>The reason it works is that Scalatra has Cross-Origin Resource Sharing (CORS) support mixed into its SwaggerSupport trait, allowing cross-origin JavaScript requests by default for all requesting domains. This makes it easy to serve JS API clients - but if you want, you can lock down requests to specific domains using Scalatra&rsquo;s CorsSupport trait. See the Scalatra <a href="./web-services/cors.html">Helpers</a> documentation for more.</p>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.5 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/routes.html">Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/actions.html">Actions</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/reverse-routes.html">Reverse Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/requests-and-responses.html">Requests &amp; Responses</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/gzip.html">GZip</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/flash.html">Flash</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/authentication.html">Authentication</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/web-services/cors.html">CORS</a></li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Resources</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/coffeescript.html">CoffeeScript</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/less-css.html">LESS CSS</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/wro4j.html">wro4j</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/commands.html">Commands</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

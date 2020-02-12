@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Introduction - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Introduction</h1>
+		<section>
+		  
+
+<p>Scalatra&rsquo;s philosophy is to keep things simple and solid. At its heart, Scalatra is basically a domain-specific language (DSL) for easily making HTTP requests, and a way of extending the core HTTP router with whatever libraries you want. We think we&rsquo;ve got a great DSL for HTTP - the Sinatra style strikes us as perhaps the simplest, most natural way to express HTTP routes.</p>
+
+<p>Data is different. Every application has its own needs for persistence, and there&rsquo;s certainly no one-size-fits-all answer to the question of how to store data. Some applications may work well with a NoSQL key-value data store; others may require a relational database with full ACID compliance. There&rsquo;s also the question of ORMs vs bare-metal access to data - again, opinions and programming styles vary widely.</p>
+
+<p>In light of this, Scalatra has no built-in integrations with specific persistence frameworks. Instead, we&rsquo;ve made it easy for you to write your own integrations, by exposing hooks for running code at application startup and shutdown. You can hook Scalatra up to your chosen persistence framework with only a small amount of work.</p>
+
+<p>This guide will show you how.</p>
+
+<h3 id="integrating-a-persistence-library">Integrating a persistence library</h3>
+
+<p>Although the details depend on the library, the general steps for getting your chosen persistence library working with Scalatra are pretty similar across libraries.</p>
+
+<ol>
+<li>Add a reference to your library in <code>build.sbt</code></li>
+<li>Start a connection pool at application start</li>
+<li>Clean up the connection pool when your application stops</li>
+<li>Provide a way for your controllers to access the connection pool</li>
+<li>Write your application!</li>
+</ol>
+
+<p>If you look at the existing Scalatra guides on persistence, you&rsquo;ll notice that pretty much all of them follow this common pattern.</p>
+
+<p>Let&rsquo;s see it in action.</p>
+
+<h3 id="reference-the-persistence-library-in-your-build-file">Reference the persistence library in your build file</h3>
+
+<p>Not too much to do here. Open up <code>build.sbt</code> and add a reference to your chosen persistence library in the <code>libraryDependencies</code> section.</p>
+
+<h3 id="start-a-connection-pool-at-application-start">Start a connection pool at application start</h3>
+
+<p>This one is quite specific to each framework, but generally involves doing two things. Assuming your chosen persistence library is called <code>FooBar</code>, the first thing you&rsquo;ll want to do is read the FooBar docs to see how connection handling works. Then you&rsquo;ll generally want to do the following:</p>
+
+<ol>
+<li>Make a <code>FooBarInit</code> trait which initializes anything the application needs to do at startup. Typically, this means setting up a connection pooling mechanism.</li>
+<li>Run the init code when your application starts up. Scalatra makes this extremely easy to do - just add the <code>FooBarInit</code> trait to <code>ScalatraBootstrap</code> and call your initialization code in the <code>init</code> method.</li>
+</ol>
+
+<p>Let&rsquo;s see the Riak setup code as an example.</p>
+
+<p>Here&rsquo;s the <code>RiakJavaClientInit</code> trait:</p>
+
+<pre><code class="language-scala">package org.scalatra.example
+
+import com.basho.riak.client.RiakFactory
+import org.slf4j.LoggerFactory
+
+/**
+ * A trait we mix into Scalatra's initalization lifecycle to ensure we've got
+ * a Riak client and a bucket set up after the application starts.
+ */
+trait RiakJavaClientInit {
+  val logger = LoggerFactory.getLogger(getClass)
+
+  // get access to a bucket using a binary connection and the riak-java-client
+  val riakClient = RiakFactory.pbcClient
+
+  def configureRiakJavaClient() {
+    logger.info(&quot;Creating a Riak bucket&quot;)
+
+    // make sure we've got a bucket to use
+    riakClient.createBucket(&quot;myBucket&quot;).execute
+  }
+
+
+  def closeRiakJavaClient() {
+    logger.info(&quot;Closing Riak client&quot;)
+
+    riakClient.shutdown()
+  }
+
+}
+</code></pre>
+
+<p>This gets mixed into <code>ScalatraBootstrap</code> and <code>configureRiakJavaClient</code> gets run at application start:</p>
+
+<pre><code class="language-scala">import org.scalatra.example._
+import org.scalatra._
+import javax.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle with RiakJavaClientInit {
+
+  override def init(context: ServletContext) {
+    configureRiakJavaClient()
+    context.mount(new SimpleRiakController, &quot;/*&quot;)
+  }
+
+  override def destroy(context: ServletContext) {
+    closeRiakJavaClient()
+  }
+}
+</code></pre>
+
+<h3 id="clean-up-the-connection-pool-at-application-shutdown">Clean up the connection pool at application shutdown.</h3>
+
+<p>If you&rsquo;ve opened a resource like a connection pool, it&rsquo;s always a good idea to shut it down when your application terminates. As you can see from the code in the preceding section, this is pretty easy to do. The <code>closeRiakJavaClient</code> method shuts down the persistent Riak connection, and it gets called from the <code>destroy</code> method in <code>ScalatraBootstrap</code>.</p>
+
+<h3 id="provide-a-way-for-your-application-to-access-the-connection-pool">Provide a way for your application to access the connection pool</h3>
+
+<p>Once again, the details of this are specific to each library, but typically it involves making a <code>FooBarSupport</code> trait which can be mixed into your controllers. The trait provides a handle to the connection for your datastore. Let&rsquo;s take a look at the Squeryl guide&rsquo;s integration as an example:</p>
+
+<pre><code class="language-scala">package org.scalatra.example.data
+
+import org.squeryl.Session
+import org.squeryl.SessionFactory
+import org.scalatra._
+
+object DatabaseSessionSupport {
+  val key = {
+    val n = getClass.getName
+    if (n.endsWith(&quot;$&quot;)) n.dropRight(1) else n
+  }
+}
+
+trait DatabaseSessionSupport { this: ScalatraBase =&gt;
+  import DatabaseSessionSupport._
+
+  def dbSession = request.get(key).orNull.asInstanceOf[Session]
+
+  before() {
+    request(key) = SessionFactory.newSession
+    dbSession.bindToCurrentThread
+  }
+
+  after() {
+    dbSession.close
+    dbSession.unbindFromCurrentThread
+  }
+
+}
+</code></pre>
+
+<p>Obviously this one is pretty specific to Squeryl, but the basic idea is to use Scalatra&rsquo;s <code>before()</code> and <code>after()</code> filters to open a database connection on each request, and close it after the request finishes. This is a very common pattern, and is used even in the case of persistence frameworks which don&rsquo;t use connection pooling.</p>
+
+<p>This trait can now be mixed into any controller to give you a <code>dbSession</code> which you can use to do persistence tasks. In the case of Squeryl, you then define an Object which acts as a combination of a schema and a data access object - other frameworks do things differently, but the basic idea is the same. You need your application to be able to get a handle on its datastore connection so that it can shoot data at your datastore, retrieve it, and clean up after itself after every request.</p>
+
+<h3 id="write-your-application">Write your application!</h3>
+
+<p>Once you&rsquo;ve got a handle on your datastore, you&rsquo;re off to the races.</p>
+
+<p>There are dozens of persistence libraries which you can use with Scalatra - we make no assumptions about which one you&rsquo;ll want to use, because we think that&rsquo;s up to you.</p>
+
+<h3 id="help-us-out-by-writing-a-guide">Help us out by writing a guide</h3>
+
+<p>If you&rsquo;ve integrated Scalatra with a persistence framework which doesn&rsquo;t yet have a guide written up, please consider helping us out by writing one.</p>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.7 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/routes.html">Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/actions.html">Actions</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/reverse-routes.html">Reverse
+                    Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/requests-and-responses.html">Requests
+                    &amp; Responses</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/gzip.html">GZip</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/flash.html">Flash</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/http/authentication.html">Authentication</a>
+                </li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/web-services/cors.html">CORS</a>
+                </li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/formats/forms.html">Forms</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.7/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

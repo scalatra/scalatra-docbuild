@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Project structure - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Project structure</h1>
+                
+				<section>
+					
+
+<h2 id="paths">Paths</h2>
+
+<p>The recommended way of structuring a Scalatra project is as follows. It&rsquo;s
+what you get when you generate a new project using <code>sbt new</code>:</p>
+
+<pre><code>build.sbt               &lt;= dependencies and project config are set in here
+
+project
+|_build.properties      &lt;= specifies what version of sbt to use
+|_plugins.sbt           &lt;= sbt plugins can be added here
+
+src
+|_ main
+|  |_ resources
+|     |_ logback.xml
+|  |_ scala
+|  |  |   |_ScalatraBootstrap.scala     &lt;= mount servlets in here
+|  |  |_org
+|  |      |_ yourdomain
+|  |         |_ projectname
+|  |            |_ MyScalatraServlet.scala
+|  |_ twirl
+|  |  |_layouts
+|  |    |_default.scala.html
+|  |  |_views
+|  |    |_hello.scala.html
+|  |_ webapp
+|     |_ WEB-INF
+|        |_ web.xml
+|_ test
+   |_ scala
+      |_ org
+         |_ yourdomain
+            |_ projectname
+               |_ MyScalatraServletTests.scala
+</code></pre>
+
+<p>The basic structure should be reasonably familiar to anybody who&rsquo;s seen a
+Rails, Sinatra, or Padrino application. Your views go in the views folder,
+layouts (which wrap views) go in the layouts folder.</p>
+
+<p>The Scalatra template project puts your Scala application code into a series of
+namespaced directories: in the example above, <code>org.yourdomain.projectname</code>.
+This is entirely optional. The <a href="http://docs.scala-lang.org/style/">Scala style guide</a>
+suggests doing it this way, but the language doesn&rsquo;t do anything to enforce it.
+If you want to, you can put all of your Scala code in the same directory for easier
+navigation.</p>
+
+<h2 id="serving-static-files">Serving static files</h2>
+
+<p>Static files can be served out of the <code>webapp</code> folder, which acts as the ROOT
+directory. As with any servlet based application, the contents of this directory
+are all public, with the exception of files in the WEB-INF directory.</p>
+
+<p>An example structure may help in understanding this.</p>
+
+<pre><code>src
+|_ main
+   |_ scala
+   |  |_ Web.scala
+   |_ webapp
+      |_ WEB-INF
+      |  |_ web.xml
+      |- stylesheets
+      |  |_ default.css
+      |- images
+         |_ foo.jpg
+</code></pre>
+
+<p>In this application, the only publicly accessible files will be at
+<code>stylesheets/default.css</code> and <code>images/foo.jpg</code>. Everything else will be
+protected by the web application container.</p>
+
+<h2 id="scalatraservlet-vs-scalatrafilter">ScalatraServlet vs. ScalatraFilter</h2>
+
+<p>There are two base classes you can inherit from in order to make a
+Scalatra application: <code>ScalatraServlet</code> and <code>ScalatraFilter</code>.</p>
+
+<pre><code class="language-scala">class YourServlet extends ScalatraServlet {
+  // your class here
+}
+
+</code></pre>
+
+<p>vs.</p>
+
+<pre><code class="language-scala">class YourFilter extends ScalatraFilter {
+  // your class here
+}
+
+</code></pre>
+
+<p>The main difference is the default behavior when a route is not found.
+A <code>ScalatraFilter</code> will delegate to the next filter or servlet in the chain (as
+configured by <code>web.xml</code>), whereas a <code>ScalatraServlet</code> will return a 404
+response.</p>
+
+<p>Another difference is that <code>ScalatraFilter</code> matches routes relative to
+the WAR&rsquo;s context path. <code>ScalatraServlet</code> matches routes relative to the
+servlet path. This allows you to mount multiple servlets in different namespaces
+in the same WAR.</p>
+
+<h3 id="use-scalatrafilter-if">Use ScalatraFilter if:</h3>
+
+<ul>
+<li>You are migrating a legacy application inside the same URL space</li>
+<li>You want to serve static content from the WAR rather than a
+dedicated web server</li>
+</ul>
+
+<h3 id="use-scalatraservlet-if">Use ScalatraServlet if:</h3>
+
+<ul>
+<li>You want to match routes with a prefix deeper than the context path.</li>
+<li>You&rsquo;re not sure which to use!</li>
+</ul>
+
+<h2 id="scalatra-s-sbt-dependencies">Scalatra&rsquo;s sbt dependencies</h2>
+
+<p>Scalatra uses <a href="http://www.scala-sbt.org/">sbt</a>, or sbt, as a build system.</p>
+
+<p>The <code>build.sbt</code> file defines the libraries which your application will depend on,
+so that <code>sbt</code> can download them for you and build your Scalatra project.</p>
+
+<p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
+
+<pre><code class="language-scala">val ScalatraVersion = &quot;2.5.4&quot;
+
+organization := &quot;com.example&quot;
+
+name := &quot;My Scalatra Web App&quot;
+
+version := &quot;0.1.0-SNAPSHOT&quot;
+
+scalaVersion := &quot;2.12.3&quot;
+
+resolvers += Classpaths.typesafeReleases
+
+libraryDependencies ++= Seq(
+  &quot;org.scalatra&quot; %% &quot;scalatra&quot; % ScalatraVersion,
+  &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % ScalatraVersion % &quot;test&quot;,
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot; % &quot;runtime&quot;,
+  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.19.v20160908&quot; % &quot;container&quot;,
+  &quot;javax.servlet&quot; % &quot;javax.servlet-api&quot; % &quot;3.1.0&quot; % &quot;provided&quot;
+)
+
+enablePlugins(SbtTwirl)
+enablePlugins(ScalatraPlugin)
+</code></pre>
+
+<div class="alert alert-info">
+<span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+If you want to add any additional libraries to your project, add them to the
+<code>libraryDependencies</code> section.
+Doing that and running <code>sbt</code> again will download the dependency jar
+libraries and make them available to your application.
+If you don't know what the dependency details are, you can find out on
+<a href="http://search.maven.org">http://search.maven.org</a>.
+</div>
+
+<p>If you&rsquo;re using <a href="ide-support.html">IDE plugins</a> like
+<a href="https://github.com/typesafehub/sbteclipse">sbt-eclipse</a> or
+<a href="https://github.com/mpeltonen/sbt-idea">sbt-idea</a> to make sbt dependencies
+available to your IDE, make sure you re-run <code>sbt-eclipse</code> or <code>sbt-idea</code> from
+within sbt whenever you add or update a dependency in <code>project/build.scala</code>.</p>
+
+<p>The default dependencies are:</p>
+
+<dl class="dl-horizontal">
+  <dt>scalatra</dt>
+  <dd>This is the core Scalatra module, and is required to run the framework.</dd>
+  <dt>scalatra-scalatest</dt>
+  <dd>
+    This integrates the <a href="https://github.com/scalatest/scalatest">scalatest</a>
+    testing libraries.
+    It is placed in the <code>test</code> scope, so it's not deployed with your app
+    in production.
+  </dd>
+  <dt>logback-classic</dt>
+  <dd>
+    Basic logging functionality, courtesy of
+    <a href="http://logback.qos.ch/">Logback</a>.
+    It's placed in the <code>runtime</code> scope so it's not bundled with your
+    application.
+    This allows the particular logging implementation (or no logging implementation
+    at all), to be provided at runtime.
+  </dd>
+  <dt>jetty-webapp</dt>
+  <dd>
+    This is the embedded servlet container used by the web plugin.
+    Your application should be portable to any servlet container supporting at least
+    the 2.5 specification.
+  </dd>
+  <dt>javax.servlet</dt>
+  <dd>
+    Required for building your app.
+    It is placed in the <code>provided</code> configuration so that it is not bundled
+    with your application.
+    Your servlet container will provide this at deployment time.
+  </dd>
+</dl>
+
+<p>The Scalatra components in your project should all have the same version number
+(2.5.4 in the above example).
+Although it&rsquo;s theoretically possible to mix and match differently-versioned components
+in your projects, it&rsquo;s not recommended, because we compile, test and release Scalatra
+dependencies together based on their version number.</p>
+
+<hr />
+
+<p>Now that you understand the basics of building Scalatra apps, we recommend you
+consider <a href="jrebel.html">using JRebel</a>, which will make your webapp restart much more
+quickly after a code change during development.
+You may also want to <a href="ide-support.html">set up your IDE</a>.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting-starteds on Scalatra</title>
+    <link>https://scalatra.github.io/scalatra-docbuild/getting-started.xml</link>
+    <description>Recent content in Getting-starteds on Scalatra</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Scalatra Team</copyright>
+    <atom:link href="https://scalatra.github.io/scalatra-docbuild/getting-started.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>First steps</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started/first-project.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started/first-project.html</guid>
+      <description>
+
+&lt;h2 id=&#34;generate-a-scalatra-project&#34;&gt;Generate a Scalatra project&lt;/h2&gt;
+
+&lt;p&gt;Now that &lt;a href=&#34;installation.html&#34;&gt;installation&lt;/a&gt; is out of the way, you can
+generate a project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt new scalatra/scalatra.g8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will check out a pre-built application skeleton for you (from &lt;a href=&#34;https://github.com/scalatra/scalatra.g8&#34;&gt;GitHub&lt;/a&gt;),
+and ask you some questions about your application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sbt new scalatra/scalatra.g8
+organization [com.example]:
+name [My Scalatra Web App]:
+version [0.1.0-SNAPSHOT]:
+servlet_name [MyScalatraServlet]:
+package [com.example.app]:
+scala_version [2.12.3]:
+sbt_version [1.0.2]:
+scalatra_version [2.5.3]:
+
+Template applied in ./my-scalatra-web-app
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;dl class=&#34;dl-horizontal&#34;&gt;
+  &lt;dt&gt;organization&lt;/dt&gt;
+  &lt;dd&gt;
+    Used for publishing.
+    Should be the reverse of a domain name you control.
+    If you don&#39;t own a domain, &lt;code&gt;com.github.username&lt;/code&gt; is a popular choice.
+  &lt;/dd&gt;
+  &lt;dt&gt;package&lt;/dt&gt;
+  &lt;dd&gt;
+    All Scala code belongs in a package.
+    The
+    &lt;a href=&#34;http://docs.scala-lang.org/style/naming-conventions.html#packages&#34;&gt;
+      Scala Style Guide
+    &lt;/a&gt; recommends that your packages start with your organization.
+    This convention is used across multiple JVM languages and gives your
+    project a globally unique namespace.
+  &lt;/dd&gt;
+  &lt;dt&gt;name&lt;/dt&gt;
+  &lt;dd&gt;
+    The name of your project.
+    g8 will generate a project into a folder of that name, and the artifacts
+    you publish will be based on that name.
+  &lt;/dd&gt;
+  &lt;dt&gt;version&lt;/dt&gt;
+  &lt;dd&gt;
+    Your project&#39;s version.
+    This is entirely up to you, but we like
+    &lt;a href=&#34;http://semver.org&#34;&gt;semantic versioning&lt;/a&gt;.
+  &lt;/dd&gt;
+  &lt;dt&gt;servlet_name&lt;/dt&gt;
+  &lt;dd&gt;
+    The name of your servlet class.
+    This might be something like &lt;code&gt;BlogServlet&lt;/code&gt; or just &lt;code&gt;Blog&lt;/code&gt;.
+  &lt;/dd&gt;
+  &lt;dt&gt;scala_version&lt;/dt&gt;
+  &lt;dd&gt;
+    The Scala version to use.
+    The bottom of the &lt;a href=&#34;http://scalatra.org/&#34;&gt;homepage&lt;/a&gt; lists which Scala versions are compatible with the latest Scalatra releases.
+    When in doubt, use the default.
+  &lt;/dd&gt;
+  &lt;dt&gt;sbt_version&lt;/dt&gt;
+  &lt;dd&gt;
+    The sbt version.
+  &lt;/dd&gt;
+  &lt;dt&gt;scalatra_version&lt;/dt&gt;
+  &lt;dd&gt;
+    The Scalatra version to use.
+    See the &lt;a href=&#34;http://scalatra.org/&#34;&gt;homepage&lt;/a&gt; for a list. You can choose a stable version or if you want to try out new features go with a RC or SNAPSHOT.
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;h2 id=&#34;building&#34;&gt;Building&lt;/h2&gt;
+
+&lt;p&gt;Scala is a compiled language, so you need to build your Scalatra project.&lt;/p&gt;
+
+&lt;p&gt;Enter your application&amp;rsquo;s top-level directory, just execute &lt;code&gt;sbt&lt;/code&gt; to start building
+your Scalatra project.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ cd /your/project/directory
+$ sbt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sbt will also take care of downloading an entire Scalatra development
+environment if you don&amp;rsquo;t have one yet. That means sbt may spend some
+time downloading Scalatra and its libraries on first run.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  Although most people use sbt to build their Scalatra projects, it&#39;s also
+  possible to build using other systems, such as Maven. A user-contributed
+  Maven prototype &lt;a href=&#34;https://github.com/fancellu/scalatra-maven-prototype&#34;&gt;is available&lt;/a&gt;.
+  For most new users, though, sbt will be the easiest way to get started.
+&lt;/div&gt;
+
+&lt;h2 id=&#34;hello-world&#34;&gt;Hello world&lt;/h2&gt;
+
+&lt;p&gt;Now that Scalatra is installed, how about making your first application?
+Source files go into &lt;code&gt;src/main/scala/com/example/app&lt;/code&gt;
+(substitute your package for &lt;code&gt;com/example/app&lt;/code&gt;).
+Open &lt;code&gt;src/main/scala/com/example/app/MyScalatraServlet.scala&lt;/code&gt;, or whatever
+you named your servlet when you generated your project with Scalatra template:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
+
+import org.scalatra._
+
+class MyScalatraServlet extends ScalatraServlet {
+
+  get(&amp;quot;/&amp;quot;) {
+    views.html.hello()
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you haven&amp;rsquo;t already done so, from your project root, you can run the
+project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
+&amp;gt; jetty:start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The application starts on &lt;a href=&#34;http://localhost:8080&#34;&gt;http://localhost:8080&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  As you can see, Scalatra doesn&#39;t force you to setup much infrastructure: a
+  request to a URL evaluates some Scala code and returns some text in
+  response.
+  Whatever the block returns is sent back to the browser.
+&lt;/div&gt;
+
+&lt;p&gt;Scalatra allows you to return strongly-typed results from any of its actions.
+The action above returns an XML literal - you could easily change it to
+return a string by altering the action:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/&amp;quot;) {
+  &amp;quot;Hi there!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Returning a raw string is not something you&amp;rsquo;ll do particularly often -
+usually you will want to return formatted HTML that is the product of a
+templating system, or an output format like JSON.
+See the &lt;em&gt;views&lt;/em&gt; section of our &lt;a href=&#34;../../guides/&#34;&gt;guides&lt;/a&gt; for more info.&lt;/p&gt;
+
+&lt;h2 id=&#34;automatic-code-reloading&#34;&gt;Automatic code reloading&lt;/h2&gt;
+
+&lt;p&gt;Restarting an application manually after every code change is both slow and
+painful. It can easily be avoided by using a tool for automatic code reloading.&lt;/p&gt;
+
+&lt;p&gt;sbt will allow you to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Triggered-Execution.html&#34;&gt;signal a restart of the application when it detects
+code changes&lt;/a&gt;.
+The syntax for restarting involves adding &lt;code&gt;~&lt;/code&gt; in front of the command you
+want to re-execute.
+To recompile and reload your application automatically, run the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
+&amp;gt; ~;jetty:stop;jetty:start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now that you&amp;rsquo;ve got a (rather simplistic) running application, you may want
+to &lt;a href=&#34;project-structure.html&#34;&gt;understand more&lt;/a&gt; about the project setup, or
+dive straight into our &lt;a href=&#34;../../guides/&#34;&gt;guides&lt;/a&gt;, which show you how to perform
+common development tasks.&lt;/p&gt;
+
+&lt;p&gt;Many of the Scalatra guides have companion code projects, so you can learn
+by seeing running example code in action.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Scalatra</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started.html</guid>
+      <description>&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Install Scalatra in 2 easy steps. You may
+  already have a lot of what you need.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;installation.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;First project&lt;/h2&gt;
+&lt;p&gt;The first steps you take when learning something new are usually the
+  most difficult. Our code generators and step-by-step instructions
+  can help ease you into Scalatra development.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;first-project.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Project structure&lt;/h2&gt;
+&lt;p&gt;Understanding a Scalatra project isn&#39;t difficult, and it can save you
+  a lot of time if you understand a bit about what&#39;s happening under the hood.
+  Here are the basics.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;project-structure.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;IDE support (optional)&lt;/h2&gt;
+&lt;p&gt;
+  Since Scalatra is a no-magic framework, you can benefit from the Scala
+  support in Eclipse, IntelliJ IDEA, and Emacs.
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;ide-support.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;JRebel integration (optional)&lt;/h2&gt;
+&lt;p&gt;
+  Use JRebel (for free!) to dramatically speed up your Scalatra web development.
+  Scalatra comes pre-integrated with JRebel.
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;jrebel.html&#34; class=&#34;btn btn-primary&#34;&gt;Go »&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IDE Support</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started/ide-support.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started/ide-support.html</guid>
+      <description>
+
+&lt;p&gt;Because Scalatra is a pure-Scala no-magic framework, Scala IDEs such as
+&lt;a href=&#34;http://scala-ide.org/&#34;&gt;Eclipse&lt;/a&gt;,
+&lt;a href=&#34;http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA&#34;&gt;IntelliJ&lt;/a&gt;,
+and &lt;a href=&#34;https://github.com/aemoncannon/ensime&#34;&gt;ENSIME&lt;/a&gt; (for Emacs)
+&amp;ldquo;understand&amp;rdquo; Scalatra and can assist your development.&lt;/p&gt;
+
+&lt;p&gt;This is totally optional, so if you don&amp;rsquo;t like IDEs, feel free to skip this section.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;intellij-idea&#34;&gt;IntelliJ IDEA&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Download &lt;a href=&#34;http://www.jetbrains.com/idea/download/index.html&#34;&gt;IntelliJ IDEA&lt;/a&gt;. The community edition is fine.&lt;/li&gt;
+&lt;li&gt;Install the &lt;a href=&#34;http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA&#34;&gt;Scala plugin&lt;/a&gt; from JetBrains. You can do this most easily by clicking the &amp;ldquo;Browse repositories&amp;rdquo; button in the plugins manager. The plugin is called &amp;ldquo;Scala&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Once the Scala plugin is installed, you can open any Scalatra project and get very good syntax highlighting and refactoring support.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;debugging-in-intellij-idea&#34;&gt;Debugging in IntelliJ Idea&lt;/h3&gt;
+
+&lt;p&gt;Configure your container to listen for debuggers on port 5005 by adding the following lines to the &lt;code&gt;build.scala&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;javaOptions ++= Seq(
+  &amp;quot;-Xdebug&amp;quot;,
+  &amp;quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005&amp;quot;
+),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Start SBT and the container as usual (&lt;code&gt;./sbt&lt;/code&gt; then &lt;code&gt;jetty:start&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;After that, go to &lt;code&gt;Run&lt;/code&gt; -&amp;gt; &lt;code&gt;Edit configurations&lt;/code&gt; in IntelliJ. Click the &lt;code&gt;+&lt;/code&gt;
+button, select &lt;code&gt;Remote&lt;/code&gt; to make a new remote debugging configuration, and
+call it &lt;code&gt;Scalatra Debug&lt;/code&gt;. In IntelliJ 15, the default run conf should work
+(it looks like this):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now just select &lt;code&gt;Run&lt;/code&gt; -&amp;gt; &lt;code&gt;Debug &#39;Scalatra Debug&#39;&lt;/code&gt;. Setting breakpoints and
+stepping through code should work.&lt;/p&gt;
+
+&lt;h2 id=&#34;eclipse-aka-scala-ide&#34;&gt;Eclipse (&lt;em&gt;aka&lt;/em&gt; Scala IDE)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Download &lt;a href=&#34;http://www.eclipse.org/downloads/packages/eclipse-classic-421/junosr1&#34;&gt;Eclipse Classic&lt;/a&gt; and then add the &lt;a href=&#34;http://scala-ide.org/&#34;&gt;Scala plugin&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Now install the &lt;a href=&#34;https://github.com/typesafehub/sbteclipse&#34;&gt;sbt-eclipse&lt;/a&gt; plugin by
+adding this line to your &lt;code&gt;project/plugins.sbt&lt;/code&gt; file:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;addSbtPlugin(&amp;quot;com.typesafe.sbteclipse&amp;quot; % &amp;quot;sbteclipse-plugin&amp;quot; % &amp;quot;2.4.0&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This sbt plugin generates Eclipse classpath and configuration files to ensure the
+project will work as expected in the IDE.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sbt
+&amp;gt; eclipse
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Be sure to re-run &lt;code&gt;sbt eclipse&lt;/code&gt; every time you add or update a dependency in
+&lt;code&gt;project/build.scala&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;debugging-in-eclipse&#34;&gt;Debugging in Eclipse&lt;/h3&gt;
+
+&lt;p&gt;Configure your container to listen for debuggers on port 8000 by adding the following lines to the &lt;code&gt;build.scala&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;javaOptions ++= Seq(
+  &amp;quot;-Xdebug&amp;quot;,
+  &amp;quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000&amp;quot;
+),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Start sbt and the container as usual (&lt;code&gt;sbt&lt;/code&gt; then &lt;code&gt;jetty:start&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Go to &lt;code&gt;Run&lt;/code&gt; -&amp;gt; &lt;code&gt;Debug configurations&lt;/code&gt; in Eclipse. Select
+&lt;code&gt;Remote Java Application&lt;/code&gt;, click the &lt;code&gt;new configuration&lt;/code&gt;  button,
+select &lt;code&gt;Remote&lt;/code&gt; to make a new remote debugging configuration, and
+call it &lt;code&gt;Scalatra Debug&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Press the &lt;code&gt;Debug&lt;/code&gt; button on the bottom right. Eclipse will attach itself to
+SBT&amp;rsquo;s remote debugger and your breakpoints will start working.&lt;/p&gt;
+
+&lt;h2 id=&#34;ensime-for-emacs&#34;&gt;ENSIME (for Emacs)&lt;/h2&gt;
+
+&lt;p&gt;Users of the one true editor, rejoice! There is excellent support for Scala in Emacs.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We recommend you install &lt;a href=&#34;https://github.com/hvesalai/scala-mode2&#34;&gt;scala-mode2&lt;/a&gt; for your basic formatting and syntax highlighting.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/aemoncannon/ensime&#34;&gt;ENSIME&lt;/a&gt; lives on top of your Scala major mode,
+adding features like refactoring and error highlighting.&lt;/li&gt;
+&lt;li&gt;To integrate ENSIME with your Scalatra project, use the
+&lt;a href=&#34;https://github.com/aemoncannon/ensime-sbt-cmd&#34;&gt;ensime-sbt-cmd&lt;/a&gt; plugin.
+Add this line to your &lt;code&gt;project/build.scala&lt;/code&gt; file:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;addSbtPlugin(&amp;quot;org.ensime&amp;quot; % &amp;quot;ensime-sbt-cmd&amp;quot; % &amp;quot;0.1.2&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now from sbt you can run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sbt
+&amp;gt; ensime-generate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That will generate a classpath file that will tell ENSIME where to look for your
+class files and their dependencies.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started/installation.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started/installation.html</guid>
+      <description>
+
+&lt;p&gt;Getting started with a new web framework can be a bit scary.
+Luckily, Scalatra is easy to install, as it has relatively few dependencies.&lt;/p&gt;
+
+&lt;p&gt;It can run on Windows, Mac OS X, Linux, or BSD.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;1-install-a-jdk&#34;&gt;1. Install a JDK&lt;/h2&gt;
+
+&lt;p&gt;Scalatra is web micro-framework written in Scala, so you&amp;rsquo;ll need to have a
+Java Development Kit (JDK) installed.&lt;/p&gt;
+
+&lt;p&gt;Many systems come with a JDK pre-loaded.&lt;/p&gt;
+
+&lt;p&gt;Run &lt;code&gt;java -version&lt;/code&gt; and &lt;code&gt;javac -version&lt;/code&gt; in a terminal to find if yours
+does. The output should look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ java -version
+java version &amp;quot;1.8.0_131&amp;quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ javac -version
+javac 1.8.0_131
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You need Java 8 (Oracle&amp;rsquo;s JDK or OpenJDK), which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.&lt;/p&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t yet have Java installed, you can find out how to install it for your system over at
+&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&#34;&gt;the Oracle&amp;rsquo;s Java 8 download page&lt;/a&gt;
+or &lt;a href=&#34;http://openjdk.java.net/install/index.html&#34;&gt;the OpenJDK installation page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;2-install-sbt&#34;&gt;2. Install sbt&lt;/h2&gt;
+
+&lt;p&gt;Once you&amp;rsquo;re sure you&amp;rsquo;ve got Java installed, you will need to install the &lt;em&gt;sbt&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.scala-sbt.org&#34;&gt;sbt&lt;/a&gt; is a build tool for Scala, Java, and more.
+It can create a new project from the template repository.&lt;/p&gt;
+
+&lt;p&gt;In order to create a new project of Scalatra from the template, &lt;em&gt;sbt 0.13.13&lt;/em&gt; or later needs to be installed.
+To install sbt, refer to &lt;a href=&#34;http://www.scala-sbt.org/0.13/docs/Setup.html&#34;&gt;the setup page of sbt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For example, if it is macOS, you can install it by brew command as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Bash&#34;&gt;$ brew install sbt
+$ sbt
+...
+...
+&amp;gt; sbtVersion
+[info] 0.13.15
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;With installation out of the way, head over to the &amp;ldquo;&lt;a href=&#34;first-project.html&#34;&gt;first project&lt;/a&gt;&amp;ldquo;
+page, which will show you how to generate, build, and run a Scalatra application.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JRebel integration</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started/jrebel.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started/jrebel.html</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;http://zeroturnaround.com/software/jrebel/&#34;&gt;JRebel&lt;/a&gt; is a JVM plugin that makes developing web apps much faster.
+JRebel is generally able to eliminate the need for the following slow &amp;ldquo;app restart&amp;rdquo; in sbt following a code change:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; ~jetty:start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;While JRebel is not open source, it does reload your code faster than stopping and restarting Jetty each time.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s only used during development, and doesn&amp;rsquo;t change your deployed app in any way.&lt;/p&gt;
+
+&lt;p&gt;JRebel used to be free for Scala developers, but that changed recently, and now there&amp;rsquo;s a cost associated with usage for Scala. There are trial plans and free non-commercial licenses available if you just want to try it out.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;1-get-a-jrebel-license&#34;&gt;1. Get a JRebel license&lt;/h2&gt;
+
+&lt;p&gt;Sign up for a &lt;a href=&#34;https://my.jrebel.com/&#34;&gt;usage plan&lt;/a&gt;. You will need to create an account.&lt;/p&gt;
+
+&lt;h2 id=&#34;2-download-jrebel&#34;&gt;2. Download JRebel&lt;/h2&gt;
+
+&lt;p&gt;Download the most recent &lt;a href=&#34;http://zeroturnaround.com/software/jrebel/download/prev-releases/&#34;&gt;&amp;ldquo;nosetup&amp;rdquo; JRebel zip&lt;/a&gt;.
+Next, unzip the downloaded file.&lt;/p&gt;
+
+&lt;h2 id=&#34;3-activate&#34;&gt;3. Activate&lt;/h2&gt;
+
+&lt;p&gt;Follow the &lt;a href=&#34;http://manuals.zeroturnaround.com/jrebel/standalone/activate.html&#34;&gt;instructions on the JRebel website&lt;/a&gt; to activate your downloaded JRebel.&lt;/p&gt;
+
+&lt;p&gt;You can use the default settings for all the configurations.&lt;/p&gt;
+
+&lt;p&gt;You don&amp;rsquo;t need to integrate with your IDE, since we&amp;rsquo;re using sbt to do the servlet deployment.&lt;/p&gt;
+
+&lt;h2 id=&#34;4-tell-scalatra-where-jrebel-is&#34;&gt;4. Tell Scalatra where JRebel is&lt;/h2&gt;
+
+&lt;p&gt;Fortunately, the Scalatra giter8 project is already set up to use JRebel.
+You only need to tell Scalatra where to find the jrebel jar.&lt;/p&gt;
+
+&lt;p&gt;To do so, edit your shell resource file (usually &lt;code&gt;~/.bash_profile&lt;/code&gt; on Mac, and &lt;code&gt;~/.bashrc&lt;/code&gt; on Linux), and add the following line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export SCALATRA_JREBEL=/path/to/jrebel/jrebel.jar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For example, if you unzipped your JRebel download in your home directory, you whould use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export SCALATRA_JREBEL=~/jrebel/jrebel.jar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now reload your shell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ source ~/.bash_profile # on Mac
+$ source ~/.bashrc       # on Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;5-see-it-in-action&#34;&gt;5. See it in action!&lt;/h2&gt;
+
+&lt;p&gt;Now you&amp;rsquo;re ready to use JRebel with the Scalatra giter8 plugin.
+When you run sbt as normal, you will see a long message from JRebel, indicating it has loaded.
+Here&amp;rsquo;s an abbreviated version of what you will see:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./sbt
+Detected sbt version 0.12.1
+Starting sbt: invoke with -help for other options
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30] #############################################################
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30]  JRebel 5.1.1 (201211271929)
+[2012-12-08 18:14:30]  (c) Copyright ZeroTurnaround OU, Estonia, Tartu.
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30]  This product is licensed to John Doe
+[2012-12-08 18:14:30]  for use with Scala classes only
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30]  License acquired through myJRebel server.
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30]  You are subscribed for the plan &amp;quot;JRebel Scala Plan&amp;quot;,
+[2012-12-08 18:14:30]  subscription ends on 2013-10-06,
+[2012-12-08 18:14:30]  next license check with the server is required by 2013-01-07.
+[2012-12-08 18:14:30]
+[2012-12-08 18:14:30] #############################################################
+[2012-12-08 18:14:30]
+&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will start the servlet container slightly differently now that you&amp;rsquo;re using sbt.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; jetty:start
+&amp;gt; ~ copy-resources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Don&amp;rsquo;t worry if JRebel complains about there being no &lt;code&gt;test-classes&lt;/code&gt; directory.
+That directory will only exist when you&amp;rsquo;re running tests.&lt;/p&gt;
+
+&lt;p&gt;Finally, change your code.
+For example, if you&amp;rsquo;re using the default giter8 project, you can change the web app&amp;rsquo;s welcome message to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/&amp;quot;) {
+  &amp;lt;html&amp;gt;
+    &amp;lt;body&amp;gt;
+      &amp;lt;h1&amp;gt;Is JRebel working?&amp;lt;/h1&amp;gt;
+    &amp;lt;/body&amp;gt;
+  &amp;lt;/html&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If JRebel is doing is correctly installed you will see a notice from JRebel that it has reloaded classes for you:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1. Waiting for source changes... (press enter to interrupt)
+[2012-12-08 18:29:53] JRebel: Reloading class &#39;com.example.app.MyScalatraServlet&#39;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;6-limitations&#34;&gt;6. Limitations&lt;/h2&gt;
+
+&lt;p&gt;JRebel is nearly always able to eliminate the need to explicitly reload your container after a code change. However, if you change any of your routes patterns, there is nothing JRebel can do, you will have to restart the Jetty with &lt;code&gt;jetty:start&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Project structure</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/getting-started/project-structure.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/getting-started/project-structure.html</guid>
+      <description>
+
+&lt;h2 id=&#34;paths&#34;&gt;Paths&lt;/h2&gt;
+
+&lt;p&gt;The recommended way of structuring a Scalatra project is as follows. It&amp;rsquo;s
+what you get when you generate a new project using &lt;code&gt;sbt new&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build.sbt               &amp;lt;= dependencies and project config are set in here
+
+project
+|_build.properties      &amp;lt;= specifies what version of sbt to use
+|_plugins.sbt           &amp;lt;= sbt plugins can be added here
+
+src
+|_ main
+|  |_ resources
+|     |_ logback.xml
+|  |_ scala
+|  |  |   |_ScalatraBootstrap.scala     &amp;lt;= mount servlets in here
+|  |  |_org
+|  |      |_ yourdomain
+|  |         |_ projectname
+|  |            |_ MyScalatraServlet.scala
+|  |_ twirl
+|  |  |_layouts
+|  |    |_default.scala.html
+|  |  |_views
+|  |    |_hello.scala.html
+|  |_ webapp
+|     |_ WEB-INF
+|        |_ web.xml
+|_ test
+   |_ scala
+      |_ org
+         |_ yourdomain
+            |_ projectname
+               |_ MyScalatraServletTests.scala
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The basic structure should be reasonably familiar to anybody who&amp;rsquo;s seen a
+Rails, Sinatra, or Padrino application. Your views go in the views folder,
+layouts (which wrap views) go in the layouts folder.&lt;/p&gt;
+
+&lt;p&gt;The Scalatra template project puts your Scala application code into a series of
+namespaced directories: in the example above, &lt;code&gt;org.yourdomain.projectname&lt;/code&gt;.
+This is entirely optional. The &lt;a href=&#34;http://docs.scala-lang.org/style/&#34;&gt;Scala style guide&lt;/a&gt;
+suggests doing it this way, but the language doesn&amp;rsquo;t do anything to enforce it.
+If you want to, you can put all of your Scala code in the same directory for easier
+navigation.&lt;/p&gt;
+
+&lt;h2 id=&#34;serving-static-files&#34;&gt;Serving static files&lt;/h2&gt;
+
+&lt;p&gt;Static files can be served out of the &lt;code&gt;webapp&lt;/code&gt; folder, which acts as the ROOT
+directory. As with any servlet based application, the contents of this directory
+are all public, with the exception of files in the WEB-INF directory.&lt;/p&gt;
+
+&lt;p&gt;An example structure may help in understanding this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;src
+|_ main
+   |_ scala
+   |  |_ Web.scala
+   |_ webapp
+      |_ WEB-INF
+      |  |_ web.xml
+      |- stylesheets
+      |  |_ default.css
+      |- images
+         |_ foo.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this application, the only publicly accessible files will be at
+&lt;code&gt;stylesheets/default.css&lt;/code&gt; and &lt;code&gt;images/foo.jpg&lt;/code&gt;. Everything else will be
+protected by the web application container.&lt;/p&gt;
+
+&lt;h2 id=&#34;scalatraservlet-vs-scalatrafilter&#34;&gt;ScalatraServlet vs. ScalatraFilter&lt;/h2&gt;
+
+&lt;p&gt;There are two base classes you can inherit from in order to make a
+Scalatra application: &lt;code&gt;ScalatraServlet&lt;/code&gt; and &lt;code&gt;ScalatraFilter&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class YourServlet extends ScalatraServlet {
+  // your class here
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;vs.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class YourFilter extends ScalatraFilter {
+  // your class here
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The main difference is the default behavior when a route is not found.
+A &lt;code&gt;ScalatraFilter&lt;/code&gt; will delegate to the next filter or servlet in the chain (as
+configured by &lt;code&gt;web.xml&lt;/code&gt;), whereas a &lt;code&gt;ScalatraServlet&lt;/code&gt; will return a 404
+response.&lt;/p&gt;
+
+&lt;p&gt;Another difference is that &lt;code&gt;ScalatraFilter&lt;/code&gt; matches routes relative to
+the WAR&amp;rsquo;s context path. &lt;code&gt;ScalatraServlet&lt;/code&gt; matches routes relative to the
+servlet path. This allows you to mount multiple servlets in different namespaces
+in the same WAR.&lt;/p&gt;
+
+&lt;h3 id=&#34;use-scalatrafilter-if&#34;&gt;Use ScalatraFilter if:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You are migrating a legacy application inside the same URL space&lt;/li&gt;
+&lt;li&gt;You want to serve static content from the WAR rather than a
+dedicated web server&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;use-scalatraservlet-if&#34;&gt;Use ScalatraServlet if:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You want to match routes with a prefix deeper than the context path.&lt;/li&gt;
+&lt;li&gt;You&amp;rsquo;re not sure which to use!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scalatra-s-sbt-dependencies&#34;&gt;Scalatra&amp;rsquo;s sbt dependencies&lt;/h2&gt;
+
+&lt;p&gt;Scalatra uses &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;sbt&lt;/a&gt;, or sbt, as a build system.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;build.sbt&lt;/code&gt; file defines the libraries which your application will depend on,
+so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Scalatra project.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;2.5.4&amp;quot;
+
+organization := &amp;quot;com.example&amp;quot;
+
+name := &amp;quot;My Scalatra Web App&amp;quot;
+
+version := &amp;quot;0.1.0-SNAPSHOT&amp;quot;
+
+scalaVersion := &amp;quot;2.12.3&amp;quot;
+
+resolvers += Classpaths.typesafeReleases
+
+libraryDependencies ++= Seq(
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalatest&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.2.3&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;9.2.19.v20160908&amp;quot; % &amp;quot;container&amp;quot;,
+  &amp;quot;javax.servlet&amp;quot; % &amp;quot;javax.servlet-api&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;provided&amp;quot;
+)
+
+enablePlugins(SbtTwirl)
+enablePlugins(ScalatraPlugin)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+&lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+If you want to add any additional libraries to your project, add them to the
+&lt;code&gt;libraryDependencies&lt;/code&gt; section.
+Doing that and running &lt;code&gt;sbt&lt;/code&gt; again will download the dependency jar
+libraries and make them available to your application.
+If you don&#39;t know what the dependency details are, you can find out on
+&lt;a href=&#34;http://search.maven.org&#34;&gt;http://search.maven.org&lt;/a&gt;.
+&lt;/div&gt;
+
+&lt;p&gt;If you&amp;rsquo;re using &lt;a href=&#34;ide-support.html&#34;&gt;IDE plugins&lt;/a&gt; like
+&lt;a href=&#34;https://github.com/typesafehub/sbteclipse&#34;&gt;sbt-eclipse&lt;/a&gt; or
+&lt;a href=&#34;https://github.com/mpeltonen/sbt-idea&#34;&gt;sbt-idea&lt;/a&gt; to make sbt dependencies
+available to your IDE, make sure you re-run &lt;code&gt;sbt-eclipse&lt;/code&gt; or &lt;code&gt;sbt-idea&lt;/code&gt; from
+within sbt whenever you add or update a dependency in &lt;code&gt;project/build.scala&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The default dependencies are:&lt;/p&gt;
+
+&lt;dl class=&#34;dl-horizontal&#34;&gt;
+  &lt;dt&gt;scalatra&lt;/dt&gt;
+  &lt;dd&gt;This is the core Scalatra module, and is required to run the framework.&lt;/dd&gt;
+  &lt;dt&gt;scalatra-scalatest&lt;/dt&gt;
+  &lt;dd&gt;
+    This integrates the &lt;a href=&#34;https://github.com/scalatest/scalatest&#34;&gt;scalatest&lt;/a&gt;
+    testing libraries.
+    It is placed in the &lt;code&gt;test&lt;/code&gt; scope, so it&#39;s not deployed with your app
+    in production.
+  &lt;/dd&gt;
+  &lt;dt&gt;logback-classic&lt;/dt&gt;
+  &lt;dd&gt;
+    Basic logging functionality, courtesy of
+    &lt;a href=&#34;http://logback.qos.ch/&#34;&gt;Logback&lt;/a&gt;.
+    It&#39;s placed in the &lt;code&gt;runtime&lt;/code&gt; scope so it&#39;s not bundled with your
+    application.
+    This allows the particular logging implementation (or no logging implementation
+    at all), to be provided at runtime.
+  &lt;/dd&gt;
+  &lt;dt&gt;jetty-webapp&lt;/dt&gt;
+  &lt;dd&gt;
+    This is the embedded servlet container used by the web plugin.
+    Your application should be portable to any servlet container supporting at least
+    the 2.5 specification.
+  &lt;/dd&gt;
+  &lt;dt&gt;javax.servlet&lt;/dt&gt;
+  &lt;dd&gt;
+    Required for building your app.
+    It is placed in the &lt;code&gt;provided&lt;/code&gt; configuration so that it is not bundled
+    with your application.
+    Your servlet container will provide this at deployment time.
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;The Scalatra components in your project should all have the same version number
+(2.5.4 in the above example).
+Although it&amp;rsquo;s theoretically possible to mix and match differently-versioned components
+in your projects, it&amp;rsquo;s not recommended, because we compile, test and release Scalatra
+dependencies together based on their version number.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Now that you understand the basics of building Scalatra apps, we recommend you
+consider &lt;a href=&#34;jrebel.html&#34;&gt;using JRebel&lt;/a&gt;, which will make your webapp restart much more
+quickly after a code change during development.
+You may also want to &lt;a href=&#34;ide-support.html&#34;&gt;set up your IDE&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

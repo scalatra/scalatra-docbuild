@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Deploying to Jelastic - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Deploying to Jelastic</h1>
+		<section>
+		  
+
+<div class="page-header">
+  <h1>Deploying to Jelastic</h1>
+</div>
+
+<p><a href="http://jelastic.com/">Jelastic</a> is a cloud application platform designed specifically
+for servlets like Scalatra apps.
+Jelastic allows you to scale your app both horizontally (more instances) and vertically
+(more powerful instances).
+They offer a 2-week free trial, after which point their rates are among the best in the industry.</p>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.3/deployment/scalatra-jelastic">scalatra-jelastic</a>
+  for a minimal and standalone project containing the example in this guide.
+</div>
+
+<hr />
+
+<h2 id="1-register-http-jelastic-com-for-an-account">1. <a href="http://jelastic.com/">Register</a> for an account.</h2>
+
+<p>Jelastic is a platform with many hosts to choose from.
+<strong>In this guide we&rsquo;ll assume you&rsquo;ve chosen LayerShift as your host.</strong></p>
+
+<h2 id="2-create-an-environment">2. Create an environment.</h2>
+
+<p>An &ldquo;environment&rdquo; in Jelastic-speak is a selection of a servlet container and any add-ons
+(like databases) that you may want.</p>
+
+<p>On your <a href="https://app.j.layershift.co.uk/">management console</a> click
+&ldquo;Create environment.&rdquo;</p>
+
+<p><a href="jelastic-screenshot.png"><img width="500" src="jelastic-screenshot.png" /></a></p>
+
+<p>You need to choose an environment name that is unique across the entire Layershift host.
+<strong>We&rsquo;ll proceed with the environment name <code>scalatra-test</code>, but yours will necessarily be
+different.</strong>
+The default of Tomcat 7 automatically scaling between 1 and 8 cloudlets is fine for us.</p>
+
+<h2 id="3-set-up-a-project">3. Set up a project.</h2>
+
+<ul>
+<li>Create a Scalatra project from the usual Scalatra giter8 template.
+Check out the <a href="{{site.baseurl}}getting-started/installation.html">installation</a> and <a href="{{site.baseurl}}getting-started/first-project.html">first project</a> guides if this isn&rsquo;t familiar.</li>
+</ul>
+
+<pre><code class="language-sh">$ sbt new scalatra/scalatra-sbt.g8
+$ cd [app root]
+</code></pre>
+
+<ul>
+<li>Install the Jelastic deployment plugin</li>
+</ul>
+
+<p>Add the following line to <code>project/plugins.sbt</code>:</p>
+
+<pre><code class="language-scala">addSbtPlugin(&quot;com.github.casualjim&quot; % &quot;sbt-jelastic-deploy&quot; % &quot;0.1.4&quot;)
+</code></pre>
+
+<ul>
+<li>Configure the Jelastic deployment plugin</li>
+</ul>
+
+<p>Add the following lines to <code>buid.sbt</code>.
+You will need to replace <code>&quot;scalatra-test&quot;</code> with the name of your environment.</p>
+
+<pre><code class="language-scala">seq(jelasticSettings:_*)
+
+JelasticKeys.email in JelasticKeys.deploy := sys.env.get(&quot;JELASTIC_USERNAME&quot;).getOrElse(
+sys error &quot;Please export JELASTIC_USERNAME in your shell!&quot;
+)
+
+JelasticKeys.password in JelasticKeys.deploy := sys.env.get(&quot;JELASTIC_PWD&quot;).getOrElse(
+sys error &quot;Please export JELASTIC_PWD in your shell!&quot;
+)
+
+JelasticKeys.apiHoster := &quot;app.j.layershift.co.uk&quot;
+
+JelasticKeys.environment in JelasticKeys.deploy := &quot;scalatra-test&quot;
+
+publishTo := None
+</code></pre>
+
+<h2 id="4-configure-your-environment">4. Configure your environment</h2>
+
+<p>You weren&rsquo;t thinking of storing your username and password in version control, were you?</p>
+
+<p>Open <code>~/.bash_profile</code> on Mac, or <code>~/.bashrc</code> on Linux, and add these lines,
+substituting your Jelastic username and password as appropriate:</p>
+
+<pre><code>export JELASTIC_USERNAME=&quot;you@you.com&quot;
+export JELASTIC_PWD=&quot;iluvyou&quot;
+</code></pre>
+
+<p>Now close your shell and open a new one.</p>
+
+<h2 id="6-deploy">6. Deploy</h2>
+
+<p>With the project set up, your first deploy, and all future deploys, are insanely easy:</p>
+
+<pre><code class="language-sh">$ cd [app root]
+$ sbt
+&gt; deploy
+</code></pre>
+
+<p>If all has gone well you&rsquo;ll a ton of output.
+Here&rsquo;s an abbreviated example:</p>
+
+<pre><code>&gt; deploy
+[info] Compiling 2 Scala sources to /Users/yuvi/Desktop/my-scalatra-web-app/target/scala-2.9.2/classes...
+[info] Packaging /Users/yuvi/Desktop/my-scalatra-web-app/target/scala-2.9.2/my-scalatra-web-app_2.9.2-0.1.0-SNAPSHOT.war ...
+[info] Done packaging.
+SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[info] Jelastic session: 62e8x8c50adf7c46f3459f851617020ef8a53
+[info] Upload of http://6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk/xssu/rest/download/RDYYHFdvUVcIBl5JYldpTUAXDBQFHkQWCEE%2BGSgndlVHHkZZDwQBQmNTTEBI with size 22548400 succeeded.
+[info] File registration for developer 25320 success
+[info] Deploy success
+[info] Stopping tomcat:
+[info] Waiting for processes to exit..
+[info] Waiting for processes to exit..
+[info] Waiting for processes to exit..
+[info] Sending the Tomcat processes a SIGTERM asking them to shut down gracefully..
+[info] [  OK  ]
+[info] --2012-12-16 22:44:39--  http://6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk/xssu/rest/download/RDYYHFdvUVcIBl5JYldpTUAXDBQFHkQWCEE%2BGSgndlVHHkZZDwQBQmNTTEBI
+[info] Resolving 6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk... 207.58.158.90
+[info] Connecting to 6e49611e3c2db05e830d2d4c9381469a.app.j.layershift.co.uk|207.58.158.90|:80... connected.
+[info] HTTP request sent, awaiting response... 200 OK
+[info] Length: 22547738 (22M) [application/octet-stream]
+[info] Saving to: `/opt/tomcat//webapps/ROOT.war'
+[info]
+[info]      0K .......... .......... .......... .......... ..........  0% 41.6M 1s
+[info]     50K .......... .......... .......... .......... ..........  0% 38.8M 1s
+[info]    100K .......... .......... .......... .......... ..........  0% 60.6M 0s
+[info]    150K .......... .......... .......... .......... ..........  0% 35.5M 1s
+[info]  21900K .......... .......... .......... .......... .......... 99%  145M 0s
+[info]  21950K .......... .......... .......... .......... .......... 99%  148M 0s
+[info]  22000K .......... .........                                  100% 91.6M=0.3s
+[info]
+[info] 2012-12-16 22:44:52 (69.8 MB/s) - `/opt/tomcat//webapps/ROOT.war' saved [22547738/22547738]
+[info]
+[info] Starting tomcat: [  OK  ]
+[info] Logged out of jelastic.
+[success] Total time: 210 s, completed Dec 16, 2012 2:45:04 PM
+</code></pre>
+
+<h2 id="7-visit-your-website">7. Visit your website</h2>
+
+<p>Since we used the environment <code>scalatra-test</code>, the app is now live at <a href="http://scalatra-test.j.layershift.co.uk">http://scalatra-test.j.layershift.co.uk</a>.
+As always, you will have to substitute your environment name into that URL.</p>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.3 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/routes.html">Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/actions.html">Actions</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/reverse-routes.html">Reverse Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/requests-and-responses.html">Requests &amp; Responses</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/gzip.html">GZip</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/flash.html">Flash</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/http/authentication.html">Authentication</a></li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Resources</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/resources/coffeescript.html">CoffeeScript</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/resources/less-css.html">LESS CSS</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/resources/wro4j.html">wro4j</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/formats/commands.html">Commands</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+          <li><strong>Web Services</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/web-services/cors.html">CORS</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/monitoring/logging.html">Logging</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/jelastic.html">Jelastic</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.3/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

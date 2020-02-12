@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>IDE Support - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">IDE Support</h1>
+                
+				<section>
+					
+
+<p>Because Scalatra is a pure-Scala no-magic framework, Scala IDEs such as
+<a href="http://scala-ide.org/">Eclipse</a>,
+<a href="http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA">IntelliJ</a>,
+and <a href="https://github.com/aemoncannon/ensime">ENSIME</a> (for Emacs)
+&ldquo;understand&rdquo; Scalatra and can assist your development.</p>
+
+<p>This is totally optional, so if you don&rsquo;t like IDEs, feel free to skip this section.</p>
+
+<hr />
+
+<h2 id="intellij-idea">IntelliJ IDEA</h2>
+
+<ul>
+<li>Download <a href="http://www.jetbrains.com/idea/download/index.html">IntelliJ IDEA</a>. The community edition is fine.</li>
+<li>Install the <a href="http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA">Scala plugin</a> from JetBrains. You can do this most easily by clicking the &ldquo;Browse repositories&rdquo; button in the plugins manager. The plugin is called &ldquo;Scala&rdquo;.</li>
+<li>Once the Scala plugin is installed, you can open any Scalatra project and get very good syntax highlighting and refactoring support.</li>
+</ul>
+
+<h3 id="debugging-in-intellij-idea">Debugging in IntelliJ Idea</h3>
+
+<p>Configure your container to listen for debuggers on port 5005 by adding the following lines to the <code>build.scala</code> file.</p>
+
+<pre><code>javaOptions ++= Seq(
+  &quot;-Xdebug&quot;,
+  &quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005&quot;
+),
+</code></pre>
+
+<p>Start SBT and the container as usual (<code>./sbt</code> then <code>jetty:start</code>).</p>
+
+<p>After that, go to <code>Run</code> -&gt; <code>Edit configurations</code> in IntelliJ. Click the <code>+</code>
+button, select <code>Remote</code> to make a new remote debugging configuration, and
+call it <code>Scalatra Debug</code>. In IntelliJ 15, the default run conf should work
+(it looks like this):</p>
+
+<pre><code>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+</code></pre>
+
+<p>Now just select <code>Run</code> -&gt; <code>Debug 'Scalatra Debug'</code>. Setting breakpoints and
+stepping through code should work.</p>
+
+<h2 id="eclipse-aka-scala-ide">Eclipse (<em>aka</em> Scala IDE)</h2>
+
+<ul>
+<li>Download <a href="http://www.eclipse.org/downloads/packages/eclipse-classic-421/junosr1">Eclipse Classic</a> and then add the <a href="http://scala-ide.org/">Scala plugin</a>.</li>
+<li>Now install the <a href="https://github.com/typesafehub/sbteclipse">sbt-eclipse</a> plugin by
+adding this line to your <code>project/plugins.sbt</code> file:</li>
+</ul>
+
+<pre><code class="language-scala">addSbtPlugin(&quot;com.typesafe.sbteclipse&quot; % &quot;sbteclipse-plugin&quot; % &quot;2.4.0&quot;)
+</code></pre>
+
+<p>This sbt plugin generates Eclipse classpath and configuration files to ensure the
+project will work as expected in the IDE.</p>
+
+<pre><code>$ sbt
+&gt; eclipse
+</code></pre>
+
+<p>Be sure to re-run <code>sbt eclipse</code> every time you add or update a dependency in
+<code>project/build.scala</code>.</p>
+
+<h3 id="debugging-in-eclipse">Debugging in Eclipse</h3>
+
+<p>Configure your container to listen for debuggers on port 8000 by adding the following lines to the <code>build.scala</code> file.</p>
+
+<pre><code>javaOptions ++= Seq(
+  &quot;-Xdebug&quot;,
+  &quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000&quot;
+),
+</code></pre>
+
+<p>Start sbt and the container as usual (<code>sbt</code> then <code>jetty:start</code>).</p>
+
+<p>Go to <code>Run</code> -&gt; <code>Debug configurations</code> in Eclipse. Select
+<code>Remote Java Application</code>, click the <code>new configuration</code>  button,
+select <code>Remote</code> to make a new remote debugging configuration, and
+call it <code>Scalatra Debug</code>.</p>
+
+<p>Press the <code>Debug</code> button on the bottom right. Eclipse will attach itself to
+SBT&rsquo;s remote debugger and your breakpoints will start working.</p>
+
+<h2 id="ensime-for-emacs">ENSIME (for Emacs)</h2>
+
+<p>Users of the one true editor, rejoice! There is excellent support for Scala in Emacs.</p>
+
+<ul>
+<li>We recommend you install <a href="https://github.com/hvesalai/scala-mode2">scala-mode2</a> for your basic formatting and syntax highlighting.</li>
+<li><a href="https://github.com/aemoncannon/ensime">ENSIME</a> lives on top of your Scala major mode,
+adding features like refactoring and error highlighting.</li>
+<li>To integrate ENSIME with your Scalatra project, use the
+<a href="https://github.com/aemoncannon/ensime-sbt-cmd">ensime-sbt-cmd</a> plugin.
+Add this line to your <code>project/build.scala</code> file:</li>
+</ul>
+
+<pre><code class="language-scala">addSbtPlugin(&quot;org.ensime&quot; % &quot;ensime-sbt-cmd&quot; % &quot;0.1.2&quot;)
+</code></pre>
+
+<p>Now from sbt you can run:</p>
+
+<pre><code>$ sbt
+&gt; ensime-generate
+</code></pre>
+
+<p>That will generate a classpath file that will tell ENSIME where to look for your
+class files and their dependencies.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

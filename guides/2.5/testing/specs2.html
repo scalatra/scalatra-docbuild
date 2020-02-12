@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Specs2 - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Specs2</h1>
+		<section>
+		  
+
+<p><a href="http://etorreborre.github.com/specs2/">Specs2</a> is a library for writing
+executable software specifications. With specs2 you can write software
+specifications for one class (unit specifications) or a full system
+(acceptance specifications).</p>
+
+<h4 id="dependency">Dependency</h4>
+
+<pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-specs2&quot; % &quot;2.5.4&quot; % &quot;test&quot;
+</code></pre>
+
+<h4 id="examples">Examples</h4>
+
+<p>Specs2 supports two basic styles: <em>unit</em> and <em>acceptance</em>.
+Both are supported by Scalatra.</p>
+
+<h5 id="unit-testing">Unit testing</h5>
+
+<p>From the <a href="http://etorreborre.github.com/specs2/guide/org.specs2.guide.QuickStart.html">Specs2 QuickStart</a>:</p>
+
+<blockquote>
+<p>unit specifications where the specification text is interleaved with the
+specification code. It is generally used to specify a single class.</p>
+</blockquote>
+
+<pre><code class="language-scala">import org.scalatra.test.specs2._
+
+class HelloWorldMutableServletSpec extends MutableScalatraSpec {
+  addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
+
+  &quot;GET / on HelloWorldServlet&quot; should {
+    &quot;return status 200&quot; in {
+      get(&quot;/&quot;) {
+        status must_== 200
+      }
+    }
+  }
+}
+</code></pre>
+
+<h5 id="acceptance-testing">Acceptance testing</h5>
+
+<p>From the <a href="http://etorreborre.github.com/specs2/guide/org.specs2.guide.QuickStart.html">Specs2 QuickStart</a>:</p>
+
+<blockquote>
+<p>acceptance specifications where all the specification text stands as one and
+the implementation code is elsewhere.  It is generally used for acceptance or
+integration scenarios</p>
+</blockquote>
+
+<pre><code class="language-scala">import org.scalatra.test.specs2._
+
+class HelloWorldServletSpec extends ScalatraSpec { def is = s2&quot;&quot;&quot;
+  GET / on HelloWorldServlet
+    returns status 200           $getRoot200
+&quot;&quot;&quot;
+
+  addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
+
+  def getRoot200 = get(&quot;/&quot;) {
+    status must_== 200
+  }
+}
+</code></pre>
+
+<p>The <code>addServlet</code> method is used here with <code>classOf[HelloWorldServlet]</code> to mount
+the HelloWorld servlet into the Specs2 test.</p>
+
+<p>If you&rsquo;ve got a servlet which takes constructor params, you&rsquo;ll need to mount the
+servlet in your test with a different <code>addServlet</code> method overload, e.g.:</p>
+
+<pre><code class="language-scala">  implicit val myImplicitHere = new ImplicitConstructorParam
+  addServlet(new HelloWorldServlet, &quot;/*&quot;)
+</code></pre>
+
+<h4 id="testing-file-uploads">Testing file uploads</h4>
+
+<p>Convenience methods exist for testing file uploads.</p>
+
+<pre><code class="language-scala">class FileUploadSpec extends MutableScalatraSpec {
+  addServlet(classOf[FileUploadServlet], &quot;/*&quot;)
+
+  &quot;POST /files&quot; should {
+    &quot;return status 200&quot; in {
+      // You can also pass headers after the files Map
+      post(&quot;/files&quot;, Map(&quot;private&quot; -&gt; &quot;true&quot;), Map(&quot;kitten&quot; -&gt; new File(&quot;kitten.png&quot;))) {
+        status must_== 200
+      }
+    }
+  }
+
+  &quot;PUT /files/:id&quot; should {
+    &quot;return status 200&quot; in {
+      put(&quot;/files/10&quot;, Map(&quot;private&quot; -&gt; &quot;false&quot;), Map(&quot;kitten&quot; -&gt; new File(&quot;kitten.png&quot;))) {
+        status must_== 200
+      }
+    }
+  }
+}
+</code></pre>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.5 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/routes.html">Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/actions.html">Actions</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/reverse-routes.html">Reverse Routes</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/requests-and-responses.html">Requests &amp; Responses</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/gzip.html">GZip</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/flash.html">Flash</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/http/authentication.html">Authentication</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/web-services/cors.html">CORS</a></li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/async/akka.html">Akka</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/async/atmosphere.html">Atmosphere</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/scalate.html">Scalate</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Resources</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/coffeescript.html">CoffeeScript</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/less-css.html">LESS CSS</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/resources/wro4j.html">wro4j</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/formats/commands.html">Commands</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/cloudbees.html">CloudBees</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.5/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+

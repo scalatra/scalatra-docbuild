@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Installation - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-12 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Installation</h1>
+                
+				<section>
+					
+
+<p>Getting started with a new web framework can be a bit scary.
+Luckily, Scalatra is easy to install, as it has relatively few dependencies.</p>
+
+<p>It can run on Windows, Mac OS X, Linux, or BSD.</p>
+
+<hr />
+
+<h2 id="1-install-a-jdk">1. Install a JDK</h2>
+
+<p>Scalatra is web micro-framework written in Scala, so you&rsquo;ll need to have a
+Java Development Kit (JDK) installed.</p>
+
+<p>Many systems come with a JDK pre-loaded.</p>
+
+<p>Run <code>java -version</code> and <code>javac -version</code> in a terminal to find if yours
+does. The output should look something like this:</p>
+
+<pre><code class="language-bash">$ java -version
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre>
+
+<pre><code class="language-bash">$ javac -version
+javac 1.8.0_131
+</code></pre>
+
+<p>You need Java 8 (Oracle&rsquo;s JDK or OpenJDK), which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.</p>
+
+<p>If you don&rsquo;t yet have Java installed, you can find out how to install it for your system over at
+<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">the Oracle&rsquo;s Java 8 download page</a>
+or <a href="http://openjdk.java.net/install/index.html">the OpenJDK installation page</a>.</p>
+
+<h2 id="2-install-sbt">2. Install sbt</h2>
+
+<p>Once you&rsquo;re sure you&rsquo;ve got Java installed, you will need to install the <em>sbt</em>.</p>
+
+<p><a href="http://www.scala-sbt.org">sbt</a> is a build tool for Scala, Java, and more.
+It can create a new project from the template repository.</p>
+
+<p>In order to create a new project of Scalatra from the template, <em>sbt 0.13.13</em> or later needs to be installed.
+To install sbt, refer to <a href="http://www.scala-sbt.org/0.13/docs/Setup.html">the setup page of sbt</a>.</p>
+
+<p>For example, if it is macOS, you can install it by brew command as follows.</p>
+
+<pre><code class="language-Bash">$ brew install sbt
+$ sbt
+...
+...
+&gt; sbtVersion
+[info] 0.13.15
+</code></pre>
+
+<hr />
+
+<p>With installation out of the way, head over to the &ldquo;<a href="first-project.html">first project</a>&ldquo;
+page, which will show you how to generate, build, and run a Scalatra application.</p>
+
+				</section>
+			</article>
+		</main>
+	</div> 
+    
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+
