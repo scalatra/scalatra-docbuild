@@ -2936,7 +2936,8 @@ and define a &lt;code&gt;receive&lt;/code&gt; method, which listens for events.&
 
 &lt;p&gt;One AtmosphereClient is instantiated per connected user. It&amp;rsquo;s worth
 taking a look at the
-&lt;a href=&#34;http://scalatra.org/2.7/api/#org.scalatra.atmosphere.AtmosphereClient&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
+&lt;a href=&#34;https://javadoc.io/doc/org.scalatra/scalatra-unidoc_2.12/latest/org/scalatra/atmosphere/AtmosphereClient$.html&#34;&gt;ScalaDocs&lt;/a&gt;
+and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
 
 &lt;p&gt;As you can see, there are quite a few kinds of events which Scalatra&amp;rsquo;s
 atmosphere integration can deal with:&lt;/p&gt;

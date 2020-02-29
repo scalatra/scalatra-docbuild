@@ -70,43 +70,47 @@
 <p>There are multiple Scala clients for MongoDb, and they come with varying levels of complexity. Here are some of them, as listed in MongoDb&rsquo;s <a href="http://docs.mongodb.org/ecosystem/drivers/scala/">Scala Language Center</a>.</p>
 
 <ul>
-<li><a href="http://mongodb.github.io/casbah/index.html">Casbah</a></li>
+<li><a href="https://mongodb.github.io/mongo-scala-driver/">MongoDB Scala Driver</a></li>
 <li><a href="https://www.assembla.com/wiki/show/liftweb/MongoDB">Lift-mongodb</a></li>
-<li><a href="https://github.com/foursquare/rogue">Rogue</a></li>
-<li><a href="https://github.com/novus/salat">Salat</a></li>
+<li><a href="https://github.com/foursquare/fsqio/tree/master/src/jvm/io/fsq/rogue">Rogue</a></li>
+<li><a href="https://github.com/salat/salat">Salat</a></li>
 </ul>
 
-<h2 id="getting-going-with-casbah">Getting going with Casbah</h2>
+<h2 id="getting-going-with-mongodb-scala-driver">Getting going with MongoDB Scala Driver</h2>
 
 <p>MongoDb requires very little setup. Assuming you&rsquo;ve got Mongo installed already, getting it working with Scalatra is as follows.</p>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
   See
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.7/persistence/scalatra-casbah-example">scalatra-casbah-example</a>
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/2.7/persistence/scalatra-mongo">scalatra-mongo</a>
   for a minimal and standalone project containing the example in this guide.
 </div>
 
-<p>We&rsquo;ll use the officially-supported Casbah library, but any of the others should work in basically the same way.</p>
+<p>We&rsquo;ll use the officially-supported MongoDB Scala Driver library, but any of the others should work in basically the same way.</p>
 
 <h3 id="dependencies">Dependencies</h3>
 
-<p>To make the following example codes work, add the following dependencies to your
+<p>To make the following example code work, add the following dependencies to your
 <code>build.sbt</code>:</p>
 
-<pre><code>&quot;org.mongodb&quot; %% &quot;casbah&quot; % &quot;3.1.1&quot;,
-&quot;org.json4s&quot; %% &quot;json4s-jackson&quot; % &quot;3.5.2&quot;,
-&quot;org.json4s&quot; %% &quot;json4s-mongo&quot; % &quot;3.5.2&quot;,
+<pre><code class="language-sbt">libraryDependencies ++= Seq(
+  &quot;org.mongodb.scala&quot; %% &quot;mongo-scala-driver&quot; % &quot;2.8.0&quot;,
+  &quot;org.mongodb.scala&quot; %% &quot;mongo-scala-bson&quot; % &quot;2.8.0&quot;,
+  &quot;org.mongodb&quot; % &quot;bson&quot; % &quot;3.12.0&quot;,
+  &quot;org.mongodb&quot; % &quot;mongodb-driver-core&quot; % &quot;3.12.0&quot;,
+  &quot;org.mongodb&quot; % &quot;mongodb-driver-async&quot; % &quot;3.12.0&quot;
+)
 </code></pre>
 
 <h3 id="setup-in-scalatrabootstrap">Setup in ScalatraBootstrap</h3>
 
 <p>First, make sure you start a connection to MongoDb when your application initializes. You do this by putting a bit of code in your <code>init</code> method in <code>src/main/scala/ScalatraBootstrap</code>:</p>
 
-<pre><code class="language-scala">import com.mongodb.casbah.Imports._
-import org.scalatra.example._
-import org.scalatra._
+<pre><code class="language-scala">import org.scalatra._
 import javax.servlet.ServletContext
+import org.mongodb.scala.MongoClient
+import org.scalatra.example.MongoController
 
 class ScalatraBootstrap extends LifeCycle {
   override def init(context: ServletContext) {
@@ -115,7 +119,7 @@ class ScalatraBootstrap extends LifeCycle {
      // We're connecting with default settings - localhost on port 27017 -
      // by calling MongoClient() with no arguments.
     val mongoClient =  MongoClient()
-    val mongoColl = mongoClient(&quot;casbah_test&quot;)(&quot;test_data&quot;)
+    val mongoColl = mongoClient.getDatabase(&quot;mydb&quot;).getCollection(&quot;test_data&quot;)
 
     // pass a reference to the Mongo collection into your servlet when you mount it at application start:
     context.mount(new MongoController(mongoColl), &quot;/*&quot;)
@@ -133,7 +137,7 @@ import org.scalatra._
 // MongoDb-specific imports
 import com.mongodb.casbah.Imports._
 
-class MongoController(mongoColl: MongoCollection) extends ScalatraCasbahExampleStack {
+class MongoController(mongoColl: MongoCollection) extends ScalatraMongoExample {
 
   /**
    * Insert a new object into the database. You can use the following from your console to try it out:
@@ -142,16 +146,15 @@ class MongoController(mongoColl: MongoCollection) extends ScalatraCasbahExampleS
   post(&quot;/insert&quot;) {
     val key = params(&quot;key&quot;)
     val value = params(&quot;value&quot;)
-    val newObj = MongoDBObject(key -&gt; value)
-    mongoColl += newObj
+    val newObj = Document(key -&gt; value)
+    collection.insertOne(newObj).results()
   }
 
   /**
    * Retrieve everything in the MongoDb collection we're currently using.
    */
   get(&quot;/&quot;) {
-    mongoColl.find()
-    for { x &lt;- mongoColl} yield x
+    collection.find().results().map(doc =&gt; doc.toJson)
   }
 
   /**
@@ -159,14 +162,14 @@ class MongoController(mongoColl: MongoCollection) extends ScalatraCasbahExampleS
    * try http://localhost:8080/query/super/duper in your browser.
    */
   get(&quot;/query/:key/:value&quot;) {
-    val q = MongoDBObject(params(&quot;key&quot;) -&gt; params(&quot;value&quot;))
-    for ( x &lt;- mongoColl.findOne(q) ) yield x
+    val q = Document(params(&quot;key&quot;) -&gt; params(&quot;value&quot;))
+    collection.find(q).first().headResult().toJson()
   }
 
 }
 </code></pre>
 
-<p>Once you&rsquo;ve got the <code>MongoCollection</code> available inside your controller, you can use Mongo and Scalatra together seamlessly. If you would like to learn more about Casbah, proceed to the <a href="http://mongodb.github.io/casbah/tutorial.html">Casbah Tutorial</a>.</p>
+<p>Once you&rsquo;ve got the <code>MongoCollection</code> available inside your controller, you can use Mongo and Scalatra together seamlessly. If you would like to learn more about Casbah, proceed to the <a href="https://mongodb.github.io/mongo-scala-driver/2.8/getting-started/">MongoDB Scala Driver Tutorial</a>.</p>
 
 <p>Alternately, you can apply the same basic techniques in order to get started with any of the Scala MongoDb libraries. Each library has its strengths and weaknesses, and the choice of which one to use will come down largely to your programming style.</p>
 
