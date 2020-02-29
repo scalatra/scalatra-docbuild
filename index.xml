@@ -28,46 +28,46 @@
 &lt;li&gt;Scala 2.13 support&lt;/li&gt;
 &lt;li&gt;Update dependent libraries&lt;/li&gt;
 &lt;li&gt;#748 Drop scalatra-spring and scalatra-commands and all deprecated code in Scalatra 2.6&lt;/li&gt;
-&lt;li&gt;#839 Removed dependency on mime-util&lt;/li&gt;
 &lt;li&gt;#950 Use xenial and openjdk on TravisCI&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-core&#34;&gt;scalatra-core&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-core&#34;&gt;Scalatra Core&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#812 Throw original IOException from HttpServeltRequest&lt;/li&gt;
+&lt;li&gt;#839 Removed dependency on mime-util&lt;/li&gt;
 &lt;li&gt;#865 UriDecoder: Don&amp;rsquo;t create set everytime&lt;/li&gt;
 &lt;li&gt;#879 Deprecated RicherString#isBlank&lt;/li&gt;
 &lt;li&gt;#983 Excluded &amp;lsquo;#&amp;rsquo; and &amp;lsquo;&amp;amp;&amp;rsquo; from path separator&lt;/li&gt;
 &lt;li&gt;Remove Map inheritance from some core classes&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-twirl&#34;&gt;scalatra-twirl&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-twirl&#34;&gt;Scalatra Twirl&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#767 Twirl specific view helpers for scalatra-forms&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-scalate&#34;&gt;scalatra-scalate&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-scalate&#34;&gt;Scalatra Scalate&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#766 Scalate specific view helpers for scalatra-forms&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-forms&#34;&gt;scalatra-forms&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-forms&#34;&gt;Scalatra Forms&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#856 Update return type of the form validation from Any to generic type&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-json&#34;&gt;scalatra-json&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-json&#34;&gt;Scalatra Json&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#826 deprecate JsonValueReader&lt;/li&gt;
 &lt;li&gt;#827 deterred the premature JSON parse&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-swagger&#34;&gt;scalatra-swagger&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-swagger&#34;&gt;Scalatra Swagger&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#748 Merge scalatra-swagger-ext with scalatra-swagger&lt;/li&gt;
@@ -80,13 +80,13 @@
 &lt;li&gt;#980 Add a default HTTP 200 response ONLY if there&amp;rsquo;s no other 2xx responses&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-cache&#34;&gt;scalatra-cache&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-cache&#34;&gt;Scalatra Cache&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#748 Merge scalatra-cache-guava into scalatra-cache&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;scalatra-test&#34;&gt;scalatra-test&lt;/h3&gt;
+&lt;h3 id=&#34;scalatra-test&#34;&gt;Scalatra Test&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;#837 Fix hard coded resource base path&lt;/li&gt;
