@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>GitBucket, a large FOSS codebase in Scalatra - Scalatra</title>
+		<title>Scalatra 2.7.0 is out - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,31 +61,114 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-    <span class="doc-entry-meta in-list"><time datetime="2013-09-16">September 16, 2013</time></span>
-		<h1 class="doc-entry-title">GitBucket, a large FOSS codebase in Scalatra</h1>
+    <span class="doc-entry-meta in-list"><time datetime="2020-03-01">March 01, 2020</time></span>
+		<h1 class="doc-entry-title">Scalatra 2.7.0 is out</h1>
 		<section>
-		  <p>Congratulations are in order to the
-<a href="https://github.com/takezoe/gitbucket/graphs/contributors">authors</a> of
-<a href="https://github.com/takezoe/gitbucket">GitBucket</a>, a free software clone of
-<a href="https://github.com">GitHub</a>.</p>
+		  <p>More than 2 years since we planned, the Scalatra team is now pleased to announce the release of version 2.7.0 of the framework which officially supports Scala 2.13!</p>
 
 <p></p>
 
-<p>GitBucket uses Scalatra, the <a href="http://slick.typesafe.com/">Slick</a> database
-query and access library and the pure-Java
-<a href="https://github.com/eclipse/jgit">JGit</a> implementation of git to provide the
-most easily-installable open-source GitHub that it&rsquo;s possible to imagine.
-Download Apache Tomcat, drop the GitBucket war file into it, and you&rsquo;ll have
-your own privately-hosted GitHub clone in about 5 minutes.</p>
+<p>Here&rsquo;s the list of major changes for version 2.7.0:</p>
 
-<p>The recent GitBucket
-<a href="https://groups.google.com/forum/#!topic/scalatra-user/OiX0WLyoVVg">v1.5 release</a>
-brings repo forks, pull requests, LDAP authentication, a branch viewer, and
-bug fixes to the code base.</p>
+<h3 id="overall">Overall</h3>
 
-<p>GitBucket is a great example of a reasonably large FOSS codebase that you can
-peruse if you&rsquo;re interested in seeing how things are done for a full-stack
-Scalatra web application.</p>
+<ul>
+<li>Scala 2.13 support</li>
+<li>Update dependent libraries</li>
+<li>#748 Drop scalatra-spring and scalatra-commands and all deprecated code in Scalatra 2.6</li>
+<li>#839 Removed dependency on mime-util</li>
+<li>#950 Use xenial and openjdk on TravisCI</li>
+</ul>
+
+<h3 id="scalatra-core">scalatra-core</h3>
+
+<ul>
+<li>#812 Throw original IOException from HttpServeltRequest</li>
+<li>#865 UriDecoder: Don&rsquo;t create set everytime</li>
+<li>#879 Deprecated RicherString#isBlank</li>
+<li>#983 Excluded &lsquo;#&rsquo; and &lsquo;&amp;&rsquo; from path separator</li>
+<li>Remove Map inheritance from some core classes</li>
+</ul>
+
+<h3 id="scalatra-twirl">scalatra-twirl</h3>
+
+<ul>
+<li>#767 Twirl specific view helpers for scalatra-forms</li>
+</ul>
+
+<h3 id="scalatra-scalate">scalatra-scalate</h3>
+
+<ul>
+<li>#766 Scalate specific view helpers for scalatra-forms</li>
+</ul>
+
+<h3 id="scalatra-forms">scalatra-forms</h3>
+
+<ul>
+<li>#856 Update return type of the form validation from Any to generic type</li>
+</ul>
+
+<h3 id="scalatra-json">scalatra-json</h3>
+
+<ul>
+<li>#826 deprecate JsonValueReader</li>
+<li>#827 deterred the premature JSON parse</li>
+</ul>
+
+<h3 id="scalatra-swagger">scalatra-swagger</h3>
+
+<ul>
+<li>#748 Merge scalatra-swagger-ext with scalatra-swagger</li>
+<li>#748 Drop Swagger 1.x support</li>
+<li>#814 retain order of paths in swagger 2.0</li>
+<li>#870 Drop joda-time dependency</li>
+<li>#897 Drop SwaggerAuth</li>
+<li>#945 Added extra fields to Swagger 2.0 parameters</li>
+<li>#974 Support basic auth for Swagger rendering</li>
+<li>#980 Add a default HTTP 200 response ONLY if there&rsquo;s no other 2xx responses</li>
+</ul>
+
+<h3 id="scalatra-cache">scalatra-cache</h3>
+
+<ul>
+<li>#748 Merge scalatra-cache-guava into scalatra-cache</li>
+</ul>
+
+<h3 id="scalatra-test">scalatra-test</h3>
+
+<ul>
+<li>#837 Fix hard coded resource base path</li>
+</ul>
+
+<p>Thanks to all committers and contributors!</p>
+
+<ul>
+<li>Alexis Côté</li>
+<li>AndersonChoi</li>
+<li>Andrei Harbunou</li>
+<li>Eugene Krotov</li>
+<li>Horia Constantin</li>
+<li>Jim Riordan</li>
+<li>Kazuhiro Sera</li>
+<li>Magnolia.K</li>
+<li>Martin Laporte</li>
+<li>Naoki Takezoe</li>
+<li>Nick Green</li>
+<li>Philippe Vinchon</li>
+<li>Shani Elharrar</li>
+<li>Taras Iagniuk</li>
+<li>Toshiya MORI</li>
+<li>YoshinoriN</li>
+<li>john-roj</li>
+<li>kenji yoshida</li>
+<li>magnolia</li>
+<li>megaminx</li>
+<li>seraphr</li>
+<li>shimamoto</li>
+<li>sivapalan</li>
+<li>wlingxiao</li>
+<li>xuwei-k</li>
+</ul>
 		</section>
 	  </article>
 	</main>

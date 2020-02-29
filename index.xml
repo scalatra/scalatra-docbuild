@@ -7,8 +7,121 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Fri, 15 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.7.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2020/03/01/2020-03-01-scalatra-2-7-0-released.html</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2020/03/01/2020-03-01-scalatra-2-7-0-released.html</guid>
+      <description>&lt;p&gt;More than 2 years since we planned, the Scalatra team is now pleased to announce the release of version 2.7.0 of the framework which officially supports Scala 2.13!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the list of major changes for version 2.7.0:&lt;/p&gt;
+
+&lt;h3 id=&#34;overall&#34;&gt;Overall&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Scala 2.13 support&lt;/li&gt;
+&lt;li&gt;Update dependent libraries&lt;/li&gt;
+&lt;li&gt;#748 Drop scalatra-spring and scalatra-commands and all deprecated code in Scalatra 2.6&lt;/li&gt;
+&lt;li&gt;#839 Removed dependency on mime-util&lt;/li&gt;
+&lt;li&gt;#950 Use xenial and openjdk on TravisCI&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-core&#34;&gt;scalatra-core&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#812 Throw original IOException from HttpServeltRequest&lt;/li&gt;
+&lt;li&gt;#865 UriDecoder: Don&amp;rsquo;t create set everytime&lt;/li&gt;
+&lt;li&gt;#879 Deprecated RicherString#isBlank&lt;/li&gt;
+&lt;li&gt;#983 Excluded &amp;lsquo;#&amp;rsquo; and &amp;lsquo;&amp;amp;&amp;rsquo; from path separator&lt;/li&gt;
+&lt;li&gt;Remove Map inheritance from some core classes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-twirl&#34;&gt;scalatra-twirl&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#767 Twirl specific view helpers for scalatra-forms&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-scalate&#34;&gt;scalatra-scalate&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#766 Scalate specific view helpers for scalatra-forms&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-forms&#34;&gt;scalatra-forms&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#856 Update return type of the form validation from Any to generic type&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-json&#34;&gt;scalatra-json&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#826 deprecate JsonValueReader&lt;/li&gt;
+&lt;li&gt;#827 deterred the premature JSON parse&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-swagger&#34;&gt;scalatra-swagger&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#748 Merge scalatra-swagger-ext with scalatra-swagger&lt;/li&gt;
+&lt;li&gt;#748 Drop Swagger 1.x support&lt;/li&gt;
+&lt;li&gt;#814 retain order of paths in swagger 2.0&lt;/li&gt;
+&lt;li&gt;#870 Drop joda-time dependency&lt;/li&gt;
+&lt;li&gt;#897 Drop SwaggerAuth&lt;/li&gt;
+&lt;li&gt;#945 Added extra fields to Swagger 2.0 parameters&lt;/li&gt;
+&lt;li&gt;#974 Support basic auth for Swagger rendering&lt;/li&gt;
+&lt;li&gt;#980 Add a default HTTP 200 response ONLY if there&amp;rsquo;s no other 2xx responses&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-cache&#34;&gt;scalatra-cache&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#748 Merge scalatra-cache-guava into scalatra-cache&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;scalatra-test&#34;&gt;scalatra-test&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#837 Fix hard coded resource base path&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks to all committers and contributors!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Alexis Côté&lt;/li&gt;
+&lt;li&gt;AndersonChoi&lt;/li&gt;
+&lt;li&gt;Andrei Harbunou&lt;/li&gt;
+&lt;li&gt;Eugene Krotov&lt;/li&gt;
+&lt;li&gt;Horia Constantin&lt;/li&gt;
+&lt;li&gt;Jim Riordan&lt;/li&gt;
+&lt;li&gt;Kazuhiro Sera&lt;/li&gt;
+&lt;li&gt;Magnolia.K&lt;/li&gt;
+&lt;li&gt;Martin Laporte&lt;/li&gt;
+&lt;li&gt;Naoki Takezoe&lt;/li&gt;
+&lt;li&gt;Nick Green&lt;/li&gt;
+&lt;li&gt;Philippe Vinchon&lt;/li&gt;
+&lt;li&gt;Shani Elharrar&lt;/li&gt;
+&lt;li&gt;Taras Iagniuk&lt;/li&gt;
+&lt;li&gt;Toshiya MORI&lt;/li&gt;
+&lt;li&gt;YoshinoriN&lt;/li&gt;
+&lt;li&gt;john-roj&lt;/li&gt;
+&lt;li&gt;kenji yoshida&lt;/li&gt;
+&lt;li&gt;magnolia&lt;/li&gt;
+&lt;li&gt;megaminx&lt;/li&gt;
+&lt;li&gt;seraphr&lt;/li&gt;
+&lt;li&gt;shimamoto&lt;/li&gt;
+&lt;li&gt;sivapalan&lt;/li&gt;
+&lt;li&gt;wlingxiao&lt;/li&gt;
+&lt;li&gt;xuwei-k&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.6.5 is out</title>
@@ -871,45 +984,6 @@ are very welcome.&lt;/p&gt;</description>
 &lt;blockquote&gt;For readers who don&#39;t already know Scala, the book introduces the basic tools in any successful Scala developer&#39;s toolbox: the Scala language and SBT, and the Simple Build Tool. The book also shows you how to test and deploy your Scalatra applications.&lt;/blockquote&gt;
 
 &lt;p&gt;Several chapters of &lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt; are now available through the Manning Early Access Program (MEAP) as an e-book, with the full paper publication slated for March/April.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scala 2.10 support</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scala-2.10-support.html</link>
-      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2012-12-19-scala-2.10-support.html</guid>
-      <description>&lt;p&gt;For any early adopters of Scala 2.10, a port of Scalatra to Scala 2.10
-is available in snapshot form.  To try it,&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;1) Bump your Scala version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;scalaVersion := &amp;quot;2.10.0-RC5&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2) Add the resolver&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resolvers += &amp;quot;Sonatype OSS Snapshots&amp;quot; at &amp;quot;https://oss.sonatype.org/content/repositories/snapshots&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;3) Use the sbt cross-build convention (adds the _2.10 suffix to the
-artifact ID):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % &amp;quot;2.2.0-SNAPSHOT&amp;quot; cross CrossVersion.binary,
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This port contains minimal changes from the master branch to make it
-work on the new version of Scala. It is intended as a drop-in
-replacement to ease your eventual upgrade to Scala 2.10. Future
-versions of Scalatra will utilize Scala 2.10&amp;rsquo;s new features, but the
-primary goal for this release is compatibility.&lt;/p&gt;
-
-&lt;p&gt;There is no RC because some of our dependencies have not been formally
-released for Scala 2.10.  We hope to have a tagged build against Scala
-2.10.0-final soon after it is released, currently expected December
-26.&lt;/p&gt;</description>
     </item>
     
   </channel>
