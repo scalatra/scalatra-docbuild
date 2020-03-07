@@ -269,7 +269,7 @@ controller to our application. Drop this code into a new file next to your
 <pre><code class="language-scala">package org.scalatra.example.swagger
 
 import org.scalatra.ScalatraServlet
-import org.scalatra.swagger.{ApiInfo, NativeSwaggerBase, Swagger}
+import org.scalatra.swagger.{ApiInfo, ContactInfo, LicenseInfo, NativeSwaggerBase, Swagger}
 
 
 class ResourcesApp(implicit val swagger: Swagger) extends ScalatraServlet with NativeSwaggerBase
@@ -278,9 +278,15 @@ object FlowersApiInfo extends ApiInfo(
     &quot;The Flowershop API&quot;,
     &quot;Docs for the Flowers API&quot;,
     &quot;http://scalatra.org&quot;,
-    &quot;apiteam@scalatra.org&quot;,
-    &quot;MIT&quot;,
-    &quot;http://opensource.org/licenses/MIT&quot;)
+    ContactInfo(
+      &quot;Scalatra API Team&quot;,
+      &quot;http://scalatra.org&quot;,
+      &quot;apiteam@scalatra.org&quot;
+    ),
+    LicenseInfo(
+      &quot;MIT&quot;,
+      &quot;http://opensource.org/licenses/MIT&quot;
+    ))
 
 class FlowersSwagger extends Swagger(Swagger.SpecVersion, &quot;1.0.0&quot;, FlowersApiInfo)
 </code></pre>
