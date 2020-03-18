@@ -204,28 +204,15 @@ environment:</p>
   context mount (new ArticlesServlet, &quot;/articles/*&quot;)
 
   // Let's set the environment
-  context.initParameters(&quot;org.scalatra.environment&quot;) = &quot;production&quot;
+  context.setInitParameter(&quot;org.scalatra.environment&quot;, &quot;production&quot;)
 
 }
 </code></pre>
 
-<p>Each init param can be set in one of two ways.</p>
-
-<p>The first form looks like this:</p>
-
-<p><code>context.setInitParameter(org.scalatra.EnvironmentKey, &quot;production&quot;)</code></p>
-
-<p>The second form has a bit of syntactic sugar on it, so it looks a little
-less Java:</p>
-
-<p><code>context.initParameters(&quot;org.scalatra.environment&quot;) = &quot;production&quot;</code></p>
-
-<p>The two forms are equivalent.</p>
-
 <h5 id="environment-init-param">Environment init param</h5>
 
 <p><code>context.setInitParameter(org.scalatra.EnvironmentKey, &quot;production&quot;)</code> or
-<code>context.initParameters(&quot;org.scalatra.environment&quot;) = &quot;production&quot;</code></p>
+<code>context.setInitParameter(&quot;org.scalatra.environment&quot;, &quot;production&quot;)</code></p>
 
 <p>This init param sets the application environment.</p>
 
@@ -248,13 +235,13 @@ route matches.</li>
 <h5 id="container-init-params">Container init params</h5>
 
 <p><code>context.setInitParameter(ScalatraBase.HostNameKey, &quot;myapp.local&quot;)</code> or
-<code>context.initParameters(&quot;org.scalatra.HostName&quot;) = &quot;myapp.local&quot;</code></p>
+<code>context.setInitParameter(&quot;org.scalatra.HostName&quot;, &quot;myapp.local&quot;)</code></p>
 
-<p><code>context.setInitParameter(ScalatraBase.PortKey, 443)</code> or
-<code>context.initParameters(&quot;org.scalatra.Port&quot;) = 443</code></p>
+<p><code>context.setInitParameter(ScalatraBase.PortKey, &quot;443&quot;)</code> or
+<code>context.setInitParameter(&quot;org.scalatra.Port&quot;, &quot;443&quot;)</code></p>
 
 <p><code>context.setInitParameter(ScalatraBase.ForceHttpsKey, &quot;true&quot;)</code> or
-<code>context.initParameters(&quot;org.scalatra.ForceHttps&quot;) = &quot;true&quot;</code></p>
+<code>context.setInitParameter(&quot;org.scalatra.ForceHttps&quot;, &quot;true&quot;)</code></p>
 
 <p>By default, the values for hostname, port, and SSL settings are inherited from
 the servlet container&rsquo;s settings. You can set these init params if you want to
@@ -276,12 +263,11 @@ if you&rsquo;d like to see the alternate form.</p>
 <code>context.setInitParameter(CorsSupport.AllowedMethodsKey, &quot;GET,PUT&quot;)</code>
 <code>context.setInitParameter(CorsSupport.AllowedHeadersKey, &quot;Content-Type&quot;)</code>
 <code>context.setInitParameter(CorsSupport.AllowCredentialsKey, &quot;true&quot;)</code>
-<code>context.setInitParameter(CorsSupport.PreflightMaxAgeKey, 1800)</code></p>
+<code>context.setInitParameter(CorsSupport.PreflightMaxAgeKey, &quot;1800&quot;)</code></p>
 
 <h5 id="async-init-params">Async init params</h5>
 
-<p><code>context.setAttribute(AsyncSupport.ExecutionContextKey, executionContext)</code> or
-<code>context.initParameters(&quot;org.scalatra.ExecutionContext&quot;) = executionContext</code></p>
+<p><code>context.setAttribute(AsyncSupport.ExecutionContextKey, executionContext)</code></p>
 
 <p>This key sets the <code>ExecutionContext</code> which Scalatra should use when creating an
 Akka <code>Future</code>.</p>

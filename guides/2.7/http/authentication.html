@@ -101,7 +101,7 @@ strategies are exhausted.</p>
 <code>ScalatraBootstrap</code> or your application&rsquo;s <code>web.xml</code> file, using
 <code>scentry.strategies</code> as the key and the class name of your strategy as a value:</p>
 
-<p><code>context.initParameters(&quot;scentry.strategies&quot;) = &quot;UserPasswordStrategy&quot;</code></p>
+<p><code>context.setInitParameter(&quot;scentry.strategies&quot;, &quot;UserPasswordStrategy&quot;)</code></p>
 
 <p>To write a Scentry Strategy, you&rsquo;ll need to implement the methods in
 <a href="https://github.com/scalatra/scalatra/blob/develop/auth/src/main/scala/org/scalatra/auth/ScentryStrategy.scala">ScentryStrategy</a>.</p>
