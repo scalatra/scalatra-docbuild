@@ -3,6 +3,12 @@
 set -ev
 
 
+echo "Config"
+
+git config --global user.name "Travis CI"
+git config --global user.email "ci@scalatra.org"
+
+
 ls -al
 # total 5428
 # drwxrwxr-x  6 travis travis    4096 Mar 26 13:49 .
@@ -92,7 +98,7 @@ ls -al
 ls -al apidocs
 git add --all .
 git commit -m "Built gh-pages"
-#git push origin gh-pages
+git push origin gh-pages
 
 
 echo "Done"

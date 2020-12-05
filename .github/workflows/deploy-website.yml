@@ -35,7 +35,6 @@ jobs:
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
           sudo dpkg -i hugo_0.19-64bit.deb
-      - name: script
-        env:
-          ENCRYPTION_LABEL: af05534c7e9c
+      - name: Run script
         run: ./hello.sh
+
