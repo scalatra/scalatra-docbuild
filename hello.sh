@@ -3,8 +3,6 @@
 set -ev
 
 
-echo "Config"
-
 ls -al
 # total 5428
 # drwxrwxr-x  6 travis travis    4096 Mar 26 13:49 .

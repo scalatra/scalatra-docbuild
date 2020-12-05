@@ -10,14 +10,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: scalatra/scalatra-website
+          path: scalatra-website
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: scalatra/scalatra
+          path: scalatra
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: scalatra/scalatra-docbuild
+          path: scalatra-docbuild
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11     
       - name: before_install
         run: |
-          git clone https://github.com/scalatra/scalatra-website.git
-          git clone https://github.com/scalatra/scalatra.git
           wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
           sudo dpkg -i hugo_0.19-64bit.deb
       - name: script
