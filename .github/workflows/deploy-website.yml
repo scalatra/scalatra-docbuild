@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy_website:
-    run_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
         uses: actions/setup-java@v1
@@ -18,8 +18,6 @@ jobs:
           git clone https://github.com/scalatra/scalatra.git
           wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
           sudo dpkg -i hugo_0.19-64bit.deb
-      - name: before_script
-        run: sudo chmod +x /usr/local/bin/sbt
       - name: script
         env:
           ENCRYPTION_LABEL: af05534c7e9c
