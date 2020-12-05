@@ -5,23 +5,6 @@ set -ev
 
 echo "Config"
 
-# Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
-# https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
-ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
-ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in deploy_key.enc -out deploy_key -d
-chmod 600 deploy_key
-eval `ssh-agent -s`
-ssh-add deploy_key
-
-git config --global user.name "Travis CI"
-git config --global user.email "ci@scalatra.org"
-
-git clone git@github.com:scalatra/scalatra-docbuild.git
-
-
 ls -al
 # total 5428
 # drwxrwxr-x  6 travis travis    4096 Mar 26 13:49 .
@@ -111,7 +94,7 @@ ls -al
 ls -al apidocs
 git add --all .
 git commit -m "Built gh-pages"
-git push origin gh-pages
+#git push origin gh-pages
 
 
 echo "Done"
