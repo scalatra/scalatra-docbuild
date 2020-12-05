@@ -1,6 +1,8 @@
 name: Deploy website
 
-on: by_hand
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   deploy_website:
