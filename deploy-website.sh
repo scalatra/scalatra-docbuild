@@ -5,7 +5,7 @@ set -ev
 
 echo "Config"
 
-git config --global user.name "Travis CI"
+git config --global user.name "GitHub Actions"
 git config --global user.email "ci@scalatra.org"
 
 
@@ -51,43 +51,6 @@ ls -al
 ls -al gh-pages
 
 rsync -av gh-pages/* ../scalatra-docbuild
-
-cd ..
-
-
-# Build scalatra apidocs v2.5.x
-cd scalatra
-
-git checkout origin/2.5.x
-sbt unidoc
-
-mkdir -p ../scalatra-docbuild/apidocs/2.5
-rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.5
-
-cd ..
-
-
-# Build scalatra apidocs v2.4.x
-cd scalatra
-
-git checkout origin/2.4.x
-sbt unidoc
-
-mkdir -p ../scalatra-docbuild/apidocs/2.4
-rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.4
-
-cd ..
-
-
-
-# Build scalatra apidocs v2.3.x
-cd scalatra
-
-git checkout origin/2.3.x
-sbt unidoc
-
-mkdir -p ../scalatra-docbuild/apidocs/2.3
-rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.3
 
 cd ..
 

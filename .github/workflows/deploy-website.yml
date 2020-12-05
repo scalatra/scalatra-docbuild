@@ -36,5 +36,5 @@ jobs:
           wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
           sudo dpkg -i hugo_0.19-64bit.deb
       - name: Run script
-        run: ./hello.sh
+        run: ./deploy-website.sh
 
