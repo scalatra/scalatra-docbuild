@@ -3,6 +3,8 @@ name: Deploy website
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
+    branches: [ master ]
 
 jobs:
   deploy_website:
