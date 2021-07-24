@@ -2838,6 +2838,14 @@ directory. It depends on the &lt;a href=&#34;https://github.com/sbt/sbt-native-p
       <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.7/async/atmosphere.html</guid>
       <description>
 
+&lt;p&gt;Note: **Atmosphere is too complex for the purpose of simply supporting WebSockets, and it is slow to keep up with recent updates to Servlet Container (e.g. Jetty).&lt;/p&gt;
+
+&lt;p&gt;Continued support for Atmosphere in Scalatra will be a stumbling block for updates to Scalatra.&lt;/p&gt;
+
+&lt;p&gt;Therefore, Atmosphere will no longer be supported in future versions.&lt;/p&gt;
+
+&lt;p&gt;It has not yet been determined whether another WebSocket support will be introduced in Scalatra, but the above points should be taken into account when deciding whether to implement WebSockets in Scalatra.**&lt;/p&gt;
+
 &lt;p&gt;Scalatra has a built-in integration with
 &lt;a href=&#34;https://github.com/Atmosphere/atmosphere&#34;&gt;Atmosphere&lt;/a&gt;, the asynchronous
 websocket/comet framework. Atmosphere allows you to keep a persistent

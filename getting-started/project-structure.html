@@ -108,7 +108,7 @@ layouts (which wrap views) go in the layouts folder.</p>
 
 <p>The Scalatra template project puts your Scala application code into a series of
 namespaced directories: in the example above, <code>org.yourdomain.projectname</code>.
-This is entirely optional. The <a href="http://docs.scala-lang.org/style/">Scala style guide</a>
+This is entirely optional. The <a href="https://docs.scala-lang.org/style/">Scala style guide</a>
 suggests doing it this way, but the language doesn&rsquo;t do anything to enforce it.
 If you want to, you can put all of your Scala code in the same directory for easier
 navigation.</p>
@@ -184,14 +184,14 @@ dedicated web server</li>
 
 <h2 id="scalatra-s-sbt-dependencies">Scalatra&rsquo;s sbt dependencies</h2>
 
-<p>Scalatra uses <a href="http://www.scala-sbt.org/">sbt</a>, or sbt, as a build system.</p>
+<p>Scalatra uses <a href="https://www.scala-sbt.org/">sbt</a>, or sbt, as a build system.</p>
 
 <p>The <code>build.sbt</code> file defines the libraries which your application will depend on,
 so that <code>sbt</code> can download them for you and build your Scalatra project.</p>
 
 <p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
 
-<pre><code class="language-scala">val ScalatraVersion = &quot;2.5.4&quot;
+<pre><code class="language-scala">val ScalatraVersion = &quot;2.7.0&quot;
 
 organization := &quot;com.example&quot;
 
@@ -199,7 +199,7 @@ name := &quot;My Scalatra Web App&quot;
 
 version := &quot;0.1.0-SNAPSHOT&quot;
 
-scalaVersion := &quot;2.12.3&quot;
+scalaVersion := &quot;2.13.4&quot;
 
 resolvers += Classpaths.typesafeReleases
 
@@ -207,12 +207,12 @@ libraryDependencies ++= Seq(
   &quot;org.scalatra&quot; %% &quot;scalatra&quot; % ScalatraVersion,
   &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % ScalatraVersion % &quot;test&quot;,
   &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot; % &quot;runtime&quot;,
-  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.2.19.v20160908&quot; % &quot;container&quot;,
+  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.4.6.v20170531&quot; % &quot;container&quot;,
   &quot;javax.servlet&quot; % &quot;javax.servlet-api&quot; % &quot;3.1.0&quot; % &quot;provided&quot;
 )
 
 enablePlugins(SbtTwirl)
-enablePlugins(ScalatraPlugin)
+enablePlugins(JettyPlugin)
 </code></pre>
 
 <div class="alert alert-info">
@@ -222,14 +222,8 @@ If you want to add any additional libraries to your project, add them to the
 Doing that and running <code>sbt</code> again will download the dependency jar
 libraries and make them available to your application.
 If you don't know what the dependency details are, you can find out on
-<a href="http://search.maven.org">http://search.maven.org</a>.
+<a href="https://search.maven.org">https://search.maven.org</a>.
 </div>
-
-<p>If you&rsquo;re using <a href="ide-support.html">IDE plugins</a> like
-<a href="https://github.com/typesafehub/sbteclipse">sbt-eclipse</a> or
-<a href="https://github.com/mpeltonen/sbt-idea">sbt-idea</a> to make sbt dependencies
-available to your IDE, make sure you re-run <code>sbt-eclipse</code> or <code>sbt-idea</code> from
-within sbt whenever you add or update a dependency in <code>project/build.scala</code>.</p>
 
 <p>The default dependencies are:</p>
 
@@ -256,7 +250,7 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
   <dd>
     This is the embedded servlet container used by the web plugin.
     Your application should be portable to any servlet container supporting at least
-    the 2.5 specification.
+    the 2.7 specification.
   </dd>
   <dt>javax.servlet</dt>
   <dd>
@@ -266,19 +260,6 @@ within sbt whenever you add or update a dependency in <code>project/build.scala<
     Your servlet container will provide this at deployment time.
   </dd>
 </dl>
-
-<p>The Scalatra components in your project should all have the same version number
-(2.5.4 in the above example).
-Although it&rsquo;s theoretically possible to mix and match differently-versioned components
-in your projects, it&rsquo;s not recommended, because we compile, test and release Scalatra
-dependencies together based on their version number.</p>
-
-<hr />
-
-<p>Now that you understand the basics of building Scalatra apps, we recommend you
-consider <a href="jrebel.html">using JRebel</a>, which will make your webapp restart much more
-quickly after a code change during development.
-You may also want to <a href="ide-support.html">set up your IDE</a>.</p>
 
 				</section>
 			</article>
