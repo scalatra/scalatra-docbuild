@@ -396,6 +396,83 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
     </item>
     
     <item>
+      <title>Actions</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.8/http/actions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.8/http/actions.html</guid>
+      <description>
+
+&lt;p&gt;As explained in the &lt;a href=&#34;routes.html&#34;&gt;routes guide&lt;/a&gt;, an action is the code that handles a route.&lt;/p&gt;
+
+&lt;p&gt;When an incoming request matches a route, that route&amp;rsquo;s action is executed.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  The
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.8/http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
+  is a good place to start if you need to see basic requests and response, cookies,
+  and dealing with form input.
+&lt;/div&gt;
+
+&lt;h2 id=&#34;default-behavior&#34;&gt;Default behavior&lt;/h2&gt;
+
+&lt;p&gt;Each route is followed by an action.  An Action may return any value, which
+is then rendered to the response according to the following rules.&lt;/p&gt;
+
+&lt;dl class=&#34;dl-horizontal&#34;&gt;
+  &lt;dt&gt;ActionResult&lt;/dt&gt;
+  &lt;dd&gt;Sets status, body and headers. After importing
+    &lt;code&gt;org.scalatra.ActionResult._ &lt;/code&gt;, you can return 200 OK, 404 Not Found
+    and other responses by referencing them by their descriptions. See the &lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt; code (below) for an example.
+  &lt;/dd&gt;
+&lt;/dl&gt;
+&lt;dl class=&#34;dl-horizontal&#34;&gt;
+  &lt;dt&gt;Array[Byte]&lt;/dt&gt;
+  &lt;dd&gt;If no content-type is set, it is set to &lt;code&gt;application/octet-stream&lt;/code&gt;.
+    The byte array is written to the response&#39;s output stream.&lt;/dd&gt;
+  &lt;dt&gt;NodeSeq&lt;/dt&gt;
+  &lt;dd&gt;If no content-type is set, it is set to &lt;code&gt;text/html&lt;/code&gt;.  The node
+    sequence is converted to a string and written to the response&#39;s writer.&lt;/dd&gt;
+  &lt;dt&gt;Unit&lt;/dt&gt;
+  &lt;dd&gt;This signifies that the action has rendered the entire response, and
+    no further action is taken.&lt;/dd&gt;
+  &lt;dt&gt;Any&lt;/dt&gt;
+  &lt;dd&gt; For any other value, if the content type is not set, it is set to
+    &lt;code&gt;text/plain&lt;/code&gt;.  The value is converted to a string and written to the
+    response&#39;s writer.&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;h2 id=&#34;custom-action-behavior&#34;&gt;Custom action behavior&lt;/h2&gt;
+
+&lt;p&gt;The behavior for the types in the above chart, or for types not in the chart at all,
+may be customized for these or other return types by overriding &lt;code&gt;renderResponse&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;badge badge-info&#34;&gt; &lt;i class=&#34;glyphicon glyphicon-bookmark&#34;&gt;&lt;/i&gt;ActionResult example&lt;/span&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;get(&amp;quot;/file/:id&amp;quot;) {
+  fileService.find(params(&amp;quot;id&amp;quot;)) match {
+    case Some(file) =&amp;gt; Ok(file)
+    case None       =&amp;gt; NotFound(&amp;quot;Sorry, the file could not be found&amp;quot;)
+   }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, ActionResult is being used conditionally to give back different
+response codes based on what&amp;rsquo;s happened in the action. If a &lt;code&gt;file&lt;/code&gt; is found
+by the hypothetical &lt;code&gt;fileService&lt;/code&gt;, the action returns &lt;code&gt;Ok(file)&lt;/code&gt;. This means
+that the response was successful, and there&amp;rsquo;s a response code of 200.&lt;/p&gt;
+
+&lt;p&gt;If the &lt;code&gt;fileService&lt;/code&gt; didn&amp;rsquo;t find a file, the action returns &lt;code&gt;NotFound&lt;/code&gt; and
+a message. The &lt;code&gt;NotFound&lt;/code&gt; sets a response code of 404.&lt;/p&gt;
+
+&lt;p&gt;There are several dozen possible responses in Scalatra, if you want to see
+all of them and find out what response codes they produce, the easiest way is
+to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/core/src/main/scala/org/scalatra/ActionResult.scala&#34;&gt;ActionResult source code&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Akka</title>
       <link>https://scalatra.github.io/scalatra-docbuild/guides/2.3/async/akka.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1347,6 +1424,198 @@ class MyActorApp(system:ActorSystem, myActor:ActorRef) extends ScalatraServlet w
 class MyActor extends Actor {
   def receive = {
     case &amp;quot;Do stuff and give me an answer&amp;quot; =&amp;gt; sender ! &amp;quot;The answer is 42&amp;quot;
+    case &amp;quot;Hey, you know what?&amp;quot; =&amp;gt; println(&amp;quot;Yeah I know... oh boy do I know&amp;quot;)
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once again, if we wanted to ensure that it was safe to close over mutable state, we could
+have used &lt;code&gt;AsyncResult&lt;/code&gt; with out Actors.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Akka</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.8/async/akka.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.8/async/akka.html</guid>
+      <description>
+
+&lt;h3 id=&#34;akkasupport&#34;&gt;AkkaSupport&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://akka.io&#34;&gt;Akka&lt;/a&gt; is a toolkit and runtime for building highly concurrent,
+distributed, and fault tolerant event-driven applications on the JVM. Scalatra
+allows you to easily mix it into your application.&lt;/p&gt;
+
+&lt;h4 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h4&gt;
+
+&lt;p&gt;The following dependencies will be needed to make the sample application work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;com.typesafe.akka&amp;quot; %% &amp;quot;akka-actor&amp;quot; % &amp;quot;2.6.15&amp;quot;,
+&amp;quot;net.databinder.dispatch&amp;quot; %% &amp;quot;dispatch-core&amp;quot; % &amp;quot;0.13.1&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;setting-up-your-scalatra-app-with-akka&#34;&gt;Setting up your Scalatra app with Akka&lt;/h3&gt;
+
+&lt;p&gt;When you&amp;rsquo;re using Akka, you&amp;rsquo;ll want to start your &lt;code&gt;Actor&lt;/code&gt;s and &lt;code&gt;ActorSystem&lt;/code&gt;
+from inside the &lt;code&gt;ScalatraBootstrap&lt;/code&gt; class. You can then pass those into the
+constructors of your servlets as necessary:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import _root_.akka.actor.{Props, ActorSystem}
+import com.example.app._
+import org.scalatra._
+import javax.servlet.ServletContext
+
+
+class ScalatraBootstrap extends LifeCycle {
+
+  val system = ActorSystem()
+  val myActor = system.actorOf(Props.apply[MyActor]())
+
+  override def init(context: ServletContext) = {
+    context.mount(new PageRetriever(system), &amp;quot;/*&amp;quot;)
+    context.mount(new MyActorApp(system, myActor), &amp;quot;/actors/*&amp;quot;)
+  }
+
+  override def destroy(context:ServletContext) = {
+    system.terminate()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s also considered good form to shut the ActorSystem down when you&amp;rsquo;re done
+with it. Keep in mind that a servlet context destroy does not necessarily mean
+a full application shutdown, it might be a reload - so you&amp;rsquo;ll need to release
+the &lt;code&gt;ActorSystem&lt;/code&gt; resources when your Scalatra application is destroyed.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-scala-futures&#34;&gt;Using Scala Futures&lt;/h3&gt;
+
+&lt;p&gt;Scalatra&amp;rsquo;s &lt;code&gt;FutureSupport&lt;/code&gt; trait provides a mechanism for adding &lt;a href=&#34;http://docs.scala-lang.org/overviews/core/futures.html&#34;&gt;Futures&lt;/a&gt;
+to your routes. At the point where you&lt;/p&gt;
+
+&lt;p&gt;The generic case looks like this (but it won&amp;rsquo;t compile):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import _root_.akka.dispatch._
+import org.scalatra.FutureSupport
+
+class MyAppServlet extends ScalatraServlet with FutureSupport {
+  get(&amp;quot;/&amp;quot;){
+    new AsyncResult { val is =
+      Future {
+        // Add async logic here
+        &amp;lt;html&amp;gt;&amp;lt;body&amp;gt;Hello Akka&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;
+      }
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;async-request-example&#34;&gt;Async request example&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  See
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.8/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  for a minimal and standalone project containing the examples in this guide.
+&lt;/div&gt;
+
+&lt;p&gt;As a more concrete example, here&amp;rsquo;s how you&amp;rsquo;d make an asynchronous HTTP
+request from inside one of your actions, using the
+&lt;a href=&#34;https://dispatchhttp.org/Dispatch.html&#34;&gt;Dispatch&lt;/a&gt; http client and an
+Akka &lt;code&gt;ActorSystem&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
+
+import akka.actor.ActorSystem
+import dispatch._
+import org.scalatra._
+
+import scala.concurrent.{ExecutionContext, Future, Promise}
+import scala.util.{Failure, Success, Try}
+
+class FutureController(system: ActorSystem) extends ScalatraServlet with FutureSupport {
+
+  protected implicit def executor: ExecutionContext = system.dispatcher
+
+  get(&amp;quot;/&amp;quot;) {
+    new AsyncResult { val is =
+      HttpClient.retrievePage()
+    }
+  }
+
+}
+
+object HttpClient {
+
+  def retrievePage()(implicit ctx: ExecutionContext): Future[String] = {
+    val prom = Promise[String]()
+    dispatch.Http(url(&amp;quot;http://slashdot.org/&amp;quot;) OK as.String) onComplete {
+      case Success(content) =&amp;gt; prom.complete(Try(content))
+      case Failure(exception) =&amp;gt; println(exception)
+    }
+    prom.future
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;AsyncResult&lt;/code&gt; isn&amp;rsquo;t strictly necessary. It&amp;rsquo;s a way to ensure that if you close your
+Future over mutable state (such as a &lt;code&gt;request&lt;/code&gt; object or a &lt;code&gt;var&lt;/code&gt;) that the state is
+captured at the point you hand off to the Future.&lt;/p&gt;
+
+&lt;p&gt;If you attempt to use mutable
+state inside your Future without AsyncResult (e.g. calling &lt;code&gt;request.headers&lt;/code&gt; or something),
+you&amp;rsquo;ll get an exception. If you use AsyncResult, it&amp;rsquo;ll work. So, you&amp;rsquo;re trading a bit
+of boilerplate code for a bit of safety. If you can remember not to close over mutable
+state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;actor-example&#34;&gt;Actor example&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;
+  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
+  See
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.8/async/akka-examples&#34;&gt;akka-examples&lt;/a&gt;
+  for a minimal and standalone project containing the examples in this guide.
+&lt;/div&gt;
+
+&lt;p&gt;When you use Scalatra with Akka, you most likely want to return a result of some sort. So you&amp;rsquo;re probably going to send a message to an Actor which will reply to you. The method you use for that returns a Future. Typically, this involves Akka&amp;rsquo;s &lt;a href=&#34;https://doc.akka.io/docs/akka/current/scala/actors.html#ask-send-and-receive-future&#34;&gt;ask pattern&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;When the request you get just needs to trigger something on an Actor using the fire-and-forget [tell pattern](&lt;a href=&#34;https://doc.akka.io/docs/akka/current/scala/actors.html#tell-fire-forget&#34;&gt;https://doc.akka.io/docs/akka/current/scala/actors.html#tell-fire-forget&lt;/a&gt;, then you don&amp;rsquo;t need a Future. In this case, you probably you want to reply with the Accepted status or something like it.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s some example code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package com.example.app
+
+import akka.actor.{Actor, ActorRef, ActorSystem}
+import akka.pattern.ask
+import akka.util.Timeout
+import org.scalatra.{Accepted, FutureSupport, ScalatraServlet}
+
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
+class MyActorApp(system:ActorSystem, myActor:ActorRef) extends ScalatraServlet with FutureSupport {
+
+  implicit val timeout = new Timeout(2 seconds)
+  protected implicit def executor: ExecutionContext = system.dispatcher
+
+  // You&#39;ll see the output from this in the browser.
+  get(&amp;quot;/ask&amp;quot;) {
+    myActor ? &amp;quot;Do stuff and give me an answer&amp;quot;
+  }
+
+  // You&#39;ll see the output from this in your terminal.
+  get(&amp;quot;/tell&amp;quot;) {
+    myActor ! &amp;quot;Hey, you know what?&amp;quot;
+    Accepted()
+  }
+
+}
+
+class MyActor extends Actor {
+  def receive = {
+    case &amp;quot;Do stuff and give me an answer&amp;quot; =&amp;gt; sender() ! &amp;quot;The answer is 42&amp;quot;
     case &amp;quot;Hey, you know what?&amp;quot; =&amp;gt; println(&amp;quot;Yeah I know... oh boy do I know&amp;quot;)
   }
 
@@ -2459,751 +2728,6 @@ full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/s
 calling the &lt;code&gt;stage&lt;/code&gt; task once you&amp;rsquo;re in SBT. This will package a start script
 for you - it can be run by calling &lt;code&gt;target/start&lt;/code&gt; from the top-level project
 directory. It depends on the &lt;a href=&#34;https://github.com/sbt/sbt-start-script&#34;&gt;sbt-start-script&lt;/a&gt; plugin.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Atmosphere</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.6/async/atmosphere.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.6/async/atmosphere.html</guid>
-      <description>
-
-&lt;p&gt;Scalatra has a built-in integration with
-&lt;a href=&#34;https://github.com/Atmosphere/atmosphere&#34;&gt;Atmosphere&lt;/a&gt;, the asynchronous
-websocket/comet framework. Atmosphere allows you to keep a persistent
-connection alive between the server and the user&amp;rsquo;s browser (or other
-user-agents). You can push new information to your user at any time,
-without a page refresh.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s carefree server push for the JVM.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
-
-&lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
-  See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.6/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
-  for a minimal and standalone project containing the example in this guide.
-&lt;/div&gt;
-
-&lt;h4 id=&#34;generating-the-app&#34;&gt;Generating the app&lt;/h4&gt;
-
-&lt;p&gt;Generate a project using &lt;code&gt;sbt new scalatra/scalatra.g8&lt;/code&gt;, and call your initial
-servlet &lt;code&gt;ChatController&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;ll need to do a few things to a default Scalatra project in order
-to get it ready for use with Atmosphere.&lt;/p&gt;
-
-&lt;h4 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h4&gt;
-
-&lt;p&gt;The following dependencies will be needed to make the sample application
-work.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  &amp;quot;org.json4s&amp;quot;                  %% &amp;quot;json4s-jackson&amp;quot;      % &amp;quot;3.5.2&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra&amp;quot;            % &amp;quot;2.6.5&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-scalate&amp;quot;    % &amp;quot;2.6.5&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-specs2&amp;quot;     % &amp;quot;2.6.5&amp;quot;  % &amp;quot;test&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-atmosphere&amp;quot; % &amp;quot;2.6.5&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot;              %  &amp;quot;logback-classic&amp;quot;     % &amp;quot;1.2.3&amp;quot;   % &amp;quot;runtime&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-plus&amp;quot;          % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container;provided&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-webapp&amp;quot;        % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container&amp;quot;,
-  &amp;quot;org.eclipse.jetty.websocket&amp;quot; %  &amp;quot;websocket-server&amp;quot;    % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container;provided&amp;quot;,
-  &amp;quot;javax.servlet&amp;quot;               %  &amp;quot;javax.servlet-api&amp;quot;   % &amp;quot;3.1.0&amp;quot;   % &amp;quot;container;provided;test&amp;quot; artifacts Artifact(&amp;quot;javax.servlet-api&amp;quot;, &amp;quot;jar&amp;quot;, &amp;quot;jar&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;imports&#34;&gt;Imports&lt;/h4&gt;
-
-&lt;p&gt;Your imports should look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.atmosphere
-
-import java.util.Date
-
-import org.json4s.JsonDSL._
-import org.json4s._
-import org.scalatra._
-import org.scalatra.atmosphere._
-import org.scalatra.json.{JValueResult, JacksonJsonSupport}
-import org.scalatra.scalate.ScalateSupport
-
-import scala.concurrent.ExecutionContext.Implicits.global
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;writing-the-chatcontroller&#34;&gt;Writing the ChatController&lt;/h4&gt;
-
-&lt;p&gt;The basic setup of an Atmosphere-enabled servlet and route looks like
-this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class ChatController extends ScalatraServlet
-  with ScalateSupport with JValueResult
-  with JacksonJsonSupport with SessionSupport
-  with AtmosphereSupport {
-
-  atmosphere(&amp;quot;/the-chat&amp;quot;) {
-    new AtmosphereClient {
-      def receive = {
-          case Connected =&amp;gt;
-          case Disconnected(disconnector, Some(error)) =&amp;gt;
-          case Error(Some(error)) =&amp;gt;
-          case TextMessage(text) =&amp;gt; send(&amp;quot;ECHO: &amp;quot; + text)
-          case JsonMessage(json) =&amp;gt; broadcast(json)
-        }
-      }
-    }
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The AtmosphereSupport trait adds a new kind of route matcher to your
-controller, sitting alongside the regular HTTP &lt;code&gt;get&lt;/code&gt;, &lt;code&gt;put&lt;/code&gt;,
-&lt;code&gt;post&lt;/code&gt;, &lt;code&gt;delete&lt;/code&gt; and friends: you&amp;rsquo;ve now got an &lt;code&gt;atmosphere&lt;/code&gt; route type,
-which can be used to bind persistent socket connections to your
-application.&lt;/p&gt;
-
-&lt;p&gt;Inside the &lt;code&gt;atmosphere&lt;/code&gt; route, you instantiate a &lt;code&gt;new AtmosphereClient&lt;/code&gt;
-and define a &lt;code&gt;receive&lt;/code&gt; method, which listens for events.&lt;/p&gt;
-
-&lt;p&gt;One AtmosphereClient is instantiated per connected user. It&amp;rsquo;s worth
-taking a look at the
-&lt;a href=&#34;http://scalatra.org/2.6/api/#org.scalatra.atmosphere.AtmosphereClient&#34;&gt;ScalaDocs&lt;/a&gt; and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
-
-&lt;p&gt;As you can see, there are quite a few kinds of events which Scalatra&amp;rsquo;s
-atmosphere integration can deal with:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Disconnected&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Error&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;TextMessage&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JsonMessage&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Scala pattern matching is used to detect which type of event has
-occurred, and the function for each case can be set to do something
-about the event. For instance, you might want to broadcast a message
-to all connected clients when a new client connects:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  case Connected =&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can notify clients with an implementation like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  case Connected =&amp;gt;
-    println(&amp;quot;Client %s is connected&amp;quot; format uuid)
-    broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;joined the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;uuid&lt;/code&gt; in that code comes from the AtmosphereClient instance - each
-connected user gets its own client with a unique identifier, and
-Scalatra keeps a list of atmosphere clients which are connected to
-a given &lt;code&gt;atmosphere&lt;/code&gt; route.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s see sample code for all of the Atmosphere event types:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-    new AtmosphereClient {
-      def receive: AtmoReceive = {
-        case Connected =&amp;gt;
-          println(&amp;quot;Client %s is connected&amp;quot; format uuid)
-          broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;joined the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-
-        case Disconnected(ClientDisconnected, _) =&amp;gt;
-          broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;has left the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-
-        case Disconnected(ServerDisconnected, _) =&amp;gt;
-          println(&amp;quot;Server disconnected the client %s&amp;quot; format uuid)
-        case _: TextMessage =&amp;gt;
-          send((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;system&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;Only json is allowed&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )))
-
-        case JsonMessage(json) =&amp;gt;
-          println(&amp;quot;Got message %s from %s&amp;quot;.format((json \ &amp;quot;message&amp;quot;).extract[String], (json \ &amp;quot;author&amp;quot;).extract[String]))
-          val msg = json merge ((&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime().toString)): JValue)
-          broadcast(msg) // by default a broadcast is to everyone but self
-          //  send(msg) // also send to the sender
-      }
-    }
-  }
-
-  error {
-    case t: Throwable =&amp;gt; t.printStackTrace()
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;~&lt;/code&gt; operator is used quite a bit there. It&amp;rsquo;s a JSON operator which
-turns &lt;code&gt;(&amp;quot;name&amp;quot; -&amp;gt; &amp;quot;joe&amp;quot;) ~ (&amp;quot;age&amp;quot; -&amp;gt; 35)&lt;/code&gt; into &lt;code&gt;{&amp;quot;name&amp;quot;:&amp;quot;joe&amp;quot;,&amp;quot;age&amp;quot;:35}&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s pretty much it on the server side.&lt;/p&gt;
-
-&lt;h4 id=&#34;javascript-client&#34;&gt;JavaScript client&lt;/h4&gt;
-
-&lt;p&gt;Browser clients can connect to the &lt;code&gt;atmosphere&lt;/code&gt; route using a JavaScript
-client.&lt;/p&gt;
-
-&lt;p&gt;Atmosphere has its own connection library, which will assess the browser client
-it&amp;rsquo;s hosted in and figure out which of the available transport types will work, falling back as necessary to maintain connectivity in a wide range of
-possible clients.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;re strongly advised to read Atmosphere&amp;rsquo;s
-&lt;a href=&#34;https://github.com/Atmosphere/atmosphere/wiki/jQuery.atmosphere.js-atmosphere.js-API&#34;&gt;extensive documentation&lt;/a&gt;
-in order to understand your connection options.&lt;/p&gt;
-
-&lt;p&gt;Besides the basic connectivity provided by the Atmosphere connector,
-you&amp;rsquo;ll need to provide your own application-specific logic, also in
-JavaScript. Here&amp;rsquo;s an &lt;code&gt;application.js&lt;/code&gt; file for our chat application:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.6/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.6/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Drop that code into &lt;code&gt;webapp/js/atmosphere.js&lt;/code&gt;, and put the
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.6/async/scalatra-atmosphere-example/src/main/webapp/js/jquery-atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
-alongside it, and you&amp;rsquo;ve got a working client implementation.&lt;/p&gt;
-
-&lt;p&gt;A few key points in &lt;code&gt;application.js&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The first part of the code demonstrates the detection of available
-capabilities in the user&amp;rsquo;s browser. It loops through an array of
-available transports and checks each one to see if it&amp;rsquo;s supported,
-then outputs what it finds into the page.&lt;/p&gt;
-
-&lt;p&gt;The code then makes an initial request to our &lt;code&gt;atmosphere&lt;/code&gt; route at
-&lt;code&gt;atmosphere(&amp;quot;/the-chat&amp;quot;)&lt;/code&gt;, and sets up callbacks for &lt;code&gt;onOpen&lt;/code&gt;,
-&lt;code&gt;onLocalMessage&lt;/code&gt;, &lt;code&gt;onTransportFailure&lt;/code&gt;, &lt;code&gt;onReconnect&lt;/code&gt;, &lt;code&gt;onMessage&lt;/code&gt;,
-&lt;code&gt;onClose&lt;/code&gt;, and &lt;code&gt;onError&lt;/code&gt; events. Check the Atmosphere docs to see
-what each of these mean.&lt;/p&gt;
-
-&lt;p&gt;Lastly, there&amp;rsquo;s a simple key-press detection which sends a chat
-message to the server whenever the &lt;code&gt;enter&lt;/code&gt; key is pressed.&lt;/p&gt;
-
-&lt;p&gt;With all of this in place, you can add a few &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.6/async/scalatra-atmosphere-example/src/main/webapp/WEB-INF&#34;&gt;Scalate views&lt;/a&gt;
-to your chat application and it&amp;rsquo;s all done. The example application has
-a default layout and action which will serve up a browser-based chat
-client.&lt;/p&gt;
-
-&lt;p&gt;You should be able to connect to it from any browser which supports
-JavaScript. Try opening several different browsers (e.g. Firefox and
-Chrome) and signing in as different users, then chat to each other by
-going to &lt;a href=&#34;http://localhost:8080/&#34;&gt;http://localhost:8080/&lt;/a&gt; and hitting
-the running application. You can also open multiple tabs in the
-same browser to see Atmosphere detect multiple local instances and use
-its &lt;code&gt;onLocalMessage&lt;/code&gt; handler.&lt;/p&gt;
-
-&lt;h3 id=&#34;segmenting-message-delivery&#34;&gt;Segmenting message delivery&lt;/h3&gt;
-
-&lt;p&gt;You can easily decide which connected clients you&amp;rsquo;d like to send a given
-message to.&lt;/p&gt;
-
-&lt;p&gt;By default, the AtmosphereClient&amp;rsquo;s &lt;code&gt;broadcast&lt;/code&gt; method mimics standard
-chat server functionality - calling &lt;code&gt;broadcast(message)&lt;/code&gt; sends the
-supplied message to all connected users except the current one.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;send(message)&lt;/code&gt; method does exactly the opposite: it sends the
-message to only the current client.&lt;/p&gt;
-
-&lt;p&gt;The AtmosphereClient implements several default filters so that it can
-decide which clients should receive a message:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  final protected def SkipSelf: ClientFilter = _.uuid != uuid
-  final protected def OnlySelf: ClientFilter = _.uuid == uuid
-  final protected val Everyone: ClientFilter = _ =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you need to segment message delivery further than this, for example
-in order to enforce security rules, you can subclass AtmosphereClient
-and implement your own ClientFilters:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class SecureClient extends AtmosphereClient {
-
-  // adminUuids is a collection of uuids for admin users. You&#39;d need to
-  // add each admin user&#39;s uuid to the list at connection time.
-  final protected def OnlyAdmins: ClientFilter = adminUuids.contains(_.uuid)
-
-  /**
-   * Broadcast a message to admin users only.
-   */
-  def adminBroadcast(msg) {
-    broadcast(msg, OnlyAdmins)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You could then use &lt;code&gt;SecureClient&lt;/code&gt; in your &lt;code&gt;atmosphere&lt;/code&gt; route instead of
-the default &lt;code&gt;AtmosphereClient&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-  new SecureClient {
-    // your events would go here.
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;cleaning-up-the-case-statements&#34;&gt;Cleaning up the case statements&lt;/h3&gt;
-
-&lt;p&gt;This subclassing approach is also an excellent way to clean up the code
-in your pattern matching blocks. If it starts getting out of hand, you
-can put whatever methods you need in your AtmosphereClient subclass and
-end up with something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class MyClient extends AtmosphereClient {
-
-  def broadcastMessage(json: String) {
-    println(&amp;quot;Got message %s from %s&amp;quot;.format((json \ &amp;quot;message&amp;quot;).extract[String], (json \ &amp;quot;author&amp;quot;).extract[String]))
-    val msg = json merge ((&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime().toString)): JValue)
-    broadcast(msg)
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And you&amp;rsquo;d use it like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-  new MyClient {
-    def receive = {
-      // Let&#39;s use our new broadcastMessage function from MyClient:
-      case JsonMessage(json) =&amp;gt; broadcastMessage(json)
-
-      // ... implement other message types
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;broadcasting-server-side-events&#34;&gt;Broadcasting server-side events&lt;/h3&gt;
-
-&lt;p&gt;Atmosphere event sources don&amp;rsquo;t necessarily need to be other Atmosphere
-connections.&lt;/p&gt;
-
-&lt;p&gt;You could, for instance, use an AMQP message queue to
-broadcast events to connected browser clients whenever your application receives
-a given message type. You could broadcast messages to all connected clients, or
-to a selected group of clients, when a database record was updated, or when a
-user&amp;rsquo;s friend logged in.&lt;/p&gt;
-
-&lt;p&gt;Each Scalatra servlet that registers an Atmosphere route gets access to an
-AtmosphereClient object, which can act as a broadcaster.&lt;/p&gt;
-
-&lt;p&gt;So if you have a servlet that has 3 Atmosphere routes, and it&amp;rsquo;s mounted
-at &lt;code&gt;/real-time-buzz&lt;/code&gt;, you can send messages to all connected clients
-with &lt;code&gt;AtmosphereClient.broadcast(&amp;quot;/real-time-buzz/fizz&amp;quot;, message)&lt;/code&gt;, where
-&lt;code&gt;atmosphere(&amp;quot;/fizz&amp;quot;)&lt;/code&gt; is one of the available routes.&lt;/p&gt;
-
-&lt;p&gt;Alternately, you can send to all the connected clients of all 3 endpoints in the
-&lt;code&gt;/real-time-buzz&lt;/code&gt; servlet &lt;code&gt;AtmosphereClient.broadcast(&amp;quot;/real-time-buzz&amp;quot;, message)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Lastly, you can send a message to all connected clients in all Atmosphere servlets
-with &lt;code&gt;AtmosphereClient.broadcastAll(message)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;pattern-matching-on-atmosphere-messages&#34;&gt;Pattern matching on Atmosphere messages&lt;/h3&gt;
-
-&lt;p&gt;It&amp;rsquo;s possible (and in fact encouraged) to do sophisticated pattern matching
-on Atmosphere message types in order to simplify your application code.&lt;/p&gt;
-
-&lt;p&gt;This gives you a very flat and extensible way of dealing with many messages
-without having to serialize them into actual model classes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;case JsonMessage(JObject(JField(&amp;quot;type&amp;quot;, JString(&amp;quot;event_1&amp;quot;)) :: fields) =&amp;gt;
-case JsonMessage(args @ JObject(JField(&amp;quot;type&amp;quot;, JString(&amp;quot;event_1&amp;quot;)) :: fields) =&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;wire-formats&#34;&gt;Wire formats&lt;/h3&gt;
-
-&lt;p&gt;Data travelling between the browser and the websocket server needs to be in a
-defined transport format, called a wire format, before it reaches the Atmosphere
-client.&lt;/p&gt;
-
-&lt;p&gt;You can define your own wire formats by extending the
-&lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/wire_format.scala&#34;&gt;WireFormat&lt;/a&gt;
-trait. To create a new wire format, extend WireFormat and implement its methods
-in your subclass.&lt;/p&gt;
-
-&lt;h2 id=&#34;building-an-embedded-scalatra-atmosphere-application&#34;&gt;Building an embedded Scalatra + Atmosphere application&lt;/h2&gt;
-
-&lt;p&gt;If you need to build your Atmosphere application to run embedded within Jetty, there&amp;rsquo;s a
-full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.6/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
-
-&lt;p&gt;Once you check out the code, you can build an embedded Atmosphere-enabled app which runs under Jetty, by
-calling the &lt;code&gt;stage&lt;/code&gt; task once you&amp;rsquo;re in SBT. This will package a start script
-for you - it can be run by calling &lt;code&gt;target/start&lt;/code&gt; from the top-level project
-directory. It depends on the &lt;a href=&#34;https://github.com/sbt/sbt-native-packager&#34;&gt;sbt-native-packager&lt;/a&gt; plugin.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Atmosphere</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/2.7/async/atmosphere.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/2.7/async/atmosphere.html</guid>
-      <description>
-
-&lt;p&gt;Note: **Atmosphere is too complex for the purpose of simply supporting WebSockets, and it is slow to keep up with recent updates to Servlet Container (e.g. Jetty).&lt;/p&gt;
-
-&lt;p&gt;Continued support for Atmosphere in Scalatra will be a stumbling block for updates to Scalatra.&lt;/p&gt;
-
-&lt;p&gt;Therefore, Atmosphere will no longer be supported in future versions.&lt;/p&gt;
-
-&lt;p&gt;It has not yet been determined whether another WebSocket support will be introduced in Scalatra, but the above points should be taken into account when deciding whether to implement WebSockets in Scalatra.**&lt;/p&gt;
-
-&lt;p&gt;Scalatra has a built-in integration with
-&lt;a href=&#34;https://github.com/Atmosphere/atmosphere&#34;&gt;Atmosphere&lt;/a&gt;, the asynchronous
-websocket/comet framework. Atmosphere allows you to keep a persistent
-connection alive between the server and the user&amp;rsquo;s browser (or other
-user-agents). You can push new information to your user at any time,
-without a page refresh.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s carefree server push for the JVM.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;atmosphere-example-app&#34;&gt;Atmosphere example app&lt;/h3&gt;
-
-&lt;div class=&#34;alert alert-info&#34;&gt;
-  &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
-  See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.7/async/scalatra-atmosphere-example&#34;&gt;scalatra-atmosphere-example&lt;/a&gt;
-  for a minimal and standalone project containing the example in this guide.
-&lt;/div&gt;
-
-&lt;h4 id=&#34;generating-the-app&#34;&gt;Generating the app&lt;/h4&gt;
-
-&lt;p&gt;Generate a project using &lt;code&gt;sbt new scalatra/scalatra.g8&lt;/code&gt;, and call your initial
-servlet &lt;code&gt;ChatController&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;ll need to do a few things to a default Scalatra project in order
-to get it ready for use with Atmosphere.&lt;/p&gt;
-
-&lt;h4 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h4&gt;
-
-&lt;p&gt;The following dependencies will be needed to make the sample application
-work.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  &amp;quot;org.json4s&amp;quot;                  %% &amp;quot;json4s-jackson&amp;quot;      % &amp;quot;3.5.2&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra&amp;quot;            % &amp;quot;2.7.0&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-scalate&amp;quot;    % &amp;quot;2.7.0&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-specs2&amp;quot;     % &amp;quot;2.7.0&amp;quot;  % &amp;quot;test&amp;quot;,
-  &amp;quot;org.scalatra&amp;quot;                %% &amp;quot;scalatra-atmosphere&amp;quot; % &amp;quot;2.7.0&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot;              %  &amp;quot;logback-classic&amp;quot;     % &amp;quot;1.2.3&amp;quot;   % &amp;quot;runtime&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-plus&amp;quot;          % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container;provided&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot;           %  &amp;quot;jetty-webapp&amp;quot;        % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container&amp;quot;,
-  &amp;quot;org.eclipse.jetty.websocket&amp;quot; %  &amp;quot;websocket-server&amp;quot;    % &amp;quot;9.4.6.v20170531&amp;quot;     % &amp;quot;container;provided&amp;quot;,
-  &amp;quot;javax.servlet&amp;quot;               %  &amp;quot;javax.servlet-api&amp;quot;   % &amp;quot;3.1.0&amp;quot;   % &amp;quot;container;provided;test&amp;quot; artifacts Artifact(&amp;quot;javax.servlet-api&amp;quot;, &amp;quot;jar&amp;quot;, &amp;quot;jar&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;imports&#34;&gt;Imports&lt;/h4&gt;
-
-&lt;p&gt;Your imports should look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;package org.scalatra.example.atmosphere
-
-import java.util.Date
-
-import org.json4s.JsonDSL._
-import org.json4s._
-import org.scalatra._
-import org.scalatra.atmosphere._
-import org.scalatra.json.{JValueResult, JacksonJsonSupport}
-import org.scalatra.scalate.ScalateSupport
-
-import scala.concurrent.ExecutionContext.Implicits.global
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;writing-the-chatcontroller&#34;&gt;Writing the ChatController&lt;/h4&gt;
-
-&lt;p&gt;The basic setup of an Atmosphere-enabled servlet and route looks like
-this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class ChatController extends ScalatraServlet
-  with ScalateSupport with JValueResult
-  with JacksonJsonSupport with SessionSupport
-  with AtmosphereSupport {
-
-  atmosphere(&amp;quot;/the-chat&amp;quot;) {
-    new AtmosphereClient {
-      def receive = {
-          case Connected =&amp;gt;
-          case Disconnected(disconnector, Some(error)) =&amp;gt;
-          case Error(Some(error)) =&amp;gt;
-          case TextMessage(text) =&amp;gt; send(&amp;quot;ECHO: &amp;quot; + text)
-          case JsonMessage(json) =&amp;gt; broadcast(json)
-        }
-      }
-    }
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The AtmosphereSupport trait adds a new kind of route matcher to your
-controller, sitting alongside the regular HTTP &lt;code&gt;get&lt;/code&gt;, &lt;code&gt;put&lt;/code&gt;,
-&lt;code&gt;post&lt;/code&gt;, &lt;code&gt;delete&lt;/code&gt; and friends: you&amp;rsquo;ve now got an &lt;code&gt;atmosphere&lt;/code&gt; route type,
-which can be used to bind persistent socket connections to your
-application.&lt;/p&gt;
-
-&lt;p&gt;Inside the &lt;code&gt;atmosphere&lt;/code&gt; route, you instantiate a &lt;code&gt;new AtmosphereClient&lt;/code&gt;
-and define a &lt;code&gt;receive&lt;/code&gt; method, which listens for events.&lt;/p&gt;
-
-&lt;p&gt;One AtmosphereClient is instantiated per connected user. It&amp;rsquo;s worth
-taking a look at the
-&lt;a href=&#34;https://javadoc.io/doc/org.scalatra/scalatra-unidoc_2.12/latest/org/scalatra/atmosphere/AtmosphereClient$.html&#34;&gt;ScalaDocs&lt;/a&gt;
-and &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/AtmosphereClient.scala&#34;&gt;source&lt;/a&gt; for AtmosphereClient to see what it can do.&lt;/p&gt;
-
-&lt;p&gt;As you can see, there are quite a few kinds of events which Scalatra&amp;rsquo;s
-atmosphere integration can deal with:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Disconnected&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Error&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;TextMessage&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JsonMessage&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Scala pattern matching is used to detect which type of event has
-occurred, and the function for each case can be set to do something
-about the event. For instance, you might want to broadcast a message
-to all connected clients when a new client connects:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  case Connected =&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can notify clients with an implementation like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  case Connected =&amp;gt;
-    println(&amp;quot;Client %s is connected&amp;quot; format uuid)
-    broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;joined the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;uuid&lt;/code&gt; in that code comes from the AtmosphereClient instance - each
-connected user gets its own client with a unique identifier, and
-Scalatra keeps a list of atmosphere clients which are connected to
-a given &lt;code&gt;atmosphere&lt;/code&gt; route.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s see sample code for all of the Atmosphere event types:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-    new AtmosphereClient {
-      def receive: AtmoReceive = {
-        case Connected =&amp;gt;
-          println(&amp;quot;Client %s is connected&amp;quot; format uuid)
-          broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;joined the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-
-        case Disconnected(ClientDisconnected, _) =&amp;gt;
-          broadcast((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;Someone&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;has left the room&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )), Everyone)
-
-        case Disconnected(ServerDisconnected, _) =&amp;gt;
-          println(&amp;quot;Server disconnected the client %s&amp;quot; format uuid)
-        case _: TextMessage =&amp;gt;
-          send((&amp;quot;author&amp;quot; -&amp;gt; &amp;quot;system&amp;quot;) ~ (&amp;quot;message&amp;quot; -&amp;gt; &amp;quot;Only json is allowed&amp;quot;) ~ (&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime.toString )))
-
-        case JsonMessage(json) =&amp;gt;
-          println(&amp;quot;Got message %s from %s&amp;quot;.format((json \ &amp;quot;message&amp;quot;).extract[String], (json \ &amp;quot;author&amp;quot;).extract[String]))
-          val msg = json merge ((&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime().toString)): JValue)
-          broadcast(msg) // by default a broadcast is to everyone but self
-          //  send(msg) // also send to the sender
-      }
-    }
-  }
-
-  error {
-    case t: Throwable =&amp;gt; t.printStackTrace()
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;~&lt;/code&gt; operator is used quite a bit there. It&amp;rsquo;s a JSON operator which
-turns &lt;code&gt;(&amp;quot;name&amp;quot; -&amp;gt; &amp;quot;joe&amp;quot;) ~ (&amp;quot;age&amp;quot; -&amp;gt; 35)&lt;/code&gt; into &lt;code&gt;{&amp;quot;name&amp;quot;:&amp;quot;joe&amp;quot;,&amp;quot;age&amp;quot;:35}&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s pretty much it on the server side.&lt;/p&gt;
-
-&lt;h4 id=&#34;javascript-client&#34;&gt;JavaScript client&lt;/h4&gt;
-
-&lt;p&gt;Browser clients can connect to the &lt;code&gt;atmosphere&lt;/code&gt; route using a JavaScript
-client.&lt;/p&gt;
-
-&lt;p&gt;Atmosphere has its own connection library, which will assess the browser client
-it&amp;rsquo;s hosted in and figure out which of the available transport types will work, falling back as necessary to maintain connectivity in a wide range of
-possible clients.&lt;/p&gt;
-
-&lt;p&gt;You&amp;rsquo;re strongly advised to read Atmosphere&amp;rsquo;s
-&lt;a href=&#34;https://github.com/Atmosphere/atmosphere/wiki/jQuery.atmosphere.js-atmosphere.js-API&#34;&gt;extensive documentation&lt;/a&gt;
-in order to understand your connection options.&lt;/p&gt;
-
-&lt;p&gt;Besides the basic connectivity provided by the Atmosphere connector,
-you&amp;rsquo;ll need to provide your own application-specific logic, also in
-JavaScript. Here&amp;rsquo;s an &lt;code&gt;application.js&lt;/code&gt; file for our chat application:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.7/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&#34;&gt;https://github.com/scalatra/scalatra-website-examples/blob/master/2.7/async/scalatra-atmosphere-example/src/main/webapp/js/application.js&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Drop that code into &lt;code&gt;webapp/js/atmosphere.js&lt;/code&gt;, and put the
-&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/blob/master/2.7/async/scalatra-atmosphere-example/src/main/webapp/js/jquery.atmosphere.js&#34;&gt;Atmosphere JavaScript client&lt;/a&gt;
-alongside it, and you&amp;rsquo;ve got a working client implementation.&lt;/p&gt;
-
-&lt;p&gt;A few key points in &lt;code&gt;application.js&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The first part of the code demonstrates the detection of available
-capabilities in the user&amp;rsquo;s browser. It loops through an array of
-available transports and checks each one to see if it&amp;rsquo;s supported,
-then outputs what it finds into the page.&lt;/p&gt;
-
-&lt;p&gt;The code then makes an initial request to our &lt;code&gt;atmosphere&lt;/code&gt; route at
-&lt;code&gt;atmosphere(&amp;quot;/the-chat&amp;quot;)&lt;/code&gt;, and sets up callbacks for &lt;code&gt;onOpen&lt;/code&gt;,
-&lt;code&gt;onLocalMessage&lt;/code&gt;, &lt;code&gt;onTransportFailure&lt;/code&gt;, &lt;code&gt;onReconnect&lt;/code&gt;, &lt;code&gt;onMessage&lt;/code&gt;,
-&lt;code&gt;onClose&lt;/code&gt;, and &lt;code&gt;onError&lt;/code&gt; events. Check the Atmosphere docs to see
-what each of these mean.&lt;/p&gt;
-
-&lt;p&gt;Lastly, there&amp;rsquo;s a simple key-press detection which sends a chat
-message to the server whenever the &lt;code&gt;enter&lt;/code&gt; key is pressed.&lt;/p&gt;
-
-&lt;p&gt;With all of this in place, you can add a few &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.7/async/scalatra-atmosphere-example/src/main/webapp/WEB-INF&#34;&gt;Scalate views&lt;/a&gt;
-to your chat application and it&amp;rsquo;s all done. The example application has
-a default layout and action which will serve up a browser-based chat
-client.&lt;/p&gt;
-
-&lt;p&gt;You should be able to connect to it from any browser which supports
-JavaScript. Try opening several different browsers (e.g. Firefox and
-Chrome) and signing in as different users, then chat to each other by
-going to &lt;a href=&#34;http://localhost:8080/&#34;&gt;http://localhost:8080/&lt;/a&gt; and hitting
-the running application. You can also open multiple tabs in the
-same browser to see Atmosphere detect multiple local instances and use
-its &lt;code&gt;onLocalMessage&lt;/code&gt; handler.&lt;/p&gt;
-
-&lt;h3 id=&#34;segmenting-message-delivery&#34;&gt;Segmenting message delivery&lt;/h3&gt;
-
-&lt;p&gt;You can easily decide which connected clients you&amp;rsquo;d like to send a given
-message to.&lt;/p&gt;
-
-&lt;p&gt;By default, the AtmosphereClient&amp;rsquo;s &lt;code&gt;broadcast&lt;/code&gt; method mimics standard
-chat server functionality - calling &lt;code&gt;broadcast(message)&lt;/code&gt; sends the
-supplied message to all connected users except the current one.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;send(message)&lt;/code&gt; method does exactly the opposite: it sends the
-message to only the current client.&lt;/p&gt;
-
-&lt;p&gt;The AtmosphereClient implements several default filters so that it can
-decide which clients should receive a message:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  final protected def SkipSelf: ClientFilter = _.uuid != uuid
-  final protected def OnlySelf: ClientFilter = _.uuid == uuid
-  final protected val Everyone: ClientFilter = _ =&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you need to segment message delivery further than this, for example
-in order to enforce security rules, you can subclass AtmosphereClient
-and implement your own ClientFilters:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class SecureClient extends AtmosphereClient {
-
-  // adminUuids is a collection of uuids for admin users. You&#39;d need to
-  // add each admin user&#39;s uuid to the list at connection time.
-  final protected def OnlyAdmins: ClientFilter = adminUuids.contains(_.uuid)
-
-  /**
-   * Broadcast a message to admin users only.
-   */
-  def adminBroadcast(msg) {
-    broadcast(msg, OnlyAdmins)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You could then use &lt;code&gt;SecureClient&lt;/code&gt; in your &lt;code&gt;atmosphere&lt;/code&gt; route instead of
-the default &lt;code&gt;AtmosphereClient&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-  new SecureClient {
-    // your events would go here.
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;cleaning-up-the-case-statements&#34;&gt;Cleaning up the case statements&lt;/h3&gt;
-
-&lt;p&gt;This subclassing approach is also an excellent way to clean up the code
-in your pattern matching blocks. If it starts getting out of hand, you
-can put whatever methods you need in your AtmosphereClient subclass and
-end up with something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class MyClient extends AtmosphereClient {
-
-  def broadcastMessage(json: String) {
-    println(&amp;quot;Got message %s from %s&amp;quot;.format((json \ &amp;quot;message&amp;quot;).extract[String], (json \ &amp;quot;author&amp;quot;).extract[String]))
-    val msg = json merge ((&amp;quot;time&amp;quot; -&amp;gt; (new Date().getTime().toString)): JValue)
-    broadcast(msg)
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And you&amp;rsquo;d use it like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;atmosphere(&amp;quot;/the-chat&amp;quot;) {
-  new MyClient {
-    def receive = {
-      // Let&#39;s use our new broadcastMessage function from MyClient:
-      case JsonMessage(json) =&amp;gt; broadcastMessage(json)
-
-      // ... implement other message types
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;broadcasting-server-side-events&#34;&gt;Broadcasting server-side events&lt;/h3&gt;
-
-&lt;p&gt;Atmosphere event sources don&amp;rsquo;t necessarily need to be other Atmosphere
-connections.&lt;/p&gt;
-
-&lt;p&gt;You could, for instance, use an AMQP message queue to
-broadcast events to connected browser clients whenever your application receives
-a given message type. You could broadcast messages to all connected clients, or
-to a selected group of clients, when a database record was updated, or when a
-user&amp;rsquo;s friend logged in.&lt;/p&gt;
-
-&lt;p&gt;Each Scalatra servlet that registers an Atmosphere route gets access to an
-AtmosphereClient object, which can act as a broadcaster.&lt;/p&gt;
-
-&lt;p&gt;So if you have a servlet that has 3 Atmosphere routes, and it&amp;rsquo;s mounted
-at &lt;code&gt;/real-time-buzz&lt;/code&gt;, you can send messages to all connected clients
-with &lt;code&gt;AtmosphereClient.broadcast(&amp;quot;/real-time-buzz/fizz&amp;quot;, message)&lt;/code&gt;, where
-&lt;code&gt;atmosphere(&amp;quot;/fizz&amp;quot;)&lt;/code&gt; is one of the available routes.&lt;/p&gt;
-
-&lt;p&gt;Alternately, you can send to all the connected clients of all 3 endpoints in the
-&lt;code&gt;/real-time-buzz&lt;/code&gt; servlet &lt;code&gt;AtmosphereClient.broadcast(&amp;quot;/real-time-buzz&amp;quot;, message)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Lastly, you can send a message to all connected clients in all Atmosphere servlets
-with &lt;code&gt;AtmosphereClient.broadcastAll(message)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;pattern-matching-on-atmosphere-messages&#34;&gt;Pattern matching on Atmosphere messages&lt;/h3&gt;
-
-&lt;p&gt;It&amp;rsquo;s possible (and in fact encouraged) to do sophisticated pattern matching
-on Atmosphere message types in order to simplify your application code.&lt;/p&gt;
-
-&lt;p&gt;This gives you a very flat and extensible way of dealing with many messages
-without having to serialize them into actual model classes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;case JsonMessage(JObject(JField(&amp;quot;type&amp;quot;, JString(&amp;quot;event_1&amp;quot;)) :: fields) =&amp;gt;
-case JsonMessage(args @ JObject(JField(&amp;quot;type&amp;quot;, JString(&amp;quot;event_1&amp;quot;)) :: fields) =&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;wire-formats&#34;&gt;Wire formats&lt;/h3&gt;
-
-&lt;p&gt;Data travelling between the browser and the websocket server needs to be in a
-defined transport format, called a wire format, before it reaches the Atmosphere
-client.&lt;/p&gt;
-
-&lt;p&gt;You can define your own wire formats by extending the
-&lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/atmosphere/src/main/scala/org/scalatra/atmosphere/wire_format.scala&#34;&gt;WireFormat&lt;/a&gt;
-trait. To create a new wire format, extend WireFormat and implement its methods
-in your subclass.&lt;/p&gt;
-
-&lt;h2 id=&#34;building-an-embedded-scalatra-atmosphere-application&#34;&gt;Building an embedded Scalatra + Atmosphere application&lt;/h2&gt;
-
-&lt;p&gt;If you need to build your Atmosphere application to run embedded within Jetty, there&amp;rsquo;s a
-full code example showing you how, &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/2.7/async/scalatra-atmosphere-embedded&#34;&gt;in the Scalatra Website Examples&lt;/a&gt; repo on Github.&lt;/p&gt;
-
-&lt;p&gt;Once you check out the code, you can build an embedded Atmosphere-enabled app which runs under Jetty, by
-calling the &lt;code&gt;stage&lt;/code&gt; task once you&amp;rsquo;re in SBT. This will package a start script
-for you - it can be run by calling &lt;code&gt;target/start&lt;/code&gt; from the top-level project
-directory. It depends on the &lt;a href=&#34;https://github.com/sbt/sbt-native-packager&#34;&gt;sbt-native-packager&lt;/a&gt; plugin.&lt;/p&gt;
 </description>
     </item>
     

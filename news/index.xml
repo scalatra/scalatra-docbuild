@@ -7,8 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/news.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 2.8.1 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2021/09/25/2021-09-25-scalatra-2-8-1-released.html</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2021/09/25/2021-09-25-scalatra-2-8-1-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 2.8.1 of the framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the list of major changes for version 2.8.0:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Update dependent libraries&lt;/li&gt;
+&lt;li&gt;Deprecate scalatra-atmosphere and scalatra-scalate&lt;/li&gt;
+&lt;li&gt;Drop Scala 2.11 support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Scalatra 2.8 is the initial step towards Scala 3. Deprecated features will be dropped in Scalatra 2.9 and Scalatra will be Scala 3 compatible in Scalatra 3.0.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.7.0 is out</title>
@@ -963,27 +984,6 @@ are very welcome.&lt;/p&gt;</description>
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;When you have methods that access the request, and you use Futures in this way, you can also add an implicit request or response object so that it&amp;rsquo;s safe to use this method from within Futures.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Book: Scalatra in Action</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2013-01-29-scalatra-in-action.html</link>
-      <pubDate>Wed, 19 Dec 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2012/12/19/2013-01-29-scalatra-in-action.html</guid>
-      <description>&lt;p&gt;The Scalatra team is pleased to announce the immediate availability of the e-book version of &lt;em&gt;&lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt;&lt;/em&gt;, published by Manning Publications.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s currently being written the Scalatra team. Here&amp;rsquo;s a description:&lt;/p&gt;
-
-&lt;blockquote&gt;Scalatra is a lightweight Scala-driven web framework similar to the popular Ruby-based Sinatra. It&#39;s perfect for writing high-performance stateless applications and RESTful APIs. Scalatra is a simple HTTP DSL that allows you to start with a tiny amount of code and then add the exact libraries you want as your application grows. As a result, it&#39;s an amazingly-fast way to spin up a Scala-based web app, without the overhead of Lift or Play, and to build an HTTP API for a mobile, Backbone.js, or AngularJS app. Since it uses Scala and the functional programming model, it&#39;s also perfect for running realtime applications on multi-core servers.&lt;/blockquote&gt;
-
-&lt;blockquote&gt;Scalatra in Action introduces Scalatra and the Sinatra model. It covers the framework in its entirety; starting with concepts such as request routing, input handling, actions, and HTTP responses. It then proceeds to more advanced topics, such as data access, handling heavy load, asynchronicity, securing your application, designing and documenting RESTful APIs, and realtime web programming.&lt;/blockquote&gt;
-
-&lt;blockquote&gt;For readers who don&#39;t already know Scala, the book introduces the basic tools in any successful Scala developer&#39;s toolbox: the Scala language and SBT, and the Simple Build Tool. The book also shows you how to test and deploy your Scalatra applications.&lt;/blockquote&gt;
-
-&lt;p&gt;Several chapters of &lt;a href=&#34;http://www.manning.com/carrero2/&#34;&gt;Scalatra in Action&lt;/a&gt; are now available through the Manning Early Access Program (MEAP) as an e-book, with the full paper publication slated for March/April.&lt;/p&gt;</description>
     </item>
     
   </channel>

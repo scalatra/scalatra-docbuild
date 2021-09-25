@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>ScalaTest - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">ScalaTest</h1>
+		<section>
+		  
+
+<p><a href="http://scalatest.org/">ScalaTest</a> supports three main styles of testing out of
+the box: test-driven development (TDD), behavior-driven development (BDD), and
+acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in
+Scala.</p>
+
+<h4 id="dependency">Dependency</h4>
+
+<pre><code class="language-scala">&quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % &quot;2.8.1&quot; % &quot;test&quot;
+</code></pre>
+
+<h4 id="selecting-a-testing-style">Selecting a testing style</h4>
+
+<p>A trait of Scalatra integration is prepared according to the testing style of ScalaTest.
+You can select a trait according to the testing style you want to use.</p>
+
+<table>
+<thead>
+<tr>
+<th>ScalaTest testing style</th>
+<th>trait</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>FunSpec</code></td>
+<td><code>ScalatraSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FlatSpec</code></td>
+<td><code>ScalatraFlatSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FreeSpec</code></td>
+<td><code>ScalatraFreeSpec</code></td>
+</tr>
+
+<tr>
+<td><code>WordSpec</code></td>
+<td><code>ScalatraWordSpec</code></td>
+</tr>
+
+<tr>
+<td><code>FunSuite</code></td>
+<td><code>ScalatraFunSuite</code></td>
+</tr>
+
+<tr>
+<td><code>FeatureSpec</code></td>
+<td><code>ScalatraFeatureSpec</code></td>
+</tr>
+
+<tr>
+<td><code>JUnit3Suite</code></td>
+<td><code>ScalatraJUnit3Suite</code></td>
+</tr>
+
+<tr>
+<td><code>JUnitSuite</code> (JUnit 4)</td>
+<td><code>ScalatraJUnitSuite</code></td>
+</tr>
+
+<tr>
+<td><code>TestNGSuite</code></td>
+<td><code>ScalatraTestNGSuite</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>At this time, traits for PropSpec and RefSpec are not prepared.</p>
+
+<h4 id="example">Example</h4>
+
+<p>When creating a test class, extend Scalatra&rsquo;s trait according to
+<a href="http://www.scalatest.org/user_guide/selecting_a_style">the testing style of ScalaTest</a>.
+At this time, ScalaTest&rsquo;s <a href="http://www.scalatest.org/user_guide/using_matchers"><code>Matcher</code></a>
+trait is already in effect, so you do not need to mix-in.</p>
+
+<p>The following code shows an example of code when FunSuite is selected as the testing style.</p>
+
+<pre><code class="language-scala">import org.scalatra.test.scalatest._
+
+class HelloWorldServletTests extends ScalatraFunSuite {
+  // `HelloWorldServlet` is your app which extends ScalatraServlet
+  addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
+
+  test(&quot;simple get&quot;) {
+    get(&quot;/path/to/something&quot;) {
+      status should equal (200)
+      body should include (&quot;hi!&quot;)
+    }
+  }
+}
+</code></pre>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 2.8 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/routes.html">Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/actions.html">Actions</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/reverse-routes.html">Reverse
+                    Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/requests-and-responses.html">Requests
+                    &amp; Responses</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/gzip.html">GZip</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/flash.html">Flash</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/http/authentication.html">Authentication</a>
+                </li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/web-services/cors.html">CORS</a>
+                </li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/async/akka.html">Akka</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/formats/forms.html">Forms</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/persistence/introduction.html">Introduction</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/persistence/mongodb.html">MongoDB</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/persistence/riak.html">Riak</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/deployment/standalone.html">Standalone</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/deployment/heroku.html">Heroku</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/2.8/deployment/google-app-engine.html">Google App Engine</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+
