@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
+		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
+		<title>Handling JSON - Scalatra</title>
+		
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/theme.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootie-docs.css">
+		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/site.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://scalatra.github.io/scalatra-docbuild//"><img src="https://scalatra.github.io/scalatra-docbuild//images/logo-s.png" alt="logo"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+                    
+			
+			
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/getting-started/">Getting started</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/news.html">News</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/guides/">Documentation</a></li>
+				
+					<li ><a href="https://scalatra.github.io/scalatra-docbuild/community/">Community</a></li>
+				
+			
+                
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+	<main role="main">
+	  <article>
+		<a id="title"></a>
+		<h1 class="doc-entry-title">Handling JSON</h1>
+		<section>
+		  
+
+<p>Scalatra makes JSON handling quick and easy. By adding a few library imports and several lines of code, you can get automatic JSON serialization and deserialization for any Scala case class.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>Let&rsquo;s say you&rsquo;ve generated a brand-new Scalatra project, and accepted all the defaults, except you&rsquo;ve used &ldquo;FlowersController&rdquo; instead of &ldquo;MyScalatraServlet&rdquo; for the servlet name. Then you trim things down so you&rsquo;ve got a bare controller like this one:</p>
+
+<pre><code class="language-scala">package com.example.app
+
+import org.scalatra._
+
+class FlowersController extends ScalatraServlet {
+
+}
+</code></pre>
+
+<p>This assumes that your ScalatraBootstrap file, in <code>src/main/scala/ScalatraBootstrap.scala</code>, looks like this:</p>
+
+<pre><code class="language-scala">import com.example.app._
+import org.scalatra._
+import jakarta.servlet.ServletContext
+
+class ScalatraBootstrap extends LifeCycle {
+  override def init(context: ServletContext) = {
+    context.mount(new FlowersController, &quot;/*&quot;)
+  }
+}
+</code></pre>
+
+<h3 id="the-data-infrastructure">The data infrastructure</h3>
+
+<p>We can quickly add a Flower model underneath our controller class, so that we&rsquo;ve got a data model to play with:</p>
+
+<pre><code class="language-scala">// A Flower object to use as a faked-out data model
+case class Flower(slug: String, name: String)
+</code></pre>
+
+<p>If you wanted your application to be more structured, you might put that in its own file in a <code>models</code> directory. However, we&rsquo;re not too concerned about that for the purposes of this tutorial, so let&rsquo;s just put it in <code>FlowersController.scala</code> for now.</p>
+
+<p>Now that you&rsquo;ve got a model, let&rsquo;s add a data store. Instead of taking a detour to talk about persistence libraries, we can just make a List of Flowers, and hang them off of an object. Put this at the bottom of FlowersController.scala:</p>
+
+<pre><code class="language-scala">object FlowerData {
+
+  /**
+   * Some fake flowers data so we can simulate retrievals.
+   */
+  var all = List(
+      Flower(&quot;yellow-tulip&quot;, &quot;Yellow Tulip&quot;),
+      Flower(&quot;red-rose&quot;, &quot;Red Rose&quot;),
+      Flower(&quot;black-rose&quot;, &quot;Black Rose&quot;))
+}
+</code></pre>
+
+<p>Let&rsquo;s see if everything is working. Add the following action to your FlowersController:</p>
+
+<pre><code class="language-scala">get(&quot;/&quot;){
+  FlowerData.all
+}
+</code></pre>
+
+<p>If you hit your local server on <a href="http://localhost:8080">http://localhost:8080</a>, you should see the following output:</p>
+
+<pre><code class="language-scala">List(Flower(yellow-tulip,Yellow Tulip), Flower(red-rose,Red Rose), Flower(black-rose, Black Rose))
+</code></pre>
+
+<h3 id="defaulting-to-json-output">Defaulting to JSON output</h3>
+
+<p>What&rsquo;s going on here? Scalatra has converted the <code>FlowerData.all</code> value to a string and rendered its Scala source representation as the response. This is the default behaviour, but in fact we don&rsquo;t want things to work this way - we want to use JSON as our data interchange format.</p>
+
+<p>Let&rsquo;s get that working.</p>
+
+<p>In order to use Scalatra&rsquo;s JSON features, we&rsquo;ll need to add a couple of library dependencies so that our application can access some new code.</p>
+
+<p>The first thing you&rsquo;ll need is Scalatra&rsquo;s JSON handling library. The second thing you&rsquo;ll need is <a href="http://json4s.org/">json4s</a>, which is a unified wrapper around the various Scala JSON libraries. We&rsquo;ll use the json4s-jackson variant, which uses the <a href="http://jackson.codehaus.org/">jackson</a> library as the basis of its json support.</p>
+
+<p>In the root of your generated project, you&rsquo;ll find a file called <code>build.sbt</code>. Open that up, and add the following two lines to the <code>libraryDependencies</code> sequence, after the other scalatra-related lines:</p>
+
+<pre><code class="language-scala">  // for javax
+  &quot;org.scalatra&quot; %% &quot;scalatra-json-javax&quot; % &quot;3.0.0&quot;,
+
+  // for jakarta
+  &quot;org.scalatra&quot; %% &quot;scalatra-json-jakarta&quot; % &quot;3.0.0&quot;,
+</code></pre>
+
+<p>and</p>
+
+<pre><code class="language-scala">  &quot;org.json4s&quot;   %% &quot;json4s-jackson&quot; % &quot;4.0.6&quot;,
+</code></pre>
+
+<p>Restart sbt to download the new jars.</p>
+
+<p>Add the following imports to the top of your FlowersController file, in order to make the new JSON libraries available:</p>
+
+<pre><code class="language-scala">// JSON-related libraries
+import org.json4s.{DefaultFormats, Formats}
+
+// JSON handling support from Scalatra
+import org.scalatra.json._
+</code></pre>
+
+<p>Now we can add a bit of magic to the FlowersController. Putting this line of code right underneath the controller class definition will allow your controller to automatically convert Scalatra action results to JSON:</p>
+
+<pre><code class="language-scala">  // Sets up automatic case class to JSON output serialization, required by
+  // the JValueResult trait.
+  protected implicit lazy val jsonFormats: Formats = DefaultFormats
+</code></pre>
+
+<p>To serialize fractional numbers as <code>BigDecimal</code> instead of <code>Double</code>, use <code>DefaultFormats.withBigDecimal</code>:</p>
+
+<pre><code class="language-scala">  protected implicit lazy val jsonFormats: Formats = DefaultFormats.withBigDecimal
+</code></pre>
+
+<p><span class="label label-warning"><i class="glyphicon glyphicon-warning-sign"></i> Watch out!</span> That <code>lazy</code> on the <code>protected implicit lazy val</code> is necessary, not optional, when using <code>JacksonJsonSupport</code>.</p>
+
+<p>Just like its Sinatra forebear, Scalatra has a rich set of constructs for running things before and after requests to your controllers. A <code>before</code> filter runs before all requests. Add a <code>before</code> filter to set all output for this controller to set the content type for all action results to JSON:</p>
+
+<pre><code class="language-scala">  // Before every action runs, set the content type to be in JSON format.
+  before() {
+    contentType = formats(&quot;json&quot;)
+  }
+</code></pre>
+
+<p>Now mix <code>JacksonJsonSupport</code> into your servlet so your controller declaration looks like this:</p>
+
+<pre><code class="language-scala">class FlowersController extends ScalatraServlet with JacksonJsonSupport {
+</code></pre>
+
+<p>Your code should compile again at this point. Refresh your browser at <a href="http://localhost:8080">http://localhost:8080</a>, and suddenly the output of your <code>/</code> action has changed to JSON:</p>
+
+<pre><code class="language-json">[{&quot;slug&quot;:&quot;yellow-tulip&quot;,&quot;name&quot;:&quot;Yellow Tulip&quot;},{&quot;slug&quot;:&quot;red-rose&quot;,&quot;name&quot;:&quot;Red Rose&quot;},{&quot;slug&quot;:&quot;black-rose&quot;,&quot;name&quot;:&quot;Black Rose&quot;}]
+</code></pre>
+
+<p>The <code>JacksonJsonSupport</code> trait which we mixed into the controller, combined with the <code>implicit val jsonFormats</code>, are now turning all Scalatra action result values into JSON.</p>
+
+<h3 id="receiving-json">Receiving JSON</h3>
+
+<p>Inbound JSON works in a similar way.</p>
+
+<p>When a json request comes, which is identified by the Content-Type header or format param then scalatra will try to read the json body into an AST.</p>
+
+<p>You can then extract a case class from this json AST.</p>
+
+<pre><code class="language-scala">case class Person(id: Int, name: String)
+
+post(&quot;/create&quot;) {
+  parsedBody.extract[Person]
+}
+</code></pre>
+
+<h3 id="manipulating-the-json">Manipulating the JSON</h3>
+
+<p>You can transform the JSON AST before when it&rsquo;s being received by overriding the method <code>transformRequestBody</code></p>
+
+<pre><code class="language-scala">protected override def transformRequestBody(body: JValue): JValue = body.camelizeKeys
+</code></pre>
+
+<p>Likewise you can also transform the JSON AST right before sending it by overriding the method <code>transformResponseBody</code></p>
+
+<pre><code class="language-scala">protected override def transformResponseBody(body: JValue): JValue = body.underscoreKeys
+</code></pre>
+
+		</section>
+	  </article>
+	</main>
+  </div> 
+  <div class="col-sm-3 doc-sidebar">
+	<div id="sidebar">
+	  <div class="sidebar-module">
+  		<div class="sidebar-toc">
+        <h4 class="sidebar-heading">Scalatra 3.0 Guides</h4>
+        <h5 class="sidebar-heading">Outlook</h5>
+  		  <ul>
+          <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/scalatra-philosophy.html">Scalatra's philosophy</a></li>
+        </ul>
+  		  <h5 class="sidebar-heading">Development</h5>
+  		  <ul>
+    			<li><strong>HTTP</strong>
+            <ul>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/routes.html">Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/actions.html">Actions</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/reverse-routes.html">Reverse
+                    Routes</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/requests-and-responses.html">Requests
+                    &amp; Responses</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/gzip.html">GZip</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/flash.html">Flash</a></li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/http/authentication.html">Authentication</a>
+                </li>
+                <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/web-services/cors.html">CORS</a>
+                </li>
+            </ul>
+          </li>
+    			<li><strong>Async</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/async/pekko.html">Pekko</a></li>
+            </ul>
+          </li>
+    			<li><strong>Views</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/views/inline-html.html">Inline HTML</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/views/twirl.html">Twirl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Formats</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/formats/upload.html">File Upload</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/formats/json.html">JSON</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/formats/forms.html">Forms</a></li>
+            </ul>
+          </li>
+    			<li><strong>Persistence</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/persistence/slick.html">Slick</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/persistence/squeryl.html">Squeryl</a></li>
+            </ul>
+          </li>
+    			<li><strong>Internationalization</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/internationalization.html">i18n</a></li>
+            </ul>
+          </li>
+    			<li><strong>Testing</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/testing/scalatest.html">ScalaTest</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/testing/specs2.html">Specs2</a></li>
+            </ul>
+          </li>
+    			<li><strong>API Design &amp; Documentation</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/swagger.html">Swagger</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h5 class="sidebar-heading">After Development</h5>
+        <ul>
+          <li><strong>Monitoring</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/monitoring/logging.html">Logging</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/monitoring/metrics.html">Metrics</a></li>
+            </ul>
+          </li>
+          <li><strong>Deployment</strong>
+            <ul>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/deployment/configuration.html">Configuration</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/deployment/servlet-container.html">Servlet Container</a></li>
+              <li><a href="https://scalatra.github.io/scalatra-docbuild//guides/3.0/deployment/standalone.html">Standalone</a></li>
+            </ul>
+          </li>
+  		  </ul>
+  		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+
+
+</div> 
+
+<footer class="doc-footer">
+	
+	<p>Scalatra Team</p>
+	<p>Powered by <strong><a href="https://github.com/progrhyme/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme
+		for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/progrhyme/">progrhyme</a>.</p>
+</footer>
+
+
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/jquery.min.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootstrap.min.js"></script>
+
+<script src="https://scalatra.github.io/scalatra-docbuild//js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/ie10-viewport-bug-workaround.js"></script>
+<script src="https://scalatra.github.io/scalatra-docbuild//js/bootie-docs.js"></script>
+
+</body>
+</html>
+
