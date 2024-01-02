@@ -545,7 +545,7 @@ a message. The &lt;code&gt;NotFound&lt;/code&gt; sets a response code of 404.&lt
 
 &lt;p&gt;There are several dozen possible responses in Scalatra, if you want to see
 all of them and find out what response codes they produce, the easiest way is
-to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop/core/src/main/scala/org/scalatra/ActionResult.scala&#34;&gt;ActionResult source code&lt;/a&gt;.&lt;/p&gt;
+to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/v3.0.0/core/src/main/scala/org/scalatra/ActionResult.scala&#34;&gt;ActionResult source code&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
@@ -1722,7 +1722,7 @@ allows you to easily mix it into your application.&lt;/p&gt;
 
 &lt;p&gt;The following dependencies will be needed to make the sample application work.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;org.apache.pekko&amp;quot; %% &amp;quot;pekko-actor&amp;quot; % &amp;quot;1.0.0&amp;quot; cross(CrossVersion.for3Use2_13),
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;org.apache.pekko&amp;quot; %% &amp;quot;pekko-actor&amp;quot; % &amp;quot;1.0.0&amp;quot;,
 &amp;quot;com.softwaremill.sttp.client3&amp;quot; %% &amp;quot;core&amp;quot; % &amp;quot;3.9.0&amp;quot;,
 &lt;/code&gt;&lt;/pre&gt;
 

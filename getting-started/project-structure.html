@@ -191,7 +191,7 @@ so that <code>sbt</code> can download them for you and build your Scalatra proje
 
 <p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
 
-<pre><code class="language-scala">val ScalatraVersion = &quot;2.7.0&quot;
+<pre><code class="language-scala">val ScalatraVersion = &quot;3.0.0&quot;
 
 organization := &quot;com.example&quot;
 
@@ -199,16 +199,14 @@ name := &quot;My Scalatra Web App&quot;
 
 version := &quot;0.1.0-SNAPSHOT&quot;
 
-scalaVersion := &quot;2.13.4&quot;
-
-resolvers += Classpaths.typesafeReleases
+scalaVersion := &quot;2.13.12&quot;
 
 libraryDependencies ++= Seq(
-  &quot;org.scalatra&quot; %% &quot;scalatra&quot; % ScalatraVersion,
-  &quot;org.scalatra&quot; %% &quot;scalatra-scalatest&quot; % ScalatraVersion % &quot;test&quot;,
-  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot; % &quot;runtime&quot;,
-  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;9.4.6.v20170531&quot; % &quot;container&quot;,
-  &quot;javax.servlet&quot; % &quot;javax.servlet-api&quot; % &quot;3.1.0&quot; % &quot;provided&quot;
+  &quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % ScalatraVersion,
+  &quot;org.scalatra&quot; %% &quot;scalatra-scalatest-jakarta&quot; % ScalatraVersion % &quot;test&quot;,
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.4.11&quot; % &quot;runtime&quot;,
+  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;11.0.15&quot; % &quot;container&quot;,
+  &quot;jakarta.servlet&quot; % &quot;jakarta.servlet-api&quot; % &quot;5.0.0&quot; % &quot;provided&quot;
 )
 
 enablePlugins(SbtTwirl)
@@ -250,7 +248,7 @@ If you don't know what the dependency details are, you can find out on
   <dd>
     This is the embedded servlet container used by the web plugin.
     Your application should be portable to any servlet container supporting at least
-    the 2.7 specification.
+    the 3.0 specification.
   </dd>
   <dt>javax.servlet</dt>
   <dd>

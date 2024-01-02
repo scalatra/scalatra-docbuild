@@ -34,9 +34,9 @@ name [My Scalatra Web App]:
 version [0.1.0-SNAPSHOT]:
 servlet_name [MyScalatraServlet]:
 package [com.example.app]:
-scala_version [2.13.4]:
-sbt_version [1.4.5]:
-scalatra_version [2.7.0]:
+scala_version [2.13.12]:
+sbt_version [1.9.7]:
+scalatra_version [3.0.0]:
 
 Template applied in ./my-scalatra-web-app
 &lt;/code&gt;&lt;/pre&gt;
@@ -46,13 +46,13 @@ Template applied in ./my-scalatra-web-app
   &lt;dd&gt;
     Used for publishing.
     Should be the reverse of a domain name you control.
-    If you don&#39;t own a domain, &lt;code&gt;com.github.username&lt;/code&gt; is a popular choice.
+    If you don&#39;t own a domain, &lt;code&gt;io.github.username&lt;/code&gt; is a popular choice.
   &lt;/dd&gt;
   &lt;dt&gt;package&lt;/dt&gt;
   &lt;dd&gt;
     All Scala code belongs in a package.
     The
-    &lt;a href=&#34;http://docs.scala-lang.org/style/naming-conventions.html#packages&#34;&gt;
+    &lt;a href=&#34;https://docs.scala-lang.org/style/naming-conventions.html#packages&#34;&gt;
       Scala Style Guide
     &lt;/a&gt; recommends that your packages start with your organization.
     This convention is used across multiple JVM languages and gives your
@@ -68,7 +68,7 @@ Template applied in ./my-scalatra-web-app
   &lt;dd&gt;
     Your project&#39;s version.
     This is entirely up to you, but we like
-    &lt;a href=&#34;http://semver.org&#34;&gt;semantic versioning&lt;/a&gt;.
+    &lt;a href=&#34;https://semver.org&#34;&gt;semantic versioning&lt;/a&gt;.
   &lt;/dd&gt;
   &lt;dt&gt;servlet_name&lt;/dt&gt;
   &lt;dd&gt;
@@ -78,7 +78,7 @@ Template applied in ./my-scalatra-web-app
   &lt;dt&gt;scala_version&lt;/dt&gt;
   &lt;dd&gt;
     The Scala version to use.
-    The bottom of the &lt;a href=&#34;http://scalatra.org/&#34;&gt;homepage&lt;/a&gt; lists which Scala versions are compatible with the latest Scalatra releases.
+    The bottom of the &lt;a href=&#34;https://scalatra.org/&#34;&gt;homepage&lt;/a&gt; lists which Scala versions are compatible with the latest Scalatra releases.
     When in doubt, use the default.
   &lt;/dd&gt;
   &lt;dt&gt;sbt_version&lt;/dt&gt;
@@ -134,7 +134,7 @@ class MyScalatraServlet extends ScalatraServlet {
 project:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
-&amp;gt; jetty:start
+&amp;gt; Jetty/start
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The application starts on &lt;a href=&#34;http://localhost:8080&#34;&gt;http://localhost:8080&lt;/a&gt;.&lt;/p&gt;
@@ -173,7 +173,7 @@ want to re-execute.
 To recompile and reload your application automatically, run the following:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sbt
-&amp;gt; ~jetty:start
+&amp;gt; ~Jetty/start
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now that you&amp;rsquo;ve got a (rather simplistic) running application, you may want
@@ -259,20 +259,20 @@ Java Development Kit (JDK) installed.&lt;/p&gt;
 does. The output should look something like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ java -version
-java version &amp;quot;1.8.0_131&amp;quot;
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+openjdk version &amp;quot;11.0.20.1&amp;quot; 2023-08-24 LTS
+OpenJDK Runtime Environment Zulu11.66+19-CA (build 11.0.20.1+1-LTS)
+OpenJDK 64-Bit Server VM Zulu11.66+19-CA (build 11.0.20.1+1-LTS, mixed mode)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ javac -version
-javac 1.8.0_131
+javac 11.0.20.1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;You need Java 8 or above (Oracle&amp;rsquo;s JDK, OpenJDK, AdoptOpenJDK and various other distributions exist), which will show up as version 1.8. Java 7 is no longer supported in Scalatra 2.5.&lt;/p&gt;
+&lt;p&gt;You need Java 11 or above (Oracle&amp;rsquo;s JDK, OpenJDK, AdoptOpenJDK and various other distributions exist), which will show up as version 11. Java 8 is no longer supported in Scalatra 3.0.&lt;/p&gt;
 
 &lt;p&gt;If you don&amp;rsquo;t yet have Java installed, you can find out how to install it for your system over at
-&lt;a href=&#34;https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html&#34;&gt;the Oracle&amp;rsquo;s Java 8 download page&lt;/a&gt;
-or &lt;a href=&#34;http://openjdk.java.net/install/index.html&#34;&gt;the OpenJDK installation page&lt;/a&gt; or &lt;a href=&#34;https://adoptopenjdk.net/&#34;&gt;AdoptOpenJDK download page&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://www.oracle.com/java/technologies/downloads/&#34;&gt;the Oracle&amp;rsquo;s Java download page&lt;/a&gt;
+or &lt;a href=&#34;http://openjdk.java.net/install/index.html&#34;&gt;the OpenJDK installation page&lt;/a&gt; or &lt;a href=&#34;https://adoptium.net/&#34;&gt;AdoptOpenJDK download page&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;2-install-sbt&#34;&gt;2. Install sbt&lt;/h2&gt;
 
@@ -291,7 +291,7 @@ $ sbt
 ...
 ...
 &amp;gt; sbtVersion
-[info] 1.4.6
+[info] 1.9.7
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;hr /&gt;
@@ -435,7 +435,7 @@ so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Sc
 
 &lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;2.7.0&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;3.0.0&amp;quot;
 
 organization := &amp;quot;com.example&amp;quot;
 
@@ -443,16 +443,14 @@ name := &amp;quot;My Scalatra Web App&amp;quot;
 
 version := &amp;quot;0.1.0-SNAPSHOT&amp;quot;
 
-scalaVersion := &amp;quot;2.13.4&amp;quot;
-
-resolvers += Classpaths.typesafeReleases
+scalaVersion := &amp;quot;2.13.12&amp;quot;
 
 libraryDependencies ++= Seq(
-  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra&amp;quot; % ScalatraVersion,
-  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalatest&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.2.3&amp;quot; % &amp;quot;runtime&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;9.4.6.v20170531&amp;quot; % &amp;quot;container&amp;quot;,
-  &amp;quot;javax.servlet&amp;quot; % &amp;quot;javax.servlet-api&amp;quot; % &amp;quot;3.1.0&amp;quot; % &amp;quot;provided&amp;quot;
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-jakarta&amp;quot; % ScalatraVersion,
+  &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalatest-jakarta&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.4.11&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;11.0.15&amp;quot; % &amp;quot;container&amp;quot;,
+  &amp;quot;jakarta.servlet&amp;quot; % &amp;quot;jakarta.servlet-api&amp;quot; % &amp;quot;5.0.0&amp;quot; % &amp;quot;provided&amp;quot;
 )
 
 enablePlugins(SbtTwirl)
@@ -494,7 +492,7 @@ If you don&#39;t know what the dependency details are, you can find out on
   &lt;dd&gt;
     This is the embedded servlet container used by the web plugin.
     Your application should be portable to any servlet container supporting at least
-    the 2.7 specification.
+    the 3.0 specification.
   &lt;/dd&gt;
   &lt;dt&gt;javax.servlet&lt;/dt&gt;
   &lt;dd&gt;
