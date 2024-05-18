@@ -7,8 +7,57 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Sep 2023 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 3.0.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2023/09/30/2023-09-30-scalatra-3-0-0-released-copy.html</link>
+      <pubDate>Sat, 30 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2023/09/30/2023-09-30-scalatra-3-0-0-released-copy.html</guid>
+      <description>&lt;p&gt;One year since the latest milestone build, the Scalatra team finally released Scalatra 3.0.0 with Scala 3 and Jakarta support!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;scala-3-and-jakarta-support&#34;&gt;Scala 3 and Jakarta support&lt;/h2&gt;
+
+&lt;p&gt;Basically, Scalatra 3.0 is compatible with Scalatra 2.x and it now supports Scala 3 in addition to 2.12 and 2.13.&lt;/p&gt;
+
+&lt;p&gt;Also, Scalatra 3.0 supports both Servlet 4.0.1 (javax) and 5.0.0 (jakarta). Artifacts have a suffix depending on the Servlet version as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;// for javax
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-javax&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-json-javax&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-forms-javax&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+...
+
+// for jakarta
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-jakarta&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-json-jakarta&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-forms-jakarta&amp;quot; % &amp;quot;3.0.0&amp;quot;,
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;dropped-modules&#34;&gt;Dropped modules&lt;/h2&gt;
+
+&lt;p&gt;Due to difficullty in continuous maintenance and support, the following module has been dropped in Scalatra 3.0.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;scalatra-atomosphere&lt;/li&gt;
+&lt;li&gt;scalatra-scalate&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You would be able to use atomosphere and scalate in your Scalatra applications by writing some simple integration code yourself.&lt;/p&gt;
+
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://scalatra.org/guides/3.0/&#34;&gt;Scalatra 3.0 Guides&lt;/a&gt; explain features of Scalatra 3.0 comprehensively&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples&#34;&gt;Here&lt;/a&gt; is a collection of Scalatra example projects that now include Scalatra 3.0&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra.g8&#34;&gt;Giter8 template&lt;/a&gt; now generates a Scalatra 3.0 project with Scala 3 and Jakarta by default&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 2.8.1 is out</title>
@@ -940,50 +989,6 @@ are very welcome.&lt;/p&gt;</description>
 &lt;ul&gt;
 &lt;li&gt;Fixes scalate usage in AsyncResult&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scalatra 2.2 released</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2013/02/06/2013-02-06-scalatra2-2-released.html</link>
-      <pubDate>Wed, 06 Feb 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2013/02/06/2013-02-06-scalatra2-2-released.html</guid>
-      <description>&lt;p&gt;The Scalatra team is excited to finally be able to say: we&amp;rsquo;ve just released Scalatra 2.2.0, 2.1.2 and 2.0.5.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s talk about the old branches first.&lt;/p&gt;
-
-&lt;p&gt;We&amp;rsquo;ve published 2.0.5 for Scala 2.10 so you can safely upgrade on servlet 2.5 containers. This gives anyone stuck deploying on older servlet containers a path to Scala 2.10.&lt;/p&gt;
-
-&lt;p&gt;2.1.2 is mostly a bug fix release, and allows for overriding the asyncTimeout in AkkaSupport.&lt;/p&gt;
-
-&lt;p&gt;Scalatra 2.2 is the new stable release, and we think it&amp;rsquo;s the most biggest and most exciting release in the history of the project. The changes in 2.2 are listed here: &lt;a href=&#34;http://notes.implicit.ly/post/42420935465/scalatra-2-2-0&#34;&gt;http://notes.implicit.ly/post/42420935465/scalatra-2-2-0&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;We are now also publishing Scalatra data to &lt;a href=&#34;http://ls.implicit.ly&#34;&gt;ls.implicit.ly&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There are a few breaking changes in 2.2:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;AkkaSupport now uses an ExecutionContext instead of an ActorSystem&lt;/li&gt;
-&lt;li&gt;LiftJsonSupport has been removed in favor of &lt;a href=&#34;http://json4s.org&#34;&gt;Json4s&lt;/a&gt;, which is a drop-in replacement&lt;/li&gt;
-&lt;li&gt;All the signatures of the methods that access values in the request or response now take an implicit request and/or response&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This last one is particularly important if you are making heavy use of Akka Futures from your routes. Scalatra now stores the request and response in a thread-local and when you use Futures you can&amp;rsquo;t access those anymore. This stops you from inadvertantly closing a Future (which should contain only immutable data) over the servlet request (which is unavoidably mutable), and should make your programming experience safer and more enjoyable.&lt;/p&gt;
-
-&lt;p&gt;If you had overrides your code won&amp;rsquo;t compile until you add the necessary implicits to the signature.&lt;/p&gt;
-
-&lt;p&gt;When you want to use Futures and be able to safely access values in the request there is now an AsyncResult, like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;  get(&amp;quot;/:name&amp;quot;) {
-   new AsyncResult { def is =
-     (timeActor  ? &amp;quot;Get Current Time&amp;quot;).mapTo[String].map(&amp;quot;hello &amp;quot; + params(&amp;quot;name&amp;quot;) + &amp;quot; it&#39;s currently &amp;quot; + _)
-   }
- }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When you have methods that access the request, and you use Futures in this way, you can also add an implicit request or response object so that it&amp;rsquo;s safe to use this method from within Futures.&lt;/p&gt;</description>
     </item>
     
   </channel>

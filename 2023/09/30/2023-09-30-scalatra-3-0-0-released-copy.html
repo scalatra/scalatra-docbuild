@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>New tutorials available - Scalatra</title>
+		<title>Scalatra 3.0.0 is out - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,20 +61,50 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-    <span class="doc-entry-meta in-list"><time datetime="2012-09-13">September 13, 2012</time></span>
-		<h1 class="doc-entry-title">New tutorials available</h1>
+    <span class="doc-entry-meta in-list"><time datetime="2023-09-30">September 30, 2023</time></span>
+		<h1 class="doc-entry-title">Scalatra 3.0.0 is out</h1>
 		<section>
-		  <p>Many thanks to <a href="https://twitter.com/josdirksen">Jos Dirksen</a> of
-<a href="http://smartjava.org">smartjava.org</a>, who has been working on a series of
-Scalatra tutorials. The <a href="http://www.smartjava.org/content/tutorial-getting-started-scala-and-scalatra-part-i">first part</a>
-offers a very quick intro to Scalatra and some tips on Eclipse integration.</p>
+		  <p>One year since the latest milestone build, the Scalatra team finally released Scalatra 3.0.0 with Scala 3 and Jakarta support!</p>
 
 <p></p>
 
-<p>The <a href="http://www.smartjava.org/content/tutorial-getting-started-scala-and-scalatra-part-ii">second part</a> gives an overview of an embedded Jetty setup, and then moves
-into RESTful API construction techniques using case classes and JSON. The tutorial
-finishes off with an introduction to Scalatra testing using the Specs2 testing
-framework, including Eclipse configs for test runners.</p>
+<h2 id="scala-3-and-jakarta-support">Scala 3 and Jakarta support</h2>
+
+<p>Basically, Scalatra 3.0 is compatible with Scalatra 2.x and it now supports Scala 3 in addition to 2.12 and 2.13.</p>
+
+<p>Also, Scalatra 3.0 supports both Servlet 4.0.1 (javax) and 5.0.0 (jakarta). Artifacts have a suffix depending on the Servlet version as follows:</p>
+
+<pre><code class="language-scala">// for javax
+&quot;org.scalatra&quot; %% &quot;scalatra-javax&quot; % &quot;3.0.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-javax&quot; % &quot;3.0.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.0.0&quot;,
+...
+
+// for jakarta
+&quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % &quot;3.0.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-jakarta&quot; % &quot;3.0.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.0.0&quot;,
+...
+</code></pre>
+
+<h2 id="dropped-modules">Dropped modules</h2>
+
+<p>Due to difficullty in continuous maintenance and support, the following module has been dropped in Scalatra 3.0.</p>
+
+<ul>
+<li>scalatra-atomosphere</li>
+<li>scalatra-scalate</li>
+</ul>
+
+<p>You would be able to use atomosphere and scalate in your Scalatra applications by writing some simple integration code yourself.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+<li><a href="https://scalatra.org/guides/3.0/">Scalatra 3.0 Guides</a> explain features of Scalatra 3.0 comprehensively</li>
+<li><a href="https://github.com/scalatra/scalatra-website-examples">Here</a> is a collection of Scalatra example projects that now include Scalatra 3.0</li>
+<li><a href="https://github.com/scalatra/scalatra.g8">Giter8 template</a> now generates a Scalatra 3.0 project with Scala 3 and Jakarta by default</li>
+</ul>
 		</section>
 	  </article>
 	</main>
