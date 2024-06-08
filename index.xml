@@ -7,8 +7,43 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Scalatra Team</copyright>
-    <lastBuildDate>Sat, 30 Sep 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Jun 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://scalatra.github.io/scalatra-docbuild/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalatra 3.1.0 is out</title>
+      <link>https://scalatra.github.io/scalatra-docbuild/2024/06/08/2024-06-08-scalatra-3-1-0-released.html</link>
+      <pubDate>Sat, 08 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://scalatra.github.io/scalatra-docbuild/2024/06/08/2024-06-08-scalatra-3-1-0-released.html</guid>
+      <description>&lt;p&gt;The Scalatra team is pleased to announce the release of version 3.1.0 of the framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Scalatra 3.1 is compatible with Scalatra 3.0 but supports Servlet 6.0.0 and Jetty 12.0.x.&lt;/p&gt;
+
+&lt;p&gt;You need to specify the suffix of artifacts depending on which version you use ervlet 4.0.1 (javax) or 6.0.0 (jakarta):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;// for javax
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-javax&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-json-javax&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-forms-javax&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+...
+
+// for jakarta
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-jakarta&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-json-jakarta&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+&amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-forms-jakarta&amp;quot; % &amp;quot;3.1.0&amp;quot;,
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also, many libraries are upgraded in Scalatra 3.1.0 but there are no code level imcompatibility, so you can still refer to Scalatra 3.0 documentation and examples for Scalatra 3.1.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://scalatra.org/guides/3.0/&#34;&gt;Scalatra 3.0 / 3.1 Guides&lt;/a&gt; explain features of Scalatra 3.0 / 3.1 comprehensively&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples&#34;&gt;Scalatra examples repository&lt;/a&gt; contains many examples for Scalatra 3.0  compatible with Scalatra 3.1&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Scalatra 3.0.0 is out</title>
@@ -929,66 +964,6 @@ persistence guide gives an overview of the steps for
 library which we don&amp;rsquo;t have docs for, pull requests on
 &lt;a href=&#34;https://github.com/scalatra/scalatra-website&#34;&gt;the docs&lt;/a&gt;
 are very welcome.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Scalatra 2.2.1 released</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/2013/04/10/2013-04-10-scalatra-2-2-1-released.html</link>
-      <pubDate>Wed, 10 Apr 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://scalatra.github.io/scalatra-docbuild/2013/04/10/2013-04-10-scalatra-2-2-1-released.html</guid>
-      <description>&lt;p&gt;Scalatra 2.2.1, a bug-fix and maintenance release, is now out. The following changes have been made:&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;core&#34;&gt;Core&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;An action result with an int body renders the int as body not status&lt;/li&gt;
-&lt;li&gt;Make matched route params available for a broader scope&lt;/li&gt;
-&lt;li&gt;AsyncResult now uses an abstract val to force eager creation of the future&lt;/li&gt;
-&lt;li&gt;Fixes preflight request for CORS (no longer necessary to define an options route)&lt;/li&gt;
-&lt;li&gt;Fix redirecting from within an AsyncResult&lt;/li&gt;
-&lt;li&gt;Fallback to servlet context init parameters when looking up a key&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;atmosphere&#34;&gt;Atmosphere&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Upgrade to atmosphere 1.0.12&lt;/li&gt;
-&lt;li&gt;Route params are now available inside the atmosphere route&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;commands&#34;&gt;Commands&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;All validation error messages are now configurable&lt;/li&gt;
-&lt;li&gt;Type class based execution instead of the command handler&lt;/li&gt;
-&lt;li&gt;Fix detecting isRequired&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;auth&#34;&gt;Auth&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make scentry use implicit request and response&lt;/li&gt;
-&lt;li&gt;Fix a case where the user would be falsely returned as Some(null)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;swagger&#34;&gt;Swagger&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Fixes nickname field swagger spec generation&lt;/li&gt;
-&lt;li&gt;Skips rendering swagger api’s without api operations registered&lt;/li&gt;
-&lt;li&gt;Fix command support for swagger with new dsl syntax&lt;/li&gt;
-&lt;li&gt;Reflection now correctly detects scala value types&lt;/li&gt;
-&lt;li&gt;Reflection knows about nested generic types&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;scalate&#34;&gt;Scalate&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Fixes scalate usage in AsyncResult&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
     
   </channel>

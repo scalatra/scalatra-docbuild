@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Scalatra 2.2.2 and 2.3.0M1 released - Scalatra</title>
+		<title>Scalatra 3.1.0 is out - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,155 +61,35 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-    <span class="doc-entry-meta in-list"><time datetime="2013-12-07">December 07, 2013</time></span>
-		<h1 class="doc-entry-title">Scalatra 2.2.2 and 2.3.0M1 released</h1>
+    <span class="doc-entry-meta in-list"><time datetime="2024-06-08">June 08, 2024</time></span>
+		<h1 class="doc-entry-title">Scalatra 3.1.0 is out</h1>
 		<section>
-		  <p>The Scalatra team is pleased to announce two new releases.</p>
+		  <p>The Scalatra team is pleased to announce the release of version 3.1.0 of the framework.</p>
 
 <p></p>
 
-<p>Scalatra 2.2.2 is a maintenance release which fixes a number of bugs in 2.2.1.
-It is a drop-in replacement of 2.2.1, and we recommend that all users upgrade.</p>
+<p>Scalatra 3.1 is compatible with Scalatra 3.0 but supports Servlet 6.0.0 and Jetty 12.0.x.</p>
 
-<p>We are also releasing Scalatra 2.3.0 Milestone 1, on the way to a full release of the Scalatra 2.3.x. This will have mostly minor breaking changes, lots of additional fixes, and some new features (most notably to keep up with new features in asynchronous library support and Swagger development).</p>
+<p>You need to specify the suffix of artifacts depending on which version you use ervlet 4.0.1 (javax) or 6.0.0 (jakarta):</p>
 
-<p>One big thing to start thinking about if you&rsquo;re not already: Scalatra 2.3.x will drop support for Scala 2.9.</p>
+<pre><code class="language-scala">// for javax
+&quot;org.scalatra&quot; %% &quot;scalatra-javax&quot; % &quot;3.1.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-javax&quot; % &quot;3.1.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.1.0&quot;,
+...
 
-<p>Here&rsquo;s a detailed list of what&rsquo;s in each of the releases.</p>
+// for jakarta
+&quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % &quot;3.1.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-jakarta&quot; % &quot;3.1.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.1.0&quot;,
+...
+</code></pre>
 
-<h2 id="scalatra-2-2-2">Scalatra 2.2.2</h2>
-
-<h3 id="core">Core</h3>
-
-<ul>
-<li>Fix mount/addServlet for paths not ending in /*</li>
-<li>HaltException and PassExceptions are no longer control throwables.</li>
-<li>Respect servlet wrappers in AsyncSupport. (Fixes GZipSupport with async result).</li>
-<li>Unroll nested futures and async results. #321</li>
-<li>Allow Accept-Encoding header to be a list.</li>
-</ul>
-
-<h3 id="atmosphere">Atmosphere</h3>
+<p>Also, many libraries are upgraded in Scalatra 3.1.0 but there are no code level imcompatibility, so you can still refer to Scalatra 3.0 documentation and examples for Scalatra 3.1.</p>
 
 <ul>
-<li>Fix atmosphere disconnect handling.</li>
-</ul>
-
-<h3 id="auth">Auth</h3>
-
-<ul>
-<li>Remove false dependency on scalatra-commands.</li>
-</ul>
-
-<h3 id="commands">Commands</h3>
-
-<ul>
-<li>Properly humanize camel cased names.</li>
-<li>Add a better validation error serializer.</li>
-</ul>
-
-<h3 id="jetty">Jetty</h3>
-
-<ul>
-<li>Fix uninitalized value error.</li>
-</ul>
-
-<h3 id="json">Json</h3>
-
-<ul>
-<li>Ensure JSONP callbacks are fully written to the output stream.</li>
-<li>Fix JValue result for files.</li>
-</ul>
-
-<h3 id="scalate">Scalate</h3>
-
-<ul>
-<li>Normalize Scalate template path #335</li>
-<li>Support for i18n support in a ScalatraFilter.</li>
-</ul>
-
-<h3 id="specs2">Specs2</h3>
-
-<ul>
-<li>Fix Specs2 base trait infrastructure</li>
-</ul>
-
-<h3 id="swagger">Swagger</h3>
-
-<ul>
-<li>Modify scalatra-swagger api docs generation to better support apiproperty annotation.</li>
-<li>Add ability to document API operations that support multiple content type responses.</li>
-</ul>
-
-<h2 id="scalatra-2-3-0m1">Scalatra 2.3.0M1</h2>
-
-<h3 id="core-1">Core</h3>
-
-<ul>
-<li>Support for Scala 2.9.x dropped.</li>
-<li>Sever hard Akka dependency. Integration is through scala.concurrent.</li>
-<li>Change FutureSupport.timeout from a Timeout to a Duration.</li>
-<li>Add a timeout to AsyncResult.</li>
-<li>Run callbacks before render in renderResponseBody.</li>
-<li>Redirect returns Nothing, not unit.</li>
-<li>Allow calling halt from trap handler.</li>
-<li>Remove Akka dependency. Only scala.concurrent is needed.</li>
-</ul>
-
-<h3 id="atmosphere-1">Atmosphere</h3>
-
-<ul>
-<li>Make ScalatraBroadcaster a trait for custom broadcasters.</li>
-<li>Add RedisScalatraBroadcaster.</li>
-<li>Support ClientFilter with Redis Atmosphere plugin.</li>
-</ul>
-
-<h3 id="commands-1">Commands</h3>
-
-<ul>
-<li>Ensure ordering of properties on body parameters from a command by adding a position method.</li>
-</ul>
-
-<h3 id="i18n">I18n</h3>
-
-<ul>
-<li>Provide a way to implement custom Messages resolver.</li>
-</ul>
-
-<h3 id="json-1">JSON</h3>
-
-<ul>
-<li>Support custom serializers in JValueResult.</li>
-<li>Check if response is JSON or XML in renderJson.</li>
-</ul>
-
-<h3 id="scalate-1">Scalate</h3>
-
-<ul>
-<li>Don&rsquo;t always render the Scalate Error page.</li>
-</ul>
-
-<h3 id="spring">Spring</h3>
-
-<ul>
-<li>New support module for Spring.</li>
-</ul>
-
-<h3 id="swagger-1">Swagger</h3>
-
-<ul>
-<li>Add naive exclusion based on simple class name and known model ID.</li>
-<li>Add apiOperation and parameter methods that use a Swagger model declaration directly.</li>
-<li>Fix detection of default value.</li>
-<li>Fix Option data type on models.</li>
-<li>Fix NPE when the model property has a default value of null.</li>
-<li>BREAKING Use 1.2 spec.</li>
-<li>Fix URL generation when a context path is set.</li>
-<li>Fix serialization of data type for operations and parameters.</li>
-<li>Fix Option[List[_]] reflection.</li>
-<li>Output position in Swager spec so model properties have a stable order.</li>
-<li>Annotated properties are required by default.</li>
-<li>Force compilation error for apiOperation without type param.</li>
+<li><a href="https://scalatra.org/guides/3.0/">Scalatra 3.0 / 3.1 Guides</a> explain features of Scalatra 3.0 / 3.1 comprehensively</li>
+<li><a href="https://github.com/scalatra/scalatra-website-examples">Scalatra examples repository</a> contains many examples for Scalatra 3.0  compatible with Scalatra 3.1</li>
 </ul>
 		</section>
 	  </article>
