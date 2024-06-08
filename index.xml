@@ -20,7 +20,7 @@
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;Scalatra 3.1 is compatible with Scalatra 3.0 but supports Servlet 6.0.0 and Jetty 12.0.x.&lt;/p&gt;
+&lt;p&gt;Scalatra 3.1 is compatible with Scalatra 3.0 but supports Servlet 6.0.0 and Jetty 12.0.9.&lt;/p&gt;
 
 &lt;p&gt;You need to specify the suffix of artifacts depending on which version you use ervlet 4.0.1 (javax) or 6.0.0 (jakarta):&lt;/p&gt;
 
