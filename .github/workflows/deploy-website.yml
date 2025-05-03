@@ -32,7 +32,9 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 8    
+          java-version: 8
+      - name: Setup SBT
+        uses: sbt/setup-sbt@v1          
       - name: Install Hugo
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v0.19/hugo_0.19-64bit.deb
