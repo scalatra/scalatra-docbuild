@@ -94,7 +94,7 @@ cd ..
 # Commit and push changes
 cd scalatra-docbuild
 ls -al
-ls -al apidocs
+# ls -al apidocs
 git add --all .
 git commit -m "Built gh-pages"
 git push origin gh-pages
