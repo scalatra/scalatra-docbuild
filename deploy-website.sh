@@ -80,16 +80,16 @@ cd ..
 
 
 
-# Build scalatra apidocs v2.3.x
-cd scalatra
+# # Build scalatra apidocs v2.3.x
+# cd scalatra
 
-git checkout origin/2.3.x
-sbt unidoc
+# git checkout origin/2.3.x
+# sbt unidoc
 
-mkdir -p ../scalatra-docbuild/apidocs/2.3
-rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.3
+# mkdir -p ../scalatra-docbuild/apidocs/2.3
+# rsync -av target/scala-2.12/unidoc/* ../scalatra-docbuild/apidocs/2.3
 
-cd ..
+# cd ..
 
 
 # Commit and push changes
