@@ -73,20 +73,48 @@
 
 <h2 id="supported-versions">Supported Versions</h2>
 
-<p>Scalatra 3.0 / 3.1 supports Scala 2.12, 2.13 and 3.</p>
+<table>
+<thead>
+<tr>
+<th>Scalatra version</th>
+<th>Scala versions</th>
+<th>Servlet versions</th>
+</tr>
+</thead>
 
-<p>Also, Scalatra 3.0/3.1 supports Servlet 4.0.1 but Scalatra 3.0 supports 5.0.0 while Scalatra 3.1 supports 6.0.0. Note that the artifact names have suffix depending on Servlet version as follows:</p>
+<tbody>
+<tr>
+<td>3.2.x</td>
+<td>2.13.x, 3.3.x.</td>
+<td>4.0.1, 6.1.0</td>
+</tr>
+
+<tr>
+<td>3.1.x</td>
+<td>2.12.x, 2.13.x, 3.3.x</td>
+<td>4.0.1, 6.0.0</td>
+</tr>
+
+<tr>
+<td>3.0.x</td>
+<td>2.12.x, 2.13.x, 3.3.x</td>
+<td>4.0.1, 5.0.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note that the artifact names have suffix depending on Servlet version as follows:</p>
 
 <pre><code class="language-scala">// for javax (Servlet 4.0.1)
-&quot;org.scalatra&quot; %% &quot;scalatra-javax&quot; % &quot;3.0.0&quot;,
-&quot;org.scalatra&quot; %% &quot;scalatra-json-javax&quot; % &quot;3.0.0&quot;,
-&quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.0.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-javax&quot; % &quot;3.2.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-javax&quot; % &quot;3.2.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.2.0&quot;,
 ...
 
-// for jakarta (Servlet 5.0.0/6.0.0)
-&quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % &quot;3.0.0&quot;,
-&quot;org.scalatra&quot; %% &quot;scalatra-json-jakarta&quot; % &quot;3.0.0&quot;,
-&quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.0.0&quot;,
+// for jakarta (Servlet 5.0.0/6.0.0/6.1.0)
+&quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % &quot;3.2.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-json-jakarta&quot; % &quot;3.2.0&quot;,
+&quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.2.0&quot;,
 ...
 </code></pre>
 

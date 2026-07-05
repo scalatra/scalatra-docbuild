@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>ScalaTest - Scalatra</title>
+		<title>Specs2 - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,107 +61,99 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">ScalaTest</h1>
+		<h1 class="doc-entry-title">Specs2</h1>
 		<section>
 		  
 
-<p><a href="http://scalatest.org/">ScalaTest</a> supports three main styles of testing out of
-the box: test-driven development (TDD), behavior-driven development (BDD), and
-acceptance testing. ScalaTest also supports writing JUnit and TestNG tests in
-Scala.</p>
+<p><a href="https://etorreborre.github.io/specs2/">Specs2</a> is a library for writing
+executable software specifications. With specs2 you can write software
+specifications for one class (unit specifications) or a full system
+(acceptance specifications).</p>
 
 <h4 id="dependency">Dependency</h4>
 
 <pre><code class="language-scala">// for javax
-&quot;org.scalatra&quot; %% &quot;scalatra-scalatest-javax&quot; % &quot;3.0.0&quot; % &quot;test&quot;
+&quot;org.scalatra&quot; %% &quot;scalatra-specs2-javax&quot; % &quot;3.2.0&quot; % &quot;test&quot;
 
 // for jakarta
-&quot;org.scalatra&quot; %% &quot;scalatra-scalatest-jakarta&quot; % &quot;3.0.0&quot; % &quot;test&quot;
+&quot;org.scalatra&quot; %% &quot;scalatra-specs2-jakarta&quot; % &quot;3.2.0&quot; % &quot;test&quot;
 </code></pre>
 
 <h4 id="selecting-a-testing-style">Selecting a testing style</h4>
 
-<p>A trait of Scalatra integration is prepared according to the testing style of ScalaTest.
+<p>A trait of Scalatra integration is prepared according to the testing style of Specs2.
 You can select a trait according to the testing style you want to use.</p>
 
 <table>
 <thead>
 <tr>
-<th>ScalaTest testing style</th>
+<th>Specs2 testing style</th>
 <th>trait</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td><code>FunSpec</code></td>
+<td><code>MutableScalatraSpec</code></td>
+<td><code>org.specs2.mutable.Specification</code> (Unit specification)</td>
+</tr>
+
+<tr>
 <td><code>ScalatraSpec</code></td>
-</tr>
-
-<tr>
-<td><code>FlatSpec</code></td>
-<td><code>ScalatraFlatSpec</code></td>
-</tr>
-
-<tr>
-<td><code>FreeSpec</code></td>
-<td><code>ScalatraFreeSpec</code></td>
-</tr>
-
-<tr>
-<td><code>WordSpec</code></td>
-<td><code>ScalatraWordSpec</code></td>
-</tr>
-
-<tr>
-<td><code>FunSuite</code></td>
-<td><code>ScalatraFunSuite</code></td>
-</tr>
-
-<tr>
-<td><code>FeatureSpec</code></td>
-<td><code>ScalatraFeatureSpec</code></td>
-</tr>
-
-<tr>
-<td><code>JUnit3Suite</code></td>
-<td><code>ScalatraJUnit3Suite</code></td>
-</tr>
-
-<tr>
-<td><code>JUnitSuite</code> (JUnit 4)</td>
-<td><code>ScalatraJUnitSuite</code></td>
-</tr>
-
-<tr>
-<td><code>TestNGSuite</code></td>
-<td><code>ScalatraTestNGSuite</code></td>
+<td><code>org.specs2.Specification</code> (Acceptance specification)</td>
 </tr>
 </tbody>
 </table>
 
-<p>At this time, traits for PropSpec and RefSpec are not prepared.</p>
+<h4 id="examples">Examples</h4>
 
-<h4 id="example">Example</h4>
+<h5 id="unit-testing">Unit testing</h5>
 
-<p>When creating a test class, extend Scalatra&rsquo;s trait according to
-<a href="http://www.scalatest.org/user_guide/selecting_a_style">the testing style of ScalaTest</a>.
-At this time, ScalaTest&rsquo;s <a href="http://www.scalatest.org/user_guide/using_matchers"><code>Matcher</code></a>
-trait is already in effect, so you do not need to mix-in.</p>
+<p>From the <a href="https://etorreborre.github.io/specs2/guide/SPECS2-4.0.0/org.specs2.guide.Structure.html">Specs2 Structure</a>:</p>
 
-<p>The following code shows an example of code when FunSuite is selected as the testing style.</p>
+<blockquote>
+<p>you can create a “Unit” specification where the code is interleaved with the text.
+The name “unit” comes from the fact that Unit specifications have a structure which
+is close to unit tests in “classical” frameworks such as JUnit</p>
+</blockquote>
 
-<pre><code class="language-scala">import org.scalatra.test.scalatest._
+<pre><code class="language-scala">import org.scalatra.test.specs2._
 
-class HelloWorldServletTests extends ScalatraFunSuite {
-  // `HelloWorldServlet` is your app which extends ScalatraServlet
+class HelloWorldMutableServletSpec extends MutableScalatraSpec {
   addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
 
-  test(&quot;simple get&quot;) {
-    get(&quot;/path/to/something&quot;) {
-      status should equal (200)
-      body should include (&quot;hi!&quot;)
+  &quot;GET / on HelloWorldServlet&quot; &gt;&gt; {
+    &quot;must return status 200&quot; &gt;&gt; {
+      get(&quot;/&quot;) {
+        status must_== 200
+      }
     }
+  }
+}
+</code></pre>
+
+<h5 id="acceptance-testing">Acceptance testing</h5>
+
+<p>From the <a href="https://etorreborre.github.io/specs2/guide/SPECS2-4.0.0/org.specs2.guide.Structure.html">Specs2 Structure</a>:</p>
+
+<blockquote>
+<p>you can create an “Acceptance” specification where all the informal text
+is written in one place and the code is written somewhere else. The name
+“acceptance” comes from the fact that it might be easier for a non-developer
+to just read some text to validate your specification</p>
+</blockquote>
+
+<pre><code class="language-scala">import org.scalatra.test.specs2._
+
+class HelloWorldServletSpec extends ScalatraSpec { def is = s2&quot;&quot;&quot;
+  GET / on HelloWorldServlet
+    must return status 200           $getRoot200
+&quot;&quot;&quot;
+
+  addServlet(classOf[HelloWorldServlet], &quot;/*&quot;)
+
+  def getRoot200 = get(&quot;/&quot;) {
+    status must_== 200
   }
 }
 </code></pre>

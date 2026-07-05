@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Flash - Scalatra</title>
+		<title>Logging - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,69 +61,39 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">Flash</h1>
+		<h1 class="doc-entry-title">Logging</h1>
 		<section>
-		  
+		  <p>By default, Scalatra uses <a href="http://logback.qos.ch">Logback</a> for logging.</p>
 
-<p>Flash support, allowing you to store information across requests and expire
-it immediately after a redirect, is included within Scalatra by default.</p>
+<p>You can easily add logging facilities to your project, if you&rsquo;ve got the
+logging dependency in your <code>build.sbt</code> file:</p>
 
-<div class="alert alert-info">
-  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  The
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/http/scalatra-http-demo">scalatra-http-demo</a>
-  has a working example of flash support.
-</div>
+<pre><code class="language-scala">&quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.5.37&quot; % &quot;runtime&quot;
+</code></pre>
 
-<h3 id="basic-usage">Basic usage</h3>
+<p>In your servlet or filter class:</p>
 
-<p>Flash entries are not normally available within the current request scope.
-The exception is adding new flash entries into <code>flash.now</code>.</p>
+<pre><code class="language-scala">import org.slf4j.{Logger, LoggerFactory}
 
-<p>In order to enable flash support, you&rsquo;ll need to extend your servlet class
-with <code>FlashMapSupport</code>. You can set the flash like this:</p>
+class YourServlet extends ScalatraServlet {
 
-<pre><code class="language-scala">class FooServlet extends ScalatraServlet with FlashMapSupport {
- post(&quot;/articles/create&quot;) {
-    // watch out: this creates a session!
-    flash(&quot;notice&quot;) = &quot;article created succesfully&quot;
-    redirect(&quot;/home&quot;)
-  }
+  val logger =  LoggerFactory.getLogger(getClass)
 
-  get(&quot;/home&quot;) {
-    ssp(&quot;/home&quot;, &quot;flash&quot; -&gt; flash)
+  get(&quot;/&quot;) {
+    logger.info(&quot;foo&quot;)
+    // whatever else you want to put in the body of the action
   }
 }
 </code></pre>
 
-<p>and then you can use it in your view, to let the user know what happened.
-<code>home.ssp</code> might look like this:</p>
+<p>This will get you basic logging support. There are some additional logging
+libraries you might want to investigate like <a href="https://github.com/lightbend-labs/scala-logging">scala-logging</a>,
+which act as Scala wrappers around slf4j.</p>
 
-<pre><code class="language-scala">&lt;%@ import val flash:org.scalatra.FlashMap %&gt;
-&lt;html&gt;
-  &lt;body&gt;
-    &lt;p&gt;Here is the flash: &lt;%= flash.get(&quot;notice&quot;) %&gt;&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-<h3 id="adding-multiple-entries">Adding multiple entries</h3>
-
-<p>You can add more than one entry to the <code>FlashMap</code>, using <code>+=</code>:</p>
-
-<pre><code class="language-scala">flash = (&quot;notice&quot; -&gt; &quot;Hello from your application&quot;)
-flash += (&quot;error&quot; -&gt; &quot;An error occurred&quot;)
-flash.now += (&quot;info&quot; -&gt; &quot;redirect to see the error&quot;)
-</code></pre>
-
-<p><code>flash.now</code> operates pretty much in the same way as <code>flash</code> does, except that
-it sets a value for the current request only.  It will be removed before the
-next request unless explicitly kept.</p>
-
-<h3 id="flashmapsupport-and-sessions">FlashMapSupport and sessions</h3>
-
-<p>Please note: extending your <code>ScalatraServlet</code> with <code>FlashMapSupport</code> triggers
-a session, which is why it&rsquo;s an optional mixin.</p>
+<p>The Scala wrappers use by-name parameters for the log message, and
+check to see that the logging level is enabled.  This is a performance
+win for complex log messages involving expensive <code>toString</code>s or many
+concatenations.</p>
 
 		</section>
 	  </article>

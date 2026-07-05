@@ -438,7 +438,7 @@ so that &lt;code&gt;sbt&lt;/code&gt; can download them for you and build your Sc
 
 &lt;p&gt;Here&amp;rsquo;s an example Scalatra &lt;code&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;3.0.0&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val ScalatraVersion = &amp;quot;3.2.0&amp;quot;
 
 organization := &amp;quot;com.example&amp;quot;
 
@@ -451,9 +451,9 @@ scalaVersion := &amp;quot;2.13.12&amp;quot;
 libraryDependencies ++= Seq(
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-jakarta&amp;quot; % ScalatraVersion,
   &amp;quot;org.scalatra&amp;quot; %% &amp;quot;scalatra-scalatest-jakarta&amp;quot; % ScalatraVersion % &amp;quot;test&amp;quot;,
-  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.4.11&amp;quot; % &amp;quot;runtime&amp;quot;,
-  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;11.0.15&amp;quot; % &amp;quot;container&amp;quot;,
-  &amp;quot;jakarta.servlet&amp;quot; % &amp;quot;jakarta.servlet-api&amp;quot; % &amp;quot;5.0.0&amp;quot; % &amp;quot;provided&amp;quot;
+  &amp;quot;ch.qos.logback&amp;quot; % &amp;quot;logback-classic&amp;quot; % &amp;quot;1.5.37&amp;quot; % &amp;quot;runtime&amp;quot;,
+  &amp;quot;org.eclipse.jetty&amp;quot; % &amp;quot;jetty-webapp&amp;quot; % &amp;quot;12.1.10&amp;quot; % &amp;quot;container&amp;quot;,
+  &amp;quot;jakarta.servlet&amp;quot; % &amp;quot;jakarta.servlet-api&amp;quot; % &amp;quot;6.1.0&amp;quot; % &amp;quot;provided&amp;quot;
 )
 
 enablePlugins(SbtTwirl)

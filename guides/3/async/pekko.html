@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Actions - Scalatra</title>
+		<title>Apache Pekko - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,76 +61,192 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">Actions</h1>
+		<h1 class="doc-entry-title">Apache Pekko</h1>
 		<section>
 		  
 
-<p>As explained in the <a href="routes.html">routes guide</a>, an action is the code that handles a route.</p>
+<h3 id="pekko-integration">Pekko integration</h3>
 
-<p>When an incoming request matches a route, that route&rsquo;s action is executed.</p>
+<p><a href="https://pekko.apache.org/">Apache Pekko</a> is a toolkit and runtime for building highly concurrent,
+distributed, and fault tolerant event-driven applications on the JVM. Scalatra
+allows you to easily mix it into your application.</p>
+
+<h4 id="dependencies">Dependencies</h4>
+
+<p>The following dependencies will be needed to make the sample application work.</p>
+
+<pre><code class="language-scala">&quot;org.apache.pekko&quot; %% &quot;pekko-actor&quot; % &quot;1.0.0&quot;,
+&quot;com.softwaremill.sttp.client3&quot; %% &quot;core&quot; % &quot;3.9.0&quot;,
+</code></pre>
+
+<h3 id="setting-up-your-scalatra-app-with-pekko">Setting up your Scalatra app with Pekko</h3>
+
+<p>When you&rsquo;re using Pekko, you&rsquo;ll want to start your <code>Actor</code>s and <code>ActorSystem</code>
+from inside the <code>ScalatraBootstrap</code> class. You can then pass those into the
+constructors of your servlets as necessary:</p>
+
+<pre><code class="language-scala">import org.apache.pekko.actor.{Props, ActorSystem}
+import com.example.app._
+import org.scalatra._
+import jakarta.servlet.ServletContext
+
+
+class ScalatraBootstrap extends LifeCycle {
+
+  val system = ActorSystem()
+  val myActor = system.actorOf(Props.apply[MyActor]())
+
+  override def init(context: ServletContext) = {
+    context.mount(new PageRetriever(system), &quot;/*&quot;)
+    context.mount(new MyActorApp(system, myActor), &quot;/actors/*&quot;)
+  }
+
+  override def destroy(context:ServletContext) = {
+    system.terminate()
+  }
+}
+</code></pre>
+
+<p>It&rsquo;s also considered good form to shut the ActorSystem down when you&rsquo;re done
+with it. Keep in mind that a servlet context destroy does not necessarily mean
+a full application shutdown, it might be a reload - so you&rsquo;ll need to release
+the <code>ActorSystem</code> resources when your Scalatra application is destroyed.</p>
+
+<h3 id="using-scala-futures">Using Scala Futures</h3>
+
+<p>Scalatra&rsquo;s <code>FutureSupport</code> trait provides a mechanism for adding <a href="http://docs.scala-lang.org/overviews/core/futures.html">Futures</a>
+to your routes. At the point where you</p>
+
+<p>The generic case looks like this (but it won&rsquo;t compile):</p>
+
+<pre><code class="language-scala">import org.apache.pekko.dispatch._
+import org.scalatra.FutureSupport
+
+class MyAppServlet extends ScalatraServlet with FutureSupport {
+  get(&quot;/&quot;){
+    new AsyncResult { val is =
+      Future {
+        // Add async logic here
+        &lt;html&gt;&lt;body&gt;Hello Pekko&lt;/body&gt;&lt;/html&gt;
+      }
+    }
+  }
+}
+</code></pre>
+
+<h3 id="async-request-example">Async request example</h3>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  The
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/http/scalatra-http-demo">scalatra-http-demo</a>
-  is a good place to start if you need to see basic requests and response, cookies,
-  and dealing with form input.
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/async/pekko-examples">pekko-examples</a>
+  for a minimal and standalone project containing the examples in this guide.
 </div>
 
-<h2 id="default-behavior">Default behavior</h2>
+<p>As a more concrete example, here&rsquo;s how you&rsquo;d make an asynchronous HTTP
+request from inside one of your actions, using the
+<a href="https://dispatchhttp.org/Dispatch.html">Dispatch</a> http client and an
+Pekko <code>ActorSystem</code>.</p>
 
-<p>Each route is followed by an action.  An Action may return any value, which
-is then rendered to the response according to the following rules.</p>
+<pre><code class="language-scala">package com.example.app
 
-<dl class="dl-horizontal">
-  <dt>ActionResult</dt>
-  <dd>Sets status, body and headers. After importing
-    <code>org.scalatra.ActionResult._ </code>, you can return 200 OK, 404 Not Found
-    and other responses by referencing them by their descriptions. See the <span class="badge badge-info"> <i class="glyphicon glyphicon-bookmark"></i>ActionResult example</span> code (below) for an example.
-  </dd>
-</dl>
-<dl class="dl-horizontal">
-  <dt>Array[Byte]</dt>
-  <dd>If no content-type is set, it is set to <code>application/octet-stream</code>.
-    The byte array is written to the response's output stream.</dd>
-  <dt>NodeSeq</dt>
-  <dd>If no content-type is set, it is set to <code>text/html</code>.  The node
-    sequence is converted to a string and written to the response's writer.</dd>
-  <dt>Unit</dt>
-  <dd>This signifies that the action has rendered the entire response, and
-    no further action is taken.</dd>
-  <dt>Any</dt>
-  <dd> For any other value, if the content type is not set, it is set to
-    <code>text/plain</code>.  The value is converted to a string and written to the
-    response's writer.</dd>
-</dl>
+import org.apache.pekko.actor.ActorSystem
+import sttp.client3._
 
-<h2 id="custom-action-behavior">Custom action behavior</h2>
+import org.scalatra._
 
-<p>The behavior for the types in the above chart, or for types not in the chart at all,
-may be customized for these or other return types by overriding <code>renderResponse</code>.</p>
+import scala.concurrent.{ExecutionContext, Future, Promise}
+import scala.util.{Failure, Success, Try}
 
-<p><span class="badge badge-info"> <i class="glyphicon glyphicon-bookmark"></i>ActionResult example</span></p>
+class FutureController(system: ActorSystem) extends ScalatraServlet with FutureSupport {
 
-<pre><code class="language-scala">get(&quot;/file/:id&quot;) {
-  fileService.find(params(&quot;id&quot;)) match {
-    case Some(file) =&gt; Ok(file)
-    case None       =&gt; NotFound(&quot;Sorry, the file could not be found&quot;)
-   }
- }
+  protected implicit def executor: ExecutionContext = system.dispatcher
+
+  get(&quot;/&quot;) {
+    new AsyncResult { val is =
+      HttpClient.retrievePage()
+    }
+  }
+
+}
+
+object HttpClient {
+
+  def retrievePage()(implicit ctx: ExecutionContext): Future[String] = {
+    Future {
+      val backend = HttpClientSyncBackend()
+      val request = basicRequest.get(uri&quot;https://scalatra.org/&quot;).response(asStringAlways)
+      val response = request.send(backend)
+      response.body
+    }
+  }
+}
 </code></pre>
 
-<p>In this example, ActionResult is being used conditionally to give back different
-response codes based on what&rsquo;s happened in the action. If a <code>file</code> is found
-by the hypothetical <code>fileService</code>, the action returns <code>Ok(file)</code>. This means
-that the response was successful, and there&rsquo;s a response code of 200.</p>
+<p><code>AsyncResult</code> isn&rsquo;t strictly necessary. It&rsquo;s a way to ensure that if you close your
+Future over mutable state (such as a <code>request</code> object or a <code>var</code>) that the state is
+captured at the point you hand off to the Future.</p>
 
-<p>If the <code>fileService</code> didn&rsquo;t find a file, the action returns <code>NotFound</code> and
-a message. The <code>NotFound</code> sets a response code of 404.</p>
+<p>If you attempt to use mutable
+state inside your Future without AsyncResult (e.g. calling <code>request.headers</code> or something),
+you&rsquo;ll get an exception. If you use AsyncResult, it&rsquo;ll work. So, you&rsquo;re trading a bit
+of boilerplate code for a bit of safety. If you can remember not to close over mutable
+state, don&rsquo;t bother with <code>AsyncResult</code>.</p>
 
-<p>There are several dozen possible responses in Scalatra, if you want to see
-all of them and find out what response codes they produce, the easiest way is
-to look at the <a href="https://github.com/scalatra/scalatra/blob/v3.0.0/core/src/main/scala/org/scalatra/ActionResult.scala">ActionResult source code</a>.</p>
+<h3 id="actor-example">Actor example</h3>
+
+<div class="alert alert-info">
+  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
+  See
+  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/async/pekko-examples">pekko-examples</a>
+  for a minimal and standalone project containing the examples in this guide.
+</div>
+
+<p>When you use Scalatra with Pekko, you most likely want to return a result of some sort. So you&rsquo;re probably going to send a message to an Actor which will reply to you. The method you use for that returns a Future. Typically, this involves Pekko&rsquo;s <a href="https://pekko.apache.org/docs/pekko/current//actors.html#ask-send-and-receive-future">ask pattern</a>.</p>
+
+<p>When the request you get just needs to trigger something on an Actor using the fire-and-forget <a href="https://pekko.apache.org/docs/pekko/current//actors.html#tell-fire-forget">tell pattern</a>, then you don&rsquo;t need a Future. In this case, you probably you want to reply with the Accepted status or something like it.</p>
+
+<p>Here&rsquo;s some example code:</p>
+
+<pre><code class="language-scala">package com.example.app
+
+import org.apache.pekko.actor.{Actor, ActorRef, ActorSystem}
+import org.apache.pekko.pattern.ask
+import org.apache.pekko.util.Timeout
+import org.scalatra.{Accepted, FutureSupport, ScalatraServlet}
+
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
+class MyActorApp(system:ActorSystem, myActor:ActorRef) extends ScalatraServlet with FutureSupport {
+
+  implicit val timeout = new Timeout(2 seconds)
+  protected implicit def executor: ExecutionContext = system.dispatcher
+
+  // You'll see the output from this in the browser.
+  get(&quot;/ask&quot;) {
+    myActor ? &quot;Do stuff and give me an answer&quot;
+  }
+
+  // You'll see the output from this in your terminal.
+  get(&quot;/tell&quot;) {
+    myActor ! &quot;Hey, you know what?&quot;
+    Accepted()
+  }
+
+}
+
+class MyActor extends Actor {
+  def receive = {
+    case &quot;Do stuff and give me an answer&quot; =&gt; sender() ! &quot;The answer is 42&quot;
+    case &quot;Hey, you know what?&quot; =&gt; println(&quot;Yeah I know... oh boy do I know&quot;)
+  }
+
+}
+</code></pre>
+
+<p>Once again, if we wanted to ensure that it was safe to close over mutable state, we could
+have used <code>AsyncResult</code> with out Actors.</p>
 
 		</section>
 	  </article>

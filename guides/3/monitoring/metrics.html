@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Reverse routes - Scalatra</title>
+		<title>Metrics - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,86 +61,134 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">Reverse routes</h1>
+		<h1 class="doc-entry-title">Metrics</h1>
 		<section>
 		  
 
-<h3 id="url-support-and-reverse-routes">URL support and reverse routes</h3>
-
-<p><code>ScalatraBase</code> provides two instances that provide you with relative URLs.
-The <code>url</code> method will return a string that can be used in your output or a
-redirect statement.</p>
-
 <div class="alert alert-info">
-  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  The
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/http/scalatra-http-demo">scalatra-http-demo</a>
-  is a good place to start if you'd like to see working url-related examples.
+  <img src="https://scalatra.github.io/scalatra-docbuild/images/glyphicons/glyphicons_023_cogwheels.png">This functionality is available starting in Scalatra 2.4.
 </div>
 
-<p>In Scalatra 2.0.x, you used to need to extend the <code>UrlSupport</code> trait, but
-that&rsquo;s now been moved into <code>ScalatraBase</code>, so all you need is:</p>
+<p>Scalatra supports metrics via the <a href="http://metrics.dropwizard.io/">metrics</a> and
+<a href="https://github.com/erikvanoosten/metrics-scala">metrics-scala</a> projects.</p>
 
-<pre><code class="language-scala">class MyApp extends ScalatraServlet {
+<h3 id="setup">Setup</h3>
 
-}
+<p>In order to make use of this functionality, add <code>scalatra-metrics</code> to your <code>build.sbt</code>:</p>
+
+<pre><code class="language-scala">// for javax
+&quot;org.scalatra&quot; %% &quot;scalatra-metrics-javax&quot; % &quot;3.2.0&quot;
+
+// for jakarta
+&quot;org.scalatra&quot; %% &quot;scalatra-metrics-jakarta&quot; % &quot;3.2.0&quot;
 </code></pre>
 
-<h4 id="page-relative-url">Page relative url:</h4>
+<p>and mix in the MetricsBootstrap trait into ScalatraBootstrap:</p>
 
-<pre><code class="language-scala">get(&quot;/&quot;){
-  // This will redirect to http://&lt;host&gt;/page-relative
-  redirect(url(&quot;page-relative&quot;))
-}
-</code></pre>
-
-<h4 id="context-relative-url">Context relative url:</h4>
-
-<pre><code class="language-scala">get(&quot;/&quot;){
-  // This will redirect to http://&lt;host&gt;/&lt;context&gt;/context-relative
-  redirect(url(&quot;/context-relative&quot;))
-}
-</code></pre>
-
-<h4 id="mapped-params">Mapped params:</h4>
-
-<pre><code class="language-scala">get(&quot;/&quot;) {
-  // This will redirect to http://&lt;host&gt;/&lt;context&gt;/en-to-es?one=uno&amp;two=dos
-  redirect( url(&quot;/en-to-es&quot;, Map(&quot;one&quot; -&gt; &quot;uno&quot;, &quot;two&quot; -&gt; &quot;dos&quot;)) )
-}
-</code></pre>
-
-<h4 id="reverse-routes">Reverse routes:</h4>
-
-<p>It is possible to save your routes as variables so that they have convenient
-handles:</p>
-
-<pre><code class="language-scala">class MyApp extends ScalatraServlet with UrlGeneratorSupport {
-  // When you create a route, you can save it as a variable
-  val viewUser = get(&quot;/user/:id&quot;) {
-     // your user action would go here
-   }
-
-  post(&quot;/user/new&quot;) {
-    // url method provided by UrlGeneratorSupport.  Pass it the route
-    // and the params.
-    redirect(url(viewUser, &quot;id&quot; -&gt; newUser.id))
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    // ...
   }
 }
 </code></pre>
 
-<p>There&rsquo;s also a <code>ScalateUrlGeneratorSupport</code>.  It reflectively finds all
-members of your app of type Route (e.g., viewUser above) and makes them
-available in your templates.  You should then be able to do something like this
-right in your templates:</p>
+<p>Mixing in MetricsBootstrap will provide a default instance of both a MetricRegistry and a HealthCheckRegistry to your application. You can also choose to override one or both if the defaults don&rsquo;t suit your purpose.</p>
 
-<pre><code class="language-scala">url(viewUser, &quot;id&quot; -&gt; 1)
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override val metricRegistry = ???
+  override val healthCheckRegistry = ???
+  override def init(context: ServletContext) =
+  {
+  }
+}
 </code></pre>
 
-<p>Note that there is potential for method names to collide if you have
-reverse-routes with the same variable names in different servlets. This could
-result in generation of incorrect urls. Ensure reverse-route variable names
-are unique across all your servlets to prevent this.</p>
+<h3 id="metrics-servlets">Metrics Servlets</h3>
+
+<p>Convenience methods to mount the metrics servlets at a specified path from the init method are provided in <code>MetricsSupportExtensions</code>.</p>
+
+<pre><code class="language-scala">import org.scalatra.metrics.MetricsSupportExtensions._
+
+class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    context.mountMetricsAdminServlet(&quot;/metrics-admin&quot;)
+    context.mountHealthCheckServlet(&quot;/health&quot;)
+    context.mountMetricsServlet(&quot;/metrics&quot;)
+    context.mountThreadDumpServlet(&quot;/thread-dump&quot;)
+    context.installInstrumentedFilter(&quot;/test/*&quot;)
+  }
+}
+</code></pre>
+
+<p>Details for what each servlet does are provided in the
+<a href="https://dropwizard.github.io/metrics/3.1.0/manual/servlets/">Metrics Servlets Documentation</a></p>
+
+<h3 id="metrics-filter">Metrics Filter</h3>
+
+<p>A convenience method is also provided to mount a servlet filter to aggregate response code counts and timings. The parameter passed will specify where to apply the filter. To apply it globally, use <code>/*</code></p>
+
+<pre><code class="language-scala">class ScalatraBootstrap extends LifeCycle with MetricsBootstrap {
+  override def init(context: ServletContext) =
+  {
+    context.installInstrumentedFilter(&quot;/test/*&quot;)
+  }
+}
+</code></pre>
+
+<div class="alert alert-error">
+  In its current state, this filter does not handle AsyncContext correctly and will be inaccurate if you are using Futures.
+</div>
+
+<h3 id="measuring">Measuring</h3>
+
+<p>In order to record metrics in your servlets, mix in the <code>MetricsSupport</code> trait and call the provided methods:</p>
+
+<pre><code class="language-scala">class TestServlet extends ScalatraServlet with MetricsSupport {
+  get(&quot;/&quot;) {
+    timer(&quot;timer&quot;) {
+      // Code that's timed by a timer named &quot;timer&quot;
+    }
+
+    // Increments a counter called &quot;counter&quot;
+    counter(&quot;counter&quot;) += 1
+
+    // Increments a histogram called &quot;histogram&quot;
+    histogram(&quot;histogram&quot;) += 1
+
+    // Sets a gauge called &quot;gauge&quot;
+    gauge(&quot;gauge&quot;) {
+      &quot;gauge&quot;
+    }
+
+    // Sets a meter named &quot;meter&quot;
+    meter(&quot;meter&quot;).mark(1)
+  }
+}
+</code></pre>
+
+<h3 id="health-checks">Health Checks</h3>
+
+<p>In order to make use of health checks, mix in the <code>HealthChecksSupport</code> trait and define your health
+checks:</p>
+
+<pre><code class="language-scala">class TestServlet extends ScalatraServlet with HealthChecksSupport {
+  get(&quot;/&quot;) {
+    healthCheck(&quot;basic&quot;) {
+      true
+    }
+
+    healthCheck(&quot;withMessage&quot;, unhealthyMessage = &quot;DEADBEEF&quot;) {
+      true
+    }
+  }
+}
+</code></pre>
+
+<h3 id="advanced">Advanced</h3>
+
+<p>In addition to the provided convenience methods, the full <code>metrics-core</code>, <code>metrics-servlet</code>, <code>metrics-servlets</code>, and <code>metrics-scala</code> libraries are available for import. The default registries are exposed as <code>implicit val</code>s, and so can be accessed directly if needed.</p>
 
 		</section>
 	  </article>

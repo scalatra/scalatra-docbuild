@@ -191,7 +191,7 @@ so that <code>sbt</code> can download them for you and build your Scalatra proje
 
 <p>Here&rsquo;s an example Scalatra <code>build.sbt</code> file:</p>
 
-<pre><code class="language-scala">val ScalatraVersion = &quot;3.0.0&quot;
+<pre><code class="language-scala">val ScalatraVersion = &quot;3.2.0&quot;
 
 organization := &quot;com.example&quot;
 
@@ -204,9 +204,9 @@ scalaVersion := &quot;2.13.12&quot;
 libraryDependencies ++= Seq(
   &quot;org.scalatra&quot; %% &quot;scalatra-jakarta&quot; % ScalatraVersion,
   &quot;org.scalatra&quot; %% &quot;scalatra-scalatest-jakarta&quot; % ScalatraVersion % &quot;test&quot;,
-  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.4.11&quot; % &quot;runtime&quot;,
-  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;11.0.15&quot; % &quot;container&quot;,
-  &quot;jakarta.servlet&quot; % &quot;jakarta.servlet-api&quot; % &quot;5.0.0&quot; % &quot;provided&quot;
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.5.37&quot; % &quot;runtime&quot;,
+  &quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;12.1.10&quot; % &quot;container&quot;,
+  &quot;jakarta.servlet&quot; % &quot;jakarta.servlet-api&quot; % &quot;6.1.0&quot; % &quot;provided&quot;
 )
 
 enablePlugins(SbtTwirl)

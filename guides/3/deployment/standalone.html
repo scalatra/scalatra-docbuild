@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Forms - Scalatra</title>
+		<title>Standalone deployment - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,151 +61,87 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">Forms</h1>
+		<h1 class="doc-entry-title">Standalone deployment</h1>
 		<section>
 		  
 
-<p>Since Scalatra 2.6, scalatra-forms which provides form validation is available. You can validate input parameters using forms and convert them to any Scala object such as case class.</p>
+<h3 id="launching-scalatra-as-a-servlet">Launching Scalatra as a servlet</h3>
 
-<div class="alert alert-info">
-  <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  You can see a full code example at the <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/formats/scalatra-forms">scalatra-forms</a> project in the examples repository.
-</div>
+<p>We need some glue code to launch an embedded Jetty server with the ScalatraListener.</p>
 
-<h3 id="basic-usage">Basic usage</h3>
+<pre><code class="language-scala">package com.example  // remember this package in the sbt project definition
+import org.eclipse.jetty.server.Server
+import org.eclipse.jetty.servlet.{DefaultServlet, ServletContextHandler}
+import org.eclipse.jetty.webapp.WebAppContext
+import org.scalatra.servlet.ScalatraListener
 
-<p>Open <code>build.sbt</code> in the root of your project, and add the following line to the <code>libraryDependencies</code> sequence:</p>
+object JettyLauncher { // this is my entry object as specified in sbt project definition
+  def main(args: Array[String]): Unit = {
+    val port = if(System.getenv(&quot;PORT&quot;) != null) System.getenv(&quot;PORT&quot;).toInt else 8080
 
-<pre><code class="language-scala">  // for javax
-  &quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.0.0&quot;,
-  
-  // for jakarta
-  &quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.0.0&quot;,
-</code></pre>
+    val server = new Server(port)
+    val context = new WebAppContext()
+    context setContextPath &quot;/&quot;
+    context.setResourceBase(&quot;src/main/webapp&quot;)
+    context.addEventListener(new ScalatraListener)
+    context.addServlet(classOf[DefaultServlet], &quot;/&quot;)
 
-<p>Assuming a HTML form like this:</p>
+    server.setHandler(context)
 
-<p><img src="form.png" style="width: 100%; border: 1px solid silver;"></p>
-
-<p>You can write this form using view helpers in Twirl template as follows:</p>
-
-<pre><code class="language-html">@()(implicit request: jakarta.servlet.http.HttpServletRequest)
-@import org.scalatra.forms.views._
-...
-&lt;form action=&quot;/&quot; method=&quot;POST&quot; class=&quot;form-horizontal&quot;&gt;
-  &lt;div class=&quot;form-group @if(error(&quot;text&quot;).nonEmpty){has-error}&quot;&gt;
-    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;text&quot;&gt;Text (*):&lt;/label&gt;
-    &lt;div class=&quot;col-sm-10&quot;&gt;
-      @Html(text(&quot;text&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
-      &lt;span class=&quot;error&quot;&gt;@error(&quot;text&quot;)&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form-group @if(error(&quot;email&quot;).nonEmpty){has-error}&quot;&gt;
-    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;email&quot;&gt;Email:&lt;/label&gt;
-    &lt;div class=&quot;col-sm-10&quot;&gt;
-      @Html(text(&quot;email&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
-      &lt;span class=&quot;error&quot;&gt;@error(&quot;email&quot;)&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form-group @if(errors(&quot;number&quot;).nonEmpty){has-error}&quot;&gt;
-    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;number&quot;&gt;Number:&lt;/label&gt;
-    &lt;div class=&quot;col-sm-10&quot;&gt;
-      @Html(text(&quot;number&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
-      &lt;span class=&quot;error&quot;&gt;@error(&quot;number&quot;)&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form-group @if(errors(&quot;checkbox&quot;).nonEmpty){has-error}&quot;&gt;
-    &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Checkbox:&lt;/label&gt;
-    &lt;div class=&quot;col-sm-10&quot;&gt;
-      &lt;div class=&quot;checkbox&quot;&gt;
-        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxA&quot;)) Checkbox A&lt;/label&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;checkbox&quot;&gt;
-        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxB&quot;)) Checkbox B&lt;/label&gt;
-      &lt;/div&gt;
-      &lt;span class=&quot;error&quot;&gt;@error(&quot;checkbox&quot;)&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; class=&quot;btn btn-primary&quot;&gt;
-&lt;/form&gt;
-...
-</code></pre>
-
-<p>Let&rsquo;s see how to implement server side validation. At first, make a case class to be mapped parameters sent from this form:</p>
-
-<pre><code class="language-scala">case class ValidationForm(
-  text: String, 
-  email: Option[String], 
-  number: Option[Int], 
-  checkbox: Seq[String]
-)
-</code></pre>
-
-<p>Next, define a form:</p>
-
-<pre><code class="language-scala">import org.scalatra.forms._
-
-val form = mapping(
-  &quot;text&quot; -&gt; label(&quot;Text&quot;, text(required, maxlength(100))),
-  &quot;email&quot; -&gt; label(&quot;Email&quot;, optional(text(pattern(&quot;.+@.+&quot;), maxlength(20)))),
-  &quot;number&quot; -&gt; label(&quot;Number&quot;, optional(number())),
-  &quot;checkbox&quot; -&gt; list(text())
-)(ValidationForm.apply)
-</code></pre>
-
-<p>Finally, you can use this form in your controller as following (Note: Your controller must extend <code>FormSupport</code> and <code>I18nSupport</code>):</p>
-
-<pre><code class="language-scala">post(&quot;/&quot;) {
-  validate(form)(
-    errors: Seq[(String, String)] =&gt; {
-      BadRequest(html.error(errors))
-    },
-    form: ValidatioForm =&gt; {
-      html.result(form)
-    }
-  )
+    server.start
+    server.join
+  }
 }
 </code></pre>
 
-<p>As you can see, <code>errors</code> is <code>Seq[(String, String)]</code>. The first element of tuple in this sequence is a request parameter name, and the second parameter is an error message.</p>
+<p>Be sure to define the appropriate <a href="configuration.html">ScalatraBootstrap</a>:</p>
 
-<h3 id="form-definition">Form definition</h3>
+<pre><code class="language-scala">import org.scalatra.LifeCycle
+import jakarta.servlet.ServletContext
+import org.scalatra.TemplateExample // this is the example Scalatra servlet
 
-<p>Form consists combination of <code>ValueType</code> and <code>Constraint</code>. scalatra-forms has some <code>ValueType</code> and <code>Constraint</code> in default. You can define your forms using them. Of course, you can define your own rules or constraints if you need.</p>
+class ScalatraBootstrap extends LifeCycle {
+  override def init(context: ServletContext) = {
+    context.mount(new TemplateExample, &quot;/*&quot;)
+  }
+}
+</code></pre>
 
-<h4 id="valuetype">ValueType</h4>
+<p>The ScalatraBootstrap can be in <a href="../../getting-started/project-structure.html">the usual place</a>,
+but if you would like to specify a specific package and class, you can do so
+with an init parameter:</p>
 
-<p><code>ValueType</code> is simply the converter which converts request parameters to Scala date types. Following ValueTypes are available in default:</p>
+<pre><code class="language-scala">    ...
+    context setContextPath &quot;/&quot;
+    context.setResourceBase(&quot;src/main/webapp&quot;)
+    context.setInitParameter(ScalatraListener.LifeCycleKey, &quot;org.yourdomain.project.ScalatraBootstrap&quot;)
+    context.addEventListener(new ScalatraListener)
+    ...
+</code></pre>
 
-<ul>
-<li><code>text</code>: Map a request parameter to <code>String</code> property.</li>
-<li><code>boolean</code>: Map a request parameter to <code>Boolean</code> property.</li>
-<li><code>number</code>: Map a request parameter to <code>Int</code> property.</li>
-<li><code>double</code>: Map a request parameter to <code>Double</code> property.</li>
-<li><code>long</code>: Map a request parameter to <code>Long</code> property.</li>
-<li><code>date</code>: Map a request parameter to <code>java.util.Date</code> property. You have to specify the date pattern as an argument of this rule.</li>
-<li><code>mapping</code>: Map request parameters to any Scala object by aggregating other mapping rules.</li>
-<li><code>list</code>: Map an another rule to <code>List</code> by wrapping that. Supports same name parameters and indexed parameter (e.g. <code>xxx[0]</code>, <code>xxx[1]</code>, &hellip;).</li>
-<li><code>optional</code>: Map an aother rule to <code>Option</code> by wrapping that.</li>
-<li><code>optionalIfNotChecked</code>: Used to <code>Option</code> parameter which is optinal if specified checkbox isn&rsquo;t checked.</li>
-<li><code>optionalRequired</code>: Used to <code>Option</code> parameter which is required if specified condition is true.</li>
-<li><code>optionalRequiredIfChecked</code>: Used to <code>Option</code> parameter which is required if specified checkbox is checked.</li>
-<li><code>trim</code>: Trim a request parameter by wrapping an other rule. Normally, this rule is used with <code>text</code>.</li>
-<li><code>label</code>: Specify the propery name which is used in the error message by wrapping an other rule.</li>
-</ul>
+<p>You&rsquo;ll also need to ensure that the <code>jetty-webapp</code> library dependency in <code>build.sbt</code>
+contains a <code>compile</code> directive. Assuming your jetty-webapp declaration looks something
+like this:</p>
 
-<h4 id="constraint">Constraint</h4>
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;12.1.10&quot; % &quot;container&quot;,
+</code></pre>
 
-<p><code>Constraint</code> is the stuff to add detailed constraints to <code>ValueType</code>. Following constraints are available in default:</p>
+<p>change <code>container</code> to <code>container;compile</code>:</p>
 
-<ul>
-<li><code>required</code>: Specified parameter is required.</li>
-<li><code>maxlength</code>: Specify the maximum length.</li>
-<li><code>minlength</code>: Specify the minimum length.</li>
-<li><code>oneOf</code>: Specify valid values.</li>
-<li><code>pattern</code>: Specify the valid pattern as regular expression.</li>
-<li><code>datePattern</code>: Specify the valid date pattern.</li>
-</ul>
+<pre><code class="language-scala">&quot;org.eclipse.jetty&quot; % &quot;jetty-webapp&quot; % &quot;12.1.10&quot; % &quot;container;compile&quot;,
+</code></pre>
+
+<p>Note: If sbt complains that <code>configuration 'container'</code> doesn&rsquo;t exist, add and enable the <code>sbt-scalatra</code> to your project.</p>
+
+<p>With the <a href="https://github.com/sbt/sbt-assembly">sbt-assembly</a> plugin you can make a launchable jar.
+Now save this alongside your Scalatra project as JettyLauncher.scala and run
+<code>sbt clean assembly</code>. You&rsquo;ll have the ultimate executable jar file
+in the target soon. Try</p>
+
+<pre><code class="language-bash">java -jar **-assembly-**.jar
+</code></pre>
+
+<p>and see it will launch the embedded Jetty at port 8080 with the example Scalatra project running.</p>
 
 		</section>
 	  </article>

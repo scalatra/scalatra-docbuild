@@ -474,10 +474,10 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
     
     <item>
       <title>Actions</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/3.0/http/actions.html</link>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/3/http/actions.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/3.0/http/actions.html</guid>
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/3/http/actions.html</guid>
       <description>
 
 &lt;p&gt;As explained in the &lt;a href=&#34;routes.html&#34;&gt;routes guide&lt;/a&gt;, an action is the code that handles a route.&lt;/p&gt;
@@ -487,7 +487,7 @@ to look at the &lt;a href=&#34;https://github.com/scalatra/scalatra/blob/develop
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   The
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/http/scalatra-http-demo&#34;&gt;scalatra-http-demo&lt;/a&gt;
   is a good place to start if you need to see basic requests and response, cookies,
   and dealing with form input.
 &lt;/div&gt;
@@ -1706,10 +1706,10 @@ have used &lt;code&gt;AsyncResult&lt;/code&gt; with out Actors.&lt;/p&gt;
     
     <item>
       <title>Apache Pekko</title>
-      <link>https://scalatra.github.io/scalatra-docbuild/guides/3.0/async/pekko.html</link>
+      <link>https://scalatra.github.io/scalatra-docbuild/guides/3/async/pekko.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://scalatra.github.io/scalatra-docbuild/guides/3.0/async/pekko.html</guid>
+      <guid>https://scalatra.github.io/scalatra-docbuild/guides/3/async/pekko.html</guid>
       <description>
 
 &lt;h3 id=&#34;pekko-integration&#34;&gt;Pekko integration&lt;/h3&gt;
@@ -1786,7 +1786,7 @@ class MyAppServlet extends ScalatraServlet with FutureSupport {
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/async/pekko-examples&#34;&gt;pekko-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/async/pekko-examples&#34;&gt;pekko-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 
@@ -1845,7 +1845,7 @@ state, don&amp;rsquo;t bother with &lt;code&gt;AsyncResult&lt;/code&gt;.&lt;/p&g
 &lt;div class=&#34;alert alert-info&#34;&gt;
   &lt;span class=&#34;badge badge-info&#34;&gt;&lt;i class=&#34;glyphicon glyphicon-flag&#34;&gt;&lt;/i&gt;&lt;/span&gt;
   See
-  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/async/pekko-examples&#34;&gt;pekko-examples&lt;/a&gt;
+  &lt;a href=&#34;https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/async/pekko-examples&#34;&gt;pekko-examples&lt;/a&gt;
   for a minimal and standalone project containing the examples in this guide.
 &lt;/div&gt;
 

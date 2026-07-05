@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="https://scalatra.github.io/scalatra-docbuild/index.xml" type="application/rss+xml" title="Scalatra">
 		<link rel="icon" href="https://scalatra.github.io/scalatra-docbuild//favicon.ico">
-		<title>Twirl - Scalatra</title>
+		<title>Forms - Scalatra</title>
 		
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/highlight/github.css">
 		<link rel="stylesheet" href="https://scalatra.github.io/scalatra-docbuild//css/bootstrap.min.css">
@@ -61,171 +61,151 @@
 	<main role="main">
 	  <article>
 		<a id="title"></a>
-		<h1 class="doc-entry-title">Twirl</h1>
+		<h1 class="doc-entry-title">Forms</h1>
 		<section>
 		  
 
-<p><em>Twirl</em> is the <a href="https://www.playframework.com/documentation/2.9.x/ScalaTemplates">Play 2 templating language</a>.</p>
-
-<hr />
-
-<h2 id="evaluating-twirl">Evaluating Twirl</h2>
-
-<p>Scalatra had historically supported <a href="https://scalate.github.io/scalate/documentation/index.html">Scalate</a> for server-side templating.
-However, Scalate integration has been dropped since Scalatra 3.0.</p>
-
-<p>Instead, let&rsquo;s see how to integrate Twirl which is a type-safe template engine originally developped for Play2 here.</p>
-
-<h3 id="advantages-of-twirl">Advantages of Twirl</h3>
-
-<ul>
-<li>Templates are rendered by simply calling a generated <code>render</code> function with the
-correct arguments.
-Since this call can be made from other templates, the artificial distinction between
-&ldquo;layouts&rdquo; and &ldquo;views&rdquo; is erased.</li>
-<li>Twirl simply embeds Scala in arbitrary text, whether that text is HTML, JSON, XML, or
-anything else. There is no new language to learn.</li>
-<li>When you use Twirl, the compiler can check type errors <em>within</em> a template, but
-unlike Scalate it can also check that templates are being passed the right parameter
-types.</li>
-</ul>
-
-<h3 id="disadvantages-of-twirl">Disadvantages of Twirl</h3>
-
-<ul>
-<li>Play 2 is legendary for its slow compile times, and the code Twirl produces is a
-major offender in that regard.
-If your project involves many templates, compile times will get progressively worse.</li>
-<li>Since Twirl is a general-purpose template languages, it is not nearly as DRY as
-Scalate&rsquo;s Scaml or Jade languages for HTML/XML templates.</li>
-<li>There is no tooling support for Twirl. Get ready to hit the space and tab keys often.</li>
-<li>Twirl makes some undocumented rendering decisions with respect to certain types
-(see below).</li>
-</ul>
-
-<h2 id="using-twirl">Using Twirl</h2>
-
-<h3 id="installation">Installation</h3>
-
-<ul>
-<li>Add the <a href="https://github.com/playframework/twirl">Twirl plugin</a> to <code>project/plugins.sbt</code>:</li>
-</ul>
-
-<pre><code class="language-scala">addSbtPlugin(&quot;com.typesafe.play&quot; % &quot;sbt-twirl&quot; % &quot;1.6.1&quot;)
-</code></pre>
-
-<ul>
-<li>Enable the plugin in <code>build.sbt</code>:</li>
-</ul>
-
-<pre><code class="language-scala">enablePlugins(SbtTwirl)
-</code></pre>
-
-<h3 id="usage">Usage</h3>
-
-<p>You add your templates to <code>src/main/twirl</code>.
-Twirl files are of the form <code>[name].scala.[format]</code>. For example, <code>foo.scala.html</code> or
-<code>bar.scala.xml</code>.
-The package of the generated Scala file will follow the name of the template file,
-and its path.</p>
-
-<p>For example, if you create a file
-<code>src/main/twirl/com/example/myTwirlTemplate.scala.html</code>, the resulting Scala file
-will be in the package <code>com.example.html</code>.</p>
-
-<p>You can call it with:</p>
-
-<pre><code class="language-scala">com.example.html.myTwirlTemplate.render(param1, param2, ...)
-</code></pre>
-
-<h2 id="a-basic-example">A basic example</h2>
+<p>Since Scalatra 2.6, scalatra-forms which provides form validation is available. You can validate input parameters using forms and convert them to any Scala object such as case class.</p>
 
 <div class="alert alert-info">
   <span class="badge badge-info"><i class="glyphicon glyphicon-flag"></i></span>
-  See
-  <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.0/views/scalatra-twirl">twirl-example</a>
-  for a minimal and standalone project containing the examples in this guide.
+  You can see a full code example at the <a href="https://github.com/scalatra/scalatra-website-examples/tree/master/3.2/formats/scalatra-forms">scalatra-forms</a> project in the examples repository.
 </div>
 
-<p>Create <code>src/main/twirl/org/scalatra/example/hello.scala.html</code> with:</p>
+<h3 id="basic-usage">Basic usage</h3>
 
-<pre><code class="language-html">@(date: java.util.Date)
+<p>Open <code>build.sbt</code> in the root of your project, and add the following line to the <code>libraryDependencies</code> sequence:</p>
 
-&lt;html&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Twirl reporting for duty at @date.toString!&lt;/h1&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+<pre><code class="language-scala">  // for javax
+  &quot;org.scalatra&quot; %% &quot;scalatra-forms-javax&quot; % &quot;3.2.0&quot;,
+  
+  // for jakarta
+  &quot;org.scalatra&quot; %% &quot;scalatra-forms-jakarta&quot; % &quot;3.2.0&quot;,
 </code></pre>
 
-<p>Now render it in <code>src/main/scala/org/scalatra/example/ScalatraTwirlServlet.scala</code> with:</p>
+<p>Assuming a HTML form like this:</p>
 
-<pre><code class="language-scala">package org.scalatra.example
+<p><img src="form.png" style="width: 100%; border: 1px solid silver;"></p>
 
-import org.scalatra._
+<p>You can write this form using view helpers in Twirl template as follows:</p>
 
-class ScalatraTwirlServlet extends ScalatraServlet {
+<pre><code class="language-html">@()(implicit request: jakarta.servlet.http.HttpServletRequest)
+@import org.scalatra.forms.views._
+...
+&lt;form action=&quot;/&quot; method=&quot;POST&quot; class=&quot;form-horizontal&quot;&gt;
+  &lt;div class=&quot;form-group @if(error(&quot;text&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;text&quot;&gt;Text (*):&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;text&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;text&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(error(&quot;email&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;email&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;email&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(errors(&quot;number&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot; for=&quot;number&quot;&gt;Number:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      @Html(text(&quot;number&quot;, &quot;class&quot; -&gt; &quot;form-control&quot;))
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;number&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-group @if(errors(&quot;checkbox&quot;).nonEmpty){has-error}&quot;&gt;
+    &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Checkbox:&lt;/label&gt;
+    &lt;div class=&quot;col-sm-10&quot;&gt;
+      &lt;div class=&quot;checkbox&quot;&gt;
+        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxA&quot;)) Checkbox A&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;checkbox&quot;&gt;
+        &lt;label&gt;@Html(checkbox(&quot;checkbox&quot;, &quot;checkboxB&quot;)) Checkbox B&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;span class=&quot;error&quot;&gt;@error(&quot;checkbox&quot;)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; class=&quot;btn btn-primary&quot;&gt;
+&lt;/form&gt;
+...
+</code></pre>
 
-  get(&quot;/&quot;) {
-    org.scalatra.example.html.hello.render(new java.util.Date)
-  }
+<p>Let&rsquo;s see how to implement server side validation. At first, make a case class to be mapped parameters sent from this form:</p>
+
+<pre><code class="language-scala">case class ValidationForm(
+  text: String, 
+  email: Option[String], 
+  number: Option[Int], 
+  checkbox: Seq[String]
+)
+</code></pre>
+
+<p>Next, define a form:</p>
+
+<pre><code class="language-scala">import org.scalatra.forms._
+
+val form = mapping(
+  &quot;text&quot; -&gt; label(&quot;Text&quot;, text(required, maxlength(100))),
+  &quot;email&quot; -&gt; label(&quot;Email&quot;, optional(text(pattern(&quot;.+@.+&quot;), maxlength(20)))),
+  &quot;number&quot; -&gt; label(&quot;Number&quot;, optional(number())),
+  &quot;checkbox&quot; -&gt; list(text())
+)(ValidationForm.apply)
+</code></pre>
+
+<p>Finally, you can use this form in your controller as following (Note: Your controller must extend <code>FormSupport</code> and <code>I18nSupport</code>):</p>
+
+<pre><code class="language-scala">post(&quot;/&quot;) {
+  validate(form)(
+    errors: Seq[(String, String)] =&gt; {
+      BadRequest(html.error(errors))
+    },
+    form: ValidatioForm =&gt; {
+      html.result(form)
+    }
+  )
 }
 </code></pre>
 
-<p>Your result?</p>
+<p>As you can see, <code>errors</code> is <code>Seq[(String, String)]</code>. The first element of tuple in this sequence is a request parameter name, and the second parameter is an error message.</p>
 
-<p><a href="twirl-screenshot.png"><img width="500" src="twirl-screenshot.png" /></a></p>
+<h3 id="form-definition">Form definition</h3>
 
-<h2 id="full-usage-guide">Full usage guide</h2>
+<p>Form consists combination of <code>ValueType</code> and <code>Constraint</code>. scalatra-forms has some <code>ValueType</code> and <code>Constraint</code> in default. You can define your forms using them. Of course, you can define your own rules or constraints if you need.</p>
 
-<p>We have only provided a taste of what Twirl can do.
-Since it&rsquo;s an external project, we encourage you to also consult the
-<a href="https://www.playframework.com/documentation/2.6.x/ScalaTemplates">official documentation</a>.</p>
+<h4 id="valuetype">ValueType</h4>
 
-<h2 id="rendering-oddities">Rendering oddities</h2>
+<p><code>ValueType</code> is simply the converter which converts request parameters to Scala date types. Following ValueTypes are available in default:</p>
 
-<p>There are some undocumented conversions Twirl initiates before rendering. Beware!</p>
+<ul>
+<li><code>text</code>: Map a request parameter to <code>String</code> property.</li>
+<li><code>boolean</code>: Map a request parameter to <code>Boolean</code> property.</li>
+<li><code>number</code>: Map a request parameter to <code>Int</code> property.</li>
+<li><code>double</code>: Map a request parameter to <code>Double</code> property.</li>
+<li><code>long</code>: Map a request parameter to <code>Long</code> property.</li>
+<li><code>date</code>: Map a request parameter to <code>java.util.Date</code> property. You have to specify the date pattern as an argument of this rule.</li>
+<li><code>mapping</code>: Map request parameters to any Scala object by aggregating other mapping rules.</li>
+<li><code>list</code>: Map an another rule to <code>List</code> by wrapping that. Supports same name parameters and indexed parameter (e.g. <code>xxx[0]</code>, <code>xxx[1]</code>, &hellip;).</li>
+<li><code>optional</code>: Map an aother rule to <code>Option</code> by wrapping that.</li>
+<li><code>optionalIfNotChecked</code>: Used to <code>Option</code> parameter which is optinal if specified checkbox isn&rsquo;t checked.</li>
+<li><code>optionalRequired</code>: Used to <code>Option</code> parameter which is required if specified condition is true.</li>
+<li><code>optionalRequiredIfChecked</code>: Used to <code>Option</code> parameter which is required if specified checkbox is checked.</li>
+<li><code>trim</code>: Trim a request parameter by wrapping an other rule. Normally, this rule is used with <code>text</code>.</li>
+<li><code>label</code>: Specify the propery name which is used in the error message by wrapping an other rule.</li>
+</ul>
 
-<p>Consider this template:</p>
+<h4 id="constraint">Constraint</h4>
 
-<pre><code class="language-html">@()
+<p><code>Constraint</code> is the stuff to add detailed constraints to <code>ValueType</code>. Following constraints are available in default:</p>
 
-Twirl makes some special decisions in rendering certain types, including:
-
-&lt;ul&gt;
-
-  &lt;li&gt;
-    Collections like
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code&gt;List&lt;/code&gt;: @List(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)&lt;/li&gt;
-      &lt;li&gt;&lt;code&gt;Seq&lt;/code&gt;: @Seq(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;code&gt;Option&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code&gt;Some&lt;/code&gt;: @Some(&quot;foo&quot;)&lt;/li&gt;
-      &lt;li&gt;&lt;code&gt;None&lt;/code&gt;: @None&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    But not &lt;code&gt;Either&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code&gt;Left&lt;/code&gt;: @Left(&quot;foo&quot;)&lt;/li&gt;
-      &lt;li&gt;&lt;code&gt;Right&lt;/code&gt;: @Right(&quot;bar&quot;)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    Others?
-  &lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-
-<p>It will render as:</p>
-
-<p><a href="twirl-screenshot-conversions.png">
-   <img width="500" src="twirl-screenshot-conversions.png" />
-</a></p>
+<ul>
+<li><code>required</code>: Specified parameter is required.</li>
+<li><code>maxlength</code>: Specify the maximum length.</li>
+<li><code>minlength</code>: Specify the minimum length.</li>
+<li><code>oneOf</code>: Specify valid values.</li>
+<li><code>pattern</code>: Specify the valid pattern as regular expression.</li>
+<li><code>datePattern</code>: Specify the valid date pattern.</li>
+</ul>
 
 		</section>
 	  </article>
